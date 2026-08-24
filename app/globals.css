@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Design tokens — spec §8.2.
+   Palette matches the product so a demo does not feel like a different
+   company. Light theme only at launch; dark mode is explicitly not required.
+   ========================================================================= */
+@theme {
+  /* Brand purple, the product's primary. */
+  --color-brand-50:  #f5f3ff;
+  --color-brand-100: #ede9fe;
+  --color-brand-200: #ddd6fe;
+  --color-brand-300: #c4b5fd;
+  --color-brand-400: #a78bfa;
+  --color-brand-500: #8b5cf6;
+  --color-brand-600: #7c3aed;   /* primary */
+  --color-brand-700: #6d28d9;
+  --color-brand-800: #5b21b6;
+  --color-brand-900: #4c1d95;
+
+  /* Navy, used for headings and dark bands. */
+  --color-ink-50:  #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-400: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
+  --color-ink-900: #1e1b4b;     /* headings */
+
+  /* Gold accent, taken from the product's EZER pillars panel. Used sparingly
+     — it is an accent on dark grounds, never a body-text colour (it fails
+     contrast on white). */
+  --color-gold: #f5b800;
+
+  --color-success: #059669;
+  --color-warning: #b45309;
+  --color-danger:  #dc2626;
+
+  /* 8px spacing scale (§8.2). Tailwind's default 4px step is a subdivision of
+     this, so `p-4` = 16px = two steps and the scale still holds. */
+  --spacing: 0.25rem;
+
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system,
+               'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Max content width ~1200px (§8.2). */
+  --container-content: 75rem;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+:root {
+  --background: #ffffff;
+  --foreground: #1e1b4b;
+  color-scheme: light;
+}
+
+* {
+  /* Anchor scrolling has to clear the sticky header, or a jump link lands
+     with its own heading hidden behind the bar. */
+  scroll-margin-top: 6rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings carry the navy; body text sits a step lighter. Only three weights
+   are used across the site (§8.2): 400, 500/600, 700.
+   
+   These MUST live in @layer base. Tailwind v4 emits its utilities inside a
+   layer, and unlayered CSS beats layered CSS outright — specificity is never
+   consulted across layers. Left unlayered, this `color` silently overrode
+   every `text-white` on a heading, so every <h2> on a dark band rendered
+   navy-on-navy and vanished. */
+@layer base {
+  h1, h2, h3, h4 {
+    color: var(--color-ink-900);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+}
+
+/* ── Focus (§8.5 — visible focus, WCAG 2.1 AA) ───────────────────────────── */
+/* :focus-visible rather than :focus so a mouse click on a button does not
+   leave a ring behind, while keyboard navigation always shows one. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Reduced motion (§8.5) ───────────────────────────────────────────────── */
+/* The site's motion is decorative — fade-ins and a marquee. None of it
+   carries meaning, so honouring the preference costs nothing. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Utilities ───────────────────────────────────────────────────────────── */
+
+/* Scroll-triggered reveal. Starts visible and is only hidden once JS has
+   marked the document — otherwise the content would be invisible to anyone
+   with JS disabled, and to a crawler that does not execute it. */
+[data-reveal] { opacity: 1; }
+html[data-reveal-ready] [data-reveal] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+html[data-reveal-ready] [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal-ready] [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* Compliance strip marquee. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none; }
+}
+
+/* Slim purple scrollbar, matching the product. */
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: rgba(124, 58, 237, 0.35) transparent; }
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(124, 58, 237, 0.3);
+  border-radius: 99px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover { background-color: rgba(124, 58, 237, 0.55); }
+
+/* Range input — used by the pricing calculator (§4.4). Styled explicitly
+   because the native track is near-invisible against a tinted card. */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--color-brand-100);
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 26px;
+  width: 26px;
+  margin-top: -9px;
+  border-radius: 99px;
+  background: var(--color-brand-600);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.45);
+}
+input[type='range']::-moz-range-track {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--color-brand-100);
+}
+input[type='range']::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 99px;
+  background: var(--color-brand-600);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.45);
+}
