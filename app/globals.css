@@ -513,3 +513,50 @@ input[type='range']::-moz-range-thumb {
   .ez-connector.is-flowing .ez-flow-dot,
   .ez-core-ring.is-pulsing::before { animation: none; }
 }
+
+/* ── WhatsApp float ────────────────────────────────────────────────────────
+   A slow halo that expands out of the button and fades. Two rings offset in
+   time so the pulse reads as continuous rather than a repeating blink.
+
+   Deliberately scaled from a ring rather than the button itself: animating
+   the button would move the click target, and a control that drifts under
+   the cursor is worse than a static one however nice it looks. */
+
+@keyframes ezHalo {
+  0%   { transform: scale(1);    opacity: .55; }
+  70%  { opacity: 0; }
+  100% { transform: scale(2.15); opacity: 0; }
+}
+
+.ez-halo::before,
+.ez-halo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #25d366;
+  z-index: -1;
+  animation: ezHalo 2.8s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+.ez-halo::after { animation-delay: 1.4s; }
+
+/* The label slides out of the button rather than appearing beside it, so the
+   two read as one object opening. max-width animates because the label's
+   width is content-dependent and cannot be known up front. */
+.ez-wa-label {
+  max-width: 0;
+  opacity: 0;
+  transition: max-width .32s cubic-bezier(.4, 0, .2, 1), opacity .2s ease-out,
+              margin .32s cubic-bezier(.4, 0, .2, 1);
+}
+.ez-wa:hover .ez-wa-label,
+.ez-wa:focus-visible .ez-wa-label {
+  max-width: 15rem;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-halo::before,
+  .ez-halo::after { animation: none; opacity: 0; }
+  .ez-wa-label { transition: none; }
+}

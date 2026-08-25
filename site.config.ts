@@ -46,7 +46,19 @@ export const site = {
 export const contact = {
   phoneDisplay: '+91 87967 46222',
   phoneE164: '+918796746222',
-  whatsappE164: '918796746222',           // wa.me format, no +
+  /* WhatsApp is a SEPARATE line from the call number above.
+   *
+   * The handoff had one number serving both; this is a deliberate split onto
+   * a dedicated WhatsApp line, so a chat and a call reach different places.
+   * Keep both in step with whoever is actually rostered on each — the failure
+   * mode is silent, because an unmonitored WhatsApp still shows "delivered". */
+  whatsappE164: '919871034622',           // wa.me format, no +
+  /* Human-readable form of the same line. Deliberately NOT rendered on the
+   * floating button — the button is the action, and printing the digits
+   * invites someone to dial instead, losing the prefilled message. Kept here
+   * so the number is legible to whoever maintains this file, and available if
+   * a contact page ever needs to list it. */
+  whatsappDisplay: '+91 98710 34622',
 
   /* ⚠ Handoff §6: at handoff time NO contact inbox existed — the site ran on
    * phone and WhatsApp alone, and §7 lists "set up a real contact inbox" as a
