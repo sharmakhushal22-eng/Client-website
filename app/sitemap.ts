@@ -18,6 +18,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }> = [
     { path: '', priority: 1.0, changeFrequency: 'weekly' },
     { path: '/features', priority: 0.9, changeFrequency: 'monthly' },
+    /* Both promoted out of home-page sections. They are the two qualifying
+       questions an Indian buyer searches for by name, so they carry the same
+       priority as the product hub. */
+    { path: '/compliance', priority: 0.9, changeFrequency: 'monthly' },
+    { path: '/industries', priority: 0.8, changeFrequency: 'monthly' },
+    /* A resource, not a sales page — but it is the strongest organic target
+       on the site: "HR policy list India" has real volume and no good result. */
+    { path: '/resources/policy-handbook', priority: 0.7, changeFrequency: 'yearly' },
     { path: '/pricing', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/book-a-demo', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.8, changeFrequency: 'monthly' },

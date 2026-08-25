@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
-import { ScreenshotFrame } from '@/components/ui/ScreenshotFrame'
+import { EngineWidget } from '@/components/home/EngineWidget'
 import { trustBadges } from '@/site.config'
 import { flags, structure } from '@/content/positioning'
 
@@ -18,7 +18,7 @@ export function Hero() {
     <section className="relative overflow-hidden bg-brand-50">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_40rem_at_70%_-10%,rgba(124,58,237,0.16),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_40rem_at_70%_-10%,rgba(37, 99, 235,0.16),transparent)]"
       />
 
       <Container className="relative py-10 sm:py-14 lg:py-16">
@@ -97,10 +97,11 @@ export function Hero() {
           </div>
 
           <div className="lg:pl-4">
-            <ScreenshotFrame
-              alt="EZER HRMS compliance dashboard showing statutory position across multiple entities and locations"
-              priority
-            />
+            {/* The engine widget, not a screenshot placeholder. It shows the
+                claim the hero makes — four location types, one engine, every
+                register — instead of standing in for a picture nobody has
+                taken yet. Ported from the original index.html. */}
+            <EngineWidget />
             <p className="mt-4 text-center text-sm leading-relaxed text-ink-500 lg:text-left">
               Operating in more than one state?{' '}
               <Link href="/contact" className="font-semibold text-brand-700 underline">

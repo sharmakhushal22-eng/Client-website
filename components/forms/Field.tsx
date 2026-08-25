@@ -101,7 +101,7 @@ function Messages({
   }
   if (hint) {
     return (
-      <p id={id} className={cn('mt-1.5 text-sm', onDark ? 'text-ink-400' : 'text-ink-500')}>
+      <p id={id} className={cn('mt-1.5 text-sm', onDark ? 'text-on-dark-muted' : 'text-ink-600')}>
         {hint}
       </p>
     )

@@ -26,9 +26,9 @@ export function Outcomes() {
               <span className="block text-4xl font-bold text-brand-300 sm:text-5xl">
                 {o.value}
               </span>
-              <span className="mt-2 block text-[0.95rem] text-ink-200">{o.label}</span>
+              <span className="mt-2 block text-[0.95rem] text-on-dark-muted">{o.label}</span>
               {o.note && o.note !== 'TODO — source' && (
-                <span className="mt-1 block text-xs text-ink-500">{o.note}</span>
+                <span className="mt-1 block text-xs text-on-dark-faint">{o.note}</span>
               )}
             </dd>
           </div>

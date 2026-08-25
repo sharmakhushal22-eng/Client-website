@@ -10,7 +10,7 @@ import { Icon } from '@/components/ui/Icon'
  * prefers-reduced-motion (§8.5). */
 export function ComplianceStrip() {
   return (
-    <section className="border-y border-brand-800 bg-ink-900 py-10" aria-label="Statutory compliance">
+    <section className="border-y border-brand-800 bg-ink-900 py-10 text-white" aria-label="Statutory compliance">
       <Container>
         <p className="flex items-center justify-center gap-2 text-center text-sm font-semibold text-brand-300">
           <Icon name="shield" className="h-4 w-4" />

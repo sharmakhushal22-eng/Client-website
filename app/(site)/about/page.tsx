@@ -161,7 +161,7 @@ export default function AboutPage() {
       {/* ── EZER pillars ─────────────────────────────────────────────────── */}
       {/* The same four promises the product's own login screen makes, so a
           customer meets one pitch rather than two. */}
-      <section className="relative overflow-hidden bg-ink-900 py-12 sm:py-14">
+      <section className="relative overflow-hidden bg-ink-900 py-12 text-white sm:py-14">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-20 -top-24 h-80 w-80 rounded-full bg-brand-600/10"

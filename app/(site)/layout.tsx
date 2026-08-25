@@ -4,7 +4,9 @@ import { Footer } from '@/components/layout/Footer'
 import { CookieConsent } from '@/components/layout/CookieConsent'
 import { SiteScripts } from '@/components/layout/SiteScripts'
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
-import { PreRegister } from '@/components/layout/PreRegister'
+import { PreRegister } from '@/components/prereg/PreRegister'
+import { PreRegisterProvider } from '@/components/prereg/PreRegisterProvider'
+import { SiteChrome } from '@/components/layout/SiteChrome'
 import { JsonLd, organizationSchema, softwareApplicationSchema } from '@/lib/seo'
 import { site } from '@/site.config'
 
@@ -44,14 +46,21 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
       <JsonLd schemas={[organizationSchema(), softwareApplicationSchema()]} />
 
-      <Header />
-      <main id="main" className="flex-1">
-        {children}
-      </main>
-      <Footer />
+      <PreRegisterProvider>
+        {/* The announcement bar sits ABOVE the header deliberately: the header
+            is sticky, so the bar scrolls away and does not eat a strip of
+            every screen for the rest of the visit. */}
+        <SiteChrome />
+        <Header />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
 
-      <WhatsAppButton />
-      <PreRegister />
+        <WhatsAppButton />
+        <PreRegister />
+      </PreRegisterProvider>
+
       <CookieConsent />
       <SiteScripts />
     </div>

@@ -22,10 +22,10 @@ export function CtaBand({
   formName?: string
 }) {
   return (
-    <section className="relative overflow-hidden bg-ink-900 py-12 sm:py-14 lg:py-16">
+    <section className="relative overflow-hidden bg-ink-900 py-12 text-white sm:py-14 lg:py-16">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45rem_30rem_at_80%_0%,rgba(124,58,237,0.35),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45rem_30rem_at_80%_0%,rgba(37, 99, 235,0.35),transparent)]"
       />
 
       <Container className="relative">
@@ -40,11 +40,11 @@ export function CtaBand({
             <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl">
               {title}
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-ink-200">{lede}</p>
+            <p className="mt-4 text-lg leading-relaxed text-on-dark-muted">{lede}</p>
 
             <ul className="mt-6 space-y-2.5">
               {booking.whatHappens.slice(0, 3).map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-[0.95rem] text-ink-200">
+                <li key={item} className="flex items-start gap-2.5 text-[0.95rem] text-on-dark-muted">
                   <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-brand-300" />
                   {item}
                 </li>
@@ -68,7 +68,7 @@ export function CtaBand({
               </div>
             )}
 
-            <p className="mt-6 text-sm text-ink-400">{booking.reassurance}</p>
+            <p className="mt-6 text-sm text-on-dark-faint">{booking.reassurance}</p>
           </div>
 
           {variant === 'form' && (
@@ -76,7 +76,7 @@ export function CtaBand({
               <h3 className="text-lg font-bold text-white">
                 Tell us where to send the details
               </h3>
-              <p className="mt-1.5 text-sm text-ink-400">
+              <p className="mt-1.5 text-sm text-on-dark-faint">
                 Three fields. We come back {contact.responseSla}.
               </p>
               <div className="mt-5">

@@ -25,7 +25,7 @@ export function PriceReveal({
 }) {
   const numberClass = size === 'xl' ? 'text-5xl' : 'text-4xl'
   const toneNumber = onDark ? 'text-white' : 'text-brand-600'
-  const toneUnit = onDark ? 'text-ink-400' : 'text-ink-500'
+  const toneUnit = onDark ? 'text-on-dark-faint' : 'text-ink-500'
   const centred = align === 'center'
 
   if (publicPricePerEmployee !== null) {
@@ -69,7 +69,7 @@ export function PriceReveal({
       <p
         className={`mt-1.5 max-w-sm text-sm leading-relaxed ${
           centred ? 'mx-auto' : ''
-        } ${onDark ? 'text-ink-300' : 'text-ink-500'}`}
+        } ${onDark ? 'text-on-dark-muted' : 'text-ink-500'}`}
       >
         We have not published the rate yet. Ask on the demo and you get the
         number in writing the same day — priced on your headcount rather than

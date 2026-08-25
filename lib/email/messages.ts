@@ -42,7 +42,7 @@ export async function sendEnquirerAutoReply(lead: {
   const bookHref = `${site.url}/book-a-demo`
 
   const html = `
-<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:15px;line-height:1.6;color:#1e1b4b;max-width:560px">
+<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:15px;line-height:1.6;color:#111827;max-width:560px">
   <p>Hi ${esc(firstName)},</p>
   <p>Thanks for getting in touch about EZER HRMS. We have your enquiry for
      <strong>${esc(lead.company_name)}</strong> and someone from our team will
@@ -50,7 +50,7 @@ export async function sendEnquirerAutoReply(lead: {
   <p>If you would rather not wait, you can pick a slot directly:</p>
   <p>
     <a href="${bookHref}"
-       style="display:inline-block;background:#7c3aed;color:#ffffff;text-decoration:none;
+       style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;
               padding:12px 22px;border-radius:10px;font-weight:600">
       Book a ${booking.durationMinutes}-minute demo
     </a>
@@ -61,7 +61,7 @@ export async function sendEnquirerAutoReply(lead: {
   </p>
   <p style="color:#475569;font-size:14px">
     Our hours are ${esc(contact.businessHours)}. You can also reach us on
-    <a href="tel:${esc(contact.phoneE164)}" style="color:#7c3aed">${esc(contact.phoneDisplay)}</a>
+    <a href="tel:${esc(contact.phoneE164)}" style="color:#2563eb">${esc(contact.phoneDisplay)}</a>
     or on WhatsApp.
   </p>
   <p>— The ${esc(site.name)} team</p>
@@ -91,7 +91,7 @@ export async function sendInternalNotification(
         <td style="padding:6px 12px 6px 0;color:#64748b;vertical-align:top;white-space:nowrap">
           ${esc(k.replace(/_/g, ' '))}
         </td>
-        <td style="padding:6px 0;color:#1e1b4b;font-weight:500">
+        <td style="padding:6px 0;color:#111827;font-weight:500">
           ${esc(Array.isArray(v) ? v.join(', ') : v)}
         </td>
       </tr>`,
@@ -102,14 +102,14 @@ export async function sendInternalNotification(
   const company = esc(lead.company_name ?? 'Unknown company')
 
   const html = `
-<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:15px;color:#1e1b4b">
+<div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:15px;color:#111827">
   <p style="margin:0 0 4px;font-size:18px;font-weight:700">${company} — ${band} employees</p>
   <p style="margin:0 0 16px;color:#64748b">New enquiry from the website.</p>
   <table style="border-collapse:collapse;font-size:14px">${rows}</table>
   <p style="margin-top:20px">
-    <a href="tel:${esc(lead.phone)}" style="color:#7c3aed;font-weight:600">Call ${esc(lead.phone)}</a>
+    <a href="tel:${esc(lead.phone)}" style="color:#2563eb;font-weight:600">Call ${esc(lead.phone)}</a>
     &nbsp;·&nbsp;
-    <a href="mailto:${esc(lead.work_email)}" style="color:#7c3aed;font-weight:600">Reply by email</a>
+    <a href="mailto:${esc(lead.work_email)}" style="color:#2563eb;font-weight:600">Reply by email</a>
   </p>
 </div>`.trim()
 

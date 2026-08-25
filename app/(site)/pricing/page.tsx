@@ -104,13 +104,13 @@ export default function PricingPage() {
                 Everything included
               </span>
             </div>
-            <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-200">
+            <p className="mt-2 text-[0.95rem] leading-relaxed text-on-dark-muted">
               {plan.tagline}
             </p>
 
             <div className="mt-7 border-y border-white/15 py-7">
               <PriceReveal onDark size="xl" />
-              <p className="mt-3 text-sm text-ink-400">
+              <p className="mt-3 text-sm text-on-dark-faint">
                 Billed annually · minimum {plan.minEmployees} employees ·{' '}
                 {pricing.gstNote.replace('All prices are exclusive of ', 'plus ')}
               </p>
@@ -134,7 +134,7 @@ export default function PricingPage() {
                     <span className="font-semibold text-white">
                       {item.group}
                     </span>
-                    <span className="mt-0.5 block leading-relaxed text-ink-300">
+                    <span className="mt-0.5 block leading-relaxed text-on-dark-muted">
                       {item.detail}
                     </span>
                   </span>

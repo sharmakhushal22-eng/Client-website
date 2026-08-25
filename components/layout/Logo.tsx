@@ -11,7 +11,7 @@ import { site } from '@/site.config'
 function Mark({ className = 'h-10 w-10' }: { className?: string }) {
   return (
     <svg viewBox="0 0 44 44" fill="none" className={className} aria-hidden="true">
-      <rect width="44" height="44" rx="10" fill="#7C3AED" />
+      <rect width="44" height="44" rx="10" fill="#2563EB" />
       <rect x="11" y="10" width="5" height="24" rx="1.5" fill="white" />
       <rect x="11" y="10" width="19" height="6" rx="1.5" fill="white" />
       <rect x="11" y="19" width="14" height="5" rx="1.5" fill="white" />
@@ -50,7 +50,7 @@ export function Logo({
         {showTagline && (
           <span
             className={`block text-[0.6rem] uppercase tracking-[0.09em] ${
-              onDark ? 'text-ink-500' : 'text-ink-400'
+              onDark ? 'text-on-dark-muted' : 'text-ink-600'
             }`}
           >
             {site.tagline}

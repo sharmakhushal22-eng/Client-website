@@ -65,7 +65,7 @@ export function AccessRights() {
                   <p
                     className={cn(
                       'mt-1.5 text-sm leading-relaxed',
-                      role.highlight ? 'text-ink-300' : 'text-ink-600',
+                      role.highlight ? 'text-on-dark-muted' : 'text-ink-600',
                     )}
                   >
                     {role.detail}

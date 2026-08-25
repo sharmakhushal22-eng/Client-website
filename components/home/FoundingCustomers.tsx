@@ -57,7 +57,7 @@ export function FoundingCustomers() {
             <h3 className="mt-5 text-lg font-bold text-white">
               Is this a good idea for you?
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-300">
+            <p className="mt-3 text-sm leading-relaxed text-on-dark-muted">
               {foundingCustomer.fitNote}
             </p>
             <Button href="/book-a-demo" size="lg" variant="onDark" className="mt-6">

@@ -19,7 +19,7 @@ export function VisionGoals() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(48rem_28rem_at_18%_0%,rgba(124,58,237,0.3),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(48rem_28rem_at_18%_0%,rgba(37, 99, 235,0.3),transparent)]"
       />
 
       <Container className="relative">
@@ -32,7 +32,7 @@ export function VisionGoals() {
             <p className="mt-4 text-[1.45rem] font-bold leading-[1.3] sm:text-[1.7rem]">
               {mission.statement}
             </p>
-            <p className="mt-4 text-[0.95rem] leading-relaxed text-ink-300">
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-on-dark-muted">
               {mission.support}
             </p>
 
@@ -43,7 +43,7 @@ export function VisionGoals() {
               <p className="mt-3 text-lg font-bold leading-snug text-white">
                 {vision.title}
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-ink-300">
+              <p className="mt-2 text-sm leading-relaxed text-on-dark-muted">
                 {vision.body}
               </p>
             </div>
@@ -72,7 +72,7 @@ export function VisionGoals() {
                       {goal.number}
                     </span>
                   </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-300">
+                  <p className="mt-1.5 text-sm leading-relaxed text-on-dark-muted">
                     {goal.body}
                   </p>
                 </div>

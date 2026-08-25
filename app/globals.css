@@ -6,56 +6,121 @@
    company. Light theme only at launch; dark mode is explicitly not required.
    ========================================================================= */
 @theme {
-  /* Brand purple, the product's primary. */
-  --color-brand-50:  #f5f3ff;
-  --color-brand-100: #ede9fe;
-  --color-brand-200: #ddd6fe;
-  --color-brand-300: #c4b5fd;
-  --color-brand-400: #a78bfa;
-  --color-brand-500: #8b5cf6;
-  --color-brand-600: #7c3aed;   /* primary */
-  --color-brand-700: #6d28d9;
-  --color-brand-800: #5b21b6;
-  --color-brand-900: #4c1d95;
+  /* ==========================================================================
+     Palette mirrored from the product — ezer-hrms/lib/ui/theme.css.
 
-  /* Navy, used for headings and dark bands. */
-  --color-ink-50:  #f8fafc;
-  --color-ink-100: #f1f5f9;
-  --color-ink-200: #e2e8f0;
-  --color-ink-400: #94a3b8;
-  --color-ink-500: #64748b;
-  --color-ink-600: #475569;
-  --color-ink-900: #1e1b4b;     /* headings */
+     THIS SITE USED TO BE VIOLET. The product moved to trust blue, and its
+     theme file records why the earlier attempt was wrong: a warm canvas made
+     white cards look dirty, coloured body text fought the interface, and the
+     greys carried a bias that muddied every surface. Marketing kept the old
+     palette, so a prospect met a violet website and then logged into a blue
+     product — two companies, as far as they could tell.
 
-  /* Gold accent, taken from the product's EZER pillars panel. Used sparingly
-     — it is an accent on dark grounds, never a body-text colour (it fails
-     contrast on white). */
+     Every value below is the product's, unchanged. Where the product names a
+     token (--ez-brand, --ez-ink, --ez-line) the equivalent step is noted, so
+     the two can be diffed when the product's theme moves again.
+
+     Light only — dark is deliberately not carried over here.
+     ========================================================================== */
+
+  /* Brand — trust blue. 600 is --ez-brand, 700 is --ez-brand-deep,
+     50 is --ez-brand-tint, 200 is --ez-brand-edge. */
+  --color-brand-50:  #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;   /* primary — --ez-brand      */
+  --color-brand-700: #1d4ed8;   /* pressed — --ez-brand-deep */
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+
+  /* Ink — true neutral greys, not slate. The product is explicit that a warm
+     or blue bias here is what muddies the surfaces.
+
+     The full scale is defined even though the site only reaches for some of
+     it. Previously 300, 700 and 800 were used across the admin pages and the
+     comparison table but never declared, so those classes emitted no rule at
+     all and the text quietly inherited its parent's colour. */
+  --color-ink-50:  #f9fafb;
+  --color-ink-100: #f3f4f6;   /* --ez-sunken      */
+  --color-ink-200: #e5e7eb;   /* --ez-line        */
+  --color-ink-300: #d1d5db;   /* --ez-line-strong */
+  /* NOT #9ca3af. That is the value the product's theme file singles out as
+     its own past mistake — 2.54:1 on white, "unreadable at the 10.5px the
+     uppercase card labels use". This scale inherited the same bug: the
+     ScreenshotFrame chrome and the admin tables were both failing on it.
+     #6b7280 clears AA on white (4.83) and on the canvas (4.42 — large text
+     only, which is all it is used for there). */
+  --color-ink-400: #6b7280;
+  --color-ink-500: #626d80;   /* --ez-faint       */
+  --color-ink-600: #4b5563;   /* --ez-muted       */
+  --color-ink-700: #374151;   /* --ez-ink-soft    */
+  --color-ink-800: #1f2937;   /* --ez-dark-soft   */
+  --color-ink-900: #111827;   /* --ez-ink         */
+
+  /* The page behind the cards. Neutral, so white reads as white. */
+  --color-canvas: #f3f5f8;    /* --ez-canvas */
+
+  /* Text that sits ON a dark band. Mirrors the product's --ez-on-dark set.
+     These exist because the ink scale is measured against white: a grey that
+     is correctly faint on a white card is far too dark on ink-900, and a grey
+     light enough for ink-900 is invisible on white. One scale cannot do both,
+     which is why the product keeps two. */
+  --color-on-dark:       #f9fafb;              /* --ez-on-dark       */
+  --color-on-dark-muted: rgba(249,250,251,.78);/* --ez-on-dark-muted */
+  --color-on-dark-faint: rgba(249,250,251,.58);/* --ez-on-dark-faint */
+
+  /* Semantic — deliberately clear of the brand. The brand is blue, so green
+     means only "done", amber only "waiting", red only "wrong". Each value is
+     the product's, chosen to clear WCAG AA on both white and the canvas. */
+  --color-success: #047857;   /* --ez-positive */
+  --color-warning: #b45309;   /* --ez-warning  */
+  --color-danger:  #c0201f;   /* --ez-critical */
+  --color-info:    #0369a1;   /* --ez-info     */
+
+  /* Semantic steps the components actually reach for, pinned to the product's
+     verified values so a tint and its text agree. */
+  --color-emerald-50:  #ecfdf5;   /* --ez-positive-tint */
+  --color-emerald-600: #047857;
+  --color-emerald-700: #065f46;
+  --color-amber-50:    #fffbeb;   /* --ez-warning-tint  */
+  --color-amber-700:   #b45309;
+  --color-red-50:      #fef2f2;   /* --ez-critical-tint */
+  --color-red-600:     #c0201f;
+
+  /* Gold, from the product's EZER pillars panel. An accent on dark grounds
+     only — it fails contrast on white and is never body text. */
   --color-gold: #f5b800;
 
-  --color-success: #059669;
-  --color-warning: #b45309;
-  --color-danger:  #dc2626;
-
-  /* 8px spacing scale (§8.2). Tailwind's default 4px step is a subdivision of
-     this, so `p-4` = 16px = two steps and the scale still holds. */
+  /* 4px base, matching the product's S scale. */
   --spacing: 0.25rem;
 
+  /* The product's R scale: 7 / 10 / 14 / 20 / pill. */
+  --radius-sm: 7px;
   --radius-md: 10px;
   --radius-lg: 14px;
-  --radius-xl: 16px;
+  --radius-xl: 20px;
   --radius-2xl: 24px;
+
+  /* Two-layer shadows throughout — a tight contact shadow plus a softer cast
+     one. A single blur reads as a glow; two read as height. */
+  --shadow-flat:     0 1px 2px rgba(16,24,40,.05);
+  --shadow-raised:   0 1px 2px rgba(16,24,40,.06), 0 4px 12px -4px rgba(16,24,40,.10);
+  --shadow-floating: 0 2px 4px rgba(16,24,40,.06), 0 12px 28px -10px rgba(16,24,40,.16);
+  --shadow-brand:    0 1px 2px rgba(29,78,216,.24), 0 8px 20px -6px rgba(37,99,235,.36);
 
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system,
                'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-  /* Max content width ~1200px (§8.2). */
   --container-content: 75rem;
 }
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
 :root {
   --background: #ffffff;
-  --foreground: #1e1b4b;
+  --foreground: #111827;   /* --ez-ink */
   color-scheme: light;
 }
 
@@ -77,7 +142,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Headings carry the navy; body text sits a step lighter. Only three weights
+/* Headings carry the darkest ink; body text sits a step lighter. Only three weights
    are used across the site (§8.2): 400, 500/600, 700.
    
    These MUST live in @layer base. Tailwind v4 emits its utilities inside a
@@ -150,17 +215,17 @@ html[data-reveal-ready] [data-reveal][data-revealed] {
 
 /* Slim purple scrollbar, matching the product. */
 @supports not selector(::-webkit-scrollbar) {
-  * { scrollbar-width: thin; scrollbar-color: rgba(124, 58, 237, 0.35) transparent; }
+  * { scrollbar-width: thin; scrollbar-color: rgba(37, 99, 235, 0.35) transparent; }
 }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-track { background: transparent; }
 *::-webkit-scrollbar-thumb {
-  background-color: rgba(124, 58, 237, 0.3);
+  background-color: rgba(37, 99, 235, 0.3);
   border-radius: 99px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
-*::-webkit-scrollbar-thumb:hover { background-color: rgba(124, 58, 237, 0.55); }
+*::-webkit-scrollbar-thumb:hover { background-color: rgba(37, 99, 235, 0.55); }
 
 /* Range input — used by the pricing calculator (§4.4). Styled explicitly
    because the native track is near-invisible against a tinted card. */
@@ -183,7 +248,7 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 99px;
   background: var(--color-brand-600);
   border: 3px solid #fff;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.45);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45);
 }
 input[type='range']::-moz-range-track {
   height: 8px;
@@ -196,5 +261,77 @@ input[type='range']::-moz-range-thumb {
   border-radius: 99px;
   background: var(--color-brand-600);
   border: 3px solid #fff;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.45);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45);
+}
+
+/* ── Hero engine widget ────────────────────────────────────────────────────
+   Ported from the original index.html hero ("Run the Engine"): four location
+   types feed one engine, which emits the statutory registers.
+
+   These live here rather than in Tailwind classes because they are keyframe
+   animations driven by a travelling position, which utilities cannot express.
+
+   Re-toned for the product's palette. One deliberate change: the original
+   used a violet tint for the pending chips, which in a blue-brand theme would
+   read as "this is branded" rather than "this has not happened yet". Pending
+   is neutral grey and done is the semantic green — the product's own rule
+   that semantic colour stays clear of the brand. */
+
+@keyframes ezPulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(4,120,87,.32); }
+  50%      { box-shadow: 0 0 0 7px rgba(4,120,87,0); }
+}
+
+/* The dot that travels down the connector, input → engine → output. */
+@keyframes ezDotFlow {
+  0%   { top: 0%;   opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* A ring expanding out of the core as it fires. */
+@keyframes ezCorePulse {
+  0%   { transform: scale(1);   opacity: .55; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+.ez-live-dot { animation: ezPulseDot 2.2s ease-in-out infinite; }
+
+.ez-connector::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 2px;
+  background: var(--color-ink-200);
+  transform: translateX(-50%);
+}
+.ez-flow-dot {
+  position: absolute;
+  left: 50%; top: 0%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-brand-600);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.ez-connector.is-flowing .ez-flow-dot { animation: ezDotFlow .6s ease-in-out; }
+
+.ez-core-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-brand-600);
+  opacity: 0;
+}
+.ez-core-ring.is-pulsing::before { animation: ezCorePulse .85s ease-out; }
+
+/* The engine's motion is the whole point of the widget, but it is decorative:
+   the component skips straight to the finished state when motion is reduced,
+   so the information still arrives. */
+@media (prefers-reduced-motion: reduce) {
+  .ez-live-dot,
+  .ez-connector.is-flowing .ez-flow-dot,
+  .ez-core-ring.is-pulsing::before { animation: none; }
 }

@@ -23,12 +23,23 @@ const columns = [
     ],
   },
   {
+    /* Mirrors the header: compliance and industries are qualifying questions,
+       not product sub-topics, so they get their own column rather than being
+       buried under Product. */
+    title: 'Solutions',
+    links: [
+      ['/compliance', 'Statutory compliance'],
+      ['/industries', 'Industries'],
+      ['/resources/policy-handbook', 'Policy handbook'],
+      ['/pricing', 'Pricing'],
+      ['/book-a-demo', 'Book a demo'],
+    ],
+  },
+  {
     title: 'Company',
     links: [
       ['/about', 'About EZER'],
-      ['/pricing', 'Pricing'],
       ['/contact', 'Contact'],
-      ['/book-a-demo', 'Book a demo'],
     ],
   },
   {
@@ -45,20 +56,20 @@ export function Footer() {
   const addr = company.registeredAddress
 
   return (
-    <footer className="bg-ink-900 text-ink-200">
+    <footer className="bg-ink-900 text-on-dark-muted">
       <Container className="py-10 lg:py-12">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           {/* ── Brand, address, contact ─────────────────────────────────── */}
           <div>
             <Logo onDark />
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-400">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-on-dark-faint">
               {site.description}
             </p>
 
             {/* Each block renders only once it is real. An Indian B2B buyer
                 reads a missing address as a young company; they read "TODO
                 address line 1" as nobody being in charge. */}
-            <address className="mt-6 space-y-1 text-sm not-italic leading-relaxed text-ink-400">
+            <address className="mt-6 space-y-1 text-sm not-italic leading-relaxed text-on-dark-faint">
               <p className="font-semibold text-white">{displayLegalName}</p>
               {companyDetails.hasAddress && (
                 <>
@@ -73,16 +84,16 @@ export function Footer() {
             </address>
 
             {(companyDetails.hasCin || companyDetails.hasGstin) && (
-              <dl className="mt-4 space-y-1 text-sm text-ink-400">
+              <dl className="mt-4 space-y-1 text-sm text-on-dark-faint">
                 {companyDetails.hasCin && (
                   <div className="flex gap-2">
-                    <dt className="text-ink-500">CIN</dt>
+                    <dt className="text-on-dark-faint">CIN</dt>
                     <dd>{company.cin}</dd>
                   </div>
                 )}
                 {companyDetails.hasGstin && (
                   <div className="flex gap-2">
-                    <dt className="text-ink-500">GSTIN</dt>
+                    <dt className="text-on-dark-faint">GSTIN</dt>
                     <dd>{company.gstin}</dd>
                   </div>
                 )}
@@ -135,7 +146,7 @@ export function Footer() {
           </div>
 
           {/* ── Sitemap + newsletter ────────────────────────────────────── */}
-          <div className="grid gap-8 sm:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {columns.map((col) => (
               <nav key={col.title} aria-label={col.title}>
                 <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-white">
@@ -146,7 +157,7 @@ export function Footer() {
                     <li key={href}>
                       <Link
                         href={href}
-                        className="text-sm text-ink-400 transition-colors hover:text-white"
+                        className="text-sm text-on-dark-faint transition-colors hover:text-white"
                       >
                         {label}
                       </Link>
@@ -160,7 +171,7 @@ export function Footer() {
               <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-white">
                 Compliance updates
               </h2>
-              <p className="mt-3 max-w-md text-sm text-ink-400">
+              <p className="mt-3 max-w-md text-sm text-on-dark-faint">
                 Statutory changes that affect Indian payroll — EPF, ESIC, PT slabs,
                 TDS. Sent when something actually changes, not on a schedule.
               </p>
@@ -173,10 +184,10 @@ export function Footer() {
 
         {/* ── Bottom bar ─────────────────────────────────────────────────── */}
         <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-ink-500">
+          <p className="text-sm text-on-dark-faint">
             © {new Date().getFullYear()} {displayLegalName}. All rights reserved.
           </p>
-          <p className="text-sm text-ink-500">
+          <p className="text-sm text-on-dark-faint">
             Customer data hosted in {company.dataResidency}.
           </p>
         </div>

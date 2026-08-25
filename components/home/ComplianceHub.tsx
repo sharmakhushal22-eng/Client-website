@@ -26,14 +26,14 @@ export function ComplianceHub() {
       panel: (
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
-            <p className="text-[1.02rem] leading-relaxed text-ink-200">
+            <p className="text-[1.02rem] leading-relaxed text-on-dark-muted">
               {complianceEngine.lede}
             </p>
             <ul className="mt-6 space-y-2.5 border-t border-white/10 pt-5">
               {(live ? complianceEngine.points : structure.points).map((point) => (
                 <li
                   key={point}
-                  className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-200"
+                  className="flex items-start gap-2.5 text-sm leading-relaxed text-on-dark-muted"
                 >
                   <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-brand-300" />
                   {point}
@@ -53,7 +53,7 @@ export function ComplianceHub() {
                   className="flex items-baseline justify-between gap-6 py-2.5"
                 >
                   <dt className="text-sm font-semibold text-white">{output.label}</dt>
-                  <dd className="text-right text-xs text-ink-400">{output.detail}</dd>
+                  <dd className="text-right text-xs text-on-dark-faint">{output.detail}</dd>
                 </div>
               ))}
             </dl>
@@ -68,14 +68,14 @@ export function ComplianceHub() {
       panel: (
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
-            <p className="text-[1.02rem] leading-relaxed text-ink-200">
+            <p className="text-[1.02rem] leading-relaxed text-on-dark-muted">
               {structure.lede}
             </p>
             <ul className="mt-6 flex flex-wrap gap-2">
               {structure.locationTypes.map((type) => (
                 <li
                   key={type}
-                  className="rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium text-ink-200"
+                  className="rounded-lg bg-white/10 px-3 py-1.5 text-xs font-medium text-on-dark-muted"
                 >
                   {type}
                 </li>
@@ -95,10 +95,10 @@ export function ComplianceHub() {
                       {level.name}
                     </span>
                     {i < structure.levels.length - 1 && (
-                      <Icon name="chevron-down" className="h-3.5 w-3.5 text-ink-500" />
+                      <Icon name="chevron-down" className="h-3.5 w-3.5 text-on-dark-faint" />
                     )}
                   </span>
-                  <span className="mt-1 block text-sm leading-relaxed text-ink-300">
+                  <span className="mt-1 block text-sm leading-relaxed text-on-dark-muted">
                     {level.detail}
                   </span>
                 </span>
@@ -114,7 +114,7 @@ export function ComplianceHub() {
       hint: 'What changed, and the cost',
       panel: (
         <div>
-          <p className="max-w-3xl text-[1.02rem] leading-relaxed text-ink-200">
+          <p className="max-w-3xl text-[1.02rem] leading-relaxed text-on-dark-muted">
             {labourCodes.lede}
           </p>
 
@@ -127,12 +127,12 @@ export function ComplianceHub() {
                 <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-brand-300">
                   {code.covers}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink-300">{code.what}</p>
+                <p className="mt-3 text-sm leading-relaxed text-on-dark-muted">{code.what}</p>
               </div>
             ))}
           </div>
 
-          <p className="mt-5 flex items-start gap-2.5 rounded-xl bg-white/5 px-5 py-4 text-sm leading-relaxed text-ink-300 ring-1 ring-white/10">
+          <p className="mt-5 flex items-start gap-2.5 rounded-xl bg-white/5 px-5 py-4 text-sm leading-relaxed text-on-dark-muted ring-1 ring-white/10">
             <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />
             {labourCodes.note}
           </p>
@@ -145,7 +145,7 @@ export function ComplianceHub() {
       hint: 'Nine statutory heads',
       panel: (
         <div>
-          <p className="max-w-3xl text-[1.02rem] leading-relaxed text-ink-200">
+          <p className="max-w-3xl text-[1.02rem] leading-relaxed text-on-dark-muted">
             Every one of these is calculated inside the payroll run and carried
             into the register it belongs to — not worked out beside it and typed
             back in.
@@ -157,7 +157,7 @@ export function ComplianceHub() {
                 className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-3 ring-1 ring-white/10"
               >
                 <span className="text-sm font-bold text-white">{item.code}</span>
-                <span className="text-xs leading-snug text-ink-400">{item.label}</span>
+                <span className="text-xs leading-snug text-on-dark-faint">{item.label}</span>
               </li>
             ))}
           </ul>
@@ -173,7 +173,7 @@ export function ComplianceHub() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45rem_28rem_at_15%_0%,rgba(124,58,237,0.25),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45rem_28rem_at_15%_0%,rgba(37, 99, 235,0.25),transparent)]"
       />
       <Container className="relative">
         {/* Heading beside the tabs rather than centred above them — a centred
@@ -184,7 +184,11 @@ export function ComplianceHub() {
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-300">
               {complianceEngine.eyebrow}
             </p>
-            <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl">
+            {/* text-white is REQUIRED, not decorative. globals.css sets
+                h1–h4 to ink-900 in @layer base, and a direct rule beats the
+                section's inherited colour — without this the heading renders
+                #111827 on a #111827 band and disappears completely. */}
+            <h2 className="mt-3 text-3xl font-bold leading-[1.15] text-white sm:text-4xl">
               {live
                 ? 'One run. Every location’s register together.'
                 : 'Four states is not one statutory position. It is four.'}

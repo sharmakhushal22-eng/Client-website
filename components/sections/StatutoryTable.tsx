@@ -186,7 +186,7 @@ export function StatutoryTable() {
 
       {/* ── Auditability ─────────────────────────────────────────────────── */}
       <Section tone="white" ariaLabel="Auditability">
-        <div className="mx-auto max-w-3xl rounded-2xl bg-ink-900 p-8 text-center sm:p-12">
+        <div className="mx-auto max-w-3xl rounded-2xl bg-ink-900 p-8 text-center text-white sm:p-12">
           <span className="inline-grid h-12 w-12 place-items-center rounded-xl bg-white/10 text-brand-300">
             <Icon name="shield" className="h-6 w-6" />
           </span>

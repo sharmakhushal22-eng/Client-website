@@ -42,7 +42,7 @@ export function ScreenshotFrame({
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
-          <span className="ml-3 truncate rounded-md bg-white px-3 py-1 text-[0.7rem] font-medium text-ink-400 ring-1 ring-ink-200">
+          <span className="ml-3 truncate rounded-md bg-white px-3 py-1 text-[0.7rem] font-medium text-ink-600 ring-1 ring-ink-200">
             app.ezerhrms.com
           </span>
         </div>
@@ -74,7 +74,7 @@ export function ScreenshotFrame({
             <p className="max-w-md text-xs leading-relaxed text-ink-500">
               {alt}
             </p>
-            <p className="max-w-md text-[0.7rem] leading-relaxed text-ink-400">
+            <p className="max-w-md text-[0.7rem] leading-relaxed text-ink-600">
               Build the demo company with fictional names, salaries and PAN/Aadhaar
               values first, then drop the image in — see site.config.ts.
             </p>

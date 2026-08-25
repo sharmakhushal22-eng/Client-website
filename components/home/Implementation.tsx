@@ -23,7 +23,7 @@ export function Implementation() {
               {implementation.lede}
             </p>
 
-            <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-ink-900 px-5 py-4 text-sm leading-relaxed text-ink-200">
+            <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-ink-900 px-5 py-4 text-sm leading-relaxed text-on-dark-muted">
               <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />
               <span>
                 <strong className="font-semibold text-white">
