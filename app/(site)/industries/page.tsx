@@ -84,10 +84,12 @@ export default function IndustriesPage() {
                 {industryCount} industries, in {industryCategories.length} groups
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-ink-600">
+                We mapped HR, payroll and compliance challenges across more than
+                a hundred Indian industries — from a twelve-branch NBFC to a
+                three-shift factory floor — before writing the rules engine.
                 Establishment type decides which registers apply, which leave
-                entitlement follows and which returns are due. That is
-                configuration, not a different product — so everything below is
-                one system, set up differently.
+                entitlement follows and which returns are due, so everything
+                below is one system set up differently.
               </p>
             </div>
 

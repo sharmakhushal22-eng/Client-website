@@ -197,6 +197,22 @@ html[data-reveal-ready] [data-reveal][data-revealed] {
   transform: none;
 }
 
+/* Snap, with no transition at all.
+ *
+ * A transition only advances on elements the browser is actually painting. An
+ * element revealed while far outside the viewport can be left with the target
+ * computed as 1 but the rendered value stranded at 0 — permanently, because
+ * nothing will give it a frame to finish in. That is not theoretical: it is
+ * what made whole sections render blank after a client-side navigation.
+ *
+ * So anything revealed off-screen, or by the failsafe, takes this path
+ * instead. It skips an animation nobody was positioned to see anyway. */
+html[data-reveal-ready] [data-reveal][data-revealed-now] {
+  transition: none;
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html[data-reveal-ready] [data-reveal] { opacity: 1; transform: none; }
 }

@@ -368,117 +368,124 @@ export type IndustryCategory = {
 
 export const industryCategories: IndustryCategory[] = [
   {
-    name: 'Manufacturing & engineering',
+    name: 'Manufacturing',
     note: 'Factory Act registers, shift patterns, contract labour under CLRA, overtime at statutory rates',
     industries: [
-      'Heavy engineering', 'Machine tools', 'Auto components', 'Electrical equipment',
-      'Electronics assembly', 'Plastics & polymers', 'Rubber products', 'Foundry & castings',
-      'Fabrication & structurals',
+      'Auto Components', 'Textile & Apparel', 'Chemical Manufacturing',
+      'Pharma Manufacturing', 'FMCG Manufacturing', 'Electronics Assembly',
+      'Steel & Metal Fabrication', 'Plastics & Packaging', 'Food Processing',
+      'Leather & Footwear',
     ],
   },
   {
-    name: 'Automotive & mobility',
-    note: 'Multi-plant operations, tiered vendor networks, apprentices under the Apprentices Act',
-    industries: [
-      'OEM assembly', 'Tier-1 suppliers', 'Tier-2 & 3 suppliers', 'Dealerships & service',
-      'EV manufacturing', 'Tyres & batteries', 'Commercial vehicles',
-    ],
-  },
-  {
-    name: 'Pharma & life sciences',
-    note: 'GMP-linked shift discipline, clean-room rosters, audit-grade attendance records',
-    industries: [
-      'Formulations', 'Bulk drugs & API', 'Contract manufacturing (CDMO)', 'Medical devices',
-      'Clinical research', 'Diagnostics labs', 'Nutraceuticals',
-    ],
-  },
-  {
-    name: 'Chemicals & process',
-    note: 'Hazardous-process rules under the Factories Act, continuous-shift working, higher OSH obligations',
-    industries: [
-      'Specialty chemicals', 'Agrochemicals', 'Fertilisers', 'Paints & coatings',
-      'Petrochemicals', 'Industrial gases', 'Cement & building materials',
-    ],
-  },
-  {
-    name: 'Textiles, apparel & leather',
-    note: 'Piece-rate and hybrid wage structures, seasonal headcount, heavy contract-labour use',
-    industries: [
-      'Spinning & weaving', 'Garment manufacturing', 'Home textiles', 'Dyeing & processing',
-      'Leather & footwear', 'Technical textiles',
-    ],
-  },
-  {
-    name: 'Food processing & FMCG',
-    note: 'Seasonal and campaign workforces, cold-chain shifts, multi-plant statutory registration',
-    industries: [
-      'Dairy & beverages', 'Packaged foods', 'Edible oils & staples', 'Sugar & agri-processing',
-      'Confectionery & bakery', 'Personal & home care', 'Cold storage',
-    ],
-  },
-  {
-    name: 'Construction & infrastructure',
-    note: 'BOCW cess and welfare board registration, site-wise establishment, migrant-worker records',
-    industries: [
-      'Civil contracting', 'Real estate development', 'Roads & highways', 'Power & transmission',
-      'Water & sanitation', 'MEP & interiors', 'EPC projects',
-    ],
-  },
-  {
-    name: 'Logistics & warehousing',
-    note: 'Depot and warehouse establishments across states, driver duty hours, high churn',
-    industries: [
-      'Third-party logistics', 'Warehousing & fulfilment', 'Last-mile delivery', 'Freight forwarding',
-      'Cold-chain logistics', 'Courier & express', 'Port & terminal operations',
-    ],
-  },
-  {
-    name: 'IT, ITES & GCC',
+    name: 'IT & Technology',
     note: 'Multi-city Shops & Establishments registration, variable pay, high attrition, full & final volume',
     industries: [
-      'Software products', 'IT services', 'Global capability centres', 'BPO & KPO',
-      'Product engineering', 'SaaS companies', 'Data & analytics', 'IT infrastructure services',
+      'IT Services', 'SaaS & Software Products', 'IT-BPM / BPO', 'KPO & Research',
+      'Cybersecurity', 'EdTech Platforms', 'FinTech', 'HealthTech',
     ],
   },
   {
     name: 'BFSI',
     note: 'Branch networks across states, strict role separation, audit trail on every change',
     industries: [
-      'Banks', 'NBFCs', 'Insurance', 'Broking & wealth', 'Asset management',
-      'Fintech', 'Microfinance', 'Cooperative institutions',
+      'NBFCs', 'Microfinance Institutions', 'Life & General Insurance',
+      'Broking & Wealth Management', 'Cooperative Banks', 'Payment Platforms',
+      'Asset Management',
     ],
   },
   {
-    name: 'Retail & e-commerce',
-    note: 'Store-wise rosters, weekly-off compliance, festival-season headcount spikes',
-    industries: [
-      'Supermarkets & grocery', 'Fashion & lifestyle retail', 'Consumer electronics retail',
-      'Quick commerce', 'Marketplaces', 'Jewellery & luxury', 'Speciality retail chains',
-    ],
-  },
-  {
-    name: 'Healthcare',
+    name: 'Healthcare & Life Sciences',
     note: 'Round-the-clock rosters, nursing shift patterns, statutory leave across long service',
     industries: [
-      'Hospitals', 'Nursing homes', 'Diagnostic chains', 'Day-care & speciality clinics',
-      'Home healthcare', 'Ayush & wellness', 'Medical staffing',
+      'Hospital Chains', 'Diagnostic Lab Chains', 'Pharmacy Chains',
+      'Clinics & Nursing Homes', 'Medical Devices', 'Ayurveda & Wellness',
+      'Biotech Research',
     ],
   },
   {
-    name: 'Hospitality & facilities',
+    name: 'Retail & Consumer',
+    note: 'Store-wise rosters, weekly-off compliance, festival-season headcount spikes',
+    industries: [
+      'Multi-branch Retail', 'D2C E-commerce', 'Supermarket Chains',
+      'Quick Commerce', 'Franchise Businesses', 'Jewellery Retail', 'Cloud Kitchens',
+    ],
+  },
+  {
+    name: 'Logistics & Supply Chain',
+    note: 'Depot and warehouse establishments across states, driver duty hours, high churn',
+    industries: [
+      '3PL & Warehousing', 'Courier & Last-mile', 'Freight & Transport',
+      'Cold Chain Logistics', 'Fleet Management', 'Shipping & Maritime',
+      'Container Handling',
+    ],
+  },
+  {
+    name: 'Real Estate & Infrastructure',
+    note: 'BOCW cess and welfare board registration, site-wise establishment, migrant-worker records',
+    industries: [
+      'Real Estate Development', 'EPC Contracting', 'Infrastructure Construction',
+      'Interior Fit-out', 'Facility Management', 'Architecture Firms',
+    ],
+  },
+  {
+    name: 'Education',
+    note: 'Academic-year cycles, gratuity across long service, contract and visiting faculty',
+    industries: [
+      'K-12 School Groups', 'Higher Education', 'Coaching Institutes',
+      'Vocational Training', 'Skill Development', 'Ed-content Studios',
+    ],
+  },
+  {
+    name: 'Hospitality & Travel',
     note: 'Split shifts, service-charge treatment, seasonal and outsourced headcount',
     industries: [
-      'Hotels & resorts', 'Restaurants & QSR', 'Catering & cloud kitchens', 'Facility management',
-      'Security services', 'Travel & tourism', 'Events & banqueting',
+      'Hotel Chains', 'Restaurant & QSR Chains', 'Event Management',
+      'Catering Services', 'Travel & Tour Operators', 'Co-working Spaces',
     ],
   },
   {
-    name: 'Services & institutions',
-    note: 'Academic-year cycles, gratuity on long service, grant-linked and project-linked payrolls',
+    name: 'Energy & Agriculture',
+    note: 'Campaign and seasonal workforces, hazardous-process rules, remote-site establishments',
     industries: [
-      'Schools & colleges', 'EdTech', 'Training institutes', 'Staffing & contract labour',
-      'Consulting & professional services', 'Media & advertising', 'NGOs & trusts',
-      'Co-operatives & associations',
+      'Renewable Energy', 'Power Distribution', 'Oil & Gas Services',
+      'Agri-processing', 'Dairy Cooperatives', 'Seed & Fertilizer',
+    ],
+  },
+  {
+    name: 'Professional Services',
+    note: 'Client-site deployment, partner versus employee treatment, project-linked payroll',
+    industries: [
+      'Law Firms', 'CA & Accounting Firms', 'Management Consulting',
+      'Advertising Agencies', 'Staffing & Flexi-workforce', 'Market Research',
+      'Design Studios',
+    ],
+  },
+  {
+    name: 'Trade, Media & Emerging',
+    note: 'Project-based crews, short engagements, contractor versus employee classification',
+    industries: [
+      'Import-Export Trading', 'Auto Dealerships', 'Media & Production',
+      'Gaming & OTT', 'Security Services', 'Mining & Minerals',
+      'Aviation Ground Handling', 'Telecom Infrastructure', 'Data Centers',
+      'Waste Management',
+    ],
+  },
+  {
+    name: 'Beauty, Fitness & Services',
+    note: 'Outlet-wise rosters, commission-linked pay, churn concentrated at lower wage bands',
+    industries: [
+      'Beauty & Salon Chains', 'Sports & Fitness Chains', 'Housekeeping Services',
+      'Courier & Postal Services', 'Print & Publishing', 'Ceramics & Tiles',
+      'Drone & Robotics', '3D Printing',
+    ],
+  },
+  {
+    name: 'Specialised Manufacturing',
+    note: 'Continuous-process shifts and hazardous-process rules under the Factories Act',
+    industries: [
+      'Semiconductor Assembly', 'Renewable Components', 'Rubber Manufacturing',
+      'Glass Manufacturing', 'Paper & Pulp', 'Cement & Building Materials',
     ],
   },
 ]
