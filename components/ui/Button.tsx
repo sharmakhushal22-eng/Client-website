@@ -9,14 +9,14 @@ const base =
   'transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800',
+  primary: 'bg-brand-600 text-on-accent hover:bg-brand-700 active:bg-brand-800',
   /* Contrast note (§8.5): brand-700 on white is 6.4:1, comfortably past the
      4.5:1 floor. brand-600 text would be 5.1:1 — also fine — but the darker
      tone reads better at small sizes against a white field. */
   secondary:
-    'bg-white text-brand-700 ring-1 ring-inset ring-brand-200 hover:bg-brand-50 hover:ring-brand-300',
+    'bg-surface text-brand-700 ring-1 ring-inset ring-brand-200 hover:bg-brand-50 hover:ring-brand-300',
   ghost: 'text-ink-900 hover:bg-ink-100',
-  onDark: 'bg-white text-brand-700 hover:bg-brand-50',
+  onDark: 'bg-surface text-brand-700 hover:bg-brand-50',
 }
 
 const sizes: Record<Size, string> = {

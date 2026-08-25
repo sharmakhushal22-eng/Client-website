@@ -41,7 +41,7 @@ export default async function LeadsPage({
         <Link
           href="/admin/leads/export"
           prefetch={false}
-          className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700"
+          className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-on-accent hover:bg-brand-700"
         >
           Export CSV
         </Link>
@@ -52,7 +52,7 @@ export default async function LeadsPage({
         <Link
           href="/admin/leads"
           className={`rounded-full px-3.5 py-1.5 text-sm font-medium ring-1 ring-inset transition-colors ${
-            !valid ? 'bg-ink-900 text-white ring-ink-900' : 'bg-white text-ink-600 ring-ink-200 hover:ring-brand-300'
+            !valid ? 'bg-dark text-white ring-ink-900' : 'bg-surface text-ink-600 ring-ink-200 hover:ring-brand-300'
           }`}
         >
           All
@@ -62,7 +62,7 @@ export default async function LeadsPage({
             key={s}
             href={`/admin/leads?status=${encodeURIComponent(s)}`}
             className={`rounded-full px-3.5 py-1.5 text-sm font-medium ring-1 ring-inset transition-colors ${
-              status === s ? 'bg-ink-900 text-white ring-ink-900' : 'bg-white text-ink-600 ring-ink-200 hover:ring-brand-300'
+              status === s ? 'bg-dark text-white ring-ink-900' : 'bg-surface text-ink-600 ring-ink-200 hover:ring-brand-300'
             }`}
           >
             {s}

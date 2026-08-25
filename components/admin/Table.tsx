@@ -6,7 +6,7 @@ import { accessDiagnostic } from '@/lib/admin/db'
  *  "no leads yet" and "I cannot see the leads" look identical. */
 export function AccessError({ message }: { message?: string }) {
   return (
-    <div className="rounded-2xl bg-white p-8 ring-1 ring-amber-200">
+    <div className="rounded-2xl bg-surface p-8 ring-1 ring-amber-200">
       <h2 className="flex items-center gap-2 text-lg font-bold text-amber-900">
         <Icon name="alert" className="h-5 w-5" />
         Cannot read the database
@@ -20,7 +20,7 @@ export function AccessError({ message }: { message?: string }) {
 
 export function EmptyState({ title, hint }: { title: string; hint?: string }) {
   return (
-    <div className="rounded-2xl bg-white p-12 text-center ring-1 ring-ink-200">
+    <div className="rounded-2xl bg-surface p-12 text-center ring-1 ring-ink-200">
       <p className="text-base font-semibold text-ink-900">{title}</p>
       {hint && <p className="mx-auto mt-2 max-w-md text-sm text-ink-500">{hint}</p>}
     </div>
@@ -39,7 +39,7 @@ export function Panel({
   children: React.ReactNode
 }) {
   return (
-    <section className="overflow-hidden rounded-2xl bg-white ring-1 ring-ink-200">
+    <section className="overflow-hidden rounded-2xl bg-surface ring-1 ring-ink-200">
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-ink-200 px-5 py-4">
         <h2 className="flex items-baseline gap-2 text-base font-bold">
           {title}

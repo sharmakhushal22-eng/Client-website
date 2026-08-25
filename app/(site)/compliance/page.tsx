@@ -107,7 +107,7 @@ export default function CompliancePage() {
             </div>
 
             {/* What comes out of the run. */}
-            <div className="rounded-xl bg-white p-6 ring-1 ring-brand-100">
+            <div className="rounded-xl bg-surface p-6 ring-1 ring-brand-100">
               <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
                 {live ? 'Generated together' : 'Calculated in the run'}
               </h2>
@@ -129,7 +129,7 @@ export default function CompliancePage() {
       </section>
 
       {/* ── The acts, at a glance ────────────────────────────────────────── */}
-      <section className="border-y border-ink-200 bg-white py-10" aria-label="Acts covered">
+      <section className="border-y border-ink-200 bg-surface py-10" aria-label="Acts covered">
         <Container>
           <p className="text-center text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
             Calculated inside the payroll run
@@ -163,7 +163,7 @@ export default function CompliancePage() {
               key={code.name}
               data-reveal=""
               style={{ transitionDelay: `${(i % 2) * 45}ms` }}
-              className="rounded-xl bg-white p-6 ring-1 ring-brand-100"
+              className="rounded-xl bg-surface p-6 ring-1 ring-brand-100"
             >
               <h3 className="text-base font-bold leading-snug">{code.name}</h3>
               <p className="mt-1.5 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-brand-700">
@@ -176,7 +176,7 @@ export default function CompliancePage() {
           ))}
         </div>
 
-        <p className="mt-6 flex items-start gap-2.5 rounded-lg bg-white px-5 py-4 text-sm leading-relaxed text-ink-600 ring-1 ring-brand-100">
+        <p className="mt-6 flex items-start gap-2.5 rounded-lg bg-surface px-5 py-4 text-sm leading-relaxed text-ink-600 ring-1 ring-brand-100">
           <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
           {labourCodes.note}
         </p>
@@ -204,7 +204,7 @@ export default function CompliancePage() {
                   key={level.name}
                   className="flex items-start gap-4 rounded-xl bg-brand-50 p-5 ring-1 ring-brand-100"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-brand-600 text-white">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-brand-600 text-on-accent">
                     <Icon name={level.icon} className="h-5 w-5" />
                   </span>
                   <span className="min-w-0">

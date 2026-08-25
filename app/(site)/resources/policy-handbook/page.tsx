@@ -61,7 +61,7 @@ export default function PolicyHandbookPage() {
 
           <div className="grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
             <div>
-              <p className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-brand-700 ring-1 ring-brand-200">
+              <p className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-brand-700 ring-1 ring-brand-200">
                 <Icon name="file" className="h-3 w-3" />
                 Free resource
               </p>
@@ -92,7 +92,7 @@ export default function PolicyHandbookPage() {
 
               {/* The source's own caveat, carried over rather than quietly
                   dropped. It is the honest framing and it costs nothing. */}
-              <p className="mt-7 flex items-start gap-2.5 rounded-lg bg-white px-5 py-4 text-sm leading-relaxed text-ink-600 ring-1 ring-brand-100">
+              <p className="mt-7 flex items-start gap-2.5 rounded-lg bg-surface px-5 py-4 text-sm leading-relaxed text-ink-600 ring-1 ring-brand-100">
                 <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
                 This is a starting framework, not legal advice. Each policy
                 still has to become a company-specific document once you have
@@ -102,7 +102,7 @@ export default function PolicyHandbookPage() {
             </div>
 
             <div className="lg:pt-10">
-              <div className="rounded-xl bg-white p-6 shadow-floating ring-1 ring-ink-200 sm:p-7">
+              <div className="rounded-xl bg-surface p-6 shadow-floating ring-1 ring-ink-200 sm:p-7">
                 <h2 className="text-lg font-bold">Get the PDF</h2>
                 <p className="mt-1.5 text-sm leading-relaxed text-ink-600">
                   Two fields. The whole list is on this page either way — the
@@ -175,9 +175,9 @@ export default function PolicyHandbookPage() {
               key={phase.phase}
               data-reveal=""
               style={{ transitionDelay: `${i * 45}ms` }}
-              className="rounded-xl bg-white p-6 ring-1 ring-brand-100"
+              className="rounded-xl bg-surface p-6 ring-1 ring-brand-100"
             >
-              <p className="inline-flex rounded-full bg-brand-600 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-white">
+              <p className="inline-flex rounded-full bg-brand-600 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-on-accent">
                 {phase.phase}
               </p>
               <h3 className="mt-4 text-lg font-bold">{phase.name}</h3>
@@ -188,7 +188,7 @@ export default function PolicyHandbookPage() {
           ))}
         </ol>
 
-        <div className="mt-10 rounded-xl bg-white p-6 ring-1 ring-brand-100 sm:p-7">
+        <div className="mt-10 rounded-xl bg-surface p-6 ring-1 ring-brand-100 sm:p-7">
           <h3 className="text-base font-bold">
             What a finished policy document contains
           </h3>

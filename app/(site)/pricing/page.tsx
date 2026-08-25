@@ -96,11 +96,11 @@ export default function PricingPage() {
           {/* Complete */}
           <div
             data-reveal=""
-            className="relative flex flex-col rounded-3xl bg-ink-900 p-7 text-white ring-2 ring-brand-600 sm:p-9"
+            className="relative flex flex-col rounded-3xl bg-dark p-7 text-white ring-2 ring-brand-600 sm:p-9"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <h2 className="text-2xl font-bold text-white">{plan.name}</h2>
-              <span className="rounded-full bg-brand-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+              <span className="rounded-full bg-brand-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-on-accent">
                 Everything included
               </span>
             </div>
@@ -179,7 +179,7 @@ export default function PricingPage() {
 
             <div
               data-reveal=""
-              className="flex flex-1 flex-col rounded-3xl bg-white p-7 ring-1 ring-ink-200"
+              className="flex flex-1 flex-col rounded-3xl bg-surface p-7 ring-1 ring-ink-200"
             >
               <h3 className="text-xl font-bold text-ink-900">{enterprise.name}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-ink-600">

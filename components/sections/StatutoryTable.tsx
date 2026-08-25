@@ -78,9 +78,9 @@ export function StatutoryTable() {
           lede="A fictional employee in Pune on a monthly gross of ₹58,000. The figures tie out — that is the whole point of showing them."
         />
 
-        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl bg-white shadow-xl shadow-ink-900/5 ring-1 ring-ink-200">
+        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl bg-surface shadow-xl shadow-ink-900/5 ring-1 ring-ink-200">
           {/* Header */}
-          <div className="border-b border-ink-200 bg-ink-900 px-6 py-5 text-white sm:px-8">
+          <div className="border-b border-ink-200 bg-dark px-6 py-5 text-white sm:px-8">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <div>
                 <p className="text-lg font-bold">{workedPayslip.employee.name}</p>
@@ -100,7 +100,7 @@ export function StatutoryTable() {
 
           <div className="grid gap-px bg-ink-200 sm:grid-cols-2">
             {/* Earnings */}
-            <div className="bg-white px-6 py-6 sm:px-8">
+            <div className="bg-surface px-6 py-6 sm:px-8">
               <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-ink-500">
                 Earnings
               </h3>
@@ -121,7 +121,7 @@ export function StatutoryTable() {
             </div>
 
             {/* Deductions */}
-            <div className="bg-white px-6 py-6 sm:px-8">
+            <div className="bg-surface px-6 py-6 sm:px-8">
               <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-ink-500">
                 Deductions
               </h3>
@@ -148,7 +148,7 @@ export function StatutoryTable() {
           </div>
 
           {/* Net */}
-          <div className="flex flex-wrap items-baseline justify-between gap-2 bg-brand-600 px-6 py-5 text-white sm:px-8">
+          <div className="flex flex-wrap items-baseline justify-between gap-2 bg-brand-600 px-6 py-5 text-on-accent sm:px-8">
             <span className="text-sm font-semibold uppercase tracking-wide">Net pay</span>
             <span className="text-2xl font-bold tabular-nums">{inr(netPay)}</span>
           </div>
@@ -186,7 +186,7 @@ export function StatutoryTable() {
 
       {/* ── Auditability ─────────────────────────────────────────────────── */}
       <Section tone="white" ariaLabel="Auditability">
-        <div className="mx-auto max-w-3xl rounded-2xl bg-ink-900 p-8 text-center text-white sm:p-12">
+        <div className="mx-auto max-w-3xl rounded-2xl bg-dark p-8 text-center text-white sm:p-12">
           <span className="inline-grid h-12 w-12 place-items-center rounded-xl bg-white/10 text-brand-300">
             <Icon name="shield" className="h-6 w-6" />
           </span>

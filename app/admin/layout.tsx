@@ -35,7 +35,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen bg-ink-50">
-      <header className="border-b border-ink-200 bg-white">
+      <header className="border-b border-ink-200 bg-surface">
         <div className="mx-auto flex max-w-[85rem] flex-wrap items-center justify-between gap-4 px-5 py-3.5 sm:px-6">
           <div className="flex items-center gap-4">
             <Logo showTagline={false} />

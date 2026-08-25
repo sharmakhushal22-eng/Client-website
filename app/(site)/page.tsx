@@ -9,6 +9,7 @@ import { AccessRights } from '@/components/home/AccessRights'
 import { IndustryGrid } from '@/components/home/IndustryGrid'
 import { ProductTour } from '@/components/home/ProductTour'
 import { TaxCalculator } from '@/components/home/TaxCalculator'
+import { ComfortModes } from '@/components/home/ComfortModes'
 import { Implementation } from '@/components/home/Implementation'
 import { PricingTeaser } from '@/components/home/PricingTeaser'
 import { SocialProof } from '@/components/home/SocialProof'
@@ -73,6 +74,11 @@ export default function HomePage() {
       <IndustryGrid />
       <ProductTour />
       <TaxCalculator />
+
+      {/* Sits after the product tour deliberately: it is a reason to prefer
+          EZER once someone already believes it does the job, not a reason to
+          consider it in the first place. */}
+      <ComfortModes />
 
       {/* How fast, and what it costs. */}
       <Implementation />

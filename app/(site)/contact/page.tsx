@@ -108,7 +108,7 @@ export default function ContactPage() {
               <div className="mt-5 space-y-3">
                 <a
                   href={`tel:${contact.phoneE164}`}
-                  className="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-ink-200 transition-shadow hover:shadow-md"
+                  className="flex items-center gap-3 rounded-xl bg-surface p-4 ring-1 ring-ink-200 transition-shadow hover:shadow-md"
                 >
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-100 text-brand-700">
                     <Icon name="phone" className="h-5 w-5" />
@@ -127,7 +127,7 @@ export default function ContactPage() {
                   href={whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-ink-200 transition-shadow hover:shadow-md"
+                  className="flex items-center gap-3 rounded-xl bg-surface p-4 ring-1 ring-ink-200 transition-shadow hover:shadow-md"
                 >
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#25D366]/15 text-[#128C7E]">
                     <Icon name="whatsapp" className="h-5 w-5" />
@@ -153,7 +153,7 @@ export default function ContactPage() {
               {routes.map((route) => (
                 <div
                   key={route.title}
-                  className="rounded-2xl bg-white p-5 ring-1 ring-ink-200"
+                  className="rounded-2xl bg-surface p-5 ring-1 ring-ink-200"
                 >
                   <h3 className="flex items-center gap-2 text-base font-bold">
                     <Icon name={route.icon} className="h-5 w-5 text-brand-600" />

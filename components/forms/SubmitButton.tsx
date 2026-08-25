@@ -30,8 +30,8 @@ export function SubmitButton({
         'text-base font-semibold transition-colors',
         'disabled:cursor-not-allowed disabled:opacity-70',
         onDark
-          ? 'bg-white text-brand-700 hover:bg-brand-50'
-          : 'bg-brand-600 text-white hover:bg-brand-700',
+          ? 'bg-surface text-brand-700 hover:bg-brand-50'
+          : 'bg-brand-600 text-on-accent hover:bg-brand-700',
         className,
       )}
     >

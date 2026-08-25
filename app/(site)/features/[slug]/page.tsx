@@ -137,7 +137,7 @@ export default async function FeatureDetailPage({
               key={cap.title}
               data-reveal=""
               style={{ transitionDelay: `${(i % 2) * 60}ms` }}
-              className="flex items-start gap-4 rounded-2xl bg-white p-6 ring-1 ring-ink-200/70"
+              className="flex items-start gap-4 rounded-2xl bg-surface p-6 ring-1 ring-ink-200/70"
             >
               <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-100 text-brand-700">
                 <Icon name="check" className="h-4 w-4" />
@@ -185,7 +185,7 @@ export default async function FeatureDetailPage({
           {page.personas.map((persona) => (
             <div
               key={persona.role}
-              className="rounded-2xl bg-white p-6 text-center ring-1 ring-ink-200/70"
+              className="rounded-2xl bg-surface p-6 text-center ring-1 ring-ink-200/70"
             >
               <span className="inline-grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
                 <Icon name={persona.icon} className="h-5 w-5" />
@@ -211,7 +211,7 @@ export default async function FeatureDetailPage({
             <Link
               key={rel.slug}
               href={`/features/${rel.slug}`}
-              className="group rounded-2xl bg-white p-6 ring-1 ring-ink-200/70 transition-shadow hover:shadow-lg hover:shadow-brand-900/5 hover:ring-brand-200"
+              className="group rounded-2xl bg-surface p-6 ring-1 ring-ink-200/70 transition-shadow hover:shadow-lg hover:shadow-brand-900/5 hover:ring-brand-200"
             >
               <h3 className="flex items-center gap-1.5 text-base font-bold">
                 {rel.name}

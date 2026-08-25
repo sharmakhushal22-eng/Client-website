@@ -22,7 +22,7 @@ export function TrustBar() {
   const hasStats = liveStats.length > 0
 
   return (
-    <section className="border-y border-ink-200 bg-white py-10" aria-label="Why teams trust EZER">
+    <section className="border-y border-ink-200 bg-surface py-10" aria-label="Why teams trust EZER">
       <Container>
         {hasLogos ? (
           <>

@@ -35,7 +35,7 @@ export function ModuleExplorer() {
     label: group.name,
     hint: group.promise,
     panel: (
-      <div className="rounded-2xl bg-white p-6 ring-1 ring-ink-200 sm:p-7">
+      <div className="rounded-2xl bg-surface p-6 ring-1 ring-ink-200 sm:p-7">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-100 text-brand-700">
             <Icon name={groupIcons[group.id]} className="h-5 w-5" />
@@ -110,7 +110,7 @@ export function ModuleExplorer() {
 
         {/* The scannable index, for the reader hunting one named thing. Kept
             flat and small — it is a lookup, not a feature pitch. */}
-        <details className="group mt-8 rounded-2xl bg-white ring-1 ring-ink-200">
+        <details className="group mt-8 rounded-2xl bg-surface ring-1 ring-ink-200">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 text-sm font-bold text-ink-900">
             <span>
               All {solutions.length} solutions — {statutoryCount} of them

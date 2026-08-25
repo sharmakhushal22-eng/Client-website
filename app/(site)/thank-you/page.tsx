@@ -91,7 +91,7 @@ export default async function ThankYouPage({
           {nextSteps.map((step, i) => (
             <li
               key={step.title}
-              className="rounded-2xl bg-white p-6 ring-1 ring-ink-200/70"
+              className="rounded-2xl bg-surface p-6 ring-1 ring-ink-200/70"
             >
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
                 <Icon name={step.icon} className="h-5 w-5" />
@@ -131,7 +131,7 @@ export default async function ThankYouPage({
             <Link
               key={link.href}
               href={link.href}
-              className="group rounded-2xl bg-white p-6 ring-1 ring-ink-200/70 transition-shadow hover:shadow-lg hover:shadow-brand-900/5 hover:ring-brand-200"
+              className="group rounded-2xl bg-surface p-6 ring-1 ring-ink-200/70 transition-shadow hover:shadow-lg hover:shadow-brand-900/5 hover:ring-brand-200"
             >
               <h3 className="flex items-start gap-1.5 text-base font-bold leading-snug">
                 {link.title}

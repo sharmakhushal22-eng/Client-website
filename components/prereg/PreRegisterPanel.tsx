@@ -99,7 +99,7 @@ export function PreRegisterPanel({
       <div
         onClick={onClose}
         aria-hidden="true"
-        className={`fixed inset-0 z-40 bg-ink-900/50 backdrop-blur-[2px] transition-opacity duration-300 ${
+        className={`fixed inset-0 z-40 bg-dark/50 backdrop-blur-[2px] transition-opacity duration-300 ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
@@ -110,7 +110,7 @@ export function PreRegisterPanel({
         aria-modal="true"
         aria-labelledby="prereg-title"
         aria-hidden={!open}
-        className={`fixed inset-x-0 bottom-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-xl bg-white shadow-floating transition-transform duration-300 ease-out sm:inset-y-0 sm:left-auto sm:right-0 sm:max-h-none sm:w-[27rem] sm:rounded-l-xl sm:rounded-tr-none ${
+        className={`fixed inset-x-0 bottom-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-xl bg-surface shadow-floating transition-transform duration-300 ease-out sm:inset-y-0 sm:left-auto sm:right-0 sm:max-h-none sm:w-[27rem] sm:rounded-l-xl sm:rounded-tr-none ${
           open
             ? 'translate-y-0 sm:translate-x-0'
             : 'translate-y-full sm:translate-y-0 sm:translate-x-full'

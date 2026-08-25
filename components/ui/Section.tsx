@@ -4,9 +4,9 @@ import { Container } from './Container'
 type Tone = 'white' | 'tint' | 'ink'
 
 const tones: Record<Tone, string> = {
-  white: 'bg-white',
+  white: 'bg-surface',
   tint: 'bg-brand-50',
-  ink: 'bg-ink-900 text-white',
+  ink: 'bg-dark text-white',
 }
 
 export function Section({

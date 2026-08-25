@@ -21,7 +21,7 @@ export default async function AdminLoginPage({
           <Logo />
         </div>
 
-        <div className="rounded-2xl bg-white p-8 shadow-xl shadow-ink-900/5 ring-1 ring-ink-200">
+        <div className="rounded-2xl bg-surface p-8 shadow-xl shadow-ink-900/5 ring-1 ring-ink-200">
           <h1 className="text-xl font-bold">Sign in</h1>
           <p className="mt-1.5 text-sm text-ink-500">
             Lead inbox and enquiry data. Staff only.

@@ -22,7 +22,7 @@ import { industryCategories, industryCount } from '@/content/positioning'
 export function IndustryGrid() {
   return (
     <section
-      className="border-y border-ink-200 bg-white py-12 sm:py-14 lg:py-16"
+      className="border-y border-ink-200 bg-surface py-12 sm:py-14 lg:py-16"
       aria-label="Industries served"
     >
       <Container>

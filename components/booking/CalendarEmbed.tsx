@@ -32,7 +32,7 @@ export function CalendarEmbed() {
       title={`Book a ${booking.durationMinutes}-minute demo`}
       src={booking.calendarUrl}
       loading="lazy"
-      className="w-full rounded-2xl border-0 bg-white ring-1 ring-ink-200"
+      className="w-full rounded-2xl border-0 bg-surface ring-1 ring-ink-200"
       style={{ height }}
     />
   )

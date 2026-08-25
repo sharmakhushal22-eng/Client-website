@@ -76,15 +76,44 @@ export function usePreRegister() {
     }
 
     const timer = window.setTimeout(fire, AUTO_AFTER_MS)
-    const onScroll = () => {
+
+    /* Scroll depth, WITHOUT measuring the document on every event.
+     *
+     * This used to read documentElement.scrollHeight inside the handler.
+     * Reading scrollHeight forces a synchronous layout, and scroll fires many
+     * times a second — so every scroll on a 12,000px page triggered a full
+     * relayout, which is exactly the "site feels laggy" symptom.
+     *
+     * Now the threshold is computed ONCE as a pixel offset, and the handler
+     * only compares window.scrollY against it — a cached number, no layout.
+     * It is recomputed on resize, which is the only thing that can move it. */
+    let threshold = 0
+    const measure = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight
-      if (max > 0 && window.scrollY / max > AUTO_AFTER_SCROLL) fire()
+      threshold = max > 0 ? max * AUTO_AFTER_SCROLL : Number.POSITIVE_INFINITY
     }
+    measure()
+
+    /* Coalesce to one check per frame. Scroll can fire far more often than
+     * the browser paints, and there is no value in answering the same
+     * question twice within a frame. */
+    let queued = false
+    const onScroll = () => {
+      if (queued) return
+      queued = true
+      requestAnimationFrame(() => {
+        queued = false
+        if (window.scrollY > threshold) fire()
+      })
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', measure, { passive: true })
 
     return () => {
       window.clearTimeout(timer)
       window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', measure)
     }
   }, [mounted, suppressed])
 

@@ -71,7 +71,7 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
       </Link>
 
       {/* Header: who they are and how to reach them, first. */}
-      <div className="rounded-2xl bg-white p-6 ring-1 ring-ink-200 sm:p-8">
+      <div className="rounded-2xl bg-surface p-6 ring-1 ring-ink-200 sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold">{lead.company_name}</h1>
@@ -84,13 +84,13 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <a href={`tel:+91${lead.phone}`} className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">
+          <a href={`tel:+91${lead.phone}`} className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-on-accent hover:bg-brand-700">
             <Icon name="phone" className="h-4 w-4" /> +91 {lead.phone}
           </a>
-          <a href={`mailto:${lead.work_email}`} className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-brand-700 ring-1 ring-inset ring-brand-200 hover:bg-brand-50">
+          <a href={`mailto:${lead.work_email}`} className="inline-flex items-center gap-2 rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-brand-700 ring-1 ring-inset ring-brand-200 hover:bg-brand-50">
             <Icon name="mail" className="h-4 w-4" /> {lead.work_email}
           </a>
-          <a href={`https://wa.me/91${lead.phone}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-[#128C7E] ring-1 ring-inset ring-ink-200 hover:bg-ink-50">
+          <a href={`https://wa.me/91${lead.phone}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-[#128C7E] ring-1 ring-inset ring-ink-200 hover:bg-ink-50">
             <Icon name="whatsapp" className="h-4 w-4" /> WhatsApp
           </a>
         </div>
@@ -126,9 +126,9 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
               <textarea
                 id="note" name="body" rows={3} required
                 placeholder="What was said, what was agreed, what happens next."
-                className="w-full rounded-xl bg-white px-4 py-3 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
+                className="w-full rounded-xl bg-surface px-4 py-3 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
               />
-              <button type="submit" className="mt-3 rounded-xl bg-ink-900 px-4 py-2 text-sm font-semibold text-white hover:bg-ink-800">
+              <button type="submit" className="mt-3 rounded-xl bg-dark px-4 py-2 text-sm font-semibold text-white hover:bg-dark/90">
                 Save note
               </button>
             </form>
@@ -162,11 +162,11 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
               <select
                 key={lead.status}
                 id="status" name="status" defaultValue={lead.status}
-                className="w-full rounded-xl bg-white px-4 py-2.5 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
+                className="w-full rounded-xl bg-surface px-4 py-2.5 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
               >
                 {LEAD_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
-              <button type="submit" className="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">
+              <button type="submit" className="w-full rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-on-accent hover:bg-brand-700">
                 Update status
               </button>
             </form>
@@ -177,16 +177,16 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
               <input
                 key={lead.owner ?? 'unassigned'}
                 id="owner" name="owner" defaultValue={lead.owner ?? ''} placeholder="Who is chasing this"
-                className="w-full rounded-xl bg-white px-4 py-2.5 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
+                className="w-full rounded-xl bg-surface px-4 py-2.5 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
               />
               <label htmlFor="next_action_date" className="block text-sm font-semibold">Next action</label>
               <input
                 key={lead.next_action_date ?? 'none'}
                 id="next_action_date" name="next_action_date" type="date"
                 defaultValue={lead.next_action_date ?? ''}
-                className="w-full rounded-xl bg-white px-4 py-2.5 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
+                className="w-full rounded-xl bg-surface px-4 py-2.5 text-sm ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
               />
-              <button type="submit" className="w-full rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-ink-900 ring-1 ring-inset ring-ink-200 hover:bg-ink-50">
+              <button type="submit" className="w-full rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink-900 ring-1 ring-inset ring-ink-200 hover:bg-ink-50">
                 Save
               </button>
             </form>

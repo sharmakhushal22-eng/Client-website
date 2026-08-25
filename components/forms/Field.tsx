@@ -36,7 +36,7 @@ const inputBase =
   'focus:outline-none focus:ring-2'
 
 const inputLight =
-  'bg-white text-ink-900 ring-ink-200 focus:ring-brand-600'
+  'bg-surface text-ink-900 ring-ink-200 focus:ring-brand-600'
 const inputDark =
   'bg-white/10 text-white ring-white/20 focus:ring-brand-400 placeholder:text-ink-400'
 const inputInvalid = 'ring-red-500 focus:ring-red-500'
@@ -389,8 +389,8 @@ export function ChipMultiSelect({
                 'ring-1 ring-inset has-[:focus-visible]:outline has-[:focus-visible]:outline-2',
                 'has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand-600',
                 isOn
-                  ? 'bg-brand-600 text-white ring-brand-600'
-                  : 'bg-white text-ink-600 ring-ink-200 hover:ring-brand-300',
+                  ? 'bg-brand-600 text-on-accent ring-brand-600'
+                  : 'bg-surface text-ink-600 ring-ink-200 hover:ring-brand-300',
               )}
             >
               <input

@@ -92,7 +92,7 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie preferences"
-      className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-2xl rounded-2xl bg-white p-5 shadow-2xl shadow-ink-900/20 ring-1 ring-ink-200 sm:inset-x-6 sm:bottom-6"
+      className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-2xl rounded-2xl bg-surface p-5 shadow-2xl shadow-ink-900/20 ring-1 ring-ink-200 sm:inset-x-6 sm:bottom-6"
     >
       <p className="text-sm leading-relaxed text-ink-600">
         We use essential cookies to make this site work. With your permission we
@@ -106,14 +106,14 @@ export function CookieConsent() {
         <button
           type="button"
           onClick={() => decide('accepted')}
-          className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-700"
+          className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-on-accent hover:bg-brand-700"
         >
           Accept analytics cookies
         </button>
         <button
           type="button"
           onClick={() => decide('rejected')}
-          className="rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-ink-900 ring-1 ring-inset ring-ink-200 hover:bg-ink-100"
+          className="rounded-xl bg-surface px-5 py-2.5 text-sm font-semibold text-ink-900 ring-1 ring-inset ring-ink-200 hover:bg-ink-100"
         >
           Essential only
         </button>

@@ -78,7 +78,7 @@ export function PricingCalculator({
   }, [headcount, annual, rate, minEmployees, annualDiscountPct])
 
   return (
-    <div className="mx-auto max-w-4xl rounded-3xl bg-white p-6 shadow-xl shadow-ink-900/5 ring-1 ring-ink-200 sm:p-10">
+    <div className="mx-auto max-w-4xl rounded-3xl bg-surface p-6 shadow-xl shadow-ink-900/5 ring-1 ring-ink-200 sm:p-10">
       {/* ── Headcount ──────────────────────────────────────────────────── */}
       <div>
         <div className="flex flex-wrap items-end justify-between gap-3">
@@ -123,7 +123,7 @@ export function PricingCalculator({
               key={String(option.value)}
               className={`cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold transition-colors has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand-600 ${
                 annual === option.value
-                  ? 'bg-white text-ink-900 shadow-sm'
+                  ? 'bg-surface text-ink-900 shadow-sm'
                   : 'text-ink-500 hover:text-ink-900'
               }`}
             >
@@ -173,7 +173,7 @@ export function PricingCalculator({
       ) : (
       <>
       <div className="mt-8 grid gap-4 sm:grid-cols-[1.3fr_1fr]">
-        <div className="rounded-2xl bg-brand-600 p-6 text-white sm:p-7">
+        <div className="rounded-2xl bg-brand-600 p-6 text-on-accent sm:p-7">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-200">
             {planName} · everything included
           </p>

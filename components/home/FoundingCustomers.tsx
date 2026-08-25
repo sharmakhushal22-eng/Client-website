@@ -17,7 +17,7 @@ export function FoundingCustomers() {
   if (hasRealTestimonials) return null
 
   return (
-    <section className="bg-white py-12 sm:py-14 lg:py-16" aria-label="Founding customers">
+    <section className="bg-surface py-12 sm:py-14 lg:py-16" aria-label="Founding customers">
       <Container>
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
           <div>
@@ -50,7 +50,7 @@ export function FoundingCustomers() {
 
           {/* Deliberately the loudest thing here: repelling a bad-fit buyer
               early is worth more than the lead. */}
-          <div className="flex flex-col justify-center rounded-2xl bg-ink-900 p-7 text-white sm:p-8">
+          <div className="flex flex-col justify-center rounded-2xl bg-dark p-7 text-white sm:p-8">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-600">
               <Icon name="sparkle" className="h-5 w-5" />
             </span>

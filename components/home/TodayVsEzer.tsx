@@ -14,7 +14,7 @@ import { todayVsEzer } from '@/content/positioning'
  */
 export function TodayVsEzer() {
   return (
-    <section className="bg-white py-12 sm:py-14 lg:py-16" aria-label="Today versus with EZER">
+    <section className="bg-surface py-12 sm:py-14 lg:py-16" aria-label="Today versus with EZER">
       <Container>
         <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-2xl">

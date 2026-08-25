@@ -80,8 +80,8 @@ export function Tabs({
             : 'w-full px-4 py-3',
           selected
             ? onDark
-              ? 'bg-brand-600 text-white'
-              : 'bg-brand-600 text-white shadow-sm'
+              ? 'bg-brand-600 text-on-accent'
+              : 'bg-brand-600 text-on-accent shadow-sm'
             : onDark
               ? 'text-ink-300 hover:bg-white/10 hover:text-white'
               : 'text-ink-600 hover:bg-brand-50 hover:text-ink-900',

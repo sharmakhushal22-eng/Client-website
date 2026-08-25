@@ -93,7 +93,7 @@ export default function IndustriesPage() {
               </p>
             </div>
 
-            <div className="rounded-xl bg-white p-6 ring-1 ring-brand-100">
+            <div className="rounded-xl bg-surface p-6 ring-1 ring-brand-100">
               <p className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-700">
                 <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
                 <span>

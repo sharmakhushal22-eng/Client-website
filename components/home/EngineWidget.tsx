@@ -99,7 +99,7 @@ export function EngineWidget() {
   const pct = Math.round((done / OUTPUTS.length) * 100)
 
   return (
-    <figure className="w-full rounded-xl bg-white p-5 shadow-floating ring-1 ring-ink-200 sm:p-6">
+    <figure className="w-full rounded-xl bg-surface p-5 shadow-floating ring-1 ring-ink-200 sm:p-6">
       {/* Header */}
       <figcaption className="mb-4 flex items-center gap-2.5 text-[0.7rem] font-bold uppercase tracking-[0.08em] text-ink-600">
         <span
@@ -179,7 +179,7 @@ export function EngineWidget() {
         type="button"
         onClick={finished ? reset : run}
         disabled={running}
-        className="mt-4 w-full rounded-md bg-ink-900 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70"
+        className="mt-4 w-full rounded-md bg-dark px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {finished ? 'Reset' : running ? 'Running…' : 'Run the Engine'}
       </button>

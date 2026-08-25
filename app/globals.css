@@ -63,6 +63,25 @@
   /* The page behind the cards. Neutral, so white reads as white. */
   --color-canvas: #f3f5f8;    /* --ez-canvas */
 
+  /* A surface that is dark ON PURPOSE, in both themes.
+     Distinct from ink-900, which is the darkest TEXT colour and therefore
+     inverts to near-white in dark mode — a band painted with it would flip to
+     light and take its white text with it, which is exactly what happened to
+     the hero's Run-the-Engine button. */
+  --color-dark: #111827;        /* --ez-dark */
+
+  /* ── Semantic surfaces ─────────────────────────────────────────────────
+     Card surfaces are `surface`, not `white`. The distinction only matters in
+     dark mode, where a card has to darken while text sitting on a dark band
+     must stay light — one `white` token cannot move in both directions at
+     once, which is exactly why the product keeps them separate. */
+  --color-surface: #ffffff;        /* --ez-surface */
+
+  /* Text on a saturated brand fill — a primary button, a filled badge.
+     White in light, because every accent is dark there. It has to INVERT in
+     dark: the accent lifts to #60A5FA and white on that is 2.5:1. */
+  --color-on-accent: #ffffff;      /* --ez-on-accent */
+
   /* Text that sits ON a dark band. Mirrors the product's --ez-on-dark set.
      These exist because the ink scale is measured against white: a grey that
      is correctly faint on a white card is far too dark on ink-900, and a grey
@@ -115,6 +134,140 @@
                'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   --container-content: 75rem;
+}
+
+/* ============================================================================
+   DARK
+
+   Ported from the product's own dark theme, which is a designed neutral slate
+   rather than an inversion of the light one. Two things it does that a naive
+   inversion does not:
+
+     · The brand LIFTS to #60A5FA. #2563EB has too little contrast against a
+       dark surface to read as an action.
+     · Text on an accent fill INVERTS to near-black. Because every accent
+       lightens in dark, white on a primary button falls to 2.54:1.
+
+   Three states, matching the product's contract exactly, so a visitor who
+   sets dark here and then logs into the product meets the same thing:
+
+     :root                       light
+     prefers-color-scheme: dark  follow the OS, unless light was chosen
+     [data-ez-theme="dark"]      an explicit choice, which wins either way
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-ez-theme="light"]) {
+    color-scheme: dark;
+
+    --color-ink-900: #f3f4f6;   /* --ez-ink        */
+    --color-ink-800: #e5e7eb;
+    --color-ink-700: #d1d5db;   /* --ez-ink-soft   */
+    --color-ink-600: #9ca3af;   /* --ez-muted      */
+    --color-ink-500: #828c9b;   /* --ez-faint      */
+    --color-ink-400: #6b7480;
+    --color-ink-300: #39414d;   /* --ez-line-strong */
+    --color-ink-200: #262c35;   /* --ez-line        */
+    --color-ink-100: #14181e;   /* --ez-sunken      */
+    --color-ink-50:  #12161b;
+
+    --color-brand-900: #dbeafe;
+    --color-brand-800: #bfdbfe;
+    --color-brand-700: #93c5fd;  /* --ez-brand-deep */
+    --color-brand-600: #60a5fa;  /* --ez-brand      */
+    --color-brand-500: #3b82f6;
+    --color-brand-400: #2563eb;
+    --color-brand-300: #1d4ed8;
+    --color-brand-200: #24344f;  /* --ez-brand-edge */
+    --color-brand-100: #1c2740;
+    --color-brand-50:  #172033;  /* --ez-brand-tint */
+
+    --color-surface: #171b21;    /* --ez-surface */
+  --color-dark:    #0b0e12;    /* --ez-dark — still dark, just deeper */
+    --color-dark:    #0b0e12;    /* --ez-dark — still dark, just deeper */
+    --color-canvas:  #0f1216;    /* --ez-canvas  */
+    --color-on-accent: #0d1117;  /* --ez-on-accent — inverted, see above */
+
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-danger:  #f87171;
+    --color-info:    #7dd3fc;
+
+    --color-emerald-50:  #10241d;
+    --color-emerald-600: #34d399;
+    --color-emerald-700: #6ee7b7;
+    --color-amber-50:    #251c0d;
+    --color-amber-700:   #fbbf24;
+    --color-red-50:      #2a1414;
+    --color-red-600:     #f87171;
+
+    /* Depth on a dark ground comes from the surface being lighter than the
+       canvas, not from cast shadow — so these stay shallow and cards do not
+       sit in visible black halos. */
+    --shadow-flat:     0 1px 2px rgba(0,0,0,.34);
+    --shadow-raised:   0 1px 2px rgba(0,0,0,.38), 0 4px 12px -4px rgba(0,0,0,.44);
+    --shadow-floating: 0 2px 4px rgba(0,0,0,.42), 0 12px 28px -10px rgba(0,0,0,.55);
+
+    --background: #0f1216;
+    --foreground: #f3f4f6;
+  }
+}
+
+/* The toggle wins in both directions — dark on a light OS, light on a dark
+   OS. Redefining under the attribute selector is what does that. */
+:root[data-ez-theme="dark"] {
+  color-scheme: dark;
+
+
+  --color-ink-900: #f3f4f6;   /* --ez-ink        */
+  --color-ink-800: #e5e7eb;
+  --color-ink-700: #d1d5db;   /* --ez-ink-soft   */
+  --color-ink-600: #9ca3af;   /* --ez-muted      */
+  --color-ink-500: #828c9b;   /* --ez-faint      */
+  --color-ink-400: #6b7480;
+  --color-ink-300: #39414d;   /* --ez-line-strong */
+  --color-ink-200: #262c35;   /* --ez-line        */
+  --color-ink-100: #14181e;   /* --ez-sunken      */
+  --color-ink-50:  #12161b;
+
+  --color-brand-900: #dbeafe;
+  --color-brand-800: #bfdbfe;
+  --color-brand-700: #93c5fd;  /* --ez-brand-deep */
+  --color-brand-600: #60a5fa;  /* --ez-brand      */
+  --color-brand-500: #3b82f6;
+  --color-brand-400: #2563eb;
+  --color-brand-300: #1d4ed8;
+  --color-brand-200: #24344f;  /* --ez-brand-edge */
+  --color-brand-100: #1c2740;
+  --color-brand-50:  #172033;  /* --ez-brand-tint */
+
+  --color-surface: #171b21;    /* --ez-surface */
+  --color-dark:    #0b0e12;    /* --ez-dark — still dark, just deeper */
+  --color-canvas:  #0f1216;    /* --ez-canvas  */
+  --color-on-accent: #0d1117;  /* --ez-on-accent — inverted, see above */
+
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger:  #f87171;
+  --color-info:    #7dd3fc;
+
+  --color-emerald-50:  #10241d;
+  --color-emerald-600: #34d399;
+  --color-emerald-700: #6ee7b7;
+  --color-amber-50:    #251c0d;
+  --color-amber-700:   #fbbf24;
+  --color-red-50:      #2a1414;
+  --color-red-600:     #f87171;
+
+  /* Depth on a dark ground comes from the surface being lighter than the
+     canvas, not from cast shadow — so these stay shallow and cards do not
+     sit in visible black halos. */
+  --shadow-flat:     0 1px 2px rgba(0,0,0,.34);
+  --shadow-raised:   0 1px 2px rgba(0,0,0,.38), 0 4px 12px -4px rgba(0,0,0,.44);
+  --shadow-floating: 0 2px 4px rgba(0,0,0,.42), 0 12px 28px -10px rgba(0,0,0,.55);
+
+  --background: #0f1216;
+  --foreground: #f3f4f6;
 }
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
@@ -224,7 +377,16 @@ html[data-reveal-ready] [data-reveal][data-revealed-now] {
 }
 .animate-marquee {
   animation: marquee 40s linear infinite;
+  /* Hint the compositor so the marquee animates on its own layer instead of
+     repainting the strip each frame. */
+  will-change: transform;
 }
+
+/* Pausing this while off-screen would be better still, but it needs an
+   IntersectionObserver toggling a class — CSS alone cannot express "is in the
+   viewport". Left running deliberately rather than faked: `content-visibility`
+   and `:has()` tricks do not actually gate an animation, and code whose
+   comment overstates what it does is worse than none. */
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee { animation: none; }
 }

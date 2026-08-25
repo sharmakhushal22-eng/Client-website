@@ -88,7 +88,7 @@ export default function FeaturesPage() {
             <div
               key={group.id}
               data-reveal=""
-              className="flex flex-col rounded-2xl bg-white p-7 ring-1 ring-ink-200/70 transition-shadow hover:shadow-lg hover:shadow-brand-900/5"
+              className="flex flex-col rounded-2xl bg-surface p-7 ring-1 ring-ink-200/70 transition-shadow hover:shadow-lg hover:shadow-brand-900/5"
             >
               <div className="flex items-start gap-4">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-brand-100 text-brand-700">

@@ -9,7 +9,7 @@ import { implementation } from '@/content/positioning'
  * look like a timeline, and it happens to be the shortest way to draw it. */
 export function Implementation() {
   return (
-    <section className="bg-white py-12 sm:py-14 lg:py-16" aria-label="Implementation">
+    <section className="bg-surface py-12 sm:py-14 lg:py-16" aria-label="Implementation">
       <Container>
         <div className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:gap-14">
           <div>
@@ -23,7 +23,7 @@ export function Implementation() {
               {implementation.lede}
             </p>
 
-            <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-ink-900 px-5 py-4 text-sm leading-relaxed text-on-dark-muted">
+            <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-dark px-5 py-4 text-sm leading-relaxed text-on-dark-muted">
               <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />
               <span>
                 <strong className="font-semibold text-white">
@@ -48,7 +48,7 @@ export function Implementation() {
                 style={{ transitionDelay: `${Math.min(i, 3) * 45}ms` }}
                 className="relative flex items-start gap-4 rounded-2xl bg-brand-50 p-5 ring-1 ring-brand-100"
               >
-                <span className="relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-xs font-bold leading-none text-white">
+                <span className="relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-xs font-bold leading-none text-on-accent">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div className="min-w-0">

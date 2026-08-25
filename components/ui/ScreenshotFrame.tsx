@@ -36,13 +36,13 @@ export function ScreenshotFrame({
 }) {
   return (
     <figure className={cn('w-full', className)}>
-      <div className="overflow-hidden rounded-2xl bg-white shadow-2xl shadow-ink-900/10 ring-1 ring-ink-200">
+      <div className="overflow-hidden rounded-2xl bg-surface shadow-2xl shadow-ink-900/10 ring-1 ring-ink-200">
         {/* Chrome bar */}
         <div className="flex items-center gap-1.5 border-b border-ink-200 bg-ink-50 px-4 py-3">
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
-          <span className="ml-3 truncate rounded-md bg-white px-3 py-1 text-[0.7rem] font-medium text-ink-600 ring-1 ring-ink-200">
+          <span className="ml-3 truncate rounded-md bg-surface px-3 py-1 text-[0.7rem] font-medium text-ink-600 ring-1 ring-ink-200">
             app.ezerhrms.com
           </span>
         </div>

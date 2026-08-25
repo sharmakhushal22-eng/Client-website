@@ -35,7 +35,7 @@ export function PreRegisterTeaser({
           : 'pointer-events-none translate-y-4 opacity-0'
       }`}
     >
-      <div className="overflow-hidden rounded-xl bg-white shadow-floating ring-1 ring-ink-200">
+      <div className="overflow-hidden rounded-xl bg-surface shadow-floating ring-1 ring-ink-200">
         {/* A thin brand rule instead of a filled header — this is a nudge,
             not an announcement, and it should sit quietly next to the page. */}
         <div
@@ -74,7 +74,7 @@ export function PreRegisterTeaser({
               type="button"
               onClick={onExpand}
               tabIndex={open ? 0 : -1}
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-600 px-3.5 py-2.5 text-[0.82rem] font-bold text-white transition-colors hover:bg-brand-700"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-600 px-3.5 py-2.5 text-[0.82rem] font-bold text-on-accent transition-colors hover:bg-brand-700"
             >
               See the terms
               <Icon name="arrow-right" className="h-3.5 w-3.5" />

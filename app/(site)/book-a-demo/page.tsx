@@ -94,7 +94,7 @@ export default function BookADemoPage() {
 
           {/* ── Qualifying form ─────────────────────────────────────────── */}
           <div>
-            <div className="rounded-2xl bg-white p-6 ring-1 ring-ink-200 sm:p-8">
+            <div className="rounded-2xl bg-surface p-6 ring-1 ring-ink-200 sm:p-8">
               <h2 className="text-xl font-bold">
                 {hasCalendar ? 'First, a few details' : 'Request a slot'}
               </h2>

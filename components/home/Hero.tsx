@@ -24,7 +24,7 @@ export function Hero() {
       <Container className="relative py-10 sm:py-14 lg:py-16">
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-brand-700 ring-1 ring-brand-200">
+            <p className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-1.5 text-xs font-semibold text-brand-700 ring-1 ring-brand-200">
               <span aria-hidden="true">🇮🇳</span>
               Built for the new labour codes
             </p>
@@ -73,7 +73,7 @@ export function Hero() {
                 {structure.locationTypes.map((type) => (
                   <li
                     key={type}
-                    className="rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-ink-600 ring-1 ring-brand-100"
+                    className="rounded-lg bg-surface px-3 py-1.5 text-xs font-medium text-ink-600 ring-1 ring-brand-100"
                   >
                     {type}
                   </li>
@@ -87,7 +87,7 @@ export function Hero() {
                 .map((badge) => (
                   <li
                     key={badge.label}
-                    className="flex items-center gap-1.5 rounded-lg bg-white/70 px-3 py-1.5 text-xs font-medium text-ink-600 ring-1 ring-brand-100"
+                    className="flex items-center gap-1.5 rounded-lg bg-surface/70 px-3 py-1.5 text-xs font-medium text-ink-600 ring-1 ring-brand-100"
                   >
                     <Icon name={badge.icon} className="h-3.5 w-3.5 text-brand-600" />
                     {badge.label}

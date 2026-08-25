@@ -39,15 +39,15 @@ export function AccessRights() {
                 className={cn(
                   'flex items-start gap-4 rounded-2xl p-5',
                   role.highlight
-                    ? 'bg-ink-900 text-white ring-2 ring-brand-600'
-                    : 'bg-white ring-1 ring-ink-200',
+                    ? 'bg-dark text-white ring-2 ring-brand-600'
+                    : 'bg-surface ring-1 ring-ink-200',
                 )}
               >
                 <span
                   className={cn(
                     'grid h-10 w-10 shrink-0 place-items-center rounded-xl',
                     role.highlight
-                      ? 'bg-brand-600 text-white'
+                      ? 'bg-brand-600 text-on-accent'
                       : 'bg-brand-100 text-brand-700',
                   )}
                 >

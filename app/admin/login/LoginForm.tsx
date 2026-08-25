@@ -24,7 +24,7 @@ export function LoginForm({ next }: { next: string }) {
           required
           autoComplete="username"
           autoFocus
-          className="w-full rounded-xl bg-white px-4 py-3 text-[0.95rem] text-ink-900 ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
+          className="w-full rounded-xl bg-surface px-4 py-3 text-[0.95rem] text-ink-900 ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
         />
       </div>
 
@@ -38,7 +38,7 @@ export function LoginForm({ next }: { next: string }) {
           type="password"
           required
           autoComplete="current-password"
-          className="w-full rounded-xl bg-white px-4 py-3 text-[0.95rem] text-ink-900 ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
+          className="w-full rounded-xl bg-surface px-4 py-3 text-[0.95rem] text-ink-900 ring-1 ring-inset ring-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-600"
         />
       </div>
 

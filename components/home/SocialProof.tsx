@@ -42,7 +42,7 @@ export function SocialProof() {
               ) : (
                 <span
                   aria-hidden="true"
-                  className="grid h-11 w-11 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white"
+                  className="grid h-11 w-11 place-items-center rounded-full bg-brand-600 text-sm font-bold text-on-accent"
                 >
                   {t.name.slice(0, 1)}
                 </span>

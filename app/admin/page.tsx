@@ -51,7 +51,7 @@ export default async function AdminOverview() {
           <Link
             key={s.label}
             href={s.href}
-            className="rounded-2xl bg-white p-6 ring-1 ring-ink-200 transition-shadow hover:shadow-md hover:ring-brand-200"
+            className="rounded-2xl bg-surface p-6 ring-1 ring-ink-200 transition-shadow hover:shadow-md hover:ring-brand-200"
           >
             <dt className="text-xs font-bold uppercase tracking-wider text-ink-500">{s.label}</dt>
             <dd className="mt-2 text-3xl font-bold tabular-nums text-ink-900">{s.value}</dd>
@@ -67,7 +67,7 @@ export default async function AdminOverview() {
             <Link
               key={s}
               href={`/admin/leads?status=${encodeURIComponent(s)}`}
-              className="bg-white px-5 py-4 transition-colors hover:bg-brand-50"
+              className="bg-surface px-5 py-4 transition-colors hover:bg-brand-50"
             >
               <StatusChip status={s} />
               <p className="mt-2 text-2xl font-bold tabular-nums">{counts[s] ?? 0}</p>

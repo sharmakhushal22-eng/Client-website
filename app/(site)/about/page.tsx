@@ -136,7 +136,7 @@ export default function AboutPage() {
           two of its own pages is telling you it has not decided. */}
       <Section tone="tint" ariaLabel="Mission and vision">
         <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2">
-          <div className="rounded-2xl bg-white p-7 ring-1 ring-brand-100">
+          <div className="rounded-2xl bg-surface p-7 ring-1 ring-brand-100">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
               {visionGoal.mission.eyebrow}
             </p>
@@ -144,7 +144,7 @@ export default function AboutPage() {
               {visionGoal.mission.statement}
             </p>
           </div>
-          <div className="rounded-2xl bg-white p-7 ring-1 ring-brand-100">
+          <div className="rounded-2xl bg-surface p-7 ring-1 ring-brand-100">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
               {visionGoal.vision.eyebrow}
             </p>
@@ -161,7 +161,7 @@ export default function AboutPage() {
       {/* ── EZER pillars ─────────────────────────────────────────────────── */}
       {/* The same four promises the product's own login screen makes, so a
           customer meets one pitch rather than two. */}
-      <section className="relative overflow-hidden bg-ink-900 py-12 text-white sm:py-14">
+      <section className="relative overflow-hidden bg-dark py-12 text-white sm:py-14">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-20 -top-24 h-80 w-80 rounded-full bg-brand-600/10"
@@ -208,7 +208,7 @@ export default function AboutPage() {
             <div
               key={value.title}
               data-reveal=""
-              className="rounded-2xl bg-white p-7 ring-1 ring-ink-200/70"
+              className="rounded-2xl bg-surface p-7 ring-1 ring-ink-200/70"
             >
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
                 <Icon name={value.icon} className="h-5 w-5" />
@@ -287,7 +287,7 @@ export default function AboutPage() {
           lede="Here because you are going to look for them, and a page that hides them answers the question badly."
         />
 
-        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl bg-white ring-1 ring-ink-200">
+        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl bg-surface ring-1 ring-ink-200">
           <dl className="divide-y divide-ink-200">
             {/* Rows appear as they become real. A table that lists "CIN: TODO"
                 answers the diligence question worse than one that simply does

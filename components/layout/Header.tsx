@@ -7,6 +7,7 @@ import { Logo } from './Logo'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Icon, type IconName } from '@/components/ui/Icon'
+import { ThemeToggle } from './ThemeToggle'
 import { moduleGroups } from '@/content/modules'
 import { contact } from '@/site.config'
 import { cn } from '@/lib/cn'
@@ -78,7 +79,17 @@ export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    /* Only touch React state when the answer actually changes. scrollY does
+     * not force layout, so the read is cheap — but calling setScrolled on
+     * every event still hands React a render to consider dozens of times a
+     * second, for a boolean that flips twice per page. */
+    let last: boolean | null = null
+    const onScroll = () => {
+      const next = window.scrollY > 8
+      if (next === last) return
+      last = next
+      setScrolled(next)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -124,10 +135,14 @@ export function Header() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 border-b transition-all duration-200',
+        /* Only the two properties that actually change on scroll.
+         * `transition-all` here made the browser watch every animatable
+         * property on an element that repaints every frame while scrolling —
+         * the textbook way to make a sticky header feel heavy. */
+        'sticky top-0 z-50 border-b transition-[background-color,border-color] duration-200',
         scrolled
-          ? 'border-ink-200/80 bg-white/90 backdrop-blur-md'
-          : 'border-transparent bg-white',
+          ? 'border-ink-200/80 bg-surface/95'
+          : 'border-transparent bg-surface',
       )}
     >
       <Container>
@@ -206,7 +221,7 @@ export function Header() {
                           : 'left-1/2 w-[30rem] -translate-x-1/2',
                       )}
                     >
-                      <div className="rounded-xl bg-white p-2 shadow-floating ring-1 ring-ink-200">
+                      <div className="rounded-xl bg-surface p-2 shadow-floating ring-1 ring-ink-200">
                         {item.items.map((link) => (
                           <Link
                             key={link.href}
@@ -252,6 +267,10 @@ export function Header() {
 
           {/* ── Desktop actions ─────────────────────────────────────────── */}
           <div className="hidden items-center gap-3 lg:flex">
+            {/* The toggle is a product demo as much as a control: the site
+                claims the app has a real dark mode, and this is the cheapest
+                possible proof. */}
+            <ThemeToggle />
             <a
               href={`tel:${contact.phoneE164}`}
               className="flex items-center gap-2 rounded-md px-2 py-2 text-sm font-semibold text-ink-900 transition-colors hover:text-brand-700"
@@ -291,7 +310,7 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-menu"
-          className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-ink-200 bg-white lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-ink-200 bg-surface lg:hidden"
         >
           <Container className="py-6">
             {/* The two qualifying questions come FIRST on mobile. On a phone
@@ -350,7 +369,12 @@ export function Header() {
               )
             })}
 
-            <div className="mt-6 space-y-3 border-t border-ink-200 pt-6">
+            <div className="mt-6 flex items-center justify-between border-t border-ink-200 pt-6">
+              <span className="text-sm font-semibold text-ink-900">Theme</span>
+              <ThemeToggle />
+            </div>
+
+            <div className="mt-6 space-y-3 pt-2">
               <Button href="/book-a-demo" size="lg" className="w-full">
                 Book a Demo
               </Button>

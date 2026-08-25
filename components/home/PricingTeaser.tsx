@@ -52,8 +52,8 @@ export function PricingTeaser() {
                 key={row.label}
                 className={`rounded-lg p-4 text-left ${
                   i === 0
-                    ? 'bg-white ring-1 ring-ink-200'
-                    : 'bg-brand-600 text-white'
+                    ? 'bg-surface ring-1 ring-ink-200'
+                    : 'bg-brand-600 text-on-accent'
                 }`}
               >
                 <p

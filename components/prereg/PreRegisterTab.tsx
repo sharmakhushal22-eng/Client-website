@@ -21,7 +21,7 @@ export function PreRegisterTab({
       onClick={onOpen}
       tabIndex={hidden ? -1 : 0}
       aria-hidden={hidden}
-      className={`group fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 items-center gap-2 rounded-l-md bg-brand-600 py-4 pl-3 pr-2.5 text-white shadow-raised transition-all hover:bg-brand-700 hover:pl-4 lg:flex ${
+      className={`group fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 items-center gap-2 rounded-l-md bg-brand-600 py-4 pl-3 pr-2.5 text-on-accent shadow-raised transition-all hover:bg-brand-700 hover:pl-4 lg:flex ${
         hidden ? 'pointer-events-none translate-x-full opacity-0' : ''
       }`}
     >
@@ -58,7 +58,7 @@ export function PreRegisterPill({
       onClick={onOpen}
       tabIndex={hidden ? -1 : 0}
       aria-hidden={hidden}
-      className={`fixed bottom-5 left-5 z-30 flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2.5 text-[0.78rem] font-bold text-white shadow-raised transition-opacity lg:hidden ${
+      className={`fixed bottom-5 left-5 z-30 flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2.5 text-[0.78rem] font-bold text-on-accent shadow-raised transition-opacity lg:hidden ${
         hidden ? 'pointer-events-none opacity-0' : ''
       }`}
     >

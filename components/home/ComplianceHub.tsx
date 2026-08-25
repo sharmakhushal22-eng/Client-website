@@ -168,7 +168,7 @@ export function ComplianceHub() {
 
   return (
     <section
-      className="relative overflow-hidden bg-ink-900 py-12 text-white sm:py-14 lg:py-16"
+      className="relative overflow-hidden bg-dark py-12 text-white sm:py-14 lg:py-16"
       aria-label="Compliance"
     >
       <div

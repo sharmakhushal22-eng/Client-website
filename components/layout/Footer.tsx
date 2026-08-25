@@ -56,7 +56,7 @@ export function Footer() {
   const addr = company.registeredAddress
 
   return (
-    <footer className="bg-ink-900 text-on-dark-muted">
+    <footer className="bg-dark text-on-dark-muted">
       <Container className="py-10 lg:py-12">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           {/* ── Brand, address, contact ─────────────────────────────────── */}
