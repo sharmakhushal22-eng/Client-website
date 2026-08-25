@@ -29,7 +29,35 @@ const paths: Record<IconName, React.ReactNode> = {
   'arrow-right': <><path d="M4 12h16" /><path d="M14 6l6 6-6 6" /></>,
   'phone': <path d="M21 16.9v2.6a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.7 2 2 0 0 1 3.1 1.5h2.6a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L6.8 9.3a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />,
   'mail': <><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" /><path d="M3 7l9 6 9-6" /></>,
-  'whatsapp': <path d="M12.04 2.5a9.4 9.4 0 0 0-8.1 14.14L2.5 21.5l4.98-1.4A9.4 9.4 0 1 0 12.04 2.5zm5.42 13.3c-.23.65-1.35 1.25-1.86 1.3-.5.05-.96.23-3.24-.68-2.73-1.08-4.46-3.85-4.6-4.03-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.24-.27.53-.34.7-.34h.5c.16 0 .38-.06.6.46.22.53.76 1.86.83 2 .07.13.11.29.02.47-.09.18-.13.29-.27.44l-.4.47c-.13.13-.27.28-.12.55.15.26.67 1.1 1.44 1.79.99.88 1.82 1.15 2.08 1.29.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.17-.27.34-.22.58-.13.23.09 1.5.7 1.76.83.26.13.43.2.5.31.06.11.06.63-.17 1.28z" />,
+  /* WhatsApp — the one SOLID mark in an outline set.
+   *
+   * Two things had to change from the sheet's default treatment.
+   *
+   * First, it must be FILLED. Drawn with the shared stroke, a solid logo
+   * traces both edges of the bubble and the handset, so at 24px it collapses
+   * into a tangle of doubled lines.
+   *
+   * Second, the bubble is one solid shape with the handset KNOCKED OUT of it,
+   * not a ring with a handset floating inside. That is what makes the mark
+   * read at small sizes and on a saturated button: a bold white silhouette
+   * with the green showing through the handset, rather than thin white wire.
+   *
+   * fillRule="evenodd" is what does the knockout — a point inside both the
+   * bubble and the handset has an even crossing count, so it renders as a
+   * hole and the button colour shows through. No second colour needed, which
+   * keeps the glyph usable anywhere currentColor goes.
+   *
+   * Official geometry, so the handset sits at the correct angle and the
+   * bubble tail reads as a tail rather than a notch. */
+  'whatsapp': (
+    <path
+      fill="currentColor"
+      stroke="none"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M20.463 3.488A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413zM17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+    />
+  ),
   'calendar': <><rect x="3" y="5" width="18" height="16" rx="2.5" /><path d="M3 10h18M8 3v4M16 3v4" /></>,
   'upload': <><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M7 9l5-5 5 5" /><path d="M12 4v12" /></>,
   'settings': <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.3 7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 2.9-1.2V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z" /></>,
