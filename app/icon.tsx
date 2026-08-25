@@ -21,15 +21,31 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#2563eb',
+          /* Matches the redrawn mark in components/layout/Logo.tsx: the
+             brighter brand-500 tile rather than the UI's 600, so the tab icon
+             and the header logo read as the same object. */
+          background: '#3b82f6',
           color: '#ffffff',
           fontSize: 42,
           fontWeight: 700,
           fontFamily: 'sans-serif',
           borderRadius: 14,
+          position: 'relative',
         }}
       >
         E
+        {/* The gold accent, in the same top-right position as the mark. */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 7,
+            right: 7,
+            width: 12,
+            height: 12,
+            borderRadius: 999,
+            background: '#f5b800',
+          }}
+        />
       </div>
     ),
     size,

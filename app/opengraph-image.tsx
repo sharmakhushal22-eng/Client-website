@@ -50,7 +50,7 @@ export default async function OpengraphImage() {
             E
           </div>
           <div style={{ fontSize: 38, fontWeight: 700, color: '#ffffff' }}>
-            EZER <span style={{ color: '#c4b5fd' }}>HRMS</span>
+            EZER <span style={{ color: '#93c5fd' }}>HRMS</span>
           </div>
         </div>
 
