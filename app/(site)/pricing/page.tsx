@@ -37,7 +37,7 @@ const pricingFaqs = [
   },
   {
     q: 'What happens if our headcount changes mid-cycle?',
-    a: `You are billed on active employees, so joiners and exits are reflected at the next billing date rather than requiring a contract change. The ${pricing.minEmployees}-employee minimum is a floor on billable headcount — below it, you pay for the minimum.`,
+    a: 'You are billed on active employees, so joiners and exits are reflected at the next billing date rather than requiring a contract change. There is no minimum headcount — ten employees or ten thousand, you pay for the people you actually employ.',
   },
   {
     q: 'Does each legal entity or location cost extra?',
@@ -111,7 +111,8 @@ export default function PricingPage() {
             <div className="mt-7 border-y border-white/15 py-7">
               <PriceReveal onDark size="xl" />
               <p className="mt-3 text-sm text-on-dark-faint">
-                Billed annually · minimum {plan.minEmployees} employees ·{' '}
+                Billed annually
+                {plan.minEmployees ? ` · minimum ${plan.minEmployees} employees` : ''} ·{' '}
                 {pricing.gstNote.replace('All prices are exclusive of ', 'plus ')}
               </p>
               <p className="mt-1 text-sm font-semibold text-brand-300">

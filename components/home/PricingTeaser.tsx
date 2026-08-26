@@ -10,7 +10,6 @@ import { PriceReveal } from '@/components/pricing/PriceReveal'
  * section unusually easy — there is a single number, and the interesting part
  * is what it does NOT exclude. */
 export function PricingTeaser() {
-  const plan = pricing.plan
 
   return (
     <Section tone="white" ariaLabel="Pricing">
@@ -24,7 +23,7 @@ export function PricingTeaser() {
           <div className="mt-8">
             <PriceReveal size="xl" align="center" />
             <p className="mt-3 text-sm text-ink-500">
-              Billed annually · minimum {plan.minEmployees} employees ·{' '}
+              Billed annually · no minimum headcount ·{' '}
               {pricing.gstNote.replace('All prices are exclusive of ', 'plus ')}
             </p>
           </div>

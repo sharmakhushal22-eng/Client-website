@@ -40,7 +40,7 @@ export function PricingCalculator({
 }: {
   /* null while pricing is undisclosed — the number never reaches the client. */
   rate: number | null
-  minEmployees: number
+  minEmployees: number | null
   annualDiscountPct: number
   gstNote: string
   planName: string
@@ -57,9 +57,10 @@ export function PricingCalculator({
       ? rate
       : Math.round(rate / (1 - annualDiscountPct / 100))
 
-    /* The minimum is a floor on billable headcount, not on price — a
-     * 30-employee company on a 50-employee minimum pays for 50. */
-    const billable = Math.max(headcount, minEmployees)
+    /* No minimum: billable headcount is simply headcount. When a floor is
+     * configured it still applies — a 30-employee company on a 50-employee
+     * minimum pays for 50 — but the default is now no floor at all. */
+    const billable = minEmployees ? Math.max(headcount, minEmployees) : headcount
     const monthlyCost = billable * effectiveRate
 
     /* What annual billing saves against paying monthly for the same year. */
@@ -72,7 +73,7 @@ export function PricingCalculator({
       monthlyCost,
       annualCost: monthlyCost * 12,
       perEmployeePerDay: effectiveRate / 30,
-      belowMinimum: headcount < minEmployees,
+      belowMinimum: minEmployees !== null && headcount < minEmployees,
       annualSaving,
     }
   }, [headcount, annual, rate, minEmployees, annualDiscountPct])

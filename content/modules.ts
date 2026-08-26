@@ -68,6 +68,29 @@ export const moduleGroups: ModuleGroup[] = [
     ],
   },
   {
+    id: 'plan',
+    name: 'Plan',
+    promise: 'Know the cost before you make the offer.',
+    modules: [
+      {
+        name: 'CTC planning',
+        blurb: 'Model a structure and see in-hand pay, employer cost and statutory impact together — before the offer goes out, not after the first payslip.',
+      },
+      {
+        name: 'Manpower budgeting',
+        blurb: 'Headcount plans by department, branch or company, so hiring has a budget to hire against rather than a number someone remembers.',
+      },
+      {
+        name: 'Planned versus actual',
+        blurb: 'Cost visible as offers are made and people join — not reconciled a quarter later when it is too late to act on.',
+      },
+      {
+        name: 'Straight into payroll',
+        blurb: 'An approved CTC structure flows into payroll and the employee’s ESS with nothing re-entered.',
+      },
+    ],
+  },
+  {
     id: 'time',
     name: 'Time',
     promise: 'Attendance that feeds payroll directly, with nothing retyped.',

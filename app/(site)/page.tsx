@@ -3,6 +3,7 @@ import { Hero } from '@/components/home/Hero'
 import { TrustBar } from '@/components/home/TrustBar'
 import { VisionGoals } from '@/components/home/VisionGoals'
 import { TodayVsEzer } from '@/components/home/TodayVsEzer'
+import { LifecycleStrip } from '@/components/home/LifecycleStrip'
 import { ComplianceHub } from '@/components/home/ComplianceHub'
 import { ModuleExplorer } from '@/components/home/ModuleExplorer'
 import { AccessRights } from '@/components/home/AccessRights'
@@ -24,7 +25,7 @@ import { site } from '@/site.config'
 export const metadata: Metadata = {
   title: { absolute: 'HR, Payroll & Compliance Engine for India | EZER HRMS' },
   description:
-    'India’s first HRMS, payroll and HR compliance engine. Run every company, branch, factory and warehouse from one system — built for the new labour codes. One plan, every module.',
+    'India’s most proactive HRMS — built for every industry and establishment type. One employee or several lakh, one office or hundreds of branches, all consolidated. Recruitment to exit on one record.',
   alternates: { canonical: site.url },
 }
 
@@ -62,6 +63,11 @@ export default function HomePage() {
 
       {/* What is broken today, and what replaces it. */}
       <TodayVsEzer />
+
+      {/* The arc, before the module list. "One record, hire to exit" is the
+          claim; the modules below are the evidence for it. Showing the parts
+          first would make it a feature list looking for a story. */}
+      <LifecycleStrip />
 
       {/* Why it got worse, and what answers it. */}
       <ComplianceHub />

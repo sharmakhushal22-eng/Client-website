@@ -17,6 +17,7 @@ export const metadata: Metadata = pageMetadata({
 
 const groupIcons: Record<string, IconName> = {
   hire: 'briefcase',
+  plan: 'chart',
   onboard: 'user-plus',
   manage: 'users',
   time: 'clock',

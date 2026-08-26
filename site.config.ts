@@ -23,20 +23,29 @@ export const site = {
    * the two properties read as one company. */
   tagline: "India's Intelligent HR Platform",
 
-  /* The headline claim. Note it is a "first" claim: a competitor can contest
-   * it publicly, so make sure someone is comfortable defending it. */
-  headline: "India's first HRMS, payroll and HR compliance engine",
+  /* Was "India's first HRMS…". Dropped deliberately: a "first" claim is
+   * falsifiable by any competitor with a screenshot, and it put the compliance
+   * claims — which are true and much harder won — in the same basket.
+   *
+   * "Most proactive" is a positioning claim rather than a priority claim, and
+   * the site earns it on the page: labour-code rules held as configuration,
+   * applied without waiting for a release. */
+  headline:
+    "India's most proactive HRMS — built for every industry, every establishment type",
 
+  /* Repositioned from the 50–2,000 mid-market to ANY size. The old framing
+   * ("underserved mid-market", "too large for spreadsheets") is gone — it
+   * excluded both ends of the market the product can actually serve. */
   positioning:
-    'EZER runs payroll and statutory compliance for Indian companies that operate ' +
-    'in more than one place — corporate office, branches, factories, warehouses, ' +
-    'across more than one legal entity — from a single system built on the new ' +
-    'labour codes rather than retrofitted to them.',
+    'One employee or several lakh, one office or hundreds of branches, plants and ' +
+    'warehouses — it all consolidates into one platform. Recruitment, CTC and ' +
+    'manpower planning, payroll, statutory compliance and employee experience, ' +
+    'across every establishment type, every industry, every state.',
 
   description:
-    'EZER HRMS is an Indian HR, payroll and compliance engine. Run every company ' +
-    'in the group from one operation, apply each state’s rules at the location ' +
-    'they belong to, and hold the statutory position for all of them in one place.',
+    'EZER HRMS is an Indian HR, payroll and compliance engine for companies of ' +
+    'every size — a forty-person startup or a group running lakhs across hundreds ' +
+    'of offices, plants and branches. Recruitment to exit, on one employee record.',
 } as const
 
 /* ── Contact ───────────────────────────────────────────────────────────────
@@ -196,13 +205,18 @@ export const pricing = {
 
   currency: '₹',
   annualDiscountPct: 20,
-  minEmployees: 50,
+  /* No minimum. A 50-employee floor directly contradicted the positioning —
+   * "from your first ten hires", "one employee to any number" — and it is the
+   * kind of contradiction a careful reader finds on the pricing page and then
+   * distrusts everything else on it. */
+  minEmployees: null as number | null,
   gstNote: 'All prices are exclusive of 18% GST.',
 
   plan: {
     id: 'complete',
-    name: 'EZER Complete',
-    tagline: 'The entire product. Every module, every statutory head, one rate.',
+    name: 'EZER Platform',
+    tagline:
+      'Every live module, included — from your first ten hires to your first lakh.',
     /* Per employee per month, on annual billing.
      *
      * Deliberately NOT a literal. This repository is public, and a number
@@ -217,9 +231,9 @@ export const pricing = {
      * is still unconfirmed. Set PRICE_PER_EMPLOYEE and flip `disclosed` only
      * once it is signed off. */
     pricePerEmployee: Number(process.env.PRICE_PER_EMPLOYEE) || null,
-    minEmployees: 50,
+    minEmployees: null as number | null,
     implementationFee: 0,
-    bestFor: 'Any company from 50 employees, in any number of states',
+    bestFor: 'Any Indian company, at any size, in any number of states',
 
     /* Deliberately grouped rather than a flat list of forty modules. A buyer
      * scanning for "is my thing in here" finds the group, not the bullet. */
@@ -249,8 +263,9 @@ export const pricing = {
   enterprise: {
     id: 'enterprise',
     name: 'Enterprise',
-    tagline: 'When procurement, security review and integration get involved.',
-    bestFor: 'Groups above ~2,000 employees, or where IT owns the decision',
+    tagline:
+      'Same full platform — plus dedicated support for multi-entity groups running at real scale.',
+    bestFor: 'Multi-entity groups running at real scale, or where IT owns the decision',
     /* Everything in the plan, plus: */
     adds: [
       'Single sign-on and directory sync',
@@ -289,10 +304,14 @@ export const pricing = {
  * customer whose logo you are about to publish. */
 export const trust = {
   showClientLogos: false,
+  /* Deliberately qualitative. These are claims about what the product SPANS,
+   * which is checkable on the page, rather than customer counts nobody can
+   * verify yet — the same reason the founding-customer panel exists instead of
+   * invented testimonials. */
   stats: [
-    { value: 'TODO', label: 'companies run payroll on EZER' },  // TODO
-    { value: 'TODO', label: 'employees paid every month' },     // TODO
-    { value: 'TODO', label: 'states covered for PT and LWF' },  // TODO
+    { value: '4', label: 'new Labour Codes covered' },
+    { value: '7+', label: 'statutory acts automated' },
+    { value: 'No ceiling', label: 'employees per company or group' },
   ],
   clientLogos: [] as Array<{ name: string; src: string }>,
 }

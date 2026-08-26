@@ -4,15 +4,19 @@ import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { EngineWidget } from '@/components/home/EngineWidget'
 import { trustBadges } from '@/site.config'
-import { flags, structure } from '@/content/positioning'
+import { structure } from '@/content/positioning'
+import { brandPromises } from '@/content/lifecycle'
 
 /* Spec §4.1 §2 — H1, one-line subhead, two CTAs, product screenshot.
  * "Above the fold on a 360px phone. No carousel."
  *
- * The H1 is the company's own headline claim: India's first HRMS, payroll and
- * HR compliance engine. The subhead carries the differentiator that follows
- * from it — every location's compliance position produced together, rather
- * than assembled branch by branch. */
+ * The H1 carries the repositioning: any size, all consolidated. It replaced
+ * "India's first HRMS…" — a "first" claim is falsifiable by any competitor
+ * with a screenshot, and it put the compliance claims, which are true and much
+ * harder won, in the same basket as it.
+ *
+ * The subhead does the work the old H1 was doing: every establishment type and
+ * every state, held in one place rather than assembled branch by branch. */
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-brand-50">
@@ -26,31 +30,41 @@ export function Hero() {
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-1.5 text-xs font-semibold text-brand-700 ring-1 ring-brand-200">
               <span aria-hidden="true">🇮🇳</span>
-              Built for the new labour codes
+              India&rsquo;s most proactive HRMS — every industry, every
+              establishment type
             </p>
 
             {/* The page's single <h1> — spec §8.4. */}
-            <h1 className="mt-5 max-w-[15ch] text-[1.95rem] font-bold leading-[1.08] sm:max-w-none sm:text-[2.6rem] lg:text-[2.95rem]">
-              India&rsquo;s first HRMS, payroll and{' '}
-              <span className="text-brand-600">HR compliance engine</span>
+            <h1 className="mt-5 text-[1.95rem] font-bold leading-[1.08] sm:text-[2.6rem] lg:text-[2.95rem]">
+              Built for every kind of Indian company.{' '}
+              <span className="text-brand-600">
+                From one employee to any number
+              </span>{' '}
+              — all consolidated.
             </h1>
 
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">
-              {flags.complianceEngineLive ? (
-                <>
-                  Corporate office, branches, factory, warehouse — run centrally, across
-                  every company you operate. Generate the compliance register for all of
-                  them in <strong className="font-semibold text-ink-900">one go</strong>.
-                </>
-              ) : (
-                <>
-                  Corporate office, branches, factory, warehouse — every company you
-                  operate, run centrally. One employee master, state-wise statutory rules,
-                  and the whole group&rsquo;s position in{' '}
-                  <strong className="font-semibold text-ink-900">one place</strong>.
-                </>
-              )}
+              One employee or several lakh, one office or hundreds of branches,
+              plants and warehouses — it all consolidates into one platform.
+              Recruitment, CTC and manpower planning, payroll, statutory
+              compliance and employee experience, across every establishment
+              type, every industry, every state.
             </p>
+
+            {/* The product's own three promises, from the redesign. Kept as a
+                quiet row rather than a headline: they are reassurance for
+                someone already reading, not the reason to start. */}
+            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-1.5">
+              {brandPromises.map((promise) => (
+                <li
+                  key={promise}
+                  className="flex items-center gap-1.5 text-[0.82rem] font-medium text-ink-600"
+                >
+                  <Icon name="check" className="h-3.5 w-3.5 text-emerald-600" />
+                  {promise}
+                </li>
+              ))}
+            </ul>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button href="/book-a-demo" size="lg">

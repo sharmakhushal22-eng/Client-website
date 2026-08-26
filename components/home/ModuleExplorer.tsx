@@ -17,6 +17,7 @@ import { moduleGroups, solutions } from '@/content/modules'
 
 const groupIcons: Record<string, IconName> = {
   hire: 'briefcase',
+  plan: 'chart',
   onboard: 'user-plus',
   manage: 'users',
   time: 'clock',
