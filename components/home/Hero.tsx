@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
@@ -20,9 +21,46 @@ import { brandPromises } from '@/content/lifecycle'
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-brand-50">
+      {/* The photograph sits on the RIGHT of the hero, bleeding off the edge,
+       * with the engine widget floating in front of it.
+       *
+       * The crop is anchored to 78% across, not the centre. Centred, the
+       * widget landed squarely over two of the four faces, which reads as an
+       * accident rather than a composition. Pushed right, the card overlaps
+       * background and the figures it does not cover stay whole.
+       *
+       * It also leaves the left half — where the H1, the lede and both CTAs
+       * live — on flat ground, so nothing that has to be read is ever fighting
+       * a photograph.
+       *
+       * Hidden below lg. On a phone the hero is already a full screen of text
+       * and the photo would push the primary CTA below the fold, which is the
+       * one thing the hero cannot afford. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] lg:block">
+        <Image
+          src="/photos/team-lobby.jpg"
+          alt=""
+          fill
+          sizes="(max-width: 1024px) 0px, 46vw"
+          /* NOT priority. It is decorative and sits behind a scrim, so it is
+           * not the LCP element — the H1 is. Marking it priority would emit a
+           * preload that competes with the headline for the first connection,
+           * and would fetch it on phones where the panel is display:none. */
+          loading="lazy"
+          className="select-none object-cover object-[78%_22%]"
+        />
+
+        {/* Two scrims. The horizontal one dissolves the photo's left edge into
+         * the page so it reads as part of the hero rather than as a pasted-in
+         * rectangle; the vertical one keeps the top clear of the header and
+         * the bottom clear of the trust badges. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-50 via-brand-50/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-50/85 via-transparent to-brand-50/95" />
+      </div>
+
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_40rem_at_70%_-10%,rgba(37, 99, 235,0.16),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_40rem_at_70%_-10%,rgba(37,99,235,0.16),transparent)]"
       />
 
       <Container className="relative py-10 sm:py-14 lg:py-16">
