@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" width="560" height="440" fill="none" role="img" aria-label="Shop-floor employee punching in">
+<style>
+.rip{transform-origin:427px 170px;animation:r 4s ease-out infinite}
+@keyframes r{0%,40%{transform:scale(.7);opacity:.45}70%,100%{transform:scale(1.35);opacity:0}}
+.btn{transform-origin:427px 170px;animation:b 4s ease-in-out infinite}
+@keyframes b{0%,36%,48%,100%{transform:scale(1)}42%{transform:scale(.9)}}
+.ic1{animation:f1 4s steps(1) infinite}@keyframes f1{0%,44%{opacity:1}45%,100%{opacity:0}}
+.ic2{animation:f2 4s steps(1) infinite}@keyframes f2{0%,44%{opacity:0}45%,100%{opacity:1}}
+.t1{animation:f1 4s steps(1) infinite}
+.t2{animation:f2 4s steps(1) infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.ic1,.t1{opacity:1}.ic2,.t2{opacity:0}.rip{opacity:0}}</style>
+<rect width="560" height="440" rx="24" fill="#F3F5F8"/>
+
+<ellipse cx="236" cy="350" rx="66" ry="11" fill="#2563EB" opacity=".10"/>
+<rect x="40" y="60" width="480" height="1" fill="#E5E7EB"/>
+<path d="M60 130h60v-40h40v40h60v-46h40v46" stroke="#E5E7EB" stroke-width="2" fill="none" opacity=".7"/>
+<rect x="352" y="96" width="150" height="196" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+<circle class="rip" cx="427" cy="170" r="42" fill="#2563EB" opacity=".2"/>
+<circle cx="427" cy="170" r="42" fill="#EFF6FF"/>
+<circle class="btn" cx="427" cy="170" r="30" fill="#2563EB"/>
+<path class="ic1" d="M427 156v14l10 6" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path class="ic2" d="m415 170 8 8 16-18" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0"/>
+<text class="t1" x="427" y="240" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#1D4ED8">Punch In</text>
+<text class="t2" x="427" y="240" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#047857" opacity="0">09:24 AM</text>
+<text x="427" y="264" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" fill="#626D80">Shift 09:30 - 18:30</text>
+<g transform="translate(190 142) scale(0.96)">
+  <path d="M40 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/><path d="M62 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/>
+  <path d="M30 78q20-10 40 0l6 66q-26 9-52 0z" fill="#B45309"/>
+  <path d="M28 84q-14 26-6 48" stroke="#B45309" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <circle cx="21" cy="134" r="8" fill="#C98A5E"/>
+  <path d="M72 84q26-6 30-30" stroke="#047857" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="104" cy="52" r="8" fill="#C98A5E"/>
+  <rect x="43" y="52" width="14" height="18" rx="6" fill="#C98A5E"/>
+  <circle cx="50" cy="36" r="22" fill="#C98A5E"/>
+  <path d="M28 34a22 22 0 0 1 44 0q-10-7-22-7t-22 7z" fill="#3B2E24"/>
+</g>
+<g>
+  <rect x="40" y="188" width="126" height="52" rx="13" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="58" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9" font-weight="800" letter-spacing="1" fill="#626D80">RULE SET</text>
+  <text x="58" y="230" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#1D4ED8">Factories Act</text>
+</g>
+</svg>

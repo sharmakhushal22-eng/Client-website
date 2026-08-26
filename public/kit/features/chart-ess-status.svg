@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 600" width="940" height="600" fill="none" role="img" aria-label="Employee self-service &#8212; honest status board">
+<rect x=".5" y=".5" width="939" height="599" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text x="28" y="44" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="800" fill="#111827">Employee self-service &#8212; honest status board</text>
+<text x="28" y="64" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#4B5563" opacity=".85">Internal use. Do not put the right-hand column on the marketing site.</text><rect x="794" y="26" width="120" height="26" rx="13" fill="#B45309" opacity=".12"/><text x="854" y="43" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" fill="#B45309">internal only</text>
+<text x="28" y="118" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1.1" fill="#047857">LIVE &#183; 12</text>
+<text x="320" y="118" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1.1" fill="#B45309">PARTIAL &#183; 9</text>
+<text x="612" y="118" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1.1" fill="#C0201F">NOT BUILT &#183; 4</text>
+<rect x="28" y="138" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="152" r="4.5" fill="#047857"/>
+  <text x="60" y="156" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Home</text><rect x="28" y="172" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="186" r="4.5" fill="#047857"/>
+  <text x="60" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Profile</text><rect x="28" y="206" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="220" r="4.5" fill="#047857"/>
+  <text x="60" y="224" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Attendance</text><rect x="28" y="240" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="254" r="4.5" fill="#047857"/>
+  <text x="60" y="258" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Leave</text><rect x="28" y="274" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="288" r="4.5" fill="#047857"/>
+  <text x="60" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Fun Zone</text><rect x="28" y="308" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="322" r="4.5" fill="#047857"/>
+  <text x="60" y="326" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Flexi Benefits</text><rect x="28" y="342" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="356" r="4.5" fill="#047857"/>
+  <text x="60" y="360" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Flexi Claims</text><rect x="28" y="376" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="390" r="4.5" fill="#047857"/>
+  <text x="60" y="394" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Investment Proofs</text><rect x="28" y="410" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="424" r="4.5" fill="#047857"/>
+  <text x="60" y="428" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Voluntary PF</text><rect x="28" y="444" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="458" r="4.5" fill="#047857"/>
+  <text x="60" y="462" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Corporate NPS</text><rect x="28" y="478" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="492" r="4.5" fill="#047857"/>
+  <text x="60" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Travel Claims</text><rect x="28" y="512" width="264" height="28" rx="9" fill="#ECFDF5"/>
+  <circle cx="44" cy="526" r="4.5" fill="#047857"/>
+  <text x="60" y="530" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Loans</text>
+<rect x="320" y="138" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="152" r="4.5" fill="#B45309"/>
+  <text x="352" y="156" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Payroll</text><rect x="320" y="172" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="186" r="4.5" fill="#B45309"/>
+  <text x="352" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Salary Slip</text><rect x="320" y="206" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="220" r="4.5" fill="#B45309"/>
+  <text x="352" y="224" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Statutory</text><rect x="320" y="240" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="254" r="4.5" fill="#B45309"/>
+  <text x="352" y="258" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">HRIS</text><rect x="320" y="274" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="288" r="4.5" fill="#B45309"/>
+  <text x="352" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">My Letters</text><rect x="320" y="308" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="322" r="4.5" fill="#B45309"/>
+  <text x="352" y="326" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Team Directory</text><rect x="320" y="342" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="356" r="4.5" fill="#B45309"/>
+  <text x="352" y="360" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Tasks &amp; Approvals</text><rect x="320" y="376" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="390" r="4.5" fill="#B45309"/>
+  <text x="352" y="394" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Raise a Request</text><rect x="320" y="410" width="264" height="28" rx="9" fill="#FFFBEB"/>
+  <circle cx="336" cy="424" r="4.5" fill="#B45309"/>
+  <text x="352" y="428" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Exit Process</text>
+<rect x="612" y="138" width="264" height="28" rx="9" fill="#FEF2F2"/>
+  <circle cx="628" cy="152" r="4.5" fill="#C0201F"/>
+  <text x="644" y="156" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Performance (PMS)</text><rect x="612" y="172" width="264" height="28" rx="9" fill="#FEF2F2"/>
+  <circle cx="628" cy="186" r="4.5" fill="#C0201F"/>
+  <text x="644" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Team</text><rect x="612" y="206" width="264" height="28" rx="9" fill="#FEF2F2"/>
+  <circle cx="628" cy="220" r="4.5" fill="#C0201F"/>
+  <text x="644" y="224" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">Wall of Fame</text><rect x="612" y="240" width="264" height="28" rx="9" fill="#FEF2F2"/>
+  <circle cx="628" cy="254" r="4.5" fill="#C0201F"/>
+  <text x="644" y="258" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">RNR</text>
+<rect x="612" y="284" width="264" height="76" rx="12" fill="#F3F4F6"/>
+<text x="628" y="308" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" fill="#111827">Performance (PMS)</text>
+<text x="628" y="326" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#4B5563">Built and reviewed. Migrations 055</text>
+<text x="628" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#4B5563">and 056 not run &#8212; no deploy needed.</text>
+<rect x="28" y="540" width="884" height="36" rx="10" fill="#F3F4F6"/>
+<text x="52" y="563" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#4B5563">Your doc calls PMS live in section 4 and not switched on in section 5, and the section list totals 25 against a stated 22. Worth reconciling.</text>
+</svg>

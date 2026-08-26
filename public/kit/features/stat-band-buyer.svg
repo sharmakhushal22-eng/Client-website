@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 180" width="1000" height="180" fill="none" role="img" aria-label="What a buyer sees">
+<rect x="24" y="24" width="171" height="132" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="46" y="88" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="30" font-weight="800" fill="#1D4ED8">3</text>
+  <text x="46" y="114" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#4B5563">companies, one instance</text>
+  <rect x="46" y="128" width="30" height="4" rx="2" fill="#2563EB" opacity=".45"/><rect x="219" y="24" width="171" height="132" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="241" y="88" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="30" font-weight="800" fill="#1D4ED8">398</text>
+  <text x="241" y="114" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#4B5563">active employees</text>
+  <rect x="241" y="128" width="30" height="4" rx="2" fill="#2563EB" opacity=".45"/><rect x="414" y="24" width="171" height="132" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="436" y="88" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="30" font-weight="800" fill="#1D4ED8">24</text>
+  <text x="436" y="114" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#4B5563">departments</text>
+  <rect x="436" y="128" width="30" height="4" rx="2" fill="#2563EB" opacity=".45"/><rect x="610" y="24" width="171" height="132" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="632" y="88" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="30" font-weight="800" fill="#1D4ED8">32</text>
+  <text x="632" y="114" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#4B5563">admin screens</text>
+  <rect x="632" y="128" width="30" height="4" rx="2" fill="#2563EB" opacity=".45"/><rect x="805" y="24" width="171" height="132" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="827" y="88" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="30" font-weight="800" fill="#1D4ED8">22</text>
+  <text x="827" y="114" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#4B5563">self-service sections</text>
+  <rect x="827" y="128" width="30" height="4" rx="2" fill="#2563EB" opacity=".45"/></svg>

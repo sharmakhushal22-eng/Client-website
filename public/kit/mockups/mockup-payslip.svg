@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 640" width="560" height="640" fill="none" role="img" aria-label="EZER payslip with income tax worksheet">
+  <defs>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#111827"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient>
+    <filter id="s2" x="-10%" y="-6%" width="126%" height="118%"><feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#1D4ED8" flood-opacity=".18"/></filter>
+  </defs>
+  <g filter="url(#s2)">
+    <rect x="20" y="16" width="520" height="608" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <path d="M20 34a18 18 0 0 1 18-18h484a18 18 0 0 1 18 18v56H20z" fill="url(#hd)"/>
+    <rect x="44" y="38" width="30" height="30" rx="9" fill="#fff" opacity=".16"/>
+    <rect x="51" y="45" width="16" height="4" rx="2" fill="#fff"/><rect x="51" y="52" width="10" height="4" rx="2" fill="#fff" opacity=".8"/><rect x="51" y="59" width="16" height="4" rx="2" fill="#fff"/>
+    <text x="86" y="52" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#fff">Salary Slip</text>
+    <text x="86" y="70" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#93C5FD">October 2026 &#183; Old Regime</text>
+    <rect x="404" y="44" width="112" height="20" rx="10" fill="#fff" opacity=".14"/>
+    <text x="460" y="58" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#fff">SRS0512</text>
+
+    <rect x="36" y="108" width="230" height="10" rx="5" fill="#111827" opacity=".2"/>
+    <rect x="36" y="128" width="150" height="8" rx="4" fill="#111827" opacity=".12"/>
+    <rect x="296" y="108" width="200" height="10" rx="5" fill="#111827" opacity=".2"/>
+    <rect x="296" y="128" width="120" height="8" rx="4" fill="#111827" opacity=".12"/>
+    <path d="M36 156h488" stroke="#E5E7EB"/>
+
+    <text x="46" y="186" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" letter-spacing="1.2" fill="#2563EB">EARNINGS</text>
+    <text x="296" y="186" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" letter-spacing="1.2" fill="#2563EB">DEDUCTIONS</text>
+    <text x="46" y="210" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#111827" opacity=".45">DESCRIPTION</text>
+    <text x="264" y="210" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#111827" opacity=".45">TOTAL</text>
+    <text x="296" y="210" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#111827" opacity=".45">DESCRIPTION</text>
+    <text x="514" y="210" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#111827" opacity=".45">TOTAL</text>
+    <text x="46" y="236" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">Basic</text>
+  <text x="264" y="236" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">62,500</text>
+  <path d="M46 246h218" stroke="#E5E7EB"/><text x="46" y="266" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">HRA</text>
+  <text x="264" y="266" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">31,250</text>
+  <path d="M46 276h218" stroke="#E5E7EB"/><text x="46" y="296" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">Special Allowance</text>
+  <text x="264" y="296" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">24,180</text>
+  <path d="M46 306h218" stroke="#E5E7EB"/><text x="46" y="326" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">Car Fuel</text>
+  <text x="264" y="326" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">1,800</text>
+  <path d="M46 336h218" stroke="#E5E7EB"/><text x="46" y="356" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">Meal Card</text>
+  <text x="264" y="356" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">2,200</text>
+  <path d="M46 366h218" stroke="#E5E7EB"/>
+    <text x="296" y="236" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">EPF</text>
+  <text x="514" y="236" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">7,500</text>
+  <path d="M296 246h218" stroke="#E5E7EB"/><text x="296" y="266" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">PT</text>
+  <text x="514" y="266" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">200</text>
+  <path d="M296 276h218" stroke="#E5E7EB"/><text x="296" y="296" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">TDS</text>
+  <text x="514" y="296" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">30,171</text>
+  <path d="M296 306h218" stroke="#E5E7EB"/><text x="296" y="326" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" fill="#111827" opacity=".8">ESIC</text>
+  <text x="514" y="326" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827">0</text>
+  <path d="M296 336h218" stroke="#E5E7EB"/>
+
+    <rect x="36" y="412" width="488" height="64" rx="14" fill="#2563EB" opacity=".08"/>
+    <text x="60" y="440" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#1D4ED8">NET PAY</text>
+    <text x="60" y="462" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="10" fill="#111827" opacity=".55">Eighty four thousand fifty nine only</text>
+    <text x="500" y="452" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="24" font-weight="800" fill="#1D4ED8">&#8377;84,059</text>
+
+    <text x="46" y="508" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" letter-spacing="1.2" fill="#2563EB">INCOME TAX WORKSHEET</text>
+    <rect x="36" y="522" width="488" height="1" fill="#E5E7EB"/>
+    <rect x="46" y="538" width="120" height="8" rx="4" fill="#111827" opacity=".16"/><rect x="404" y="538" width="60" height="8" rx="4" fill="#111827" opacity=".22"/>
+    <rect x="46" y="560" width="164" height="8" rx="4" fill="#111827" opacity=".16"/><rect x="404" y="560" width="80" height="8" rx="4" fill="#111827" opacity=".22"/>
+    <rect x="46" y="582" width="96" height="8" rx="4" fill="#111827" opacity=".16"/><rect x="404" y="582" width="50" height="8" rx="4" fill="#111827" opacity=".22"/>
+    <rect x="46" y="600" width="140" height="8" rx="4" fill="#10B981" opacity=".5"/><rect x="404" y="600" width="70" height="8" rx="4" fill="#10B981" opacity=".7"/>
+  </g>
+</svg>

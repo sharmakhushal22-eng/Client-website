@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { Illustration } from '@/components/ui/Illustration'
 import { ScreenshotFrame } from '@/components/ui/ScreenshotFrame'
 import { StatutoryTable } from '@/components/sections/StatutoryTable'
 import { Faq } from '@/components/sections/Faq'
@@ -99,11 +100,30 @@ export default async function FeatureDetailPage({
               </div>
             </div>
 
-            <ScreenshotFrame
-              src={page.screenshots[0]?.src}
-              alt={page.screenshots[0]?.alt ?? `${page.name} in EZER HRMS`}
-              priority
-            />
+            {/* Prefer a real screenshot the moment one exists. Until then a
+                kit illustration beats the "Screenshot pending" placeholder,
+                which was the first thing a visitor saw on all five module
+                pages — but it is labelled as drawn, so nothing here implies a
+                UI that the demo call would then have to contradict. */}
+            {page.screenshots[0]?.src ? (
+              <ScreenshotFrame
+                src={page.screenshots[0].src}
+                alt={page.screenshots[0].alt}
+                priority
+              />
+            ) : page.illustration ? (
+              <Illustration
+                src={page.illustration.src}
+                alt={page.illustration.alt}
+                ratio={page.illustration.ratio}
+                priority
+              />
+            ) : (
+              <ScreenshotFrame
+                alt={page.screenshots[0]?.alt ?? `${page.name} in EZER HRMS`}
+                priority
+              />
+            )}
           </div>
         </Container>
       </section>

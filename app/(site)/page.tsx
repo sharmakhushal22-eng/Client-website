@@ -3,6 +3,7 @@ import { Hero } from '@/components/home/Hero'
 import { TrustBar } from '@/components/home/TrustBar'
 import { VisionGoals } from '@/components/home/VisionGoals'
 import { TodayVsEzer } from '@/components/home/TodayVsEzer'
+import { InPractice } from '@/components/home/InPractice'
 import { LifecycleStrip } from '@/components/home/LifecycleStrip'
 import { ComplianceHub } from '@/components/home/ComplianceHub'
 import { ModuleExplorer } from '@/components/home/ModuleExplorer'
@@ -68,6 +69,7 @@ export default function HomePage() {
           claim; the modules below are the evidence for it. Showing the parts
           first would make it a feature list looking for a story. */}
       <LifecycleStrip />
+      <InPractice />
 
       {/* Why it got worse, and what answers it. */}
       <ComplianceHub />

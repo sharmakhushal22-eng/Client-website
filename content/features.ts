@@ -26,6 +26,10 @@ export type FeaturePage = {
   problem: string[]
   capabilities: { title: string; body: string }[]
   screenshots: { src?: string; alt: string; title: string; caption: string }[]
+  /* A kit illustration for the page hero, used while real screenshots do not
+     exist yet. Rendered by <Illustration>, which labels it as drawn — never
+     by <ScreenshotFrame>, which would present it as the running product. */
+  illustration?: { src: string; alt: string; ratio?: string }
   personas: Persona[]
   related: { slug: string; name: string; blurb: string }[]
   faqs: { q: string; a: string }[]
@@ -68,6 +72,12 @@ export const featurePages: FeaturePage[] = [
       { title: 'Arrears that reach backwards', body: 'A retrospective increment recalculates the affected months and carries its statutory effect with it, rather than being dropped in as a lump sum that breaks the PF reconciliation.' },
       { title: 'Full & final in one settlement', body: 'Notice period, leave encashment, gratuity, loan recovery and pending claims resolved together, with the statutory deductions applied to the settlement itself.' },
     ],
+    illustration: {
+      src: '/kit/mockups/mockup-payslip.svg',
+      ratio: 'aspect-[7/8]',
+      alt:
+        'A payslip showing earnings, deductions and the statutory basis for each — EPF, ESIC and Professional Tax.',
+    },
     screenshots: [
       { alt: 'Payroll run screen showing the month-on-month variance review before release', title: 'Review the variance, not the register', caption: 'The run shows what changed since last month and why — joiners, exits, arrears, attendance impact. You approve the differences.' },
       { alt: 'Payslip showing earnings, deductions, EPF, ESIC and Professional Tax with the statutory basis for each', title: 'A payslip that explains itself', caption: 'Each deduction carries its basis. When an employee asks why PF changed, the payslip answers before HR has to.' },
@@ -112,6 +122,12 @@ export const featurePages: FeaturePage[] = [
       { title: 'Holiday calendars per location', body: 'A Maharashtra location and a Tamil Nadu location do not share a holiday list. Neither should their attendance.' },
       { title: 'Reports that answer the question', body: 'Muster roll, late marks, absenteeism and shift coverage, by location and by month, exportable.' },
     ],
+    illustration: {
+      src: '/kit/specialized/anim-punch-in.svg',
+      ratio: 'aspect-[6/5]',
+      alt:
+        'An employee punching in from the portal against their shift.',
+    },
     screenshots: [
       { alt: 'Monthly attendance grid showing shifts, leave and regularisation status per employee', title: 'The month at a glance', caption: 'Every employee, every day, colour-coded by status — with the exceptions surfaced rather than buried.' },
       { alt: 'Leave application and approval screen with the running balance shown', title: 'One balance, seen by everyone', caption: 'The employee, the approving manager and payroll all read the same number.' },
@@ -154,6 +170,12 @@ export const featurePages: FeaturePage[] = [
       { title: 'Bulk employee upload', body: 'Bringing an existing workforce in is a spreadsheet upload, not a data-entry project.' },
       { title: 'Straight into the employee master', body: 'On joining, the verified record becomes the employee record. Nothing is retyped, so nothing is mistyped.' },
     ],
+    illustration: {
+      src: '/kit/scenes/scene-candidate-offer.svg',
+      ratio: 'aspect-[15/11]',
+      alt:
+        'A candidate reviewing an offer, with the old-versus-new regime comparison shown before they accept.',
+    },
     screenshots: [
       { alt: 'Candidate pipeline board showing applicants by recruitment stage', title: 'Where every candidate actually is', caption: 'Stages, owners and outcomes in one place — including the ones that have gone quiet.' },
       { alt: 'Candidate onboarding portal where the joiner enters personal, bank and PF details', title: 'The joiner does the typing', caption: 'And they get it right, because it is their own bank account and their own PAN.' },
@@ -196,6 +218,12 @@ export const featurePages: FeaturePage[] = [
       { title: 'Letters on request', body: 'Offer, confirmation, experience and relieving letters generated from your templates rather than drafted individually.' },
       { title: 'Support desk', body: 'When the answer genuinely needs a person, the question arrives as a ticket rather than as the fourth message in a thread.' },
     ],
+    illustration: {
+      src: '/kit/specialized/mockup-ess-portal.svg',
+      ratio: 'aspect-[16/9]',
+      alt:
+        'The employee self-service portal — payslips, leave balance, attendance and documents.',
+    },
     screenshots: [
       { alt: 'Employee self-service portal home showing payslips, leave balance and pending actions', title: 'Everything an employee asks for', caption: 'Payslips, balances, declarations and documents — on the first screen.' },
       { alt: 'Tax declaration screen showing investment declarations and projected tax for the year', title: 'Declarations, with the consequence shown', caption: 'The employee sees what a declaration does to their monthly deduction, which is when they get it right.' },
@@ -237,6 +265,12 @@ export const featurePages: FeaturePage[] = [
       { title: 'Straight into payroll', body: 'An approved claim becomes a payroll component in the next run, without a separate instruction to whoever processes salary.' },
       { title: 'A year-to-date position, always', body: 'What has been claimed, against what was declared, against what the limit allows — for any employee, at any point in the year.' },
     ],
+    illustration: {
+      src: '/kit/features/anim-gps-claim.svg',
+      ratio: 'aspect-[16/9]',
+      alt:
+        'A travel claim being re-measured server-side against the submitted GPS trail and priced from the policy rate card.',
+    },
     screenshots: [
       { alt: 'Finance approval queue showing pending flexi and travel claims with attached proofs', title: 'One queue for Finance', caption: 'Pending claims, the supporting document, and the year-to-date position — in the place the decision is made.' },
       { alt: 'Travel claim showing a GPS-measured trip route and calculated distance', title: 'The distance is measured', caption: 'Which is a shorter conversation than the one about whether it was really 140 kilometres.' },

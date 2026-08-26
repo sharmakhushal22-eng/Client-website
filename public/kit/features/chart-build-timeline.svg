@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 486" width="940" height="486" fill="none" role="img" aria-label="Thirteen phases, fifty-six migrations">
+<rect x=".5" y=".5" width="939" height="485" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text x="28" y="44" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="800" fill="#111827">Thirteen phases, fifty-six migrations</text>
+<text x="28" y="64" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#4B5563" opacity=".85">The real build sequence, taken from the migration history</text><rect x="794" y="26" width="120" height="26" rx="13" fill="#047857" opacity=".12"/><text x="854" y="43" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" fill="#047857">12 of 13 live</text>
+<rect x="28" y="96" width="432" height="38" rx="10" fill="#F3F4F6"/>
+  <circle cx="52" cy="115" r="9" fill="#047857" opacity=".18"/>
+  <path d="m47 115 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="74" y="114" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 1</text>
+  <text x="74" y="127" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Recruitment &amp; ATS</text>
+  <text x="440" y="120" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">0001-048</text><rect x="480" y="96" width="432" height="38" rx="10" fill="#F3F4F6"/>
+  <circle cx="504" cy="115" r="9" fill="#047857" opacity=".18"/>
+  <path d="m499 115 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="526" y="114" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 2</text>
+  <text x="526" y="127" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Onboarding</text>
+  <text x="892" y="120" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">007-020</text><rect x="28" y="142" width="432" height="38" rx="10" fill="#FFFFFF"/>
+  <circle cx="52" cy="161" r="9" fill="#047857" opacity=".18"/>
+  <path d="m47 161 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="74" y="160" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 3</text>
+  <text x="74" y="173" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">ESS foundation</text>
+  <text x="440" y="166" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">021-022</text><rect x="480" y="142" width="432" height="38" rx="10" fill="#FFFFFF"/>
+  <circle cx="504" cy="161" r="9" fill="#047857" opacity=".18"/>
+  <path d="m499 161 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="526" y="160" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 4</text>
+  <text x="526" y="173" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Employee master</text>
+  <text x="892" y="166" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">024-034</text><rect x="28" y="188" width="432" height="38" rx="10" fill="#F3F4F6"/>
+  <circle cx="52" cy="207" r="9" fill="#047857" opacity=".18"/>
+  <path d="m47 207 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="74" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 5</text>
+  <text x="74" y="219" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Company, roles, policy</text>
+  <text x="440" y="212" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">027-033</text><rect x="480" y="188" width="432" height="38" rx="10" fill="#F3F4F6"/>
+  <circle cx="504" cy="207" r="9" fill="#047857" opacity=".18"/>
+  <path d="m499 207 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="526" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 6</text>
+  <text x="526" y="219" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Time, attendance, leave</text>
+  <text x="892" y="212" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">026-036</text><rect x="28" y="234" width="432" height="38" rx="10" fill="#FFFFFF"/>
+  <circle cx="52" cy="253" r="9" fill="#047857" opacity=".18"/>
+  <path d="m47 253 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="74" y="252" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 7</text>
+  <text x="74" y="265" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Transfers</text>
+  <text x="440" y="258" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">038</text><rect x="480" y="234" width="432" height="38" rx="10" fill="#FFFFFF"/>
+  <circle cx="504" cy="253" r="9" fill="#047857" opacity=".18"/>
+  <path d="m499 253 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="526" y="252" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 8</text>
+  <text x="526" y="265" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Flexi &amp; declarations</text>
+  <text x="892" y="258" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">039-043</text><rect x="28" y="280" width="432" height="38" rx="10" fill="#F3F4F6"/>
+  <circle cx="52" cy="299" r="9" fill="#047857" opacity=".18"/>
+  <path d="m47 299 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="74" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 9</text>
+  <text x="74" y="311" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Payroll</text>
+  <text x="440" y="304" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">044</text><rect x="480" y="280" width="432" height="38" rx="10" fill="#F3F4F6"/>
+  <circle cx="504" cy="299" r="9" fill="#047857" opacity=".18"/>
+  <path d="m499 299 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="526" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 10</text>
+  <text x="526" y="311" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Loans</text>
+  <text x="892" y="304" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">045-046</text><rect x="28" y="326" width="432" height="38" rx="10" fill="#FFFFFF"/>
+  <circle cx="52" cy="345" r="9" fill="#047857" opacity=".18"/>
+  <path d="m47 345 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="74" y="344" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 11</text>
+  <text x="74" y="357" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Travel claims</text>
+  <text x="440" y="350" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">049-052</text><rect x="480" y="326" width="432" height="38" rx="10" fill="#FFFFFF"/>
+  <circle cx="504" cy="345" r="9" fill="#047857" opacity=".18"/>
+  <path d="m499 345 3.4 3.4 6.6-7.4" stroke="#047857" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="526" y="344" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 12</text>
+  <text x="526" y="357" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Finance department</text>
+  <text x="892" y="350" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">053-054</text><rect x="28" y="372" width="432" height="38" rx="10" fill="#F3F4F6"/>
+  <circle cx="52" cy="391" r="9" fill="#B45309" opacity=".18"/>
+  <text x="52" y="395" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" fill="#B45309">&#183;&#183;</text>
+  <text x="74" y="390" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="700" fill="#626D80">PHASE 13</text>
+  <text x="74" y="403" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#374151">Performance (PMS)</text>
+  <text x="440" y="396" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">055-056</text><rect x="28" y="424" width="884" height="38" rx="10" fill="#FFFBEB"/>
+<text x="52" y="448" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="700" fill="#B45309">Phase 13 is written and reviewed &#8212; migrations 055 and 056 have not been run yet.</text>
+</svg>

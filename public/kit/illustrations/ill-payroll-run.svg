@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 220" width="780" height="220" fill="none" role="img" aria-label="Eight step payroll run">
+  <rect x="24" y="24" width="732" height="172" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="56" y="66" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" fill="#111827">Payroll run &#183; October 2026</text>
+  <rect x="626" y="50" width="100" height="22" rx="11" fill="#10B981" opacity=".14"/>
+  <text x="676" y="65" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="800" fill="#10B981">5 of 8 done</text>
+  <path d="M60 120h656" stroke="#E5E7EB" stroke-width="3" stroke-linecap="round"/>
+  <path d="M60 120h388" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="60" cy="120" r="13" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+  <path d="m55 120 3.6 3.6 7-7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="60" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700" fill="#111827" opacity=".8">Lock attendance</text><circle cx="142" cy="120" r="13" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+  <path d="m137 120 3.6 3.6 7-7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="142" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700" fill="#111827" opacity=".8">Sync masters</text><circle cx="224" cy="120" r="13" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+  <path d="m219 120 3.6 3.6 7-7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="224" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700" fill="#111827" opacity=".8">Compute</text><circle cx="306" cy="120" r="13" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+  <path d="m301 120 3.6 3.6 7-7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="306" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700" fill="#111827" opacity=".8">TDS + arrears</text><circle cx="388" cy="120" r="13" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+  <path d="m383 120 3.6 3.6 7-7.6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="388" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700" fill="#111827" opacity=".8">Review</text><circle cx="470" cy="120" r="11" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+  
+  <text x="470" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#111827" opacity=".38">Approve</text><circle cx="552" cy="120" r="11" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+  
+  <text x="552" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#111827" opacity=".38">Bank file</text><circle cx="634" cy="120" r="11" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+  
+  <text x="634" y="164" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#111827" opacity=".38">Payslips</text>
+</svg>

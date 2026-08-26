@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import Link from 'next/link'
+import { RisingWords } from './RisingWords'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
@@ -21,41 +21,33 @@ import { brandPromises } from '@/content/lifecycle'
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-brand-50">
-      {/* The photograph sits on the RIGHT of the hero, bleeding off the edge,
-       * with the engine widget floating in front of it.
+      {/* Ambient orbs instead of a photograph.
        *
-       * The crop is anchored to 78% across, not the centre. Centred, the
-       * widget landed squarely over two of the four faces, which reads as an
-       * accident rather than a composition. Pushed right, the card overlaps
-       * background and the figures it does not cover stay whole.
+       * The hero WAS too simple, but a stock photo behind the headline was the
+       * wrong fix — the reference design gets its life from motion, not
+       * imagery: words that rise, orbs that drift, a sheen that crosses. That
+       * reads as a product with craft in it; a photo of people in a lobby
+       * reads as a template.
        *
-       * It also leaves the left half — where the H1, the lede and both CTAs
-       * live — on flat ground, so nothing that has to be read is ever fighting
-       * a photograph.
-       *
-       * Hidden below lg. On a phone the hero is already a full screen of text
-       * and the photo would push the primary CTA below the fold, which is the
-       * one thing the hero cannot afford. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] lg:block">
-        <Image
-          src="/photos/team-lobby.jpg"
-          alt=""
-          fill
-          sizes="(max-width: 1024px) 0px, 46vw"
-          /* NOT priority. It is decorative and sits behind a scrim, so it is
-           * not the LCP element — the H1 is. Marking it priority would emit a
-           * preload that competes with the headline for the first connection,
-           * and would fetch it on phones where the panel is display:none. */
-          loading="lazy"
-          className="select-none object-cover object-[78%_22%]"
+       * Large, slow and low-contrast on purpose. These should register as
+       * depth in peripheral vision and never pull the eye off the copy. */}
+      {/* Large screens only. The positions are percentages of the hero box; on
+          a narrow phone that box is tall and thin, so the orbs stop being
+          background and start sitting directly behind the headline — which is
+          the same "picture in the way of the words" problem the photo had. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block">
+        <span
+          className="ez-orb ez-orb-1 h-40 w-40 opacity-60"
+          style={{ top: '12%', right: '8%', background: 'radial-gradient(circle at 30% 30%, rgba(37,99,235,.30), rgba(37,99,235,0) 70%)' }}
         />
-
-        {/* Two scrims. The horizontal one dissolves the photo's left edge into
-         * the page so it reads as part of the hero rather than as a pasted-in
-         * rectangle; the vertical one keeps the top clear of the header and
-         * the bottom clear of the trust badges. */}
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-50 via-brand-50/55 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-50/85 via-transparent to-brand-50/95" />
+        <span
+          className="ez-orb ez-orb-2 h-28 w-28 opacity-60"
+          style={{ bottom: '16%', right: '26%', background: 'radial-gradient(circle at 35% 35%, rgba(4,120,87,.20), rgba(4,120,87,0) 70%)' }}
+        />
+        <span
+          className="ez-orb ez-orb-3 h-48 w-48 opacity-60"
+          style={{ top: '38%', left: '-60px', background: 'radial-gradient(circle at 40% 40%, rgba(96,165,250,.28), rgba(96,165,250,0) 70%)' }}
+        />
       </div>
 
       <div
@@ -73,12 +65,17 @@ export function Hero() {
             </p>
 
             {/* The page's single <h1> — spec §8.4. */}
+            {/* The words rise in sequence. The accent clause carries on from
+                where the first line stopped, so the whole headline reads as
+                one arrival rather than two competing ones. */}
             <h1 className="mt-5 text-[1.95rem] font-bold leading-[1.08] sm:text-[2.6rem] lg:text-[2.95rem]">
-              Built for every kind of Indian company.{' '}
-              <span className="text-brand-600">
-                From one employee to any number
-              </span>{' '}
-              — all consolidated.
+              <RisingWords text="Built for every kind of Indian company." />{' '}
+              <RisingWords
+                text="From one employee to any number"
+                className="text-brand-600"
+                startDelay={380}
+              />{' '}
+              <RisingWords text="— all consolidated." startDelay={760} />
             </h1>
 
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">
@@ -92,7 +89,7 @@ export function Hero() {
             {/* The product's own three promises, from the redesign. Kept as a
                 quiet row rather than a headline: they are reassurance for
                 someone already reading, not the reason to start. */}
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-1.5">
+            <ul className="ez-sheen mt-6 flex flex-wrap gap-x-5 gap-y-1.5 rounded-lg">
               {brandPromises.map((promise) => (
                 <li
                   key={promise}
@@ -105,9 +102,9 @@ export function Hero() {
             </ul>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/book-a-demo" size="lg">
+              <Button href="/book-a-demo" size="lg" className="group">
                 Book a Demo
-                <Icon name="arrow-right" className="h-4 w-4" />
+                <Icon name="arrow-right" className="ez-bob h-4 w-4" />
               </Button>
               <Button href="/pricing" variant="secondary" size="lg">
                 See Pricing

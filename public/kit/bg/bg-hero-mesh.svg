@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="">
+  <defs>
+    <radialGradient id="g1" cx=".18" cy=".12" r=".7"><stop offset="0" stop-color="#2563EB" stop-opacity=".30"/><stop offset="1" stop-color="#2563EB" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx=".88" cy=".08" r=".6"><stop offset="0" stop-color="#38BDF8" stop-opacity=".22"/><stop offset="1" stop-color="#38BDF8" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g3" cx=".62" cy="1" r=".7"><stop offset="0" stop-color="#93C5FD" stop-opacity=".40"/><stop offset="1" stop-color="#93C5FD" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0v56" stroke="#1D4ED8" stroke-opacity=".07" stroke-width="1" fill="none"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="m"><rect width="1600" height="900" fill="url(#fade)"/></mask>
+  </defs>
+  <rect width="1600" height="900" fill="#F3F5F8"/>
+  <rect width="1600" height="900" fill="url(#grid)" mask="url(#m)"/>
+  <rect width="1600" height="900" fill="url(#g1)"/>
+  <rect width="1600" height="900" fill="url(#g2)"/>
+  <rect width="1600" height="900" fill="url(#g3)"/>
+  <path d="M0 720c260-90 420 60 700-10s520-160 900-40v230H0Z" fill="#fff" opacity=".55"/>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 140" width="880" height="140" fill="none" role="img" aria-label="Avatar set">
+<g>
+  <circle cx="56" cy="70" r="46" fill="#F3F4F6"/>
+  <clipPath id="c0"><circle cx="56" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c0)">
+    <g transform="translate(6 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#2563EB"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#C98A5E"/>
+      <circle cx="50" cy="46" r="22" fill="#C98A5E"/>
+      <path d="M28 34a22 22 0 0 1 44 0q-10-7-22-7t-22 7z" fill="#3B2E24"/>
+    </g>
+  </g>
+</g><g>
+  <circle cx="160" cy="70" r="46" fill="#EFF6FF"/>
+  <clipPath id="c1"><circle cx="160" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c1)">
+    <g transform="translate(110 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#1D4ED8"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#A96D42"/>
+      <circle cx="50" cy="46" r="22" fill="#A96D42"/>
+      <path d="M27 32a23 23 0 0 1 46 0v4H27z" fill="#1F1A16"/><circle cx="50" cy="6" r="9" fill="#1F1A16"/>
+    </g>
+  </g>
+</g><g>
+  <circle cx="264" cy="70" r="46" fill="#F3F4F6"/>
+  <clipPath id="c2"><circle cx="264" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c2)">
+    <g transform="translate(214 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#475569"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#E0A97C"/>
+      <circle cx="50" cy="46" r="22" fill="#E0A97C"/>
+      <path d="M27 34a23 23 0 0 1 46 0v42q-8 6-10-2l-2-30H39l-2 30q-2 8-10 2z" fill="#332721"/>
+    </g>
+  </g>
+</g><g>
+  <circle cx="368" cy="70" r="46" fill="#EFF6FF"/>
+  <clipPath id="c3"><circle cx="368" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c3)">
+    <g transform="translate(318 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#60A5FA"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#8A5533"/>
+      <circle cx="50" cy="46" r="22" fill="#8A5533"/>
+      <path d="M26 36a24 24 0 0 1 48 0q-6-8-14-6t-20 2-14 4z" fill="#2B2119"/>
+    </g>
+  </g>
+</g><g>
+  <circle cx="472" cy="70" r="46" fill="#F3F4F6"/>
+  <clipPath id="c4"><circle cx="472" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c4)">
+    <g transform="translate(422 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#2563EB"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#C98A5E"/>
+      <circle cx="50" cy="46" r="22" fill="#C98A5E"/>
+      <path d="M27 32a23 23 0 0 1 46 0v4H27z" fill="#3B2E24"/><circle cx="50" cy="6" r="9" fill="#3B2E24"/>
+    </g>
+  </g>
+</g><g>
+  <circle cx="576" cy="70" r="46" fill="#EFF6FF"/>
+  <clipPath id="c5"><circle cx="576" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c5)">
+    <g transform="translate(526 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#475569"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#A96D42"/>
+      <circle cx="50" cy="46" r="22" fill="#A96D42"/>
+      <path d="M28 34a22 22 0 0 1 44 0q-10-7-22-7t-22 7z" fill="#1F1A16"/>
+    </g>
+  </g>
+</g><g>
+  <circle cx="680" cy="70" r="46" fill="#F3F4F6"/>
+  <clipPath id="c6"><circle cx="680" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c6)">
+    <g transform="translate(630 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#1D4ED8"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#E0A97C"/>
+      <circle cx="50" cy="46" r="22" fill="#E0A97C"/>
+      <path d="M26 36a24 24 0 0 1 48 0q-6-8-14-6t-20 2-14 4z" fill="#332721"/>
+    </g>
+  </g>
+</g><g>
+  <circle cx="784" cy="70" r="46" fill="#EFF6FF"/>
+  <clipPath id="c7"><circle cx="784" cy="70" r="46"/></clipPath>
+  <g clip-path="url(#c7)">
+    <g transform="translate(734 4)">
+      <path d="M30 90q20-10 40 0l8 40H22z" fill="#93C5FD"/>
+      <rect x="43" y="62" width="14" height="18" rx="6" fill="#8A5533"/>
+      <circle cx="50" cy="46" r="22" fill="#8A5533"/>
+      <path d="M27 34a23 23 0 0 1 46 0v42q-8 6-10-2l-2-30H39l-2 30q-2 8-10 2z" fill="#2B2119"/>
+    </g>
+  </g>
+</g></svg>

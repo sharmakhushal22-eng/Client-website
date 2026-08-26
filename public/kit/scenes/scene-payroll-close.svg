@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" width="600" height="420" fill="none" role="img" aria-label="Closing the monthly payroll run">
+<style>
+.pb{transform-origin:176px 126px;animation:g 4.5s ease-in-out infinite}
+@keyframes g{0%{transform:scaleX(.04)}70%,100%{transform:scaleX(1)}}
+.ok{animation:o 4.5s ease-out infinite}
+@keyframes o{0%,66%{opacity:0;transform:translateY(6px)}76%,100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.pb{transform:none}.ok{opacity:1;transform:none}}</style>
+<rect width="600" height="420" rx="24" fill="#F3F5F8"/>
+
+<ellipse cx="97" cy="334" rx="58" ry="9" fill="#2563EB" opacity=".10"/><ellipse cx="494" cy="336" rx="56" ry="9" fill="#2563EB" opacity=".10"/>
+<rect x="150" y="70" width="300" height="196" rx="16" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text x="176" y="102" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="800" letter-spacing="1.2" fill="#2563EB">PAYROLL RUN &#183; OCTOBER</text>
+<rect x="176" y="120" width="248" height="12" rx="6" fill="#F3F4F6"/>
+<rect class="pb" x="176" y="120" width="248" height="12" rx="6" fill="#2563EB"/>
+<rect x="176" y="152" width="116" height="46" rx="11" fill="#F3F4F6"/>
+<text x="192" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9" font-weight="700" fill="#626D80">EMPLOYEES</text>
+<text x="192" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="800" fill="#111827">398</text>
+<rect x="308" y="152" width="116" height="46" rx="11" fill="#EFF6FF"/>
+<text x="324" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9" font-weight="700" fill="#1D4ED8">NET PAYABLE</text>
+<text x="324" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="800" fill="#1D4ED8">&#8377;4.82 Cr</text>
+<g class="ok">
+  <rect x="176" y="214" width="248" height="32" rx="16" fill="#ECFDF5"/>
+  <path d="m196 230 5 5 10-11" stroke="#047857" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="222" y="235" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" fill="#047857">Statutory filed &#183; bank file ready</text>
+</g>
+<g transform="translate(52 142) scale(0.88)">
+  <path d="M40 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/><path d="M62 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/>
+  <path d="M30 78q20-10 40 0l6 66q-26 9-52 0z" fill="#1D4ED8"/>
+  <path d="M28 84q-14 26-6 48" stroke="#1D4ED8" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <circle cx="21" cy="134" r="8" fill="#A96D42"/>
+  <path d="M72 84q14 26 6 48" stroke="#1D4ED8" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="79" cy="134" r="8" fill="#A96D42"/>
+  <rect x="43" y="52" width="14" height="18" rx="6" fill="#A96D42"/>
+  <circle cx="50" cy="36" r="22" fill="#A96D42"/>
+  <path d="M27 32a23 23 0 0 1 46 0v4H27z" fill="#2B2119"/><circle cx="50" cy="6" r="9" fill="#2B2119"/>
+</g>
+<g transform="translate(452 152) scale(0.84)">
+  <path d="M40 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/><path d="M62 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/>
+  <path d="M30 78q20-10 40 0l6 66q-26 9-52 0z" fill="#475569"/>
+  <path d="M28 84q-14 26-6 48" stroke="#475569" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <circle cx="21" cy="134" r="8" fill="#8A5533"/>
+  <path d="M72 84q14 26 6 48" stroke="#475569" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="79" cy="134" r="8" fill="#8A5533"/>
+  <rect x="43" y="52" width="14" height="18" rx="6" fill="#8A5533"/>
+  <circle cx="50" cy="36" r="22" fill="#8A5533"/>
+  <path d="M26 36a24 24 0 0 1 48 0q-6-8-14-6t-20 2-14 4z" fill="#1F1A16"/>
+</g>
+</svg>

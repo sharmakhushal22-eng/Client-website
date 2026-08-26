@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" fill="none" role="img" aria-label="The client number is never what gets paid">
+<style>
+  .trail{stroke-dasharray:420;stroke-dashoffset:420;animation:tr 6s ease-in-out infinite}
+  @keyframes tr{0%{stroke-dashoffset:420}22%,100%{stroke-dashoffset:0}}
+  .snap{stroke-dasharray:420;stroke-dashoffset:420;animation:sn 6s ease-in-out infinite}
+  @keyframes sn{0%,42%{stroke-dashoffset:420}62%,100%{stroke-dashoffset:0}}
+  .flow{stroke-dasharray:8 12;animation:fl 1.4s linear infinite}
+  @keyframes fl{to{stroke-dashoffset:-40}}
+  .cl{animation:pop 6s ease-out infinite}
+  @keyframes pop{0%,22%{opacity:0;transform:translateY(6px)}30%,100%{opacity:1;transform:none}}
+  .sv{animation:pop2 6s ease-out infinite}
+  @keyframes pop2{0%,42%{opacity:.35}52%,100%{opacity:1}}
+  .pay{animation:pop3 6s ease-out infinite}
+  @keyframes pop3{0%,64%{opacity:0;transform:scale(.94)}74%,100%{opacity:1;transform:none}}
+  .cn{animation:pop 6s ease-out infinite}
+  .strike{stroke-dasharray:150;stroke-dashoffset:150;animation:st 6s ease-out infinite}
+  @keyframes st{0%,46%{stroke-dashoffset:150}56%,100%{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important}.trail,.snap,.strike{stroke-dashoffset:0}.cl,.sv,.pay,.cn{opacity:1;transform:none}}
+</style>
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient>
+  <filter id="s"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#111827" flood-opacity=".14"/></filter>
+</defs>
+<rect width="1000" height="560" rx="24" fill="#F3F5F8"/>
+
+<text x="40" y="40" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4" fill="#626D80">ON THE PHONE</text>
+<g filter="url(#s)"><rect x="40" y="56" width="196" height="300" rx="22" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+<rect x="54" y="70" width="168" height="272" rx="16" fill="#F3F4F6"/>
+<path d="M74 320c14-46 44-52 58-96s6-72 34-96 40-6 56-18" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round" fill="none" opacity=".16"/>
+<path d="M74 320c14-46 44-52 58-96s6-72 34-96 40-6 56-18" class="trail" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+<circle cx="74" cy="320" r="6" fill="#2563EB"/><circle cx="222" cy="110" r="6" fill="#047857"/>
+<g class="cl">
+  <rect x="40" y="374" width="196" height="52" rx="13" fill="#FFFBEB"/>
+  <text x="60" y="396" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="800" letter-spacing="1" fill="#B45309">CLIENT SAYS</text>
+  <text x="60" y="416" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="800" fill="#B45309">18.4 km</text>
+  <path class="strike" d="M56 408h120" stroke="#C0201F" stroke-width="2.4" stroke-linecap="round"/>
+</g>
+<text x="40" y="446" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#626D80">never what gets paid</text>
+
+<path class="flow" d="M248 200h56" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round"/>
+<path d="m300 194 8 6-8 6" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+<text x="324" y="40" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4" fill="#626D80">ON THE SERVER</text>
+<g class="sv" filter="url(#s)"><rect x="324" y="56" width="330" height="370" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+<g class="sv">
+  <text x="352" y="92" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="800" fill="#111827">Re-measured independently</text>
+  <rect x="352" y="110" width="274" height="150" rx="14" fill="#F3F4F6"/>
+  <path d="M376 240c22-38 58-40 74-78s10-52 40-62 50 4 72-8" stroke="#626D80" stroke-width="2.5" stroke-dasharray="5 6" fill="none" opacity=".6"/>
+  <path d="M376 240c26-34 60-36 78-74s14-50 44-58 48 2 66-14" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round" fill="none" opacity=".16"/>
+<path class="snap" d="M376 240c26-34 60-36 78-74s14-50 44-58 48 2 66-14" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <text x="368" y="284" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#626D80">raw trail</text>
+  <rect x="424" y="274" width="10" height="10" rx="2" fill="#2563EB"/>
+  <text x="442" y="284" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#626D80">road-snapped &#183; optional upgrade</text>
+  <rect x="352" y="302" width="130" height="46" rx="12" fill="#F3F4F6"/>
+  <text x="368" y="322" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#626D80">RAW</text>
+  <text x="368" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="800" fill="#4B5563">18.4 km</text>
+  <rect x="496" y="302" width="130" height="46" rx="12" fill="#EFF6FF"/>
+  <text x="512" y="322" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="700" fill="#1D4ED8">SNAPPED</text>
+  <text x="512" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="800" fill="#1D4ED8">21.2 km</text>
+  <text x="352" y="380" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#626D80">No API key? Raw measurement is used, and the</text>
+  <text x="352" y="396" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#626D80">response says so. It degrades honestly.</text>
+</g>
+
+<path class="flow" d="M666 200h56" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round"/>
+<path d="m718 194 8 6-8 6" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+<text x="742" y="40" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4" fill="#626D80">PRICED FROM POLICY</text>
+<g class="pay" filter="url(#s)"><rect x="742" y="56" width="218" height="370" rx="20" fill="url(#g)"/></g>
+<g class="pay">
+  <text x="770" y="96" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.2" fill="#fff" opacity=".7">RATE CARD</text>
+  <text x="770" y="126" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="700" fill="#fff">&#8377;12.00 / km</text>
+  <rect x="770" y="146" width="162" height="1" fill="#fff" opacity=".25"/>
+  <text x="770" y="178" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#fff" opacity=".75">21.2 km &#215; &#8377;12.00</text>
+  <text x="770" y="230" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="34" font-weight="800" fill="#fff">&#8377;254.40</text>
+  <rect x="770" y="252" width="140" height="28" rx="14" fill="#fff" opacity=".18"/>
+  <path d="m786 266 4 4 8-9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="806" y="270" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" fill="#fff">Server-priced</text>
+  <text x="770" y="326" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#fff" opacity=".7">A tampered client figure</text>
+  <text x="770" y="344" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#fff" opacity=".7">cannot reach a claim.</text>
+</g>
+
+<text x="40" y="460" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4" fill="#626D80">concerns[] &#8212; flagged, not silently paid</text>
+<g class="cn" style="animation-delay:2.40s">
+    <rect x="40" y="470" width="286" height="46" rx="12" fill="#FFFBEB"/>
+    <circle cx="66" cy="493" r="9" fill="#B45309" opacity=".2"/>
+    <text x="66" y="498" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#B45309">!</text>
+    <text x="86" y="497" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#B45309">Implausible speed</text>
+  </g><g class="cn" style="animation-delay:2.60s">
+    <rect x="346" y="470" width="286" height="46" rx="12" fill="#FFFBEB"/>
+    <circle cx="372" cy="493" r="9" fill="#B45309" opacity=".2"/>
+    <text x="372" y="498" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#B45309">!</text>
+    <text x="392" y="497" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#B45309">Poor GPS accuracy</text>
+  </g><g class="cn" style="animation-delay:2.80s">
+    <rect x="652" y="470" width="286" height="46" rx="12" fill="#FEF2F2"/>
+    <circle cx="678" cy="493" r="9" fill="#C0201F" opacity=".2"/>
+    <text x="678" y="498" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#C0201F">!</text>
+    <text x="698" y="497" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="600" fill="#C0201F">Gap in trail</text>
+  </g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 440" width="600" height="440" fill="none" role="img" aria-label="A one-to-one review between a manager and their reportee">
+
+<rect width="600" height="440" rx="24" fill="#F3F5F8"/>
+
+<ellipse cx="103" cy="356" rx="62" ry="10" fill="#2563EB" opacity=".10"/><ellipse cx="473" cy="358" rx="58" ry="9" fill="#2563EB" opacity=".10"/>
+<rect x="196" y="96" width="228" height="164" rx="14" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text x="218" y="126" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9.5" font-weight="800" letter-spacing="1.1" fill="#2563EB">KRA WEIGHTAGE</text>
+<rect x="218" y="140" width="184" height="10" rx="5" fill="#F3F4F6"/><rect x="218" y="140" width="66" height="10" rx="5" fill="#2563EB"/>
+<rect x="218" y="162" width="184" height="10" rx="5" fill="#F3F4F6"/><rect x="218" y="162" width="46" height="10" rx="5" fill="#60A5FA"/>
+<rect x="218" y="184" width="184" height="10" rx="5" fill="#F3F4F6"/><rect x="218" y="184" width="42" height="10" rx="5" fill="#93C5FD"/>
+<rect x="218" y="206" width="184" height="10" rx="5" fill="#F3F4F6"/><rect x="218" y="206" width="30" height="10" rx="5" fill="#BFDBFE"/>
+<rect x="218" y="228" width="86" height="20" rx="10" fill="#ECFDF5"/>
+<text x="230" y="242" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="800" fill="#047857">100 / 100</text>
+<rect x="296" y="260" width="28" height="18" fill="#E5E7EB"/>
+<rect x="266" y="278" width="88" height="9" rx="4.5" fill="#E5E7EB"/>
+<g transform="translate(58 158) scale(0.9)">
+  <path d="M40 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/><path d="M62 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/>
+  <path d="M30 78q20-10 40 0l6 66q-26 9-52 0z" fill="#1D4ED8"/>
+  <path d="M28 84q-14 26-6 48" stroke="#1D4ED8" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <circle cx="21" cy="134" r="8" fill="#E0A97C"/>
+  <path d="M72 84q30 4 40-24" stroke="#1D4ED8" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="114" cy="58" r="8" fill="#E0A97C"/>
+  <rect x="43" y="52" width="14" height="18" rx="6" fill="#E0A97C"/>
+  <circle cx="50" cy="36" r="22" fill="#E0A97C"/>
+  <path d="M28 34a22 22 0 0 1 44 0q-10-7-22-7t-22 7z" fill="#3B2E24"/>
+</g>
+<g transform="translate(430 170) scale(0.86)">
+  <path d="M40 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/><path d="M62 142v72" stroke="#475569" stroke-width="17" stroke-linecap="round"/>
+  <path d="M30 78q20-10 40 0l6 66q-26 9-52 0z" fill="#475569"/>
+  <path d="M28 84q-14 26-6 48" stroke="#475569" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <circle cx="21" cy="134" r="8" fill="#C98A5E"/>
+  <path d="M72 84q14 26 6 48" stroke="#475569" stroke-width="15" stroke-linecap="round" fill="none"/><circle cx="79" cy="134" r="8" fill="#C98A5E"/>
+  <rect x="43" y="52" width="14" height="18" rx="6" fill="#C98A5E"/>
+  <circle cx="50" cy="36" r="22" fill="#C98A5E"/>
+  <path d="M27 34a23 23 0 0 1 46 0v42q-8 6-10-2l-2-30H39l-2 30q-2 8-10 2z" fill="#332721"/>
+</g>
+</svg>

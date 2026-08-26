@@ -505,13 +505,33 @@ input[type='range']::-moz-range-thumb {
 }
 .ez-core-ring.is-pulsing::before { animation: ezCorePulse .85s ease-out; }
 
+/* An idle halo breathing out of the core, from the reference design.
+   It earns its place: before you click, nothing on the widget signals that
+   it is interactive at all. The halo is what makes the eye land on the node
+   and then on the button under it.
+   Mostly still, with a short swell every six seconds — a steady throb would
+   fight the click pulse above and read as a loading spinner. */
+.ez-core-ring::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: var(--color-brand-600);
+  opacity: .13;
+  animation: ezHaloPulse 6s ease-in-out infinite;
+}
+/* While the engine is actually running, the idle hint has done its job and
+   would only muddy the click pulse. */
+.ez-core-ring.is-pulsing::after { animation: none; opacity: 0; }
+
 /* The engine's motion is the whole point of the widget, but it is decorative:
    the component skips straight to the finished state when motion is reduced,
    so the information still arrives. */
 @media (prefers-reduced-motion: reduce) {
   .ez-live-dot,
   .ez-connector.is-flowing .ez-flow-dot,
-  .ez-core-ring.is-pulsing::before { animation: none; }
+  .ez-core-ring.is-pulsing::before,
+  .ez-core-ring::after { animation: none; }
 }
 
 /* ── WhatsApp float ────────────────────────────────────────────────────────
@@ -559,4 +579,143 @@ input[type='range']::-moz-range-thumb {
   .ez-halo::before,
   .ez-halo::after { animation: none; opacity: 0; }
   .ez-wa-label { transition: none; }
+}
+
+/* ============================================================================
+   MOTION — ported from the reference design.
+
+   The reference hero is not "not simple" because of a photograph; it is not
+   simple because things MOVE. Words rise into place, orbs drift behind the
+   copy, a sheen crosses the tagline, halos breathe on the engine nodes. That
+   is a different and better answer than putting a stock photo behind the
+   headline, and it is the one the file actually gives.
+
+   Every animation below is decorative and every one is switched off under
+   prefers-reduced-motion at the end of this block.
+   ========================================================================= */
+
+/* Words of the H1 rise and settle. The stagger is what sells it — all at once
+   reads as one block fading, which is the thing it is replacing. */
+@keyframes ezWordRise {
+  from { opacity: 0; transform: translateY(0.4em) rotate(1.2deg); }
+  to   { opacity: 1; transform: translateY(0) rotate(0); }
+}
+/* Base state is VISIBLE, and the animation fills BACKWARDS — it reaches back
+   to pull the word down and transparent during its delay, then lets the
+   element fall back to its own opacity:1 when it ends.
+   The obvious spelling (opacity:0 base, fill both) looks identical but is one
+   dropped animation away from a permanently invisible H1 — the same class of
+   bug that already blanked pages on this site once. This way, if the
+   animation never runs for any reason, the headline is simply there. */
+.ez-word {
+  display: inline-block;
+  opacity: 1;
+  animation: ezWordRise 0.62s cubic-bezier(.2, .7, .3, 1) backwards;
+}
+
+/* Ambient orbs. Slow, large and low-contrast: they should register as depth,
+   never as something to look at. */
+@keyframes ezFloatA { 0%,100% { transform: translate(0,0) scale(1); }   50% { transform: translate(18px,-22px) scale(1.05); } }
+@keyframes ezFloatB { 0%,100% { transform: translate(0,0) scale(1); }   50% { transform: translate(-22px,16px) scale(1.08); } }
+@keyframes ezFloatC { 0%,100% { transform: translate(0,0) scale(1); }   50% { transform: translate(14px,20px) scale(0.95); } }
+.ez-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+.ez-orb-1 { animation: ezFloatA 14s ease-in-out infinite; }
+.ez-orb-2 { animation: ezFloatB 18s ease-in-out infinite; }
+.ez-orb-3 { animation: ezFloatC 22s ease-in-out infinite; }
+
+/* A sheen crossing a surface once every few seconds. Long pause, quick
+   sweep — a constant shimmer reads as a broken gradient. */
+@keyframes ezSheen { 0% { background-position: 180% 0; } 55%, 100% { background-position: -80% 0; } }
+.ez-sheen {
+  background-image: linear-gradient(
+    100deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.55) 48%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  animation: ezSheen 6.5s ease-in-out infinite;
+}
+
+/* A halo breathing out of a node. Mostly idle, with a short pulse — a steady
+   throb would compete with the engine animation next to it. */
+@keyframes ezHaloPulse {
+  0%        { transform: scale(1);   opacity: .13; }
+  7%        { transform: scale(1.6); opacity: .36; }
+  22%, 100% { transform: scale(1);   opacity: .13; }
+}
+
+/* The reference's eyebrow glow is deliberately NOT ported. There it wraps a
+   padded pill, where a swelling ring reads as a highlight. This site's
+   eyebrow is a bare line of uppercase text, and a box-shadow ring around a
+   full-width text block reads as a rendering artefact, not as design. */
+
+/* An arrow that nudges forward on hover. */
+@keyframes ezBobArrow { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+.group:hover .ez-bob { animation: ezBobArrow 1s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-word { animation: none; transform: none; }
+  .ez-orb-1, .ez-orb-2, .ez-orb-3,
+  .ez-sheen, .group:hover .ez-bob { animation: none; }
+}
+
+/* ── Employee lifecycle: the record travelling the track ───────────────────
+   The section's whole claim is "watch the SAME record travel the whole
+   lifecycle". A static line states that; a dot that actually walks it from
+   Hire to Exit demonstrates it, which is the difference between a diagram
+   and an argument.
+
+   The reference draws this inside an SVG and moves the dot with SMIL
+   (<animateMotion> + <mpath>). Two reasons this is CSS instead:
+
+   1. The reference path is "M80 110 H920" — dead straight. Motion along a
+      straight line is a translateX; <mpath> buys nothing here and costs a
+      fixed-size SVG that has to scroll sideways on a phone.
+   2. SMIL is not a CSS animation, so `animation: none` cannot stop it. The
+      reference's reduced-motion block lists .travel-dot and has no effect on
+      it whatsoever — the dot keeps moving for a visitor who asked everything
+      to stop. As a CSS animation it obeys the same switch as the rest.
+
+   The dot pauses at the end and fades before restarting, so the loop reads
+   as "the record arrived" rather than as a thing on a conveyor belt. */
+@keyframes ezTravel {
+  0%          { transform: translateX(0);    opacity: 0; }
+  4%          { opacity: 1; }
+  80%         { transform: translateX(var(--ez-travel-span, 100%)); opacity: 1; }
+  88%, 97%    { transform: translateX(var(--ez-travel-span, 100%)); opacity: 0; }
+  100%        { transform: translateX(0);    opacity: 0; }
+}
+.ez-travel-dot { animation: ezTravel 6s linear infinite; }
+
+/* The spine is dashed, not solid: a dashed track reads as a route the dot is
+   following, where a solid rule reads as a divider it happens to sit on. */
+.ez-lifeline {
+  background-image: linear-gradient(
+    to right,
+    var(--color-brand-400) 0 5px,
+    transparent 5px 14px
+  );
+  background-size: 14px 2px;
+  background-repeat: repeat-x;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Parked at the end of the track, fully visible — the finished state, which
+     is the state that carries the meaning. */
+  .ez-travel-dot {
+    animation: none;
+    transform: translateX(var(--ez-travel-span, 100%));
+    opacity: 1;
+  }
+}
+
+/* Each stage lights as the record reaches it — the delays are set inline,
+   one second apart, matching the six-second walk. Reuses ezHaloPulse, which
+   is mostly idle with a short swell, so five dark nodes and one lit one is
+   the normal state rather than six nodes throbbing together. */
+.ez-node-pulse { animation: ezHaloPulse 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-node-pulse { animation: none; opacity: 0; }
 }

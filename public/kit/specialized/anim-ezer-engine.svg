@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600" fill="none" role="img" aria-label="Every location type feeds one engine, one register output">
+<style>
+  .flow{stroke-dasharray:9 13;animation:dash 1.5s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-44}}
+  .ring{transform-origin:460px 250px;animation:spin 14s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .core{transform-origin:460px 250px;animation:beat 2.8s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+  .loc,.head{animation:lift 2.8s ease-in-out infinite}
+  @keyframes lift{0%,100%{opacity:.62}22%{opacity:1}}
+  .tick{stroke-dasharray:20;stroke-dashoffset:20;animation:draw 2.8s ease-out infinite}
+  @keyframes draw{0%{stroke-dashoffset:20}18%,88%{stroke-dashoffset:0}100%{stroke-dashoffset:20}}
+  .reg{animation:slide 2.8s ease-in-out infinite}
+  @keyframes slide{0%,100%{opacity:.55;transform:translateY(8px)}45%,80%{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.loc,.head{opacity:1}.tick{stroke-dashoffset:0}.reg{opacity:1;transform:none}}
+</style>
+<defs>
+  <linearGradient id="cr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient>
+  <filter id="sh" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1D4ED8" flood-opacity=".24"/></filter>
+</defs>
+<rect width="1000" height="600" rx="24" fill="#F3F5F8"/>
+<text x="24" y="22" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4" fill="#626D80">LOCATION TYPES</text>
+<text x="640" y="14" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4" fill="#626D80">STATUTORY HEADS</text>
+<path class="flow" style="animation-delay:0.00s" d="M180 63C280 63 320 250 364 250" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:0.18s" d="M180 149C280 149 320 250 364 250" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:0.36s" d="M180 235C280 235 320 250 364 250" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:0.54s" d="M180 321C280 321 320 250 364 250" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:0.72s" d="M180 407C280 407 320 250 364 250" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:0.90s" d="M556 250C592 250 604 44 636 44" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:1.03s" d="M556 250C592 250 604 106 636 106" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:1.16s" d="M556 250C592 250 604 168 636 168" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:1.29s" d="M556 250C592 250 604 230 636 230" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:1.42s" d="M556 250C592 250 604 292 636 292" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:1.55s" d="M556 250C592 250 604 354 636 354" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><path class="flow" style="animation-delay:1.68s" d="M556 250C592 250 604 416 636 416" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity=".55"/><g class="loc" style="animation-delay:0.00s">
+  <rect x="24" y="40" width="156" height="46" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <circle cx="48" cy="63" r="8" fill="#60A5FA"/>
+  <text x="66" y="68" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#374151">Corporate</text>
+</g><g class="loc" style="animation-delay:0.22s">
+  <rect x="24" y="126" width="156" height="46" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <circle cx="48" cy="149" r="8" fill="#93C5FD"/>
+  <text x="66" y="154" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#374151">Office</text>
+</g><g class="loc" style="animation-delay:0.44s">
+  <rect x="24" y="212" width="156" height="46" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <circle cx="48" cy="235" r="8" fill="#2563EB"/>
+  <text x="66" y="240" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#374151">Factory</text>
+</g><g class="loc" style="animation-delay:0.66s">
+  <rect x="24" y="298" width="156" height="46" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <circle cx="48" cy="321" r="8" fill="#BFDBFE"/>
+  <text x="66" y="326" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#374151">Warehouse</text>
+</g><g class="loc" style="animation-delay:0.88s">
+  <rect x="24" y="384" width="156" height="46" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <circle cx="48" cy="407" r="8" fill="#93C5FD"/>
+  <text x="66" y="412" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#374151">Branch</text>
+</g><g class="head" style="animation-delay:1.15s">
+  <rect x="640" y="24" width="132" height="40" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-opacity=".28"/>
+  <text x="662" y="49" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="800" fill="#1D4ED8">PF</text>
+  <path class="tick" style="animation-delay:1.35s" d="m742 44 4 4 8-9" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g class="head" style="animation-delay:1.28s">
+  <rect x="640" y="86" width="132" height="40" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-opacity=".28"/>
+  <text x="662" y="111" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="800" fill="#1D4ED8">ESIC</text>
+  <path class="tick" style="animation-delay:1.48s" d="m742 106 4 4 8-9" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g class="head" style="animation-delay:1.41s">
+  <rect x="640" y="148" width="132" height="40" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-opacity=".28"/>
+  <text x="662" y="173" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="800" fill="#1D4ED8">PT</text>
+  <path class="tick" style="animation-delay:1.61s" d="m742 168 4 4 8-9" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g class="head" style="animation-delay:1.54s">
+  <rect x="640" y="210" width="132" height="40" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-opacity=".28"/>
+  <text x="662" y="235" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="800" fill="#1D4ED8">LWF</text>
+  <path class="tick" style="animation-delay:1.74s" d="m742 230 4 4 8-9" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g class="head" style="animation-delay:1.67s">
+  <rect x="640" y="272" width="132" height="40" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-opacity=".28"/>
+  <text x="662" y="297" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="800" fill="#1D4ED8">Gratuity</text>
+  <path class="tick" style="animation-delay:1.87s" d="m742 292 4 4 8-9" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g class="head" style="animation-delay:1.80s">
+  <rect x="640" y="334" width="132" height="40" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-opacity=".28"/>
+  <text x="662" y="359" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="800" fill="#1D4ED8">Bonus</text>
+  <path class="tick" style="animation-delay:2.00s" d="m742 354 4 4 8-9" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g><g class="head" style="animation-delay:1.93s">
+  <rect x="640" y="396" width="132" height="40" rx="11" fill="#EFF6FF" stroke="#2563EB" stroke-opacity=".28"/>
+  <text x="662" y="421" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="800" fill="#1D4ED8">TDS</text>
+  <path class="tick" style="animation-delay:2.13s" d="m742 416 4 4 8-9" stroke="#047857" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g class="ring"><circle cx="460" cy="250" r="94" stroke="#2563EB" stroke-opacity=".35" stroke-width="2" stroke-dasharray="6 12" fill="none"/></g>
+<g class="core" filter="url(#sh)">
+  <circle cx="460" cy="250" r="68" fill="url(#cr)"/>
+  <rect x="436" y="228" width="48" height="9" rx="4.5" fill="#fff"/>
+  <rect x="436" y="245" width="30" height="9" rx="4.5" fill="#fff" opacity=".75"/>
+  <rect x="436" y="262" width="48" height="9" rx="4.5" fill="#fff"/>
+</g>
+<text x="460" y="360" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="1.6" fill="#1D4ED8">EZER ENGINE</text>
+<g class="reg">
+  <rect x="352" y="400" width="216" height="132" rx="16" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="376" y="430" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.2" fill="#2563EB">ONE REGISTER</text>
+  <rect x="376" y="444" width="126" height="8" rx="4" fill="#111827" opacity=".14"/>
+  <rect x="376" y="462" width="168" height="8" rx="4" fill="#111827" opacity=".14"/>
+  <rect x="376" y="480" width="96" height="8" rx="4" fill="#111827" opacity=".14"/>
+  <rect x="376" y="502" width="112" height="20" rx="10" fill="#ECFDF5"/>
+  <path d="m388 512 4 4 8-9" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="406" y="516" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="800" fill="#047857">Filed</text>
+</g>
+<text x="500" y="570" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#626D80">Every location type feeds one engine &#183; one register output</text>
+</svg>

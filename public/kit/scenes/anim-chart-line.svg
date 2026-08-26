@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="700" height="360" fill="none" role="img" aria-label="Self-service adoption after rollout">
+<style>.wipe{animation:wp 3s cubic-bezier(.3,.9,.3,1) infinite}@keyframes wp{0%{transform:scaleX(0)}65%,100%{transform:scaleX(1)}}@media (prefers-reduced-motion:reduce){*{animation:none!important}.wipe{transform:none}}</style>
+<rect x=".5" y=".5" width="699" height="359" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+<text x="28" y="44" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="800" fill="#111827">Self-service adoption after rollout</text>
+<text x="28" y="64" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#4B5563" opacity=".85">Placeholder data</text>
+
+<defs><linearGradient id="lf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2563EB" stop-opacity=".26"/><stop offset="1" stop-color="#2563EB" stop-opacity="0"/></linearGradient>
+<clipPath id="rev"><rect class="wipe" x="40" y="90" width="620" height="220" transform-origin="40px 90px"/></clipPath></defs>
+<path d="M56 300h574" stroke="#E5E7EB"/><path d="M56 252h574" stroke="#E5E7EB"/><path d="M56 205h574" stroke="#E5E7EB"/><path d="M56 158h574" stroke="#E5E7EB"/><path d="M56 110h574" stroke="#E5E7EB"/>
+<g clip-path="url(#rev)">
+  <polygon points="56,277 138,235 220,190 302,165 384,144 466,133 548,125 630,121 630,300 56,300" fill="url(#lf)"/>
+  <polyline points="56,277 138,235 220,190 302,165 384,144 466,133 548,125 630,121" stroke="#2563EB" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="56" cy="277" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/><circle cx="138" cy="235" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/><circle cx="220" cy="190" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/><circle cx="302" cy="165" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/><circle cx="384" cy="144" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/><circle cx="466" cy="133" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/><circle cx="548" cy="125" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/><circle cx="630" cy="121" r="5" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.5"/>
+</g>
+</svg>

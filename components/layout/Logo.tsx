@@ -1,75 +1,59 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { site } from '@/site.config'
 
 /* ============================================================================
- * The EZER mark.
+ * The EZER logo — now the real one.
  *
- * REDRAWN, and the reasons are worth recording.
+ * What was here before was a stand-in I drew: a blue tile with an E of three
+ * bars and a gold dot. It was never the brand, and its own comment carried a
+ * TODO saying so. This renders the actual mark.
  *
- * The previous mark carried two problems. The first was a leftover: its
- * accent was #C4B5FD — violet-300, from before the product moved to trust
- * blue. The retheme swapped every violet the codebase used by name, but this
- * shade appeared nowhere else, so it survived and left the one element on
- * every page that is supposed to say "this is us" quietly off-brand.
+ * WHY THE EMBLEM IS AN IMAGE AND THE WORDMARK IS TEXT
  *
- * The second was composition. A pennant rose off the top-right corner,
- * breaking the tile's silhouette. At 40px in a header that reads as a smudge
- * rather than a shape, and it is the size the mark is actually used at almost
- * everywhere.
+ * The supplied artwork is a STACKED lockup — emblem, then EZER, then HRMS
+ * between rules, then PEOPLE · PROCESS · PERFORMANCE — at roughly 1.57:1.
+ * Dropped whole into a 40px header bar it would come out about 63px wide and
+ * the tagline would be sub-pixel. Stacked lockups are for footers, OG cards
+ * and print, not for a horizontal nav.
  *
- * The redraw keeps the letterform — three bars and a spine, which is what
- * makes it recognisably the product's own logo — and fixes the rest:
+ * So the header takes the emblem (which is square, and is the part that
+ * carries recognition) and sets the wordmark as live text beside it. That
+ * also means the wordmark is crisp at every zoom level, recolours itself for
+ * dark mode, and is selectable and readable by a screen reader — none of
+ * which a flattened PNG of the same words would be.
  *
- *   · one contained silhouette, nothing breaking the tile edge
- *   · a brighter blue than the UI's own brand, so the mark reads as a mark
- *     rather than as another button
- *   · a single gold accent, which is already a documented brand colour from
- *     the EZER pillars panel rather than a new one invented here
- *   · every shape on a 4px grid, so the bars align optically at small sizes
+ * The full lockup is still shipped at /brand/ezer-lockup.png and is used
+ * where there is vertical room for it.
  *
- * Inlined as SVG rather than loaded as a file: it costs no request, stays
- * crisp at any size, and recolours for dark backgrounds.
+ * DARK MODE
  *
- * No gradients, deliberately. A gradient needs a <defs> id, and this renders
- * twice per page (header and footer) — duplicate ids in one document. Depth
- * comes from a translucent white wedge instead, which needs no id at all.
+ * The emblem is bright blue throughout and needs no variant — it reads on
+ * white and on the dark bands equally. Only the wordmark changes, and it
+ * changes in CSS. (The dark LOCKUP file exists for the same reason: its ZER
+ * and tagline are near-black navy, which disappears on a dark ground.)
  * ========================================================================= */
 
-const GOLD = '#F5B800'   /* the EZER pillars accent, already in site.config */
-const TILE = '#3B82F6'   /* brand-500 — a step brighter than the UI's 600   */
-
-function Mark({ className = 'h-10 w-10' }: { className?: string }) {
+/** The emblem alone — people, orbit and the leaf-form E. */
+export function LogoMark({ className = 'h-10 w-auto' }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 44 44"
-      fill="none"
-      className={className}
+    <Image
+      src="/brand/ezer-mark-tight.png"
+      alt=""
       aria-hidden="true"
-    >
-      {/* Tile */}
-      <rect width="44" height="44" rx="12" fill={TILE} />
-
-      {/* Light catching the top-left, so the tile reads as a solid object
-          rather than a flat swatch. Clipped by the tile's own radius. */}
-      <path d="M0 12A12 12 0 0 1 12 0h20L0 32V12Z" fill="#FFFFFF" fillOpacity="0.14" />
-
-      {/* The E — spine plus three bars, all on a 4px grid. The middle bar is
-          deliberately shorter, which is what makes an E read as an E at
-          16px rather than as a stack of lines. */}
-      <g fill="#FFFFFF">
-        <rect x="12" y="11" width="5" height="22" rx="2" />
-        <rect x="12" y="11" width="15" height="5" rx="2" />
-        <rect x="12" y="19.5" width="12" height="5" rx="2" />
-        <rect x="12" y="28" width="15" height="5" rx="2" />
-      </g>
-
-      {/* One accent, inside the tile. A dot rather than the old pennant:
-          it survives being scaled to a favicon, which the pennant did not.
-          Positioned with a clear 4px gap from the top bar — at 16px the two
-          fuse into one blob if they are any closer, which is precisely how
-          the old mark failed. */}
-      <circle cx="34" cy="13.5" r="3.5" fill={GOLD} />
-    </svg>
+      width={162}
+      height={240}
+      /* The one image guaranteed to be in the viewport on every page, so it
+         is never lazy — a header logo that pops in is the first thing a
+         visitor sees go wrong. */
+      priority
+      /* Straight from /public, no optimizer round trip. The source is already
+         a 180px square weighing 30KB and it renders at 40px; running a fixed
+         small brand asset through the resizer adds a request and a cache
+         entry to save nothing. */
+      unoptimized
+      className={`${className} select-none object-contain`}
+    />
   )
 }
 
@@ -88,15 +72,26 @@ export function Logo({
       className="group inline-flex items-center gap-2.5"
       aria-label={`${site.name} — home`}
     >
-      <Mark className="h-10 w-10 shrink-0 transition-transform duration-200 group-hover:scale-[1.04]" />
+      {/* Sized by HEIGHT, not forced into a square. The emblem's ink is
+          portrait (roughly 2:3) — padded to a square and set at h-10 w-10 it
+          renders about 27px wide inside a 40px box, which is why it looked
+          undersized next to the wordmark. The square-padded file is still
+          what the favicon uses, because a tab icon does need to be square. */}
+      <LogoMark className="h-11 w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.04]" />
       <span className="leading-tight">
+        {/* Set the way the artwork sets it: EZER in ink, HRMS in brand blue.
+            Uppercase with tight tracking to echo the heavy geometric
+            wordmark, rather than the lowercase "ezer hrms" that was here
+            when the mark was a placeholder. */}
         <span
-          className={`block text-xl font-bold tracking-tight ${
+          className={`block text-xl font-extrabold uppercase tracking-[-0.01em] ${
             onDark ? 'text-white' : 'text-ink-900'
           }`}
         >
-          ezer{' '}
-          <span className={onDark ? 'text-brand-400' : 'text-brand-600'}>hrms</span>
+          Ezer{' '}
+          <span className={onDark ? 'text-brand-400' : 'text-brand-600'}>
+            HRMS
+          </span>
         </span>
         {showTagline && (
           <span
@@ -109,5 +104,24 @@ export function Logo({
         )}
       </span>
     </Link>
+  )
+}
+
+/** The full stacked lockup, for places with vertical room. */
+export function LogoLockup({
+  onDark = false,
+  className = 'h-24 w-auto',
+}: {
+  onDark?: boolean
+  className?: string
+}) {
+  return (
+    <Image
+      src={onDark ? '/brand/ezer-lockup-dark.png' : '/brand/ezer-lockup.png'}
+      alt={`${site.name} — People · Process · Performance`}
+      width={900}
+      height={575}
+      className={`${className} select-none object-contain`}
+    />
   )
 }

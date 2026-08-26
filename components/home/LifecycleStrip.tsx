@@ -13,6 +13,18 @@ import { lifecycle } from '@/content/lifecycle'
  * The connector is a single line behind the row rather than five separate
  * arrows: arrows between boxes imply handoffs, which is precisely what this
  * section exists to say does not happen.
+ *
+ * The lede says "watch the same record travel the whole lifecycle", so a dot
+ * travels it — otherwise the copy is writing a cheque the picture does not
+ * cash. The halos pulse in sequence behind it, one second apart, so each
+ * stage lights as the record reaches it.
+ *
+ * Laid out in HTML rather than as the reference's fixed 1000x200 SVG. The
+ * SVG has to be scrolled sideways on a phone (the reference sets a 640px
+ * min-width and a scrollbar for exactly this reason); the grid below reflows
+ * to two columns instead. The travelling dot rides the spine, which only
+ * exists at lg and up — below that the stages wrap onto three rows and there
+ * is no single line left to travel.
  * ========================================================================= */
 export function LifecycleStrip() {
   return (
@@ -33,11 +45,40 @@ export function LifecycleStrip() {
         <div className="relative mt-12">
           {/* The spine. Sits behind the stages and stops short of both ends so
               it reads as a continuous record rather than an open-ended arrow
-              pointing off the page. */}
+              pointing off the page.
+
+              Both ends land on the centre of the first and last icon — the
+              row is six equal columns, so one twelfth in from each side is
+              the middle of the outer cells. The travelling dot inherits the
+              same box, which is what keeps it on the line at every width
+              without hard-coded pixel positions. */}
           <span
             aria-hidden="true"
-            className="absolute left-[8%] right-[8%] top-7 hidden h-0.5 bg-gradient-to-r from-brand-200 via-brand-500 to-brand-200 lg:block"
+            className="ez-lifeline absolute left-[8.333%] right-[8.333%] top-7 hidden h-0.5 lg:block"
           />
+
+          {/* The record itself, walking Hire to Exit.
+
+              Three nested spans, and the middle one is load-bearing: a
+              transform percentage resolves against the ELEMENT'S OWN width,
+              not its parent's. Put the animation on the 12px dot and
+              translateX(100%) moves it twelve pixels. So the moving element
+              is stretched to the full track width (inset-x-0), and the dot
+              rides its leading edge — now translateX(100%) is exactly one
+              track, at any viewport width, and it stays on the compositor
+              rather than animating `left` and relaying out every frame. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[8.333%] right-[8.333%] top-7 z-10 hidden lg:block"
+          >
+            {/* Above the stage discs, not behind them. Painted behind, the dot
+                disappears for the ~200ms it spends crossing each icon and
+                reads as a glitch; on top it reads as the record arriving at
+                the stage, which is the whole point. */}
+            <span className="ez-travel-dot absolute inset-x-0 top-0 block">
+              <span className="absolute -left-1.5 -top-[5px] block h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_12px_3px_rgba(52,211,153,.55)]" />
+            </span>
+          </span>
 
           <ol className="relative grid grid-cols-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
             {lifecycle.stages.map((stage, i) => (
@@ -47,8 +88,18 @@ export function LifecycleStrip() {
                 style={{ transitionDelay: `${Math.min(i, 3) * 45}ms` }}
                 className="flex flex-col items-center text-center"
               >
-                <span className="grid h-14 w-14 place-items-center rounded-full bg-surface text-brand-700 shadow-raised ring-1 ring-brand-100">
-                  <Icon name={stage.icon} className="h-6 w-6" />
+                {/* The halo is a sibling behind the icon, not a ring on it:
+                    scaling the icon disc itself would drag the label under it
+                    around with the layout. */}
+                <span className="relative grid h-14 w-14 place-items-center">
+                  <span
+                    aria-hidden="true"
+                    className="ez-node-pulse absolute inset-0 rounded-full bg-brand-500/25"
+                    style={{ animationDelay: `${i}s` }}
+                  />
+                  <span className="relative grid h-14 w-14 place-items-center rounded-full bg-surface text-brand-700 shadow-raised ring-1 ring-brand-100">
+                    <Icon name={stage.icon} className="h-6 w-6" />
+                  </span>
                 </span>
                 <span className="mt-3 text-[0.95rem] font-bold text-ink-900">
                   {stage.name}

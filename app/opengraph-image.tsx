@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 
 /* Default social preview card — spec §8.4 and §11 ("OG images and social
@@ -11,12 +13,18 @@ import { ImageResponse } from 'next/og'
  * actually gets shared on, and it crops to roughly a square in the preview
  * bubble — so the wordmark and headline stay well inside the middle. */
 
-export const runtime = 'edge'
+/* Node, not edge: this route reads the real logo PNG off disk so the social
+ * card shows the actual mark rather than a letter in a box. The edge runtime
+ * has no filesystem. OG cards are generated at build time and then cached, so
+ * nothing about this is on a hot path. */
 export const alt = 'EZER HRMS — HR and payroll software built for Indian companies'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export default async function OpengraphImage() {
+  const mark = await readFile(join(process.cwd(), 'public/brand/ezer-mark-tight.png'))
+  const markSrc = `data:image/png;base64,${mark.toString('base64')}`
+
   return new ImageResponse(
     (
       <div
@@ -33,24 +41,13 @@ export default async function OpengraphImage() {
       >
         {/* Wordmark */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-          <div
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: 16,
-              background: '#ffffff',
-              color: '#2563eb',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 36,
-              fontWeight: 700,
-            }}
-          >
-            E
-          </div>
-          <div style={{ fontSize: 38, fontWeight: 700, color: '#ffffff' }}>
-            EZER <span style={{ color: '#93c5fd' }}>HRMS</span>
+          {/* The real emblem. Sized by height and left on its own
+              transparent ground — the card is dark and the mark is bright
+              blue throughout, so it needs no plate behind it. */}
+          <img src={markSrc} height={72} width={49} alt="" />
+          <div style={{ display: 'flex', gap: 10, fontSize: 38, fontWeight: 700, color: '#ffffff' }}>
+            <span>EZER</span>
+            <span style={{ color: '#93c5fd' }}>HRMS</span>
           </div>
         </div>
 

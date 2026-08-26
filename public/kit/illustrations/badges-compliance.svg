@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 679 56" width="679" height="56" fill="none" role="img" aria-label="Statutory compliance covered">
+<g transform="translate(8 8)">
+    <rect width="56" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">EPF</text>
+  </g><g transform="translate(75.8 8)">
+    <rect width="64" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">ESIC</text>
+  </g><g transform="translate(152.2 8)">
+    <rect width="47" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">PT</text>
+  </g><g transform="translate(211.39999999999998 8)">
+    <rect width="56" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">LWF</text>
+  </g><g transform="translate(279.2 8)">
+    <rect width="56" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">TDS</text>
+  </g><g transform="translate(347.0 8)">
+    <rect width="90" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">Form 16</text>
+  </g><g transform="translate(449.2 8)">
+    <rect width="99" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">Gratuity</text>
+  </g><g transform="translate(560.0 8)">
+    <rect width="107" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="20" cy="20" r="6" fill="#10B981" opacity=".2"/>
+    <path d="m17 20 2.2 2.2 4.2-4.6" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="34" y="25" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#111827" opacity=".75">DPDP 2023</text>
+  </g>
+</svg>
