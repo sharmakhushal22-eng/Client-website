@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { access } from '@/content/positioning'
@@ -28,6 +29,33 @@ export function AccessRights() {
             <p className="mt-4 text-[0.98rem] leading-relaxed text-ink-600">
               {access.lede}
             </p>
+
+            {/* The room this section is actually about.
+             *
+             * Rights management is abstract until you picture who is asking
+             * for the access — and it is usually this: a leadership review
+             * where someone wants the cost and the compliance position
+             * without wanting anyone's individual salary on the screen.
+             *
+             * Kept to the left column, under the copy, so it supports the
+             * argument rather than competing with the role cards that carry
+             * it. Decorative: alt is empty and every claim is still text. */}
+            <div className="relative mt-8 hidden aspect-[16/10] overflow-hidden rounded-xl ring-1 ring-brand-100 lg:block">
+              <Image
+                src="/photos/leadership-review.jpg"
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes="(max-width: 1024px) 0px, 33vw"
+                className="object-cover object-center"
+              />
+              {/* A brand tint, so the photograph reads as part of this page
+                  rather than as something bought from a library. */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-brand-900/25 mix-blend-multiply"
+              />
+            </div>
           </div>
 
           <ul className="space-y-3">

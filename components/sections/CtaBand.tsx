@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Container } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
@@ -23,9 +24,45 @@ export function CtaBand({
 }) {
   return (
     <section className="relative overflow-hidden bg-dark py-12 text-white sm:py-14 lg:py-16">
+      {/* A photograph behind the closing band, not decoration beside it.
+       *
+       * This site's own rule is "real product screenshots only — no stock
+       * business people pointing at a laptop", and a photo like this is
+       * exactly what that rule was written against. Two things keep it on the
+       * right side of the line: it sits UNDER a heavy brand scrim so it reads
+       * as ground rather than as a claim, and it carries no information —
+       * every word in this band is still text. Delete the image and the
+       * section still says the same thing.
+       *
+       * Placed at the final CTA specifically. By this point the argument is
+       * made; what is left is deciding to talk to someone, and a room of
+       * people is a better ground for that than another gradient. */}
+      <Image
+        src="/photos/team-india.jpg"
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+        priority={false}
+        className="pointer-events-none select-none object-cover object-center opacity-[0.22]"
+      />
+
+      {/* The scrim follows the layout, because the two variants need opposite
+       * things. With the form, text sits in a left column and the photo should
+       * survive on the right — so the wash runs left to right. Centred, text
+       * crosses the full width and a directional wash leaves one side of the
+       * heading darker than the other, so it needs a symmetric vignette. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45rem_30rem_at_80%_0%,rgba(37, 99, 235,0.35),transparent)]"
+        className={
+          variant === 'form'
+            ? 'pointer-events-none absolute inset-0 bg-gradient-to-r from-dark via-dark/95 to-dark/70'
+            : 'pointer-events-none absolute inset-0 bg-[radial-gradient(70rem_40rem_at_50%_50%,rgba(11,14,18,0.94),rgba(11,14,18,0.78))]'
+        }
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45rem_30rem_at_80%_0%,rgba(37,99,235,0.35),transparent)]"
       />
 
       <Container className="relative">
