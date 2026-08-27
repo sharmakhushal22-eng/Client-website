@@ -10,9 +10,10 @@ import { labourCodes } from '@/content/positioning'
  * no number, so the same four Codes looked like a different, lesser component
  * depending which page you arrived on. One source, two tones.
  *
- * The ordinals are not decoration. The reference numbers these 01–04 and the
- * sequence is part of the content: they are four Codes that replaced 29 acts,
- * and a reader counting them is the point.
+ * The reference sets an ordinal (01–04) on each card. It was carried over as
+ * an oversized ghost numeral behind the text and has been removed: at that
+ * size it competed with the heading it sat behind, and the grid already reads
+ * in order without it.
  * ========================================================================= */
 
 /* The reference draws a custom glyph per Code. Mapped onto the site's own
@@ -30,30 +31,15 @@ export function LabourCodeCards({ onDark = false }: { onDark?: boolean }) {
           data-reveal=""
           style={{ transitionDelay: `${Math.min(i, 3) * 70}ms` }}
           className={
-            'ez-tilt group relative overflow-hidden rounded-2xl p-6 transition-colors duration-300 ' +
+            'ez-tilt group rounded-2xl p-6 transition-colors duration-300 ' +
             (onDark
               ? 'bg-white/5 ring-1 ring-white/10 hover:bg-white/[0.08] hover:ring-brand-400/60'
               : 'bg-surface shadow-[0_1px_2px_rgba(16,24,40,0.05),0_14px_30px_-16px_rgba(16,24,40,0.28)] ring-1 ring-ink-200 hover:ring-brand-200')
           }
         >
-          {/* The ordinal, oversized and set back. On the light card it has to
-              be much fainter than on the dark one — the same alpha that reads
-              as a ghost on navy reads as a smudge on white. */}
-          <span
-            aria-hidden="true"
-            className={
-              'pointer-events-none absolute -right-2 -top-3 text-[4.5rem] font-extrabold leading-none transition-colors duration-300 ' +
-              (onDark
-                ? 'text-white/[0.06] group-hover:text-white/[0.1]'
-                : 'text-brand-600/[0.07] group-hover:text-brand-600/[0.12]')
-            }
-          >
-            {String(i + 1).padStart(2, '0')}
-          </span>
-
           <span
             className={
-              'relative grid h-11 w-11 place-items-center rounded-xl ring-1 transition-colors duration-300 ' +
+              'grid h-11 w-11 place-items-center rounded-xl ring-1 transition-colors duration-300 ' +
               (onDark
                 ? 'bg-brand-600/25 text-brand-200 ring-brand-400/40 group-hover:bg-brand-600 group-hover:text-white'
                 : 'bg-brand-50 text-brand-700 ring-brand-100 group-hover:bg-brand-600 group-hover:text-white')
@@ -66,7 +52,7 @@ export function LabourCodeCards({ onDark = false }: { onDark?: boolean }) {
               so h4 would skip a level in the outline. */}
           <h3
             className={
-              'relative mt-4 text-[1.05rem] font-bold leading-snug ' +
+              'mt-4 text-[1.05rem] font-bold leading-snug ' +
               (onDark ? 'text-white' : 'text-ink-900')
             }
           >
@@ -74,7 +60,7 @@ export function LabourCodeCards({ onDark = false }: { onDark?: boolean }) {
           </h3>
           <p
             className={
-              'relative mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] ' +
+              'mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] ' +
               (onDark ? 'text-brand-300' : 'text-brand-700')
             }
           >
@@ -82,7 +68,7 @@ export function LabourCodeCards({ onDark = false }: { onDark?: boolean }) {
           </p>
           <p
             className={
-              'relative mt-3 text-sm leading-relaxed ' +
+              'mt-3 text-sm leading-relaxed ' +
               (onDark ? 'text-on-dark-muted' : 'text-ink-700')
             }
           >
