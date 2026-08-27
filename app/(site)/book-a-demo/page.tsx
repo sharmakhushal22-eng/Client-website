@@ -41,10 +41,34 @@ export default function BookADemoPage() {
               {booking.durationMinutes} minutes, on your own scenario
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-600">
-              Not a slide deck and not a recorded tour. We open the live product,
-              set it up the way your company is set up, and run the parts you
-              actually care about.
+              Tell us a little about your company. We&rsquo;ll show you EZER
+              configured for your industry and branch structure — not a generic
+              script. Not a slide deck and not a recorded tour: we open the
+              live product, set it up the way your company is set up, and run
+              the parts you actually care about.
             </p>
+
+            {/* The three-step summary. It sits above the fold on purpose —
+                these are the questions a reader answers before deciding
+                whether to give us a phone number, and burying them under the
+                form answers them too late. */}
+            <ol className="mt-7 grid gap-3 sm:grid-cols-3">
+              {booking.steps.map((step, i) => (
+                <li
+                  key={step}
+                  data-reveal=""
+                  style={{ transitionDelay: `${i * 70}ms` }}
+                  className="rounded-xl bg-surface p-4 ring-1 ring-brand-100"
+                >
+                  <span className="text-xs font-bold tracking-[0.1em] text-brand-600">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="mt-1.5 text-[0.92rem] font-semibold leading-snug text-ink-900">
+                    {step}
+                  </p>
+                </li>
+              ))}
+            </ol>
           </div>
         </Container>
       </section>

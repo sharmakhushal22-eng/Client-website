@@ -1,12 +1,15 @@
 import { cn } from '@/lib/cn'
 import { Container } from './Container'
 
-type Tone = 'white' | 'tint' | 'ink'
+type Tone = 'white' | 'tint' | 'ink' | 'transparent'
 
 const tones: Record<Tone, string> = {
   white: 'bg-surface',
   tint: 'bg-brand-50',
   ink: 'bg-dark text-white',
+  /* For sections inside a shared background band — see WorkforceBand. Any
+     opaque tone here would paint over the field the band exists to show. */
+  transparent: '',
 }
 
 export function Section({
@@ -41,6 +44,7 @@ export function SectionHeading({
   lede,
   align = 'center',
   onDark = false,
+  onPattern = false,
   as: Tag = 'h2',
 }: {
   eyebrow?: string
@@ -48,6 +52,13 @@ export function SectionHeading({
   lede?: React.ReactNode
   align?: 'left' | 'center'
   onDark?: boolean
+  /* One step darker on the eyebrow and the lede, for sections that sit on
+     artwork rather than a flat tone. The default weights are tuned for a flat
+     ground; over a pattern the background varies locally, and measured
+     worst-case contrast on ink-600 lands right on the 4.5 threshold — passing
+     on average and failing where the pattern is darkest. brand-700/ink-700
+     costs nothing visually and clears it. */
+  onPattern?: boolean
   as?: 'h1' | 'h2' | 'h3'
 }) {
   return (
@@ -61,7 +72,11 @@ export function SectionHeading({
         <p
           className={cn(
             'mb-3 text-xs font-bold uppercase tracking-[0.14em]',
-            onDark ? 'text-brand-300' : 'text-brand-600',
+            onDark
+              ? 'text-brand-200'
+              : onPattern
+                ? 'text-brand-700'
+                : 'text-brand-600',
           )}
         >
           {eyebrow}
@@ -79,7 +94,7 @@ export function SectionHeading({
         <p
           className={cn(
             'mt-5 text-lg leading-relaxed',
-            onDark ? 'text-ink-200' : 'text-ink-600',
+            onDark ? 'text-on-dark' : onPattern ? 'text-ink-700' : 'text-ink-600',
           )}
         >
           {lede}

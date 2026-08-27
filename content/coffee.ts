@@ -28,8 +28,46 @@ export const coffee = {
   bar: 'One coffee a month. Per employee. That is the whole price.',
   barCta: 'Pre-register before it goes public',
 
-  /* The fuller version, for the pricing teaser. */
-  headline: 'Priced like a coffee, not like enterprise software',
+  /* Section framing, ported from Website changes.html (#pricing). The figure
+     itself stays unpublished — see the note at the top of this file. */
+  eyebrow: 'Honest pricing, not tiered feature-gating',
+  headline: 'Whether you’re 40 employees or four lakh, you get the same depth',
+  lede:
+    'No feature-gating designed to force an upsell once you’re locked in. Every ' +
+    'module, at every size. One platform, priced per employee per month — the ' +
+    'only thing that changes with scale is the support around it.',
+
+  /* The reference's two tiers. Feature lists are verbatim; the rate is not
+     rendered while pricing.disclosed is false. */
+  tiers: [
+    {
+      name: 'EZER Platform',
+      note: 'Every live module, included — from your first ten hires to your first lakh.',
+      features: [
+        'Recruitment, onboarding & employee master',
+        'Payroll engine with full statutory compliance',
+        'Attendance, leave & employee self-service',
+        'Multi-company & branch architecture',
+        'FBP, investment declaration & reports',
+        'Loans, travel claims, HR letters & exit/FNF',
+      ],
+      cta: { label: 'Request a Demo', href: '/book-a-demo' },
+      primary: true,
+    },
+    {
+      name: 'Enterprise',
+      price: 'Custom',
+      note: 'Same full platform — plus dedicated support for multi-entity groups running at real scale.',
+      features: [
+        'Everything in EZER Platform',
+        'CFO & leadership dashboards',
+        'Custom industry rule sets',
+        'Dedicated implementation lead & SLA',
+      ],
+      cta: { label: 'Talk to Us', href: '/contact' },
+      primary: false,
+    },
+  ],
 
   /* What the comparison is against, stated so the claim is checkable rather
    * than rhetorical — a reader who thinks "that cannot be right" should be

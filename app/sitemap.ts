@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { articles } from '@/content/articles'
 import { featurePages } from '@/content/features'
 import { site } from '@/site.config'
 
@@ -30,6 +31,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/book-a-demo', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
+    /* The blog index changes whenever an article lands; the articles
+       themselves are added below, from the same module the pages render
+       from. */
+    { path: '/blog', priority: 0.7, changeFrequency: 'weekly' },
     { path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly' },
     { path: '/terms', priority: 0.3, changeFrequency: 'yearly' },
     { path: '/cookie-policy', priority: 0.3, changeFrequency: 'yearly' },
@@ -41,6 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
+    })),
+    ...articles.map((article) => ({
+      url: `${site.url}/blog/${article.slug}`,
+      lastModified: now,
+      changeFrequency: 'yearly' as const,
+      priority: 0.6,
     })),
     ...featurePages.map((page) => ({
       url: `${site.url}/features/${page.slug}`,

@@ -39,6 +39,7 @@ const columns = [
     title: 'Company',
     links: [
       ['/about', 'About EZER'],
+      ['/blog', 'Blog'],
       ['/contact', 'Contact'],
     ],
   },

@@ -1,5 +1,6 @@
-import { Container } from '@/components/ui/Container'
-import { SectionHeading } from '@/components/ui/Section'
+import { Container } from "@/components/ui/Container";
+import { MeshField } from "@/components/ui/MeshField";
+import { SectionHeading } from "@/components/ui/Section";
 
 /* ============================================================================
  * "See it working" — three animated scenes from the EZER Visual Kit.
@@ -29,52 +30,80 @@ import { SectionHeading } from '@/components/ui/Section'
 
 const SCENES = [
   {
-    src: '/kit/scenes/scene-payroll-close.svg',
+    src: "/kit/scenes/scene-payroll-close.svg",
     /* Descriptive, because the picture is carrying an argument rather than
        decorating one. A screen reader user should get the claim, not "image". */
     alt:
-      'A payroll run closing for October — 398 employees, ₹4.82 crore net ' +
-      'payable, progressing to issued.',
-    title: 'The month closes in one pass',
+      "A payroll run closing for October — 398 employees, ₹4.82 crore net " +
+      "payable, progressing to issued.",
+    title: "The month closes in one pass",
     body:
-      'Gross, deductions, employer contributions and every applicable statutory ' +
-      'head calculated together, with a variance view against last month. You ' +
-      'approve the differences rather than re-checking the whole file.',
+      "Gross, deductions, employer contributions and every applicable statutory " +
+      "head calculated together, with a variance view against last month. You " +
+      "approve the differences rather than re-checking the whole file.",
   },
   {
-    src: '/kit/scenes/scene-factory-punch.svg',
-    alt:
-      'A shop-floor punch-in against a Factories Act rule set, shift 09:30 to 18:30.',
-    title: 'The rule set follows the location',
+    src: "/kit/scenes/scene-factory-punch.svg",
+    alt: "A shop-floor punch-in against a Factories Act rule set, shift 09:30 to 18:30.",
+    title: "The rule set follows the location",
     body:
-      'A plant runs on the Factories Act and a branch office on Shops & ' +
-      'Establishments. Both sit in the same company, on the same employee ' +
-      'master, and the shift rules applied are the ones the location actually ' +
-      'falls under.',
+      "A plant runs on the Factories Act and a branch office on Shops & " +
+      "Establishments. Both sit in the same company, on the same employee " +
+      "master, and the shift rules applied are the ones the location actually " +
+      "falls under.",
   },
   {
-    src: '/kit/scenes/scene-field-claim.svg',
+    src: "/kit/scenes/scene-field-claim.svg",
     alt:
-      'A field employee submitting a travel claim from a phone, with the GPS ' +
-      'trail drawn beside them.',
-    title: 'The claimed distance is not the paid distance',
+      "A field employee submitting a travel claim from a phone, with the GPS " +
+      "trail drawn beside them.",
+    title: "The claimed distance is not the paid distance",
     body:
-      'Field staff see live distance on the phone, and that number never ' +
-      'reaches the claim. The server re-measures the submitted trail on its ' +
-      'own, prices it from the policy rate card, and flags implausible speeds ' +
-      'or gaps in the trail before anyone approves it.',
+      "Field staff see live distance on the phone, and that number never " +
+      "reaches the claim. The server re-measures the submitted trail on its " +
+      "own, prices it from the policy rate card, and flags implausible speeds " +
+      "or gaps in the trail before anyone approves it.",
   },
-]
+];
 
 export function InPractice() {
   return (
-    <section className="bg-surface py-12 sm:py-14 lg:py-16" aria-label="EZER in practice">
-      <Container>
-        <SectionHeading
-          eyebrow="In practice"
-          title="What it actually looks like on a working month"
-          lede="Three of the moments the platform is built around — not screenshots of a settings page."
-        />
+    <section
+      className="relative overflow-hidden bg-surface py-12 sm:py-14 lg:py-16"
+      aria-label="EZER in practice"
+    >
+      {/* The mesh field. Second instance on this page, hence the idPrefix —
+          two copies sharing gradient ids would silently paint from whichever
+          appeared first. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <MeshField idPrefix="prc" />
+        <span className="ez-sweep absolute inset-y-0 -left-1/4 w-1/3 bg-[linear-gradient(90deg,transparent,rgb(255_255_255/0.6),transparent)]" />
+        <span className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-surface)_0%,transparent_13%,transparent_87%,var(--color-surface)_100%)]" />
+      </div>
+
+      <Container className="relative">
+        <div className="relative">
+          {/* Explicit ellipse, and NO negative z-index — at -z-10 a clearing
+              drops behind the section's own artwork instead of sitting behind
+              its sibling text, because this wrapper is z-index:auto and
+              creates no stacking context. Paint order does it: clearing
+              first, content after, both positioned. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-x-[24%] -inset-y-28 rounded-[50%] bg-[radial-gradient(ellipse_56%_60%_at_50%_50%,rgb(247_250_254/0.88)_0%,rgb(247_250_254/0.85)_32%,rgb(247_250_254/0.74)_50%,rgb(247_250_254/0.55)_64%,rgb(247_250_254/0.33)_77%,rgb(247_250_254/0.13)_89%,transparent_100%)]"
+          />
+          <div className="relative">
+            <SectionHeading
+              eyebrow="In practice"
+              title="What it actually looks like on a working month"
+              lede="Three of the moments the platform is built around — not screenshots of a settings page."
+              onPattern
+            />
+          </div>
+        </div>
 
         <ul className="mt-12 grid gap-8 lg:grid-cols-3">
           {SCENES.map((scene, i) => (
@@ -82,7 +111,7 @@ export function InPractice() {
               key={scene.title}
               data-reveal=""
               style={{ transitionDelay: `${i * 90}ms` }}
-              className="group flex flex-col overflow-hidden rounded-2xl bg-canvas ring-1 ring-ink-200 transition-shadow duration-300 hover:shadow-floating"
+              className="ez-tilt group relative flex flex-col overflow-hidden rounded-2xl bg-surface shadow-[0_1px_2px_rgba(16,24,40,0.05),0_14px_30px_-16px_rgba(16,24,40,0.3)] ring-1 ring-ink-200 hover:shadow-[0_2px_4px_rgba(16,24,40,0.06),0_28px_54px_-20px_rgba(16,24,40,0.4)] hover:ring-brand-200"
             >
               {/* Plain <img>, not next/image: these are SVGs whose animation
                   and reduced-motion rule live inside the file. Routing an SVG
@@ -104,8 +133,10 @@ export function InPractice() {
                 className="aspect-[3/2] w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
               />
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-lg font-bold text-ink-900">{scene.title}</h3>
-                <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
+                <h3 className="text-lg font-bold text-ink-900">
+                  {scene.title}
+                </h3>
+                <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-700">
                   {scene.body}
                 </p>
               </div>
@@ -117,11 +148,11 @@ export function InPractice() {
             travel_claims is empty. So the copy above describes how it works
             and this line keeps it honest, rather than implying a track record
             that does not exist yet. */}
-        <p className="mx-auto mt-8 max-w-3xl text-center text-[0.82rem] leading-relaxed text-ink-500">
+        <p className="relative mx-auto mt-8 max-w-3xl text-center text-[0.82rem] leading-relaxed text-ink-600">
           Illustrative. Figures shown are from EZER&rsquo;s own instance — three
           companies, 398 employees — not a customer&rsquo;s.
         </p>
       </Container>
     </section>
-  )
+  );
 }

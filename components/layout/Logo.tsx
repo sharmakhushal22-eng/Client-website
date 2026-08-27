@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { site } from '@/site.config'
+import Image from "next/image";
+import Link from "next/link";
+import { site } from "@/site.config";
 
 /* ============================================================================
  * The EZER logo — now the real one.
@@ -35,7 +35,11 @@ import { site } from '@/site.config'
  * ========================================================================= */
 
 /** The emblem alone — people, orbit and the leaf-form E. */
-export function LogoMark({ className = 'h-10 w-auto' }: { className?: string }) {
+export function LogoMark({
+  className = "h-10 w-auto",
+}: {
+  className?: string;
+}) {
   return (
     <Image
       src="/brand/ezer-mark-tight.png"
@@ -54,22 +58,22 @@ export function LogoMark({ className = 'h-10 w-auto' }: { className?: string }) 
       unoptimized
       className={`${className} select-none object-contain`}
     />
-  )
+  );
 }
 
 export function Logo({
   onDark = false,
   showTagline = true,
 }: {
-  onDark?: boolean
+  onDark?: boolean;
   /* Off in the header, where the nav is already crowded and the tagline
      competes with it; on in the footer, where there is room. */
-  showTagline?: boolean
+  showTagline?: boolean;
 }) {
   return (
     <Link
       href="/"
-      className="group inline-flex items-center gap-2.5"
+      className="group inline-flex shrink-0 items-center gap-2.5"
       aria-label={`${site.name} — home`}
     >
       {/* Sized by HEIGHT, not forced into a square. The emblem's ink is
@@ -77,26 +81,26 @@ export function Logo({
           renders about 27px wide inside a 40px box, which is why it looked
           undersized next to the wordmark. The square-padded file is still
           what the favicon uses, because a tab icon does need to be square. */}
-      <LogoMark className="h-11 w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.04]" />
-      <span className="leading-tight">
+      <LogoMark className="h-12 w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.05]" />
+      <span className="whitespace-nowrap leading-tight">
         {/* Set the way the artwork sets it: EZER in ink, HRMS in brand blue.
             Uppercase with tight tracking to echo the heavy geometric
             wordmark, rather than the lowercase "ezer hrms" that was here
             when the mark was a placeholder. */}
         <span
-          className={`block text-xl font-extrabold uppercase tracking-[-0.01em] ${
-            onDark ? 'text-white' : 'text-ink-900'
+          className={`block text-[1.35rem] font-extrabold uppercase tracking-[-0.015em] ${
+            onDark ? "text-white" : "text-ink-900"
           }`}
         >
-          Ezer{' '}
-          <span className={onDark ? 'text-brand-400' : 'text-brand-600'}>
+          Ezer{" "}
+          <span className={onDark ? "text-brand-400" : "text-brand-600"}>
             HRMS
           </span>
         </span>
         {showTagline && (
           <span
             className={`block text-[0.6rem] uppercase tracking-[0.09em] ${
-              onDark ? 'text-on-dark-muted' : 'text-ink-600'
+              onDark ? "text-on-dark-muted" : "text-ink-600"
             }`}
           >
             {site.tagline}
@@ -104,24 +108,24 @@ export function Logo({
         )}
       </span>
     </Link>
-  )
+  );
 }
 
 /** The full stacked lockup, for places with vertical room. */
 export function LogoLockup({
   onDark = false,
-  className = 'h-24 w-auto',
+  className = "h-24 w-auto",
 }: {
-  onDark?: boolean
-  className?: string
+  onDark?: boolean;
+  className?: string;
 }) {
   return (
     <Image
-      src={onDark ? '/brand/ezer-lockup-dark.png' : '/brand/ezer-lockup.png'}
+      src={onDark ? "/brand/ezer-lockup-dark.png" : "/brand/ezer-lockup.png"}
       alt={`${site.name} — People · Process · Performance`}
       width={900}
       height={575}
       className={`${className} select-none object-contain`}
     />
-  )
+  );
 }

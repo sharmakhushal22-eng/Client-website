@@ -81,6 +81,17 @@ export default function ContactPage() {
               running today — the less of the first call is spent establishing
               it. We reply {contact.responseSla} during business hours.
             </p>
+            <p className="mt-4 text-[0.95rem] leading-relaxed text-ink-700">
+              Send the message and our team will get back within 1 business
+              day. You can also call{' '}
+              <a
+                href={`tel:${contact.phoneE164}`}
+                className="font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-800"
+              >
+                {contact.phoneDisplay}
+              </a>{' '}
+              directly.
+            </p>
           </div>
         </Container>
       </section>

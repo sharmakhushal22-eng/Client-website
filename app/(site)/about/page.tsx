@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Container } from '@/components/ui/Container'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { Icon } from '@/components/ui/Icon'
+import { BoardroomBand } from '@/components/sections/BoardroomBand'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
 import { company, companyDetails, contact, site, ezerPillars } from '@/site.config'
@@ -229,6 +230,16 @@ export default function AboutPage() {
 
           TODO: once there are reference customers, replace this section with
           them — and delete it rather than softening it. */}
+      {/* The second wide frame. Same treatment as the home band: blurred
+          so the invented dashboard figures behind the presenter cannot be
+          read as anyone's actual numbers. */}
+      <BoardroomBand
+        src="/photos/corporate/boardroom-quarterly-screened.webp"
+        eyebrow="Why we started"
+        title="Compliance is not the hard part. Keeping up with it is."
+        body="Four labour codes, twenty-nine states and an establishment type per site — the rules are knowable, but they move, and they move separately. We built EZER so that keeping up is the software's job rather than a person's memory."
+      />
+
       <Section tone="white" ariaLabel="Where we are">
         <div className="mx-auto max-w-3xl">
           <SectionHeading

@@ -136,139 +136,22 @@
   --container-content: 75rem;
 }
 
-/* ============================================================================
-   DARK
+/* ── Light only ───────────────────────────────────────────────────────────
+   This SITE runs in light mode only, and <html> carries a hard-coded
+   data-ez-theme="light" so nothing can flip it. The dark-theme token
+   overrides that used to live here are removed rather than left unreachable:
+   dead CSS that still looks live is how a later edit quietly reintroduces a
+   mode the site no longer supports.
 
-   Ported from the product's own dark theme, which is a designed neutral slate
-   rather than an inversion of the light one. Two things it does that a naive
-   inversion does not:
+   The PRODUCT still ships light, dark and eye-comfort modes. The site
+   describes them in ComfortModes; it simply no longer demonstrates them by
+   restyling itself.
 
-     · The brand LIFTS to #60A5FA. #2563EB has too little contrast against a
-       dark surface to read as an action.
-     · Text on an accent fill INVERTS to near-black. Because every accent
-       lightens in dark, white on a primary button falls to 2.54:1.
+   Sections that are deliberately dark — the hero, the mission band, the tax
+   calculator — use the bg-dark token. That is a fixed dark ground and has
+   nothing to do with theming.
+   ======================================================================== */
 
-   Three states, matching the product's contract exactly, so a visitor who
-   sets dark here and then logs into the product meets the same thing:
-
-     :root                       light
-     prefers-color-scheme: dark  follow the OS, unless light was chosen
-     [data-ez-theme="dark"]      an explicit choice, which wins either way
-   ========================================================================== */
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-ez-theme="light"]) {
-    color-scheme: dark;
-
-    --color-ink-900: #f3f4f6;   /* --ez-ink        */
-    --color-ink-800: #e5e7eb;
-    --color-ink-700: #d1d5db;   /* --ez-ink-soft   */
-    --color-ink-600: #9ca3af;   /* --ez-muted      */
-    --color-ink-500: #828c9b;   /* --ez-faint      */
-    --color-ink-400: #6b7480;
-    --color-ink-300: #39414d;   /* --ez-line-strong */
-    --color-ink-200: #262c35;   /* --ez-line        */
-    --color-ink-100: #14181e;   /* --ez-sunken      */
-    --color-ink-50:  #12161b;
-
-    --color-brand-900: #dbeafe;
-    --color-brand-800: #bfdbfe;
-    --color-brand-700: #93c5fd;  /* --ez-brand-deep */
-    --color-brand-600: #60a5fa;  /* --ez-brand      */
-    --color-brand-500: #3b82f6;
-    --color-brand-400: #2563eb;
-    --color-brand-300: #1d4ed8;
-    --color-brand-200: #24344f;  /* --ez-brand-edge */
-    --color-brand-100: #1c2740;
-    --color-brand-50:  #172033;  /* --ez-brand-tint */
-
-    --color-surface: #171b21;    /* --ez-surface */
-  --color-dark:    #0b0e12;    /* --ez-dark — still dark, just deeper */
-    --color-dark:    #0b0e12;    /* --ez-dark — still dark, just deeper */
-    --color-canvas:  #0f1216;    /* --ez-canvas  */
-    --color-on-accent: #0d1117;  /* --ez-on-accent — inverted, see above */
-
-    --color-success: #34d399;
-    --color-warning: #fbbf24;
-    --color-danger:  #f87171;
-    --color-info:    #7dd3fc;
-
-    --color-emerald-50:  #10241d;
-    --color-emerald-600: #34d399;
-    --color-emerald-700: #6ee7b7;
-    --color-amber-50:    #251c0d;
-    --color-amber-700:   #fbbf24;
-    --color-red-50:      #2a1414;
-    --color-red-600:     #f87171;
-
-    /* Depth on a dark ground comes from the surface being lighter than the
-       canvas, not from cast shadow — so these stay shallow and cards do not
-       sit in visible black halos. */
-    --shadow-flat:     0 1px 2px rgba(0,0,0,.34);
-    --shadow-raised:   0 1px 2px rgba(0,0,0,.38), 0 4px 12px -4px rgba(0,0,0,.44);
-    --shadow-floating: 0 2px 4px rgba(0,0,0,.42), 0 12px 28px -10px rgba(0,0,0,.55);
-
-    --background: #0f1216;
-    --foreground: #f3f4f6;
-  }
-}
-
-/* The toggle wins in both directions — dark on a light OS, light on a dark
-   OS. Redefining under the attribute selector is what does that. */
-:root[data-ez-theme="dark"] {
-  color-scheme: dark;
-
-
-  --color-ink-900: #f3f4f6;   /* --ez-ink        */
-  --color-ink-800: #e5e7eb;
-  --color-ink-700: #d1d5db;   /* --ez-ink-soft   */
-  --color-ink-600: #9ca3af;   /* --ez-muted      */
-  --color-ink-500: #828c9b;   /* --ez-faint      */
-  --color-ink-400: #6b7480;
-  --color-ink-300: #39414d;   /* --ez-line-strong */
-  --color-ink-200: #262c35;   /* --ez-line        */
-  --color-ink-100: #14181e;   /* --ez-sunken      */
-  --color-ink-50:  #12161b;
-
-  --color-brand-900: #dbeafe;
-  --color-brand-800: #bfdbfe;
-  --color-brand-700: #93c5fd;  /* --ez-brand-deep */
-  --color-brand-600: #60a5fa;  /* --ez-brand      */
-  --color-brand-500: #3b82f6;
-  --color-brand-400: #2563eb;
-  --color-brand-300: #1d4ed8;
-  --color-brand-200: #24344f;  /* --ez-brand-edge */
-  --color-brand-100: #1c2740;
-  --color-brand-50:  #172033;  /* --ez-brand-tint */
-
-  --color-surface: #171b21;    /* --ez-surface */
-  --color-dark:    #0b0e12;    /* --ez-dark — still dark, just deeper */
-  --color-canvas:  #0f1216;    /* --ez-canvas  */
-  --color-on-accent: #0d1117;  /* --ez-on-accent — inverted, see above */
-
-  --color-success: #34d399;
-  --color-warning: #fbbf24;
-  --color-danger:  #f87171;
-  --color-info:    #7dd3fc;
-
-  --color-emerald-50:  #10241d;
-  --color-emerald-600: #34d399;
-  --color-emerald-700: #6ee7b7;
-  --color-amber-50:    #251c0d;
-  --color-amber-700:   #fbbf24;
-  --color-red-50:      #2a1414;
-  --color-red-600:     #f87171;
-
-  /* Depth on a dark ground comes from the surface being lighter than the
-     canvas, not from cast shadow — so these stay shallow and cards do not
-     sit in visible black halos. */
-  --shadow-flat:     0 1px 2px rgba(0,0,0,.34);
-  --shadow-raised:   0 1px 2px rgba(0,0,0,.38), 0 4px 12px -4px rgba(0,0,0,.44);
-  --shadow-floating: 0 2px 4px rgba(0,0,0,.42), 0 12px 28px -10px rgba(0,0,0,.55);
-
-  --background: #0f1216;
-  --foreground: #f3f4f6;
-}
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
 :root {
@@ -624,13 +507,18 @@ input[type='range']::-moz-range-thumb {
 .ez-orb-3 { animation: ezFloatC 22s ease-in-out infinite; }
 
 /* A sheen crossing a surface once every few seconds. Long pause, quick
-   sweep — a constant shimmer reads as a broken gradient. */
+   sweep — a constant shimmer reads as a broken gradient.
+
+   Alpha is 0.16, not the 0.55 it started at. That was tuned against a light
+   canvas where a strong white was needed to register at all; the hero is dark
+   now, and at 0.55 the sweep stopped being a highlight and became a grey slab
+   parked behind the promises row. On dark, a little white goes a long way. */
 @keyframes ezSheen { 0% { background-position: 180% 0; } 55%, 100% { background-position: -80% 0; } }
 .ez-sheen {
   background-image: linear-gradient(
     100deg,
     transparent 35%,
-    rgba(255, 255, 255, 0.55) 48%,
+    rgba(255, 255, 255, 0.16) 48%,
     transparent 62%
   );
   background-size: 220% 100%;
@@ -718,4 +606,578 @@ input[type='range']::-moz-range-thumb {
 
 @media (prefers-reduced-motion: reduce) {
   .ez-node-pulse { animation: none; opacity: 0; }
+}
+
+/* ── Module explorer: expanding sections ───────────────────────────────────
+   The old layout was a pill tab-bar over a single flat panel. It read badly
+   for one structural reason: the nine groups hold between two and ten
+   modules each, so the panel was sized for Pay's ten and then Hire's two
+   floated in a mostly empty card. Sections that each take their own height
+   solve that by construction.
+
+   Height is animated with the grid-template-rows 0fr -> 1fr technique rather
+   than max-height. max-height needs a guessed ceiling: too low clips the ten
+   -module group, too high makes the short ones ease out slowly against dead
+   space, and neither is right at every breakpoint. 0fr -> 1fr animates to the
+   content's real height, whatever it is. */
+.ez-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.38s cubic-bezier(.2, .7, .3, 1);
+}
+.ez-collapse > * { overflow: hidden; }
+.ez-collapse[data-open] { grid-template-rows: 1fr; }
+
+/* The modules fade up in sequence once their section opens, so the eye is
+   led down the list instead of being handed a finished block. */
+@keyframes ezModIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.ez-collapse[data-open] .ez-mod {
+  animation: ezModIn 0.34s ease-out both;
+}
+
+/* The accent rail down the left of an open section. Scales from the top so
+   it reads as the section unfurling rather than sliding in from elsewhere. */
+.ez-rail {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.38s cubic-bezier(.2, .7, .3, 1);
+}
+.ez-row[data-open] .ez-rail { transform: scaleY(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-collapse { transition: none; }
+  .ez-collapse[data-open] .ez-mod { animation: none; }
+  .ez-rail { transition: none; }
+}
+
+/* ── Header and nav dropdown motion ────────────────────────────────────────
+   The dropdown used to appear on one frame — fully formed, no transition —
+   which reads as a glitch rather than as a panel opening. It is also the
+   single most-used control on the site, so it is worth the detail. */
+
+/* The panel drops and settles. Origin at the top so it grows downward out of
+   the nav item that opened it rather than expanding from its own middle. */
+@keyframes ezMenuIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.ez-menu {
+  transform-origin: top center;
+  animation: ezMenuIn 0.18s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+/* Rows arrive in sequence behind the panel. Fast and short — this is a menu
+   someone is trying to get through, not a hero. The whole stagger for five
+   items finishes in about 140ms. */
+@keyframes ezMenuRow {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+.ez-menu-row { animation: ezMenuRow 0.22s ease-out both; }
+
+/* The underline that grows under a nav item. Scaled rather than animated on
+   width so it stays on the compositor, and origin-left so it draws in the
+   reading direction. The active item keeps it drawn. */
+.ez-navlink::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.25rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-brand-600);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s cubic-bezier(.2, .7, .3, 1);
+}
+/* The underline is now reserved for the CURRENT PAGE and for keyboard focus.
+   Hover is the pill's job — running both on hover doubled the feedback and
+   made a simple nav look busy. Two signals, two meanings: the pill says
+   "you are pointing at this", the underline says "you are on this". */
+.ez-navlink:focus-visible::after,
+.ez-navlink[data-active]::after { transform: scaleX(1); }
+
+/* The icon tile in a menu row, filling as the row is hovered. */
+.ez-menu-row .ez-menu-icon {
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+.ez-menu-row:hover .ez-menu-icon {
+  background-color: var(--color-brand-600);
+  color: #fff;
+  transform: scale(1.06);
+}
+
+/* A chevron that slides in from nothing on hover, so each row reads as a
+   destination rather than as a list entry. */
+.ez-menu-go {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.ez-menu-row:hover .ez-menu-go { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-menu, .ez-menu-row { animation: none; }
+  .ez-navlink::after,
+  .ez-menu-row .ez-menu-icon,
+  .ez-menu-go { transition: none; }
+}
+
+/* ── Scroll progress, along the header's bottom edge ───────────────────────
+   Driven by animation-timeline: scroll(), so there is NO scroll listener and
+   no JavaScript involved. That matters here specifically: a hand-written
+   scroll handler on this site is what caused the renderer to bog down once
+   already, and a progress bar is the exact shape of code that invites one.
+   The compositor runs this off the scroll position directly.
+
+   Where scroll-driven animations are unsupported (Firefox and older Safari
+   at time of writing) the bar simply stays at scaleX(0) — invisible, which
+   is the correct fallback for something purely informational.
+
+   Deliberately NOT disabled under prefers-reduced-motion. It moves only in
+   response to the reader's own scrolling, exactly like the scrollbar does;
+   it is not autonomous motion, which is what that setting is about. */
+.ez-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@supports (animation-timeline: scroll()) {
+  .ez-progress {
+    animation: ezProgress linear;
+    /* scroll(root block), not the bare scroll(). The bare form binds to the
+       NEAREST scroll container, and this bar lives inside a position:sticky
+       header — whichever ancestor happens to establish scrolling wins, which
+       is not necessarily the page. Naming the root scroller and the block
+       axis makes it track the document however the header is nested. */
+    animation-timeline: scroll(root block);
+  }
+  @keyframes ezProgress {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+}
+
+/* The mobile drawer, sliding down from under the bar rather than appearing
+   whole. */
+@keyframes ezDrawerIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+.ez-drawer { animation: ezDrawerIn 0.2s cubic-bezier(.2, .7, .3, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-drawer { animation: none; }
+}
+
+/* ── Photography motion ────────────────────────────────────────────────────
+   Ken Burns: a very slow push on a still photograph. The numbers matter —
+   1.00 to 1.08 over 20s is roughly 0.4% per second, which the eye reads as
+   the image being alive without ever catching it moving. Anything faster
+   looks like a screensaver. */
+@keyframes ezKenBurns {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to   { transform: scale(1.08) translate3d(0, -1.5%, 0); }
+}
+.ez-kenburns { animation: ezKenBurns 20s ease-in-out infinite alternate; }
+
+/* Parallax, driven off the document scroll rather than a listener. The image
+   drifts against the band it sits in, which is what sells depth on a flat
+   page. view() rather than scroll(): the timeline is this element's own
+   passage through the viewport, so the drift is centred on the band no
+   matter where it sits in the page. */
+@keyframes ezParallax {
+  from { transform: translate3d(0, -6%, 0) scale(1.14); }
+  to   { transform: translate3d(0, 6%, 0) scale(1.14); }
+}
+@supports (animation-timeline: view()) {
+  .ez-parallax {
+    animation: ezParallax linear;
+    animation-timeline: view();
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-kenburns,
+  .ez-parallax { animation: none; }
+}
+
+/* A very slow float, for a card that should feel like it is sitting above the
+   scene rather than pasted onto it. 14s and 10px — any faster or further and
+   it stops reading as depth and starts reading as drift. */
+@keyframes ezFloatCard {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -10px, 0); }
+}
+.ez-float { animation: ezFloatCard 14s ease-in-out infinite; }
+
+/* The glow that seats the engine card on the photograph. Breathes very
+   slightly so the card has a halo rather than a hard cut-out. */
+@keyframes ezCardGlow {
+  0%, 100% { opacity: .55; transform: scale(1); }
+  50%      { opacity: .8;  transform: scale(1.04); }
+}
+.ez-card-glow { animation: ezCardGlow 9s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-float, .ez-card-glow { animation: none; }
+}
+
+/* ── Mission band motion ───────────────────────────────────────────────────
+   The workforce grid arrives as a STATIC svg — 609 tiles, no classes, no
+   groups, no animation of its own. Inlining it to animate the tiles
+   individually would mean 62KB of markup in the document and 609 animated
+   nodes on the compositor, which is a guaranteed way to make a background
+   janky. So it stays an <img> and every bit of movement is layered over it in
+   CSS, where it costs four elements instead of six hundred. */
+
+/* A shaft of light crossing the band on a long cycle. Skewed, so it reads as
+   light falling across the tiles rather than a bar sliding over them. */
+@keyframes ezSweep {
+  0%       { transform: translateX(-60%) skewX(-18deg); opacity: 0; }
+  12%      { opacity: 1; }
+  88%      { opacity: 1; }
+  100%     { transform: translateX(160%) skewX(-18deg); opacity: 0; }
+}
+.ez-sweep { animation: ezSweep 11s cubic-bezier(.4, 0, .6, 1) infinite; }
+
+/* Large, slow glows drifting behind the tiles. Different durations so they
+   never sync up into a single pulsing blob. */
+@keyframes ezDriftA { 0%,100% { transform: translate3d(0,0,0) scale(1); }    50% { transform: translate3d(40px,-26px,0) scale(1.12); } }
+@keyframes ezDriftB { 0%,100% { transform: translate3d(0,0,0) scale(1.06); } 50% { transform: translate3d(-34px,22px,0) scale(1); } }
+.ez-drift-a { animation: ezDriftA 19s ease-in-out infinite; }
+.ez-drift-b { animation: ezDriftB 25s ease-in-out infinite; }
+
+/* The grid itself breathes very slightly — a 1.5% scale over 24s. Below the
+   threshold of noticing, above the threshold of feeling static. */
+@keyframes ezBreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.015); } }
+.ez-breathe { animation: ezBreathe 24s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-sweep, .ez-drift-a, .ez-drift-b, .ez-breathe { animation: none; }
+  .ez-sweep { opacity: 0; }
+}
+
+/* ── Industry cards: a real surface, with depth ────────────────────────────
+   These groups used to be bare text on a flat white section — a top rule, a
+   heading and some chips, no panel. That works on flat white and fails on a
+   patterned ground, where the contours run straight under the words.
+
+   So they get a surface. The 3D is deliberately restrained: a perspective
+   tilt of two degrees, a 4px lift and a 1.5% scale. Enough to feel like the
+   card comes toward you, far short of the exaggerated tilt that reads as a
+   gimmick on a page with fourteen of them. */
+.ez-tilt {
+  transform: perspective(900px) translate3d(0, 0, 0);
+  transition: transform 0.38s cubic-bezier(.2, .7, .3, 1),
+              box-shadow 0.38s cubic-bezier(.2, .7, .3, 1);
+  transform-style: preserve-3d;
+}
+.ez-tilt:hover {
+  transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translate3d(0, -4px, 0) scale(1.015);
+}
+
+/* The lit top edge. A real surface catches light on the face nearest the
+   source, and one hairline of white does more for the illusion of depth than
+   any amount of shadow underneath. */
+.ez-tilt::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.9), transparent);
+  pointer-events: none;
+}
+
+/* Contour drift. The background is 40 stroked paths; animating them
+   individually would mean inlining 59KB of path data into the document, so
+   the whole layer moves instead. */
+@keyframes ezContourDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.04); }
+  50%      { transform: translate3d(-1.5%, 1%, 0) scale(1.07); }
+}
+.ez-contour { animation: ezContourDrift 30s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-tilt, .ez-tilt:hover { transform: none; transition: none; }
+  .ez-contour { animation: none; }
+}
+
+/* ── Mesh background: each blob drifts on its own ──────────────────────────
+   This source is 2KB — five gradient ellipses and a dot pattern — so unlike
+   the contour and workforce fields it is inlined, and every blob animates
+   independently. That is what makes a gradient mesh feel alive rather than
+   like a picture being panned: the colours move THROUGH each other, and the
+   overlaps change shape.
+
+   transform-box: fill-box puts each ellipse's transform origin at its own
+   centre; without it they all scale about the SVG origin and swing wildly. */
+.ez-mesh-blob {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+@keyframes ezMesh1 { 0%,100% { transform: translate(0,0) scale(1); }      50% { transform: translate(90px,60px) scale(1.14); } }
+@keyframes ezMesh2 { 0%,100% { transform: translate(0,0) scale(1.08); }   50% { transform: translate(-110px,50px) scale(1); } }
+@keyframes ezMesh3 { 0%,100% { transform: translate(0,0) scale(1); }      50% { transform: translate(-70px,-80px) scale(1.12); } }
+@keyframes ezMesh4 { 0%,100% { transform: translate(0,0) scale(1.06); }   50% { transform: translate(120px,-60px) scale(1); } }
+@keyframes ezMesh5 { 0%,100% { transform: translate(0,0) scale(1); }      50% { transform: translate(-60px,70px) scale(1.1); } }
+/* Deliberately coprime-ish durations, so the five never return to the same
+   arrangement and the field does not visibly loop. */
+.ez-mesh-1 { animation: ezMesh1 23s ease-in-out infinite; }
+.ez-mesh-2 { animation: ezMesh2 31s ease-in-out infinite; }
+.ez-mesh-3 { animation: ezMesh3 27s ease-in-out infinite; }
+.ez-mesh-4 { animation: ezMesh4 37s ease-in-out infinite; }
+.ez-mesh-5 { animation: ezMesh5 19s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-mesh-1, .ez-mesh-2, .ez-mesh-3, .ez-mesh-4, .ez-mesh-5 { animation: none; }
+}
+
+/* ── Trust statistics ──────────────────────────────────────────────────────
+   These are three of the load-bearing claims on the page — how many labour
+   codes, how many statutory acts, what the headcount ceiling is — so they get
+   an entrance rather than simply appearing.
+
+   The figure pops slightly past its final size and settles back. A plain fade
+   makes a number look placed; the overshoot makes it look like it ARRIVED,
+   which is what draws the eye to a figure. */
+@keyframes ezStatPop {
+  0%   { opacity: 0; transform: translateY(14px) scale(0.86); }
+  60%  { opacity: 1; transform: translateY(0) scale(1.06); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-figure {
+  animation: ezStatPop 0.62s cubic-bezier(.2, .8, .3, 1) both;
+}
+
+/* A soft brand halo behind each figure, breathing slowly. Sized in em so it
+   scales with the number rather than needing a breakpoint of its own. */
+@keyframes ezStatGlow {
+  0%, 100% { opacity: .35; transform: scale(1); }
+  50%      { opacity: .6;  transform: scale(1.12); }
+}
+.ez-stat-glow { animation: ezStatGlow 7s ease-in-out infinite; }
+
+/* The underline that draws itself in beneath each figure. */
+@keyframes ezStatRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-rule {
+  animation: ezStatRule 0.5s cubic-bezier(.2, .8, .3, 1) 0.34s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-figure,
+  html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-rule {
+    animation: none;
+  }
+  .ez-stat-glow { animation: none; }
+  .ez-stat-rule { transform: scaleX(1); }
+}
+
+/* ── Pricing card ──────────────────────────────────────────────────────────
+   The price itself pops in like the trust statistics do — it is the single
+   most-looked-at element in the section, and an overshoot reads as arrival
+   where a fade reads as placement. */
+html[data-reveal-ready] [data-reveal][data-revealed] .ez-price-pop {
+  animation: ezStatPop 0.66s cubic-bezier(.2, .8, .3, 1) 0.12s both;
+}
+
+/* The included-items row arrives left to right, one after another. */
+@keyframes ezTickIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+html[data-reveal-ready] [data-reveal][data-revealed] .ez-tick {
+  animation: ezTickIn 0.36s ease-out both;
+}
+
+/* A wide, slow halo behind the card. Sits under everything and gives the
+   panel somewhere to be lifted off, which a flat tint alone never does. */
+@keyframes ezCardAura {
+  0%, 100% { opacity: .5;  transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: .78; transform: translate(-50%, -50%) scale(1.06); }
+}
+.ez-card-aura { animation: ezCardAura 11s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal-ready] [data-reveal][data-revealed] .ez-price-pop,
+  html[data-reveal-ready] [data-reveal][data-revealed] .ez-tick { animation: none; }
+  .ez-card-aura { animation: none; }
+}
+
+/* ── Nav: the sliding indicator ────────────────────────────────────────────
+   ONE pill that travels between items rather than a background fading in and
+   out on each one. That difference is the whole effect: a shared element
+   moving reads as a single control responding to you, where per-item fades
+   read as five unrelated buttons.
+
+   It animates transform and width, both compositor-friendly. The easing
+   overshoots very slightly so the pill settles rather than stopping dead. */
+.ez-navpill {
+  transition:
+    transform 0.34s cubic-bezier(.34, 1.4, .48, 1),
+    width 0.34s cubic-bezier(.34, 1.4, .48, 1),
+    opacity 0.22s ease;
+  will-change: transform, width;
+}
+
+/* The nav links sit above the pill and lose their own hover tint, because the
+   pill is now the hover affordance. */
+.ez-navlink { position: relative; z-index: 1; }
+
+/* The header condenses as you scroll: a little shorter, frosted, and with a
+   real shadow instead of a hairline. Only the properties that actually
+   change are transitioned — this element repaints on every scroll frame, and
+   transition-all here is what makes a sticky header feel heavy. */
+.ez-header {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    backdrop-filter 0.25s ease;
+}
+.ez-header-row {
+  transition: height 0.28s cubic-bezier(.2, .7, .3, 1);
+}
+
+/* The CTA: a shine that crosses on hover, and a brand glow that deepens. */
+.ez-cta-shine {
+  transition: transform 0.75s cubic-bezier(.2, .7, .3, 1), opacity 0.3s ease;
+}
+.group\/cta:hover .ez-cta-shine { transform: translateX(320%); opacity: 1; }
+
+/* Utility icons: a small lift and a tint on hover. */
+.ez-util {
+  transition: transform 0.22s cubic-bezier(.2, .7, .3, 1), background-color 0.22s ease, color 0.22s ease;
+}
+.ez-util:hover { transform: translateY(-1px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-navpill, .ez-header, .ez-header-row, .ez-cta-shine, .ez-util {
+    transition: none;
+  }
+}
+
+/* ── Range input, for the regime calculator ────────────────────────────────
+ * Cross-browser range styling has no shorthand: WebKit and Firefox expose
+ * different pseudo-elements and neither inherits from the other, so the track
+ * and thumb rules are written twice on purpose. They cannot be merged into one
+ * selector list either — a browser that does not recognise one pseudo-element
+ * drops the WHOLE rule, taking the half it does understand with it.
+ *
+ * WHY THE SELECTOR CARRIES input[type='range'] AND NOT JUST .ez-range.
+ *
+ * There is already a generic `input[type='range']` block further up this file,
+ * written for the pricing calculator: a pale brand-100 track and a solid
+ * brand-600 thumb, tuned for a LIGHT card. This slider sits on a dark navy
+ * panel and needs the opposite treatment.
+ *
+ * `input[type='range']` is (0,1,1) — an attribute selector plus a type
+ * selector. A bare `.ez-range` is (0,1,0), so the generic rule WINS no matter
+ * how far down the file this block sits. The symptom is nasty because it does
+ * not look like a cascade problem: the rules are present in the built CSS and
+ * read correctly in devtools, and the slider simply renders in the other
+ * theme's colours. Qualifying the class with the same type+attribute takes
+ * this to (0,2,1) and it wins honestly, without !important.
+ *
+ * One more trap, if these declarations are ever edited: write
+ * `-webkit-appearance: none` on the thumb ALONE. Pair it with the unprefixed
+ * `appearance: none` and Lightning CSS merges the two into the unprefixed
+ * form, which Chrome does not honour on ::-webkit-slider-thumb — the thumb
+ * then silently keeps its UA rendering.
+ *
+ * The filled portion is a background gradient driven by --ez-range-pct, set
+ * inline from React. A second absolutely-positioned element would need to be
+ * kept in sync with the thumb on every input event; a gradient stop cannot
+ * drift out of step with itself. */
+input[type='range'].ez-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type='range'].ez-range:focus-visible {
+  outline: none;
+}
+
+/* ── track ── */
+input[type='range'].ez-range::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-brand-400) 0%,
+    var(--color-brand-500) var(--ez-range-pct, 50%),
+    rgb(255 255 255 / 0.16) var(--ez-range-pct, 50%),
+    rgb(255 255 255 / 0.16) 100%
+  );
+}
+
+input[type='range'].ez-range::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-brand-400) 0%,
+    var(--color-brand-500) var(--ez-range-pct, 50%),
+    rgb(255 255 255 / 0.16) var(--ez-range-pct, 50%),
+    rgb(255 255 255 / 0.16) 100%
+  );
+}
+
+/* ── thumb ──
+ * 1.25rem across, in a 1.5rem-tall input: past the 24px minimum touch target,
+ * so this stays draggable on a phone. */
+input[type='range'].ez-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-top: -0.375rem; /* centres the thumb on a 0.5rem track */
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--color-brand-500);
+  box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+input[type='range'].ez-range::-moz-range-thumb {
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--color-brand-500);
+  box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.5);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+input[type='range'].ez-range:hover::-webkit-slider-thumb,
+input[type='range'].ez-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+input[type='range'].ez-range:hover::-moz-range-thumb,
+input[type='range'].ez-range:active::-moz-range-thumb {
+  transform: scale(1.12);
+}
+
+/* The focus ring goes on the THUMB, not the input. On the input it would draw
+   a rectangle around the whole track, which reads as "the row is focused"
+   rather than "you are holding the handle". */
+input[type='range'].ez-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgb(147 197 253 / 0.55);
+}
+input[type='range'].ez-range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px rgb(147 197 253 / 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  input[type='range'].ez-range::-webkit-slider-thumb,
+  input[type='range'].ez-range::-moz-range-thumb {
+    transition: none;
+  }
 }

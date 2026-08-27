@@ -1,16 +1,22 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import Link from 'next/link'
 import { Icon } from '@/components/ui/Icon'
 import { useMounted } from '@/components/forms/HiddenTracking'
-import { coffee } from '@/content/coffee'
+import { announcement } from '@/content/home'
 
 /* ============================================================================
  * The strip above the header.
  *
- * It carries the coffee framing, which is the only thing on the site that
- * gives a price signal while the figure itself stays unpublished. That is
- * what earns it the most valuable strip of the page.
+ * It carries the compliance-deadline message, which is the one claim on this
+ * site that is only true this year — the Labour Codes came into effect and a
+ * new Income Tax Act replaced the old one. A bar that scrolls away should
+ * carry the thing with a shelf life, and nothing else here has one.
+ *
+ * It used to carry the coffee pricing hook. That moved out rather than being
+ * lost: pre-registration keeps its own edge tab, pill and teaser, so it has
+ * three persistent entry points without this strip.
  *
  * Two things it deliberately does NOT do:
  *
@@ -24,7 +30,7 @@ import { coffee } from '@/content/coffee'
 
 const KEY = 'ezer_announce_dismissed'
 
-export function AnnouncementBar({ onOpenPreRegister }: { onOpenPreRegister?: () => void }) {
+export function AnnouncementBar() {
   const mounted = useMounted()
   const [dismissed, setDismissed] = useState(false)
 
@@ -53,25 +59,22 @@ export function AnnouncementBar({ onOpenPreRegister }: { onOpenPreRegister?: () 
       <div className="mx-auto flex max-w-content items-center justify-center gap-x-3 gap-y-1 px-4 py-2.5 pr-12 sm:px-6 lg:px-8">
         <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[0.8rem] leading-snug">
           <span aria-hidden="true" className="text-sm">
-            ☕
+            ⚖️
           </span>
-          <span className="font-bold">{coffee.bar}</span>
+          <span className="font-bold">{announcement.text}</span>
 
           {/* The action is the point of the bar. Without it this is just a
               claim nobody can act on. */}
-          {onOpenPreRegister && (
-            <button
-              type="button"
-              onClick={onOpenPreRegister}
-              className="group inline-flex items-center gap-1 rounded-sm font-bold text-white underline decoration-white/50 underline-offset-2 transition-colors hover:decoration-white"
-            >
-              {coffee.barCta}
-              <Icon
-                name="arrow-right"
-                className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
-              />
-            </button>
-          )}
+          <Link
+            href={announcement.ctaHref}
+            className="group inline-flex items-center gap-1 rounded-sm font-bold text-white underline decoration-white/50 underline-offset-2 transition-colors hover:decoration-white"
+          >
+            {announcement.ctaLabel}
+            <Icon
+              name="arrow-right"
+              className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
+            />
+          </Link>
         </p>
       </div>
 

@@ -44,158 +44,155 @@ export const flags = {
  * could belong to any HR software company is worse than no mission statement,
  * because the reader learns nothing and notices that they learned nothing. */
 export const visionGoal = {
-  mission: {
-    eyebrow: 'Our mission',
-    /* The dark band. One sentence, and it should be the sentence the company
-     * would defend in a room. */
+  /* Copy ported verbatim from Website changes.html (#vision-goal). The design,
+     colours and animation around it are the site's own. */
+  /* The reference opens this section with "Why EZER exists / Mission" and
+     only then reaches Vision. Both were being flattened into one block here,
+     which lost the mission statement entirely — the sentence that says who
+     the product is for and what it replaces. */
+  why: {
+    eyebrow: 'Why EZER exists',
+    label: 'Mission',
     statement:
-      'To make statutory compliance the easiest part of employing people in India — ' +
-      'not the part that keeps a finance head awake in the week before the 15th.',
+      'EZER exists to give every Indian company — a 40-person startup or a ' +
+      'group running lakhs of employees across hundreds of offices, plants ' +
+      'and branches — an HR and payroll system that gets India’s compliance ' +
+      'right by default, not bolted on afterward, as an adjustment to ' +
+      'software built for another market first.',
     support:
-      'Indian employment law is not difficult so much as plural. Every state adds a ' +
-      'variation, every establishment type adds a register, and every labour-code ' +
-      'notification moves the ground under a salary structure that was correct when it ' +
-      'was built. We think software should absorb that plurality so that the people ' +
-      'running HR do not have to hold it in their heads.',
+      'We replace the spreadsheets, the WhatsApp groups, and the ' +
+      'half-accurate manual PF and ESIC calculations that Indian companies ' +
+      'of every size still run their HR on, with one system that gets it ' +
+      'right the first time.',
+  },
+
+  mission: {
+    eyebrow: 'Vision',
+    statement:
+      'A future where compliance is simply correct, by default',
+    support:
+      'A future where no HR or payroll team in India spends their month ' +
+      'firefighting PF mismatches, ESIC errors, or manually recalculated TDS — ' +
+      'where compliance is simply correct, by default, for every company, ' +
+      'regardless of size.',
   },
 
   vision: {
-    eyebrow: 'Our vision',
-    title: 'One system that knows where every employee actually works',
+    eyebrow: 'What we are building',
+    title: 'India’s HR future, on one platform',
     body:
-      'Not one system per company, and not one spreadsheet per site. A group should be ' +
-      'able to see its whole workforce — every entity, every state, every factory floor ' +
-      'and warehouse dock — in a single operation, with each person’s statutory position ' +
-      'determined by the place they actually work rather than the place the software was ' +
-      'first set up.',
+      'We are building India’s HR future: a single platform that carries a ' +
+      'company from the first job posting to the final settlement, priced ' +
+      'honestly enough that a 40-person startup can afford exactly the same ' +
+      'depth a lakh-employee group gets.',
   },
 
-  /* Three goal cards. Each is a commitment with a measurable edge to it, so a
-   * buyer can hold us to it rather than nod at it. */
   goals: [
     {
-      icon: 'shield' as IconName,
       number: '01',
-      title: 'Zero statutory surprises',
+      icon: 'shield' as const,
+      title: 'Product goal',
       body:
-        'Every deduction traceable to the rule that produced it, every due date visible ' +
-        'before it passes, and every register available in the format its state expects. ' +
-        'The measure of success is that an inspection is boring.',
+        'Ship a complete recruit-to-payroll platform that any Indian company can ' +
+        'run its entire HR function on — a first-time founder hiring employee ' +
+        'number ten, or a group consolidating lakhs of employees across hundreds ' +
+        'of establishments. One login, one source of truth, nothing stitched ' +
+        'together from five different vendors.',
     },
     {
-      icon: 'clock' as IconName,
       number: '02',
-      title: 'Live in ten working days',
+      icon: 'chart' as const,
+      title: 'Market goal',
       body:
-        'Implementation should be a fortnight, not a quarter. Bulk migration instead of ' +
-        'data entry, guided configuration instead of a discovery phase, and one full ' +
-        'payroll cycle reconciled in parallel before anything depends on it.',
+        'Become the default HR platform for Indian business at every scale — ' +
+        'startups outgrowing spreadsheets, and large multi-entity groups whose ' +
+        'compliance reality is too specific for enterprise software built for a ' +
+        'global market first.',
     },
     {
-      icon: 'users' as IconName,
       number: '03',
-      title: 'HR out of the answering business',
+      icon: 'users' as const,
+      title: 'Company goal',
       body:
-        'Most of what reaches an HR inbox is a lookup, not a decision — a payslip, a leave ' +
-        'balance, a salary certificate, last year’s Form 16. Those belong to the person ' +
-        'asking. What is left is the work worth an HR professional’s day.',
+        'Grow EZER from a single HRMS product into a family of connected work ' +
+        'products — HRMS, Payroll, Performance Management, and Expense ' +
+        'Management — all under one brand, one login, one company record.',
     },
   ],
-}
+} as const
 
-/* ── Today vs with EZER ────────────────────────────────────────────────────
- * Handoff anchor #simplify: "six challenge/solution comparison cards".
- *
- * The discipline here is that the left-hand column must be recognisable
- * enough to sting. Generic pain ("manual processes are inefficient") persuades
- * nobody; the specific version — the ESIC mid-period crossing, the LWF that is
- * half-yearly in one state — tells the reader we have done this before. */
 export const todayVsEzer = {
-  eyebrow: 'What actually changes',
-  title: 'Today, and with EZER',
+  /* Ported from Website changes.html (#simplify) — the six pairs, verbatim. */
+  eyebrow: 'The realistic challenges, and how we solve them',
+  title: 'Six things every Indian company deals with — and what changes with EZER',
   lede:
-    'Six things that take a week out of every month in a multi-location company. None of ' +
-    'them are hard problems. All of them are somebody’s job right now.',
+    'Not hypothetical problems. This is what actually happens on spreadsheets, ' +
+    'WhatsApp groups, and tiered software built for someone else’s company size.',
 
   pairs: [
     {
-      icon: 'map-pin' as IconName,
-      area: 'Multi-state statutory',
-      today:
-        'Professional Tax has a different slab in every state that levies it, and LWF is ' +
-        'monthly in one state, half-yearly in the next. Somebody keeps the rates in a ' +
-        'sheet and remembers to update it.',
-      withEzer:
-        'Rates are held per state registration and applied by the location the employee ' +
-        'actually works at. A rate change is a configuration change, not a product release ' +
-        'and not a memory test.',
-    },
-    {
       icon: 'briefcase' as IconName,
-      area: 'Group structure',
+      area: 'One platform, not five vendors',
       today:
-        'One HRMS licence per legal entity, or one workbook per site. The same employee ' +
-        'exists three times, a transfer between entities is processed as an exit and a ' +
-        're-hire, and consolidated headcount is whatever the last person to build the ' +
-        'sheet said it was.',
+        'Five separate vendors for recruitment, payroll, compliance and attendance — ' +
+        'none of them talking to each other.',
       withEzer:
-        'A group holds companies, a company holds locations, and one employee master runs ' +
-        'across all of it. A transfer is a transfer, and it carries its service history, ' +
-        'gratuity clock and statutory record with it.',
-    },
-    {
-      icon: 'clock' as IconName,
-      area: 'Attendance to payroll',
-      today:
-        'The biometric device produces a punch log. Payroll needs a day count. Between the ' +
-        'two sits somebody reconciling missed punches against leave applications that are ' +
-        'still sitting in an email folder.',
-      withEzer:
-        'Punches import, regularisations run through approval with a trail, overtime ' +
-        'calculates on your rules, and the day count reaches the payroll run without ' +
-        'anybody retyping it.',
-    },
-    {
-      icon: 'chart' as IconName,
-      area: 'Month-end close',
-      today:
-        'Gross in one tab, EPF in the next, ESIC in a third, PT by state in a fourth, TDS ' +
-        'in a fifth. Each handoff is a place for a number to change, so the register is ' +
-        'reconciled twice because nobody trusts it the first time.',
-      withEzer:
-        'One pass. Gross, deductions, employer contributions and every applicable statutory ' +
-        'head calculated together, with a variance view against last month so you approve ' +
-        'the differences rather than re-checking the whole file.',
+        'One platform across the entire employee lifecycle — hire, onboard, manage, ' +
+        'pay, comply.',
     },
     {
       icon: 'shield' as IconName,
-      area: 'Wage definition',
+      area: 'Statutory calculation',
       today:
-        'The labour codes redrew what counts as wages for PF, gratuity and encashment. A ' +
-        'structure built on the old definition is not slightly wrong — it is wrong every ' +
-        'month, and backwards, and nobody finds out until somebody asks.',
+        'PF, ESIC, PT, LWF and TDS manually cross-checked by an accountant against a ' +
+        'spreadsheet, every month.',
       withEzer:
-        'The revised definition and the 50% rule are modelled against your actual structure ' +
-        'before you commit to it, so you see the effect on PF, gratuity and encashment as a ' +
-        'number rather than a risk.',
+        'Calculated correctly by the system itself, every month — not manually ' +
+        'reconciled after the fact.',
+    },
+    {
+      icon: 'wallet' as IconName,
+      area: 'Pricing and feature gates',
+      today:
+        'Tiered feature-gating designed to force an upsell once you’re locked in and ' +
+        'dependent on the tool.',
+      withEzer:
+        'A 40-person startup gets exactly the same depth as a lakh-employee group. ' +
+        'Priced per employee, per month.',
+    },
+    {
+      icon: 'user-plus' as IconName,
+      area: 'Onboarding paperwork',
+      today:
+        'HR retyping a new hire’s Aadhaar and PAN details into three different forms ' +
+        'by hand.',
+      withEzer:
+        'The new hire uploads their documents; EZER reads them and fills the forms. ' +
+        'HR reviews instead of retyping.',
     },
     {
       icon: 'users' as IconName,
-      area: 'The HR inbox',
+      area: 'Who the tools are built for',
       today:
-        'Payslip requests, leave balance queries, a salary certificate for a home loan, a ' +
-        're-send of last year’s Form 16. Individually trivial, collectively a part-time job — ' +
-        'and each one interrupts the work that actually needed HR judgement.',
+        'Leave, attendance and payslip tools built desktop-first, for the HR team — ' +
+        'not for the employees who use them daily.',
       withEzer:
-        'Employees serve themselves in the ESS portal: payslips going back years, live leave ' +
-        'balances, tax declarations with the effect on take-home shown, letters on request. ' +
-        'What reaches HR is what needs a person.',
+        'Built mobile-first for employees, because they’re the ones checking leave ' +
+        'balance and payslips from their phone.',
+    },
+    {
+      icon: 'map-pin' as IconName,
+      area: 'Group structure',
+      today:
+        'Software that treats your retail arm, manufacturing arm and trading arm as if ' +
+        'they were one legal entity.',
+      withEzer:
+        'Built around the reality that Indian businesses are often a group of related ' +
+        'companies, each with its own compliance identity.',
     },
   ],
-}
+} as const
 
-/* ── The compliance engine ─────────────────────────────────────────────────
- * "Your multiple branches compliance register can generate in one go." */
 export const complianceEngine = {
   eyebrow: 'The compliance engine',
   title: 'One run. Every location’s register comes out together.',
@@ -233,42 +230,56 @@ export const complianceEngine = {
  * stages, and a claim that runs ahead of that is one a knowledgeable buyer
  * will catch on the first call. */
 export const labourCodes = {
-  eyebrow: 'Built for the new labour codes',
-  title: 'The definition of “wages” changed. Most payroll setups did not.',
+  /* Ported from Website changes.html (#compliance). */
+  eyebrow: 'Compliance, the way Indian law actually works',
+  title:
+    'Built for the new Labour Codes — configured to your industry, not just your headcount',
   lede:
-    'The four labour codes consolidated twenty-nine central acts and redrew what counts ' +
-    'as wages for PF, gratuity and leave encashment. If your salary structure was built ' +
-    'around the old definition, the exposure is not a rounding difference — it is every ' +
-    'month since, and it compounds quietly.',
+    'Labour law compliance in India was never one law — it’s dozens, state by ' +
+    'state, industry by industry. EZER’s compliance engine is where that ' +
+    'complexity gets absorbed, not passed on to your HR team.',
+  note:
+    'The four Labour Codes have been in effect since November 2025, and ' +
+    'state-level rules are still being notified in phases. EZER tracks each ' +
+    'notification as it lands, so your registers keep reflecting the rules that ' +
+    'actually apply to you — not last year’s.',
 
   codes: [
     {
-      name: 'Code on Wages, 2019',
-      covers: 'Minimum wages, payment of wages, bonus, equal remuneration',
-      what: 'The revised wage definition and the 50% rule applied to your salary structure, with the effect on PF, gratuity and encashment shown before you commit to it.',
+      name: 'Code on Wages',
+      covers: 'Minimum wage, payment of wages, bonus, equal remuneration',
+      what:
+        'Minimum wage, payment of wages, bonus and equal remuneration — feeds ' +
+        'directly into how EZER calculates every payslip.',
     },
     {
-      name: 'Code on Social Security, 2020',
-      covers: 'EPF, ESIC, gratuity, maternity benefit',
-      what: 'Contributions calculated on the revised wage base, per registration, with the gratuity clock running against the same service record.',
+      name: 'Industrial Relations Code',
+      covers: 'Standing orders, retrenchment, dispute resolution',
+      what:
+        'Standing orders, retrenchment and dispute resolution — tracked at the ' +
+        'establishment level for every branch and factory.',
     },
     {
-      name: 'Industrial Relations Code, 2020',
-      covers: 'Standing orders, notice, retrenchment',
-      what: 'Notice periods, retrenchment compensation and settlement rules applied in the full & final calculation rather than worked out beside it.',
+      name: 'Code on Social Security',
+      covers: 'PF, ESIC, gratuity, maternity benefit',
+      what:
+        'PF, ESIC, gratuity and maternity benefit — registers and contributions ' +
+        'generate automatically from attendance and payroll.',
     },
     {
-      name: 'OSH and Working Conditions Code, 2020',
-      covers: 'Registers, returns, working hours, leave',
-      what: 'Working-hour limits, overtime treatment and leave entitlement driven by establishment type and the state each location sits in.',
+      name: 'OSH & Working Conditions Code',
+      covers: 'Working hours, shift limits, welfare facilities',
+      what:
+        'Working hours, shift limits and welfare facilities — configured per ' +
+        'establishment type, from an office to a factory floor.',
     },
   ],
 
-  note:
-    'Rules are being notified by state and by establishment type, in stages. EZER holds ' +
-    'them as configuration per registration, so a notification is applied without waiting ' +
-    'for a product release — which is the difference between being ready and being told ' +
-    'it is on the roadmap.',
+  industryNote:
+    'Rules apply differently to an IT office, a factory, a warehouse and a BFSI ' +
+    'branch. EZER’s compliance engine is configured per industry and per ' +
+    'establishment type — never a single generic template stretched across your ' +
+    'whole company.',
 }
 
 /* ── Multi-entity, multi-location ──────────────────────────────────────────
@@ -316,36 +327,50 @@ export const structure = {
  * Handoff anchor #access: "Multi-company switcher, role list, CFO/leadership
  * card." */
 export const access = {
-  eyebrow: 'Rights management',
-  title: 'Who sees salary, who approves, and who only looks',
+  /* Ported from Website changes.html (#access). */
+  eyebrow: 'Built for how Indian groups actually operate',
+  title:
+    'Multiple companies, one login. Everyone sees exactly what their role needs.',
   lede:
-    'The reason HR data ends up back in spreadsheets is usually that the system could not ' +
-    'express who was allowed to see what — so somebody built a sanitised extract, and now ' +
-    'there are two versions of the truth. Roles here are defined per entity and per ' +
-    'location, not just per module.',
+    'A fast-growing startup runs on EZER from day one. A large group running ' +
+    'dozens of companies, lakhs of employees combined, and hundreds of branches, ' +
+    'plants and office types — runs on the same platform, one entity at a time, ' +
+    'consolidated under a single login.',
 
   roles: [
     {
       icon: 'chart' as IconName,
-      name: 'CFO and leadership',
+      name: 'CFO & Leadership View',
       detail:
-        'A compliance and cost view across every entity — what is due, what is filed, what is outstanding, and what the group costs by company and by location — without granting access to a single individual salary record. That distinction is usually the thing other systems cannot express.',
+        'Consolidated compliance and cost visibility across every company and ' +
+        'branch — without wading into transaction-level HR data. Filing status, ' +
+        'headcount cost and risk flags, on one screen.',
       highlight: true,
     },
     {
       icon: 'users' as IconName,
-      name: 'HR',
-      detail: 'Full operation of the modules they own, scoped to the entities and locations they are actually responsible for — which for a group HR team is rarely all of them.',
+      name: 'HR Head',
+      detail: 'Full access, all companies.',
+    },
+    {
+      icon: 'wallet' as IconName,
+      name: 'Payroll Manager',
+      detail: 'Payroll & statutory, all branches.',
+    },
+    {
+      icon: 'map-pin' as IconName,
+      name: 'Branch HR Executive',
+      detail: 'Own branch only.',
     },
     {
       icon: 'briefcase' as IconName,
-      name: 'Managers',
-      detail: 'Their own team: attendance, leave, claims and approvals, in one queue. No salary visibility unless you explicitly grant it.',
+      name: 'IT / Admin Manager',
+      detail: 'Onboarding & assets only.',
     },
     {
-      icon: 'user-plus' as IconName,
-      name: 'Employees',
-      detail: 'Their own record only, through the self-service portal — payslips, balances, declarations and documents.',
+      icon: 'shield' as IconName,
+      name: 'Finance Executive',
+      detail: 'Cost reports, masked PII.',
     },
   ],
 }
@@ -519,66 +544,87 @@ export const industries = [
  * ten-day plan is believable; "10 days" on its own reads as a sales claim, and
  * a CFO discounts it automatically. */
 export const implementation = {
-  eyebrow: 'Ten days, not two quarters',
-  title: 'A ten-day implementation, run by people who have done it before',
+  /* Ported from Website changes.html (#implementation). */
+  eyebrow: 'Go live without the chaos',
+  title:
+    'A 10-day implementation program, with one person accountable for your data',
   lede:
-    'Your employee data is an asset, and moving it is not a data-entry job. The programme ' +
-    'is run by an implementation specialist who has taken Indian companies off ' +
-    'spreadsheets and off other systems, with a named person accountable for each stage ' +
-    'below — and it is included in the subscription rather than quoted as a project.',
+    'Your employee master, CTC structures and compliance history are company ' +
+    'assets — not a spreadsheet to be rekeyed by whoever’s free that week. A ' +
+    'dedicated EZER implementation professional maps your existing data and owns ' +
+    'the go-live, start to finish.',
 
   phases: [
     {
-      days: 'Days 1–2',
-      title: 'Structure and data',
-      detail:
-        'Map the group: entities, locations, registrations, and which state governs which site. Your employee master, salary structures and opening balances come in by bulk upload — not retyped.',
+      days: 'Day 1–2',
+      title: 'Kickoff & mapping',
+      detail: 'Company and branch setup, existing data reviewed.',
     },
     {
-      days: 'Days 3–5',
-      title: 'Rules and access',
-      detail:
-        'Salary structures, leave policy, shift patterns, state-wise PT and LWF, approval chains, and who is allowed to see what. Configured with you in the room, not left as homework.',
+      days: 'Day 3–4',
+      title: 'Statutory profiles',
+      detail: 'Compliance rules configured per branch and industry.',
     },
     {
-      days: 'Days 6–8',
+      days: 'Day 5–6',
+      title: 'Employee master',
+      detail: 'Employee and CTC data migrated and verified.',
+    },
+    {
+      days: 'Day 7–8',
       title: 'Parallel run',
-      detail:
-        'We run one full cycle alongside your existing process and reconcile it line by line. You see your own numbers match before anything depends on them — this is the stage that decides whether go-live is calm.',
+      detail: 'Payroll run validated against your existing numbers.',
     },
     {
-      days: 'Days 9–10',
-      title: 'Training and go-live',
-      detail:
-        'HR and Finance trained on the modules they own, ESS credentials issued across the workforce, and the first live run signed off together rather than handed over.',
+      days: 'Day 9–10',
+      title: 'Training & go-live',
+      detail: 'Team trained, access rolled out, you’re live.',
     },
   ],
 
   promise:
     'Year-to-date figures come across with everything else. Without them the TDS ' +
-    'projection for the rest of the year is wrong, and every employee sees it in their ' +
-    'Form 16 — which is the migration mistake that is hardest to unwind.',
-}
+    'projection for the rest of the year is wrong, and every employee sees it in ' +
+    'their Form 16 — which is the migration mistake that is hardest to unwind.',
+} as const
 
-/* ── Employee tax calculator ───────────────────────────────────────────────
- * Handoff anchor #tax: "Old vs New tax-regime calculator (slider)."
- *
- * Note the handoff's own warning: the marketing calculator is a simplified
- * illustrative formula, NOT the production computeTax() engine. Copy here is
- * written so it never claims otherwise. */
 export const taxCalculator = {
-  eyebrow: 'For your employees',
-  title: 'A tax calculator that answers the question they actually ask',
+  /* Ported from Website changes.html (#tax). */
+  eyebrow: 'For your employees, not just your HR team',
+  title: 'Old regime or new? Let the numbers decide.',
   lede:
-    'Every January, HR fields the same question in a hundred variations: “which regime ' +
-    'should I pick, and what happens to my take-home if I declare this?” In EZER the ' +
-    'employee answers it themselves, against their own salary — and HR stops being the ' +
-    'calculator.',
+    'Every EZER employee gets this comparison before they declare — not after ' +
+    'Form 16 arrives and it’s too late to change anything. Drag the slider to ' +
+    'see how it works.',
 
   points: [
-    { label: 'Old regime or new', detail: 'Both projected side by side on their actual salary, not a generic example from a blog.' },
-    { label: 'What a declaration does', detail: 'The effect on the monthly deduction is shown before they commit to it, which is when people get it right.' },
-    { label: 'Across the whole year', detail: 'The projection updates every month as proofs are verified, so March holds no surprises.' },
-    { label: 'Decided by them', detail: 'Which means the decision is theirs — and HR is not blamed for it when the last payslip of the year lands.' },
+    {
+      label: 'Old regime or new',
+      detail:
+        'Both projected side by side on their actual salary, not a generic example from a blog.',
+    },
+    {
+      label: 'What a declaration does',
+      detail:
+        'The effect on the monthly deduction is shown before they commit to it, which is when people get it right.',
+    },
+    {
+      label: 'Across the whole year',
+      detail:
+        'The projection updates every month as proofs are verified, so March holds no surprises.',
+    },
+    {
+      label: 'Decided by them',
+      detail:
+        'Which means the decision is theirs — and HR is not blamed for it when the last payslip of the year lands.',
+    },
   ],
+
+  /* The reference runs an illustrative slider at ₹12,00,000 CTC assuming
+     ₹2,00,000 of old-regime exemptions. Kept as the caption on the
+     illustration rather than as a live control. */
+  illustrativeNote:
+    'Illustrative example — assumes ₹2,00,000 in standard exemptions and ' +
+    'deductions under the old regime (HRA, 80C, etc). Your EZER dashboard ' +
+    'calculates the exact number from each employee’s real declaration.',
 }

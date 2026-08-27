@@ -13,7 +13,7 @@ export function SocialProof() {
   if (live.length === 0) return null
 
   return (
-    <Section tone="white" ariaLabel="What customers say">
+    <Section tone="transparent" ariaLabel="What customers say">
       <SectionHeading
         eyebrow="In their words"
         title="What changed after the switch"

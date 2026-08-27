@@ -22,6 +22,7 @@ export function Illustration({
   className = '',
   ratio = 'aspect-[16/10]',
   priority = false,
+  onDark = false,
 }: {
   src: string
   alt: string
@@ -29,6 +30,10 @@ export function Illustration({
   className?: string
   ratio?: string
   priority?: boolean
+  /* The frame keeps its light card either way — that IS the contrast on a
+     dark band — but the caption underneath sits on the section's own ground
+     and has to flip with it. */
+  onDark?: boolean
 }) {
   return (
     <figure className={`w-full ${className}`}>
@@ -43,9 +48,15 @@ export function Illustration({
           {...(priority ? { fetchPriority: 'high' as const } : {})}
         />
       </div>
-      <figcaption className="mt-3 text-sm leading-relaxed text-ink-500">
+      <figcaption
+        className={`mt-3 text-sm leading-relaxed ${
+          onDark ? 'text-on-dark-muted' : 'text-ink-500'
+        }`}
+      >
         {caption ? <>{caption} </> : null}
-        <span className="text-ink-400">Illustration, not a screenshot.</span>
+        <span className={onDark ? 'text-on-dark-faint' : 'text-ink-400'}>
+          Illustration, not a screenshot.
+        </span>
       </figcaption>
     </figure>
   )

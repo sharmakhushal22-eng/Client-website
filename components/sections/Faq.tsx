@@ -10,8 +10,10 @@ import { Icon } from '@/components/ui/Icon'
  * browser rather than from ARIA we would have to maintain. */
 export function Faq({
   faqs,
-  eyebrow = 'Questions',
-  title = 'The things people ask before the first call',
+  eyebrow = 'Before you ask on the call',
+  /* The eyebrow above already says "before the call"; the title saying it
+     again read as one thought split over two lines. */
+  title = 'Common questions',
   lede,
   tone = 'white',
 }: {

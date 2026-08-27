@@ -99,46 +99,35 @@ export const testimonials = [
  * Everything offered below must be something the company will actually
  * honour. Do not list a commitment nobody has agreed to. */
 export const foundingCustomer = {
-  eyebrow: 'Where the testimonials will go',
-  title: 'We would rather say this than invent a quote',
+  /* Ported from Website changes.html (#testimonials). */
+  eyebrow: 'Early, by design',
+  title: 'Be one of EZER’s first case studies',
   lede:
-    'EZER is early. We have no customer logos to show you yet, and putting up three ' +
-    'invented testimonials would be both easy and disqualifying — a buyer who spots a ' +
-    'fabricated quote stops believing the compliance claims too. So here is the honest ' +
-    'version, and what being early is worth.',
+    'EZER is newly built — which means the roadmap still bends toward what our ' +
+    'first companies actually need, instead of what a five-year-old product has ' +
+    'already locked in.',
 
-  /* The offer. Each item is a commitment, not a benefit statement. */
   offer: [
     {
-      title: 'The roadmap is partly yours',
-      detail:
-        'Founding customers get direct access to the people building the product, and the statutory edge cases you bring — your state, your establishment type, your wage structure — get built because you asked.',
+      title: 'Your feedback shapes the roadmap',
+      detail: 'Not the other way around.',
     },
     {
-      title: 'Implementation led by the founders',
-      detail:
-        'Not a partner, not a reseller, not a support queue. The people who designed the calculation engine run your parallel payroll run and sit with your team on go-live.',
+      title: 'Direct access to the founder and implementation team',
+      detail: 'Not a ticket queue.',
     },
     {
-      title: 'Pricing held for the term',
-      detail:
-        'Your rate is fixed for the length of the founding term, including through the versions that add more than you signed up for.',
-    },
-    {
-      title: 'A reference relationship, not a testimonial request',
-      detail:
-        'If it works, we will ask you to say so — later, in your own words, and only about things you actually experienced. If it does not, your data leaves in standard formats at no charge.',
+      title: 'See EZER run against your own payroll data',
+      detail: 'In the demo, before you commit to anything.',
     },
   ],
 
-  /* Qualifying line — this panel should attract the right buyer and repel the
-   * wrong one. Being early is genuinely not for everybody. */
   fitNote:
-    'This suits a company that wants influence over the product and can tolerate being ' +
-    'early. If you need a vendor with two hundred reference customers and a Gartner ' +
-    'listing, we are not that yet — and we would rather say so now than on the third call.',
-
-  ctaLabel: 'Talk about a founding engagement',
+    'This suits a company that wants influence over the product and can tolerate ' +
+    'being early. If you need a vendor with two hundred reference customers and a ' +
+    'Gartner listing, we are not that yet — and we would rather say so now than ' +
+    'on the third call.',
+  ctaLabel: 'Talk to Us About Early Access',
 }
 
 /* ── FAQs ──────────────────────────────────────────────────────────────────
@@ -146,33 +135,26 @@ export const foundingCustomer = {
  * deflections — a schema-eligible answer that dodges the question is worse
  * than no schema. */
 export const homeFaqs = [
+  /* Ported verbatim from Website changes.html (#faq). */
   {
-    q: 'How long does implementation actually take?',
-    a: 'Ten working days, run as a defined programme: structure and data on days 1–2, rules and access on days 3–5, a full parallel payroll run on days 6–8, and training plus go-live on days 9–10. The parallel run is the part that matters — you watch your own numbers reconcile against your existing process before anything depends on the new system. Implementation is included in the subscription rather than quoted separately.',
+    q: 'Is our data safe, and where is it stored?',
+    a: 'Your data is hosted in India. Sensitive fields — full Aadhaar number, bank account details — are masked by default and visible only to the specific roles that need them (HR Manager, Payroll Manager, Admin, Super Admin); everyone else sees a masked version, on every screen and every report export.',
   },
   {
-    q: 'We run several companies across several states. Does that work in one system?',
-    a: 'That is what it is built for, and it is the reason most companies come to us. A group holds several companies, each with its own PAN, TAN, CIN, letterhead and statutory registrations, and each company holds its own locations — corporate office, branch, factory, warehouse or depot. Professional Tax, LWF and leave entitlement are applied by the state each location sits in, while headcount and cost consolidate across the group. Entities and locations are unlimited on the same subscription.',
+    q: 'We’re already on another HRMS mid-year — can we still switch?',
+    a: 'Yes. The 10-day implementation program is built around migrating existing employee, CTC and compliance data, not starting from a blank sheet. Your implementation professional maps what you already have before anything moves.',
   },
   {
-    q: 'Do you handle the new labour codes?',
-    a: 'Yes. The codes redrew the definition of wages for PF, gratuity and leave encashment, so a salary structure built on the old definition is wrong every month rather than slightly off. We model the effect on your actual structure before you commit to it, and hold the rules as configuration per registration — because they are being notified by state and by establishment type, in stages, rather than all at once.',
+    q: 'How large can EZER actually go — and can it run multiple group companies?',
+    a: 'There is no headcount ceiling. Multi-company is core to how EZER is built, not an add-on bolted on later — one login, separate books and separate statutory registers per company, from the first run. The same architecture that runs one 40-person startup runs a group of dozens of entities totalling lakhs of employees across hundreds of corporate offices, branches, plants and warehouses.',
   },
   {
-    q: 'Can our CFO see the compliance position without seeing individual salaries?',
-    a: 'Yes. Roles are defined per entity and per location, not just per module, so leadership gets what is due, what is filed and what the group costs, without access to individual salary records. That distinction is usually the thing other systems cannot express — and it is why a sanitised spreadsheet ends up being maintained alongside them.',
+    q: 'What if our branches sit in different states or industries?',
+    a: 'Compliance rules are configured per branch and per industry — minimum wage, PT and shift rules differ by state and establishment type, and EZER accounts for that instead of applying one template everywhere.',
   },
   {
-    q: 'What happens to our existing data?',
-    a: 'It comes across in the bulk upload during days 1–2 — employee master, salary structures, opening leave balances and year-to-date payroll figures. The year-to-date figures matter more than anything else: without them the TDS projection for the rest of the year is wrong, and every employee sees the mismatch in their Form 16. Migration is part of implementation, not a separate engagement.',
-  },
-  {
-    q: 'What does it cost, and is anything gated behind a higher plan?',
-    a: 'One plan, one rate per employee per month, and nothing gated. Tiering an HRMS means tiering compliance — the statutory depth always ends up in the upper tier, which leaves the company least able to absorb a PF notice with the weakest coverage. We would rather charge one rate. Entities, locations, modules, implementation and migration are all in it.',
-  },
-  {
-    q: 'Is there a minimum contract, and can we get our data out?',
-    a: 'Subscriptions are annual. You can export your data at any time during the subscription and on exit — employee master, payroll history, statutory records, documents — in standard formats, at no charge. A system you cannot leave is one you should not enter.',
+    q: 'Do employees need training to use it?',
+    a: 'Employee self-service is built to be self-explanatory — punch in/out, apply leave, check a payslip, declare investments. Formal training for your HR and payroll team is covered on Days 9–10 of implementation.',
   },
 ]
 
@@ -215,3 +197,36 @@ export const productTour = [
       'Payslips, tax declarations, leave balances, attendance and documents in the ESS portal — which is where most of the HR inbox goes to die.',
   },
 ]
+
+
+/* ============================================================================
+ * The announcement bar — ported from Website changes.html.
+ *
+ * This replaced the pricing pre-register hook that used to sit here. The
+ * pre-register flow keeps its own edge tab, pill and teaser, so it lost no
+ * entry point; the bar meanwhile gained the one message that is genuinely
+ * time-bound. A bar that scrolls away should carry the thing that is only
+ * true this year.
+ * ========================================================================= */
+export const announcement = {
+  text:
+    'New Labour Codes are in effect. A new Income Tax Act just replaced the ' +
+    'old one. 2026 is the year Indian payroll compliance changes',
+  ctaLabel: 'see what’s changing',
+  /* The explainer, not the product page: someone reading this bar wants to
+     know what changed, not to be sold to mid-sentence. */
+  ctaHref: '/blog/labour-codes-explained',
+} as const
+
+/* The hero's scale row, ported from Website changes.html.
+ *
+ * "Data hosted in India" is the reference's fourth chip and is deliberately
+ * absent here: the trust badges immediately below already carry it, in the
+ * more specific form the product can actually stand behind ("Data stored in
+ * India — Mumbai"). Two chips saying the same thing one line apart reads as
+ * padding. */
+export const heroScale = [
+  'Startups to lakh-employee groups',
+  'Hundreds of branches, plants & office types',
+  '100+ industries mapped',
+] as const

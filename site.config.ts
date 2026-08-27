@@ -42,10 +42,13 @@ export const site = {
     'manpower planning, payroll, statutory compliance and employee experience, ' +
     'across every establishment type, every industry, every state.',
 
+  /* Taken from the meta description in Website changes.html, so the search
+     snippet matches what the company already publishes. */
   description:
-    'EZER HRMS is an Indian HR, payroll and compliance engine for companies of ' +
-    'every size — a forty-person startup or a group running lakhs across hundreds ' +
-    'of offices, plants and branches. Recruitment to exit, on one employee record.',
+    'EZER is India’s proactive HRMS — payroll, statutory compliance, ATS, CTC ' +
+    'planning and employee experience on one platform. Built for startups ' +
+    'through multi-entity groups with lakhs of employees across hundreds of ' +
+    'offices, branches and plants. Request a demo.',
 } as const
 
 /* ── Contact ───────────────────────────────────────────────────────────────
@@ -99,17 +102,23 @@ export const contact = {
  * Indian B2B buyers check for a registered address, CIN and GST before a
  * first call. An address-less footer reads as a shell company.
  *
- * The handoff does not carry any of these, so they remain TODO. */
+ * The postal address comes from the Organization JSON-LD in
+ * Website changes.html, which is the company's own document — so it is a
+ * real address, not a placeholder.
+ *
+ * ⚠ The registered ENTITY name, CIN and GSTIN are still not carried anywhere
+ * and remain TODO. Address alone does not satisfy an Indian buyer's due
+ * diligence, and the placeholder guard below still trips on them. */
 export const company = {
   legalName: 'TODO Private Limited',      // TODO registered entity name
   cin: 'TODO',                            // TODO Corporate Identity Number
   gstin: 'TODO',                          // TODO GST number
   registeredAddress: {
-    line1: 'TODO address line 1',
-    line2: 'TODO address line 2',
-    city: 'TODO',
-    state: 'TODO',
-    pincode: 'TODO',
+    line1: 'B-603, The Roselia',
+    line2: 'Sector 95A',
+    city: 'Gurugram',
+    state: 'Haryana',
+    pincode: '122505',
     country: 'India',
   },
   /* DPDP Act 2023 requires a NAMED grievance officer with reachable contact
@@ -309,9 +318,14 @@ export const trust = {
    * verify yet — the same reason the founding-customer panel exists instead of
    * invented testimonials. */
   stats: [
-    { value: '4', label: 'new Labour Codes covered' },
-    { value: '7+', label: 'statutory acts automated' },
-    { value: 'No ceiling', label: 'employees per company or group' },
+    { value: '4', label: 'New Labour Codes covered' },
+    { value: '7+', label: 'Statutory acts automated' },
+    { value: 'No ceiling', label: 'Employees per company or group' },
+    /* The fourth stat from the reference's strip. It is not a loose claim —
+       the implementation section on the same page walks Day 1-2 through
+       Day 9-10, so the figure is checkable against our own content rather
+       than being a number chosen because it sounds good. */
+    { value: '10 days', label: 'Typical implementation' },
   ],
   clientLogos: [] as Array<{ name: string; src: string }>,
 }
@@ -323,6 +337,14 @@ export const trust = {
 export const booking = {
   calendarUrl: process.env.NEXT_PUBLIC_CALENDAR_URL ?? '',  // TODO
   durationMinutes: 30,
+  /* The reference's three-step summary — what a reader needs before they
+     hand over a phone number. It is deliberately shorter and blunter than
+     whatHappens below, which is the detail for someone already convinced. */
+  steps: [
+    'We call within 1 business day.',
+    'We configure a demo around your industry and branches.',
+    'You decide — no pressure, no lock-in pitch.',
+  ],
   whatHappens: [
     'Thirty minutes in the live product. Not a slide deck, and not a recorded video.',
     'We ask first: how many entities, which states, how many employees, what you run payroll on today.',

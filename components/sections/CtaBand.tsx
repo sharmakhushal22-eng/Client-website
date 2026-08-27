@@ -13,7 +13,7 @@ import { contact, booking } from '@/site.config'
  * to the booking page keeps the demo request specific to that module. */
 export function CtaBand({
   variant = 'buttons',
-  title = 'See it on your own data',
+  title = 'See EZER on your own data',
   lede = 'A 30-minute walkthrough against your own entities, your own states and your own statutory setup. Not a slide deck.',
   formName = 'cta-band',
 }: {

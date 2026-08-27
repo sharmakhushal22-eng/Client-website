@@ -28,7 +28,20 @@ import { lifecycle } from '@/content/lifecycle'
  * ========================================================================= */
 export function LifecycleStrip() {
   return (
-    <section className="bg-canvas py-12 sm:py-14 lg:py-16" aria-label="Employee lifecycle">
+    /* overflow-x-clip because the travelling dot's moving element is a full
+       track wide and is translated by a full track: its own right edge ends
+       up roughly 300px past the document, which gave the whole PAGE a
+       horizontal scrollbar for part of every six-second cycle. Intermittent
+       by nature — a scrollWidth check only catches it if it happens to run
+       in the second half of the animation, which is how it survived the
+       earlier passes.
+       clip rather than hidden: hidden would make this a scroll container and
+       break `position: sticky` for anything inside it. The visible dot never
+       reaches the section edge, so nothing real is cut. */
+    <section
+      className="overflow-x-clip bg-canvas py-12 sm:py-14 lg:py-16"
+      aria-label="Employee lifecycle"
+    >
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
