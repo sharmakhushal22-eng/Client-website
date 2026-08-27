@@ -275,6 +275,22 @@ export const labourCodes = {
     },
   ],
 
+  /* The reference's stack-chip row, in its order. Distinct from
+     complianceItems in content/modules.ts, which is the longer table on the
+     /compliance page — this is the at-a-glance strip. */
+  stack: [
+    'EPF',
+    'ESIC',
+    'Professional Tax',
+    'LWF',
+    'Gratuity',
+    'Bonus Act',
+    'TDS',
+    'Minimum Wages',
+    'DPDP Act, 2023',
+    'POSH',
+  ],
+
   industryNote:
     'Rules apply differently to an IT office, a factory, a warehouse and a BFSI ' +
     'branch. EZER’s compliance engine is configured per industry and per ' +
