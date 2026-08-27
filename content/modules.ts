@@ -11,202 +11,268 @@ export type ModuleGroup = {
   name: string
   /* Spec §2.2 pillar this group ladders up to. */
   promise: string
+  /* The reference's full tab label ("Recruitment & ATS"). `name` stays the
+     site's own short form, for the compact places the long label will not
+     fit. */
+  label: string
+  /* blurb is '' where the reference bullet has no natural lead-in to split
+     on; the whole sentence is then the name and nothing renders beneath. */
   modules: { name: string; blurb: string }[]
+  /* The status rows from the reference's per-area mock panel. Illustrative
+     figures — captioned as such where they render. */
+  mock: { label: string; value: string; state: 'ok' | 'pend' }[]
   /* Set once a /features/<slug> detail page exists. */
   href?: string
 }
 
 export const moduleGroups: ModuleGroup[] = [
-  /* The eight areas from Website changes.html (#modules), with their
-     headings as the promise line and their bullets as the modules. */
+  /* The eight areas from Website changes.html (#modules) — tab labels,
+     headings, bullets and mock rows, all verbatim. */
   {
     id: 'hire',
     name: 'Hire',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'Recruitment & ATS',
     promise: 'Easy hiring and talent management',
     href: '/features/recruitment',
     modules: [
       {
-        name: 'Sourcing and job posting',
-        blurb: 'Sourcing and job posting, with Naukri integration for the Indian market',
+        name: 'Sourcing and job posting, with Naukri integration for the Indian market',
+        blurb: '',
       },
       {
-        name: 'Structured interview scorecards',
-        blurb: 'Structured interview scorecards, so panels score candidates the same way',
+        name: 'Structured interview scorecards, so panels score candidates the same way',
+        blurb: '',
       },
       {
         name: 'A 7-step offer flow',
-        blurb: 'A 7-step offer flow — CTC calculator to HR Head approval to digital acceptance',
+        blurb: 'CTC calculator to HR Head approval to digital acceptance',
       },
       {
         name: 'One-click candidate-to-employee conversion',
-        blurb: 'One-click candidate-to-employee conversion — no re-keying the same data twice',
+        blurb: 'no re-keying the same data twice',
       },
+    ],
+    mock: [
+      { label: 'Applications sourced (Naukri + direct)', value: '128', state: 'ok' },
+      { label: 'Interview scorecards completed', value: '34', state: 'ok' },
+      { label: 'Offers — CTC calculator to digital acceptance', value: '9 in flow', state: 'pend' },
+      { label: 'Candidate → employee, one click', value: 'Enabled', state: 'ok' },
     ],
   },
   {
     id: 'plan',
     name: 'Plan',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'CTC Planning & Manpower Budgeting',
     promise: 'Know the cost before you make the offer',
     modules: [
       {
-        name: 'Model a CTC structure and see in-hand pay',
-        blurb: 'Model a CTC structure and see in-hand pay, employer cost and statutory impact together — before an offer goes out',
+        name: 'Model a CTC structure and see in-hand pay, employer cost and statutory impact together',
+        blurb: 'before an offer goes out',
       },
       {
-        name: 'Headcount plans by department',
-        blurb: 'Headcount plans by department, branch or company, so hiring has a budget to hire against, not a guess',
+        name: 'Headcount plans by department, branch or company, so hiring has a budget to hire against, not a guess',
+        blurb: '',
       },
       {
-        name: 'Planned versus actual cost visible as offers are made and ',
-        blurb: 'Planned versus actual cost visible as offers are made and people join — not reconciled after the fact at quarter-end',
+        name: 'Planned versus actual cost visible as offers are made and people join',
+        blurb: 'not reconciled after the fact at quarter-end',
       },
       {
-        name: 'Every approved CTC structure flows straight into payroll a',
-        blurb: 'Every approved CTC structure flows straight into payroll and the employee\'s ESS — no re-entry when someone joins',
+        name: 'Every approved CTC structure flows straight into payroll and the employee\'s ESS',
+        blurb: 'no re-entry when someone joins',
       },
+    ],
+    mock: [
+      { label: 'Headcount budget — Engineering, FY26-27', value: '42 / 50 planned', state: 'ok' },
+      { label: 'Open offers against budget', value: '5 pending', state: 'pend' },
+      { label: 'CTC structure → payroll', value: 'Synced automatically', state: 'ok' },
     ],
   },
   {
     id: 'onboard',
     name: 'Onboard',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'Onboarding',
     promise: 'Onboarding, without the paper chase',
-    href: '/features/recruitment',
+    href: '/features/ess',
     modules: [
       {
-        name: 'Aadhaar e-KYC built into the candidate\'s own onboarding li',
-        blurb: 'Aadhaar e-KYC built into the candidate\'s own onboarding link',
+        name: 'Aadhaar e-KYC built into the candidate\'s own onboarding link',
+        blurb: '',
       },
       {
         name: 'Statutory forms auto-filled',
-        blurb: 'Statutory forms auto-filled — PF Form 11, Form 2 (Revised), Form III Gratuity',
+        blurb: 'PF Form 11, Form 2 (Revised), Form III Gratuity',
       },
       {
         name: 'Multi-department approval',
-        blurb: 'Multi-department approval — IT, Admin and Payroll sign off in parallel, not in sequence',
+        blurb: 'IT, Admin and Payroll sign off in parallel, not in sequence',
       },
       {
-        name: 'Employee code generated automatically the moment onboardin',
-        blurb: 'Employee code generated automatically the moment onboarding completes',
+        name: 'Employee code generated automatically the moment onboarding completes',
+        blurb: '',
       },
+    ],
+    mock: [
+      { label: 'IT Setup — Asset issued', value: 'Done', state: 'ok' },
+      { label: 'Admin — ID card', value: 'Done', state: 'ok' },
+      { label: 'Payroll — Bank & PF details', value: 'Awaiting', state: 'pend' },
     ],
   },
   {
     id: 'time',
     name: 'Time',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'Attendance & Leave',
     promise: 'Attendance that doesn\'t need daily follow-up',
     href: '/features/attendance',
     modules: [
       {
-        name: 'Punch in / punch out from the employee\'s own self-service ',
-        blurb: 'Punch in / punch out from the employee\'s own self-service home screen',
+        name: 'Punch in / punch out from the employee\'s own self-service home screen',
+        blurb: '',
       },
       {
-        name: 'Missed-punch alerts sent automatically over WhatsApp and e',
-        blurb: 'Missed-punch alerts sent automatically over WhatsApp and email, next day',
+        name: 'Missed-punch alerts sent automatically over WhatsApp and email, next day',
+        blurb: '',
       },
       {
-        name: 'Leave policies configured per company',
-        blurb: 'Leave policies configured per company, per location, per employee grade',
+        name: 'Leave policies configured per company, per location, per employee grade',
+        blurb: '',
       },
       {
         name: 'Attendance flows straight into the payroll run',
-        blurb: 'Attendance flows straight into the payroll run — no separate export-import step',
+        blurb: 'no separate export-import step',
       },
+    ],
+    mock: [
+      { label: 'Punch IN — 09:41 AM', value: 'Logged', state: 'ok' },
+      { label: 'Missed punch — yesterday', value: 'WhatsApp sent', state: 'pend' },
+      { label: 'Leave balance — Casual', value: '6 days', state: 'ok' },
     ],
   },
   {
     id: 'pay',
     name: 'Pay',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'Payroll & Statutory',
     promise: 'Payroll that already knows the law',
     href: '/features/payroll',
     modules: [
       {
-        name: 'Pro-rata',
-        blurb: 'Pro-rata, EPF, ESIC and Professional Tax calculated automatically, every run',
+        name: 'Pro-rata, EPF, ESIC and Professional Tax calculated automatically, every run',
+        blurb: '',
       },
       {
-        name: 'Arrears and month-wise TDS projection built into the engin',
-        blurb: 'Arrears and month-wise TDS projection built into the engine, not bolted on',
+        name: 'Arrears and month-wise TDS projection built into the engine, not bolted on',
+        blurb: '',
       },
       {
-        name: 'A 16-report reporting suite',
-        blurb: 'A 16-report reporting suite, with column-level access — sensitive fields masked by role',
+        name: 'A 16-report reporting suite, with column-level access',
+        blurb: 'sensitive fields masked by role',
       },
       {
-        name: 'One run',
-        blurb: 'One run, every company, every branch — no separate spreadsheet per location',
+        name: 'One run, every company, every branch',
+        blurb: 'no separate spreadsheet per location',
       },
+    ],
+    mock: [
+      { label: 'Multi-company payroll run', value: 'Run complete', state: 'ok' },
+      { label: 'TDS projection — FY 26-27', value: 'Updated', state: 'ok' },
+      { label: 'Aadhaar & bank fields', value: 'Masked · role-based', state: 'pend' },
     ],
   },
   {
-    id: 'serve',
-    name: 'Serve',
+    id: 'ess',
+    name: 'Self-service',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'Employee Self-Service',
     promise: 'Self-service employees actually use',
     href: '/features/ess',
     modules: [
       {
-        name: 'Old vs new tax regime',
-        blurb: 'Old vs new tax regime, compared side by side, before they decide',
+        name: 'Old vs new tax regime, compared side by side, before they decide',
+        blurb: '',
       },
       {
         name: 'Flexible benefit choices',
-        blurb: 'Flexible benefit choices — car & driver, meal card, telephone, LTA and more',
+        blurb: 'car & driver, meal card, telephone, LTA and more',
       },
       {
-        name: 'A five-step investment declaration wizard',
-        blurb: 'A five-step investment declaration wizard, not a 40-field form',
+        name: 'A five-step investment declaration wizard, not a 40-field form',
+        blurb: '',
       },
       {
         name: 'Every payslip carries the full income-tax worksheet',
-        blurb: 'Every payslip carries the full income-tax worksheet — never a mystery number',
+        blurb: 'never a mystery number',
       },
+    ],
+    mock: [
+      { label: 'Investment declarations submitted', value: 'On time', state: 'ok' },
+      { label: 'Regime comparison shown', value: 'Before filing', state: 'ok' },
+      { label: 'Flexi benefit heads available', value: '6 options', state: 'pend' },
     ],
   },
   {
-    id: 'claims',
-    name: 'Claims',
+    id: 'travel',
+    name: 'Travel',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'Travel & Reimbursement',
     promise: 'Travel claims that don\'t wait for month-end',
     href: '/features/claims',
     modules: [
       {
         name: 'Local travel',
-        blurb: 'Local travel — pick a mode, end the trip, fare calculates instantly',
+        blurb: 'pick a mode, end the trip, fare calculates instantly',
       },
       {
         name: 'Outstation trips',
-        blurb: 'Outstation trips — reporting manager approves, then finance, on the same record',
+        blurb: 'reporting manager approves, then finance, on the same record',
       },
       {
         name: 'Group travel',
-        blurb: 'Group travel — limits pool automatically across everyone on the trip',
+        blurb: 'limits pool automatically across everyone on the trip',
       },
       {
-        name: 'Bills older than 90 days are declined automatically',
-        blurb: 'Bills older than 90 days are declined automatically, no manual policing needed',
+        name: 'Bills older than 90 days are declined automatically, no manual policing needed',
+        blurb: '',
       },
+    ],
+    mock: [
+      { label: 'Local trips — fare auto-calculated', value: 'Live', state: 'ok' },
+      { label: 'Outstation approvals — RM → Finance', value: 'In flow', state: 'pend' },
+      { label: 'Group travel — pooled limits', value: 'Enabled', state: 'ok' },
     ],
   },
   {
     id: 'exit',
     name: 'Exit',
+    /* The reference's own tab label, kept verbatim. */
+    label: 'Exit & Full-and-Final',
     promise: 'Exit, on the same engine that ran payroll',
     modules: [
       {
-        name: 'Full-and-final settlement calculated from the same payroll',
-        blurb: 'Full-and-final settlement calculated from the same payroll data — no re-entry',
+        name: 'Full-and-final settlement calculated from the same payroll data',
+        blurb: 'no re-entry',
       },
       {
         name: 'Access closes automatically from the date of leaving',
-        blurb: 'Access closes automatically from the date of leaving — no lingering logins',
+        blurb: 'no lingering logins',
       },
       {
-        name: 'Gratuity',
-        blurb: 'Gratuity, leave encashment and dues settled against one record',
+        name: 'Gratuity, leave encashment and dues settled against one record',
+        blurb: '',
       },
       {
-        name: 'Every exit produces a clean',
-        blurb: 'Every exit produces a clean, auditable trail for compliance review',
+        name: 'Every exit produces a clean, auditable trail for compliance review',
+        blurb: '',
       },
+    ],
+    mock: [
+      { label: 'FNF settlement — initiated', value: 'Calculated', state: 'ok' },
+      { label: 'System access', value: 'Revoked', state: 'ok' },
+      { label: 'Exit trail', value: 'Logged', state: 'ok' },
     ],
   },
 ]

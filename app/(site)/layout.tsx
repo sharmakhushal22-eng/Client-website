@@ -27,8 +27,16 @@ export const metadata: Metadata = {
     'compliance register generation India',
   ],
   formatDetection: { telephone: true, address: false, email: false },
-  openGraph: { type: 'website', locale: 'en_IN', siteName: site.name, url: site.url },
-  twitter: { card: 'summary_large_image' },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    siteName: site.name,
+    url: site.url,
+    /* The reference's own og:description — the shorter social-card line,
+       not the longer search description. */
+    description: site.ogDescription,
+  },
+  twitter: { card: 'summary_large_image', description: site.ogDescription },
   robots: { index: true, follow: true },
 }
 

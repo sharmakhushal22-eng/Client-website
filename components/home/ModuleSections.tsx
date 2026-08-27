@@ -146,7 +146,7 @@ export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
 
                 <span className="min-w-0 flex-1">
                   <span className="block text-[1.05rem] font-bold text-ink-900">
-                    {group.name}
+                    {group.label}
                   </span>
                   <span className="mt-0.5 block text-[0.88rem] leading-relaxed text-ink-600">
                     {group.promise}
@@ -199,13 +199,47 @@ export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
                           <span className="block text-sm font-bold text-ink-900">
                             {m.name}
                           </span>
-                          <span className="mt-0.5 block text-xs leading-relaxed text-ink-500">
-                            {m.blurb}
-                          </span>
+                          {m.blurb && (
+                            <span className="mt-0.5 block text-xs leading-relaxed text-ink-500">
+                              {m.blurb}
+                            </span>
+                          )}
                         </span>
                       </li>
                     ))}
                   </ul>
+
+                  {/* The reference's status mock for this area. The figures
+                      are illustrative — hence the caption, which is not
+                      optional: unlabelled numbers on a payroll page get
+                      quoted back at you as if they were ours. */}
+                  <div className="mt-6 rounded-2xl bg-canvas p-4 ring-1 ring-ink-200">
+                    <ul className="divide-y divide-ink-200">
+                      {group.mock.map((row) => (
+                        <li
+                          key={row.label}
+                          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-2.5 first:pt-0 last:pb-0"
+                        >
+                          <span className="text-[0.85rem] text-ink-800">
+                            {row.label}
+                          </span>
+                          <span
+                            className={
+                              'shrink-0 rounded-full px-2.5 py-1 text-[0.75rem] font-bold ' +
+                              (row.state === 'ok'
+                                ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200'
+                                : 'bg-amber-50 text-amber-800 ring-1 ring-amber-200')
+                            }
+                          >
+                            {row.value}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <p className="mt-2 text-[0.75rem] text-ink-500">
+                    Illustrative figures.
+                  </p>
 
                   {group.href && (
                     <Link

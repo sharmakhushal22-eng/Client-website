@@ -22,7 +22,11 @@ export function ContentHub() {
         lede={contentHub.lede}
       />
 
-      <ul className="mt-10 grid gap-5 lg:grid-cols-3">
+      <h3 className="mt-10 text-[0.78rem] font-bold uppercase tracking-[0.12em] text-brand-700">
+        From the blog
+      </h3>
+
+      <ul className="mt-4 grid gap-5 lg:grid-cols-3">
         {articles.map((a, i) => (
           <li
             key={a.slug}

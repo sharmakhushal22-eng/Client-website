@@ -31,9 +31,13 @@ const initial: LeadFormState = { status: 'idle' }
 const MODULE_OPTIONS = moduleGroups.map((g) => g.name)
 
 const BAND_LABELS: Record<string, string> = {
-  '<50': 'Fewer than 50',
-  '50-200': '50 – 200',
-  '200-500': '200 – 500',
+  '<50': 'Under 50',
+  '50-200': '50–200',
+  '200-500': '200–500',
+  '500-2000': '500–2,000',
+  '2000+': '2,000+',
+  /* Retired boundaries, kept so a lead captured under the old bands still
+     renders its own label instead of a blank option. */
   '500-1000': '500 – 1,000',
   '1000+': 'More than 1,000',
 }

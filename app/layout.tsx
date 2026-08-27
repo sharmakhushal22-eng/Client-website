@@ -19,7 +19,13 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "HR, Payroll & Compliance Engine for India | EZER HRMS",
+    /* Verbatim from the reference's <title> and og:title.
+       NOTE for whoever ships this: "India's 1st HRMS" is a comparative
+       superlative. It is the company's own published claim, carried across
+       on request — but it is the one line on this site that could draw an
+       ASCI complaint, and it should be substantiated or softened before
+       launch. Nothing else here asserts a ranking. */
+    default: "EZER HRMS — India's 1st HRMS, Payroll & Compliance Engine",
     template: `%s | ${site.name}`,
   },
   description: site.description,

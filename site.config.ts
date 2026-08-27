@@ -49,6 +49,18 @@ export const site = {
     'planning and employee experience on one platform. Built for startups ' +
     'through multi-entity groups with lakhs of employees across hundreds of ' +
     'offices, branches and plants. Request a demo.',
+
+  /* The reference's footer blurb. Separate from `description` above, which
+     is its meta description — the footer runs longer and names the scale. */
+  footerBlurb:
+    'India’s proactive HRMS, payroll and compliance engine — built for 100+ ' +
+    'types of Indian business, from startups to groups running lakhs of ' +
+    'employees across hundreds of establishments.',
+
+  /* The reference's og:description — the social-card line, deliberately
+     shorter and punchier than the search description above. */
+  ogDescription:
+    'One login. Every branch. Every compliance register — generated in one go.',
 } as const
 
 /* ── Contact ───────────────────────────────────────────────────────────────

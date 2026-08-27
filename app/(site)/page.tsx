@@ -28,9 +28,13 @@ import { homeFaqs } from "@/content/home";
 import { site } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: { absolute: "HR, Payroll & Compliance Engine for India | EZER HRMS" },
-  description:
-    "India’s most proactive HRMS — built for every industry and establishment type. One employee or several lakh, one office or hundreds of branches, all consolidated. Recruitment to exit on one record.",
+  /* absolute, so the "| EZER HRMS" template does not append a second time.
+     Verbatim from the reference's <title>. */
+  title: { absolute: "EZER HRMS — India's 1st HRMS, Payroll & Compliance Engine" },
+  /* The reference's own meta description, verbatim. Kept here rather than
+     inherited from the root default so the home page's search snippet is the
+     one the company already publishes. */
+  description: site.description,
   alternates: { canonical: site.url },
 };
 

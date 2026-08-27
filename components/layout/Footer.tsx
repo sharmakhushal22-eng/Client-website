@@ -64,7 +64,7 @@ export function Footer() {
           <div>
             <Logo onDark />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-on-dark-faint">
-              {site.description}
+              {site.footerBlurb}
             </p>
 
             {/* Each block renders only once it is real. An Indian B2B buyer

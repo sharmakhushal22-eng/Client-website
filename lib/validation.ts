@@ -66,7 +66,12 @@ export function validateConsent(checked: boolean): FieldError {
   return checked ? null : 'Please tick the box so we know we may contact you.'
 }
 
-export const EMPLOYEE_BANDS = ['<50', '50-200', '200-500', '500-1000', '1000+'] as const
+/* Bands match the company-size select in Website changes.html.
+ * The top two boundaries moved (500-2000 / 2000+, from 500-1000 / 1000+),
+ * so any lead captured before this change carries a band value no longer
+ * in this list — BAND_LABELS falls back to the raw value rather than
+ * rendering blank, so old records stay readable in the admin. */
+export const EMPLOYEE_BANDS = ['<50', '50-200', '200-500', '500-2000', '2000+'] as const
 export const DESIGNATIONS = ['HR', 'Finance', 'Founder', 'IT', 'Other'] as const
 export const CURRENTLY_USING = ['Excel', 'Another HRMS', 'Outsourced', 'Nothing'] as const
 export const TIMELINES = ['Immediately', '1-3 months', 'Just exploring'] as const
