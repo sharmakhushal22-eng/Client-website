@@ -4,6 +4,7 @@ import { Container } from '@/components/ui/Container'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
+import { LabourCodeCards } from '@/components/sections/LabourCodeCards'
 import { StatutoryTable } from '@/components/sections/StatutoryTable'
 import { Faq } from '@/components/sections/Faq'
 import { CtaBand } from '@/components/sections/CtaBand'
@@ -157,23 +158,8 @@ export default function CompliancePage() {
           align="left"
         />
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {labourCodes.codes.map((code, i) => (
-            <div
-              key={code.name}
-              data-reveal=""
-              style={{ transitionDelay: `${(i % 2) * 45}ms` }}
-              className="rounded-xl bg-surface p-6 ring-1 ring-brand-100"
-            >
-              <h3 className="text-base font-bold leading-snug">{code.name}</h3>
-              <p className="mt-1.5 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-brand-700">
-                {code.covers}
-              </p>
-              <p className="mt-3.5 text-sm leading-relaxed text-ink-600">
-                {code.what}
-              </p>
-            </div>
-          ))}
+        <div className="mt-10">
+          <LabourCodeCards />
         </div>
 
         <p className="mt-6 flex items-start gap-2.5 rounded-lg bg-surface px-5 py-4 text-sm leading-relaxed text-ink-600 ring-1 ring-brand-100">

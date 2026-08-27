@@ -1,5 +1,6 @@
 import { Container } from '@/components/ui/Container'
-import { Icon, type IconName } from '@/components/ui/Icon'
+import { Icon } from '@/components/ui/Icon'
+import { LabourCodeCards } from '@/components/sections/LabourCodeCards'
 import { labourCodes } from '@/content/positioning'
 
 /* ============================================================================
@@ -26,12 +27,6 @@ import { labourCodes } from '@/content/positioning'
  * The design is the site's, not the reference's — dark band, the brand wash,
  * ez-tilt on the cards, staggered reveal.
  * ========================================================================= */
-
-/* The reference draws a custom glyph per Code. Mapped onto the site's own
- * icon set rather than importing four one-off SVGs: wages → wallet,
- * industrial relations → people, social security → shield, working
- * conditions → hours. */
-const CODE_ICONS: IconName[] = ['wallet', 'users', 'shield', 'clock']
 
 export function ComplianceHub() {
   return (
@@ -75,39 +70,9 @@ export function ComplianceHub() {
           {labourCodes.note}
         </p>
 
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-          {labourCodes.codes.map((code, i) => (
-            <li
-              key={code.name}
-              data-reveal=""
-              style={{ transitionDelay: `${Math.min(i, 3) * 70}ms` }}
-              className="ez-tilt group relative overflow-hidden rounded-2xl bg-white/5 p-6 ring-1 ring-white/10 transition-colors duration-300 hover:bg-white/[0.08] hover:ring-brand-400/60"
-            >
-              {/* The ordinal, oversized and set back — the reference numbers
-                  these 01–04 and the sequence is part of the point. */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-2 -top-3 text-[4.5rem] font-extrabold leading-none text-white/[0.06] transition-colors duration-300 group-hover:text-white/[0.1]"
-              >
-                {String(i + 1).padStart(2, '0')}
-              </span>
-
-              <span className="relative grid h-11 w-11 place-items-center rounded-xl bg-brand-600/25 text-brand-200 ring-1 ring-brand-400/40 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
-                <Icon name={CODE_ICONS[i]} className="h-5 w-5" />
-              </span>
-
-              <h3 className="relative mt-4 text-[1.05rem] font-bold leading-snug text-white">
-                {code.name}
-              </h3>
-              <p className="relative mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-brand-300">
-                {code.covers}
-              </p>
-              <p className="relative mt-3 text-sm leading-relaxed text-on-dark-muted">
-                {code.what}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-8">
+          <LabourCodeCards onDark />
+        </div>
 
         {/* The statutory stack. A chip row rather than a table: this is the
             "is my act on the list" scan, and /compliance carries the table
