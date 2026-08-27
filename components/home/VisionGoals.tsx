@@ -86,9 +86,17 @@ export function VisionGoals() {
             <p className="mt-8 text-xs font-bold uppercase tracking-[0.14em] text-brand-200">
               {mission.eyebrow}
             </p>
-            <p className="mt-4 text-[1.45rem] font-bold leading-[1.3] sm:text-[1.7rem]">
+            {/* An h2, not a p. This is the section's heading in the
+                reference, and rendering it as a paragraph left the page
+                outline with no heading for this section at all — a screen
+                reader jumping by heading skipped straight from the hero to
+                "Six things every Indian company deals with".
+                text-white is REQUIRED: globals.css sets h1–h4 to ink-900 in
+                @layer base, which would paint it near-invisible on this
+                dark band. */}
+            <h2 className="mt-4 text-[1.45rem] font-bold leading-[1.3] text-white sm:text-[1.7rem]">
               {mission.statement}
-            </p>
+            </h2>
             <p className="mt-4 text-[0.95rem] leading-relaxed text-on-dark">
               {mission.support}
             </p>

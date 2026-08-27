@@ -79,11 +79,16 @@ export default function HomePage() {
       <LifecycleStrip />
       <InPractice />
 
-      {/* Why it got worse, and what answers it. */}
+      {/* What you actually get. */}
+      <ModuleExplorer />
+
+      {/* Why it got worse, and what answers it. Modules first, then
+          compliance — the reference's order, and the right one: compliance
+          is the argument for the product, so the product has to exist in the
+          reader's head before the argument lands. */}
       <ComplianceHub />
 
-      {/* What you actually get, and who controls it. */}
-      <ModuleExplorer />
+      {/* Who controls what, once there is more than one company. */}
       <AccessRights />
 
       {/* Does it fit my sector, and what does it look like. */}

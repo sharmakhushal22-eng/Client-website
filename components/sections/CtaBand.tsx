@@ -13,11 +13,17 @@ import { contact, booking } from '@/site.config'
  * to the booking page keeps the demo request specific to that module. */
 export function CtaBand({
   variant = 'buttons',
-  title = 'See EZER on your own data',
+  /* The reference splits these two: "See EZER on your own data" is the
+     eyebrow and "Request a demo" is the heading. They were collapsed into
+     one heading here, which lost the ask — the h2 described the offer
+     instead of naming the action. */
+  eyebrow = 'See EZER on your own data',
+  title = 'Request a demo',
   lede = 'A 30-minute walkthrough against your own entities, your own states and your own statutory setup. Not a slide deck.',
   formName = 'cta-band',
 }: {
   variant?: 'form' | 'buttons'
+  eyebrow?: string
   title?: string
   lede?: string
   formName?: string
@@ -74,7 +80,12 @@ export function CtaBand({
           }
         >
           <div>
-            <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl">
+            {eyebrow && (
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-300">
+                {eyebrow}
+              </p>
+            )}
+            <h2 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl">
               {title}
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-on-dark-muted">{lede}</p>
