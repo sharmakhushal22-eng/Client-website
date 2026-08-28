@@ -171,24 +171,35 @@ export default function CompliancePage() {
 
       {/* ── Why multi-state is the hard part ─────────────────────────────── */}
       <Section tone="white" ariaLabel="Multi-state and multi-entity">
-        {/* Edge to edge, no max-width. The heading and lede both run the
-            full container.
+        {/* Centred in the section, and NOT set in columns.
 
-            The lede is 340 characters, and at this width that is a ~150
-            character measure — well past what reads comfortably in one
-            line. So it sets in two columns on large screens: the text still
-            spans the full frame, but each line stays near the 65-75
-            characters the eye tracks without losing its place. Below lg it
-            collapses back to one column, where the container is already
-            narrow enough. */}
-        <div>
+            Two columns did span the full frame, but the split fell inside a
+            sentence — the first column ended "...the way it actually exists:"
+            and the second opened "a group holding several companies", so the
+            colon and the list it introduces sat in different columns. A
+            reader has to jump back up the page to finish the thought.
+
+            max-w-3xl matches SectionHeading, which every other centred
+            heading on the site uses — this block is hand-rolled rather than
+            using that component (it needs the diagram slotted in beneath),
+            so the width is matched by hand to keep it in step. */}
+        <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
             {structure.eyebrow}
           </p>
-          <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-[2.75rem]">
+          <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-[2.6rem]">
             {structure.title}
           </h2>
-          <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-700 lg:columns-2 lg:gap-12">
+          {/* Justified, so both edges are flush. The eyebrow and heading
+              stay centred — justifying a two-line display heading stretches
+              its word gaps into something that reads as broken.
+
+              hyphens-auto goes with it deliberately: justification without
+              hyphenation pushes the slack into word spaces, and at this
+              measure that is what produces the rivers of white running down
+              a justified block. The <html lang="en-IN"> is what lets the
+              browser hyphenate at all. */}
+          <p className="mt-5 hyphens-auto text-justify text-[1.02rem] leading-relaxed text-ink-700">
             {structure.lede}
           </p>
         </div>
