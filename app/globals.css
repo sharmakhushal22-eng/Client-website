@@ -1181,3 +1181,81 @@ input[type='range'].ez-range:focus-visible::-moz-range-thumb {
     transition: none;
   }
 }
+
+/* ── Central-control diagram ───────────────────────────────────────────────
+ * The "one establishment, centrally run" animation on /compliance.
+ *
+ * Namespaced ezCc*, NOT the ezDown/ezUp/ezPulse/ezRecv the source file used:
+ * this stylesheet already defines @keyframes ezPulse, and a second definition
+ * of the same name silently replaces the first — the existing animation would
+ * have started playing this one's motion, with nothing to indicate why.
+ *
+ * DRIVEN BY [data-reveal], not by the component's own observer.
+ *
+ * The port arrived with its own IntersectionObserver. It ran, found its
+ * element, observed it — and never fired, so the diagram stayed at opacity 0
+ * forever. That is the exact failure SiteScripts documents for this app: the
+ * App Router swaps page contents without remounting, so an observe-once-at-
+ * mount effect ends up watching a node that is no longer the one on screen.
+ * Reusing the site's reveal driver fixes it and deletes the client component.
+ *
+ * Everything therefore defaults to VISIBLE and animating. Hiding is opt-in,
+ * and only while the reveal system is live and this instance is still
+ * pending — same way round as [data-reveal] itself, so a reader whose JS
+ * failed sees the diagram rather than an empty box. */
+@keyframes ezCcDown { to { stroke-dashoffset: -36; } }
+@keyframes ezCcUp   { to { stroke-dashoffset: 36; } }
+@keyframes ezCcPulse {
+  0%   { transform: scale(1);    opacity: 0.55; }
+  70%  { transform: scale(1.10); opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes ezCcRecv {
+  0%, 100% { opacity: 0; }
+  10%      { opacity: 1; }
+  45%      { opacity: 0; }
+}
+
+.ez-cc .ez-cc-down { stroke-dasharray: 7 11; animation: ezCcDown 1.5s linear infinite 1s; }
+.ez-cc .ez-cc-up   { stroke-dasharray: 6 12; animation: ezCcUp 2.2s linear infinite 1.2s; }
+.ez-cc .ez-cc-pulse { animation: ezCcPulse 3s ease-out infinite 1.1s; }
+.ez-cc .ez-cc-recv  { animation: ezCcRecv 3s ease-out infinite; }
+/* Staggered so the three sites light up in sequence, not together. */
+.ez-cc .ez-cc-recv-0 { animation-delay: 1.55s; }
+.ez-cc .ez-cc-recv-1 { animation-delay: 1.80s; }
+.ez-cc .ez-cc-recv-2 { animation-delay: 2.05s; }
+
+/* Resting state: drawn, and in place. */
+.ez-cc .ez-cc-boundary {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s;
+}
+.ez-cc .ez-cc-rise {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.ez-cc .ez-cc-wire { opacity: 1; transition: opacity 0.5s ease 0.7s; }
+
+/* The entrance — only while the reveal system is live AND this instance has
+   not been revealed yet. `:not([data-revealed-now])` matters: that is the
+   snap path SiteScripts uses for anything revealed off-screen, and without it
+   those instances would never leave the hidden state. */
+html[data-reveal-ready]
+  .ez-cc[data-reveal]:not([data-revealed]):not([data-revealed-now]) {
+  & .ez-cc-boundary { stroke-dashoffset: 2294; }
+  & .ez-cc-rise { opacity: 0; transform: translateY(14px); }
+  & .ez-cc-wire { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-cc .ez-cc-down,
+  .ez-cc .ez-cc-up,
+  .ez-cc .ez-cc-pulse,
+  .ez-cc .ez-cc-recv { animation: none; }
+  .ez-cc .ez-cc-boundary,
+  .ez-cc .ez-cc-rise,
+  .ez-cc .ez-cc-wire { transition: none; }
+}

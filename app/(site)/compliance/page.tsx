@@ -4,6 +4,7 @@ import { Container } from '@/components/ui/Container'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
+import { CentralControl } from '@/components/sections/CentralControl'
 import { LabourCodeCards } from '@/components/sections/LabourCodeCards'
 import { StatutoryTable } from '@/components/sections/StatutoryTable'
 import { Faq } from '@/components/sections/Faq'
@@ -170,19 +171,29 @@ export default function CompliancePage() {
 
       {/* ── Why multi-state is the hard part ─────────────────────────────── */}
       <Section tone="white" ariaLabel="Multi-state and multi-entity">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
-              {structure.eyebrow}
-            </p>
-            <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl">
-              {structure.title}
-            </h2>
-            <p className="mt-4 text-[0.98rem] leading-relaxed text-ink-600">
-              {structure.lede}
-            </p>
-          </div>
+        {/* The heading runs full width so the diagram can sit directly under
+            the claim it illustrates. It used to be the left half of a
+            two-column grid; at that width the diagram would have been a
+            postage stamp, since it is a 840x370 box that only reads at size. */}
+        <div className="max-w-3xl">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
+            {structure.eyebrow}
+          </p>
+          <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl">
+            {structure.title}
+          </h2>
+          <p className="mt-4 text-[0.98rem] leading-relaxed text-ink-600">
+            {structure.lede}
+          </p>
+        </div>
 
+        {/* The diagram states the same thing the heading does, in one look:
+            one office issuing down to every site, every site reporting back. */}
+        <div className="mt-10">
+          <CentralControl />
+        </div>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-14">
           <div>
             <ol className="space-y-3">
               {structure.levels.map((level) => (
@@ -204,19 +215,22 @@ export default function CompliancePage() {
                 </li>
               ))}
             </ol>
-
-            <ul className="mt-5 space-y-2.5">
-              {structure.points.map((point) => (
-                <li
-                  key={point}
-                  className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-600"
-                >
-                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />
-                  {point}
-                </li>
-              ))}
-            </ul>
           </div>
+
+          {/* The points move into the second column. With the heading now
+              full width the grid had only one child, so this half was empty
+              and the list sat squashed under the levels in the first. */}
+          <ul className="space-y-3 lg:pt-1">
+            {structure.points.map((point) => (
+              <li
+                key={point}
+                className="flex items-start gap-2.5 text-[0.95rem] leading-relaxed text-ink-700"
+              >
+                <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />
+                {point}
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 
