@@ -212,41 +212,53 @@ export default function CompliancePage() {
           <CentralControl />
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-14">
-          <div>
-            <ol className="space-y-3">
-              {structure.levels.map((level) => (
-                <li
-                  key={level.name}
-                  className="flex items-start gap-4 rounded-xl bg-brand-50 p-5 ring-1 ring-brand-100"
-                >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-brand-600 text-on-accent">
-                    <Icon name={level.icon} className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-[1.02rem] font-bold text-ink-900">
-                      {level.name}
-                    </span>
-                    <span className="mt-1 block text-sm leading-relaxed text-ink-600">
-                      {level.detail}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
+        {/* items-stretch so both columns are the same height, and each
+            column is a flex column whose children flex-1. Three levels on
+            the left and four points on the right then span the SAME total
+            height, with each side dividing it evenly — which is what makes
+            the two read as a pair rather than as a card stack next to a
+            loose list.
 
-          {/* The points move into the second column. With the heading now
-              full width the grid had only one child, so this half was empty
-              and the list sat squashed under the levels in the first. */}
-          <ul className="space-y-3 lg:pt-1">
+            Without this the points were four plain check lines, ending well
+            short of the levels beside them and leaving the right half of the
+            section visibly unfinished. */}
+        <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-14">
+          <ol className="flex flex-col gap-3">
+            {structure.levels.map((level) => (
+              <li
+                key={level.name}
+                className="flex flex-1 items-start gap-4 rounded-xl bg-brand-50 p-5 ring-1 ring-brand-100"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-brand-600 text-on-accent">
+                  <Icon name={level.icon} className="h-5 w-5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[1.02rem] font-bold text-ink-900">
+                    {level.name}
+                  </span>
+                  <span className="mt-1 block text-sm leading-relaxed text-ink-600">
+                    {level.detail}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          {/* The points get the same card treatment, in the neutral tone
+              rather than the brand one — matched in weight so the columns
+              balance, distinct in colour so the right side does not read as
+              a second copy of the left. */}
+          <ul className="flex flex-col gap-3">
             {structure.points.map((point) => (
               <li
                 key={point}
-                className="flex items-start gap-2.5 text-[0.95rem] leading-relaxed text-ink-700"
+                className="flex flex-1 items-start gap-3 rounded-xl bg-surface p-5 text-[0.95rem] leading-relaxed text-ink-700 ring-1 ring-ink-200"
               >
-                <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />
-                {point}
+                <Icon
+                  name="check"
+                  className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600"
+                />
+                <span>{point}</span>
               </li>
             ))}
           </ul>
