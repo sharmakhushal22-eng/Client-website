@@ -171,24 +171,32 @@ export default function CompliancePage() {
 
       {/* ── Why multi-state is the hard part ─────────────────────────────── */}
       <Section tone="white" ariaLabel="Multi-state and multi-entity">
-        {/* The heading runs full width so the diagram can sit directly under
-            the claim it illustrates. It used to be the left half of a
-            two-column grid; at that width the diagram would have been a
-            postage stamp, since it is a 840x370 box that only reads at size. */}
-        <div className="max-w-3xl">
+        {/* Edge to edge, no max-width. The heading and lede both run the
+            full container.
+
+            The lede is 340 characters, and at this width that is a ~150
+            character measure — well past what reads comfortably in one
+            line. So it sets in two columns on large screens: the text still
+            spans the full frame, but each line stays near the 65-75
+            characters the eye tracks without losing its place. Below lg it
+            collapses back to one column, where the container is already
+            narrow enough. */}
+        <div>
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
             {structure.eyebrow}
           </p>
-          <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-[2.75rem]">
             {structure.title}
           </h2>
-          <p className="mt-4 text-[0.98rem] leading-relaxed text-ink-600">
+          <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-700 lg:columns-2 lg:gap-12">
             {structure.lede}
           </p>
         </div>
 
         {/* The diagram states the same thing the heading does, in one look:
-            one office issuing down to every site, every site reporting back. */}
+            one office issuing down to every site, every site reporting back.
+            Full width too — capped narrower than the copy above it, it read
+            as a misalignment rather than a choice. */}
         <div className="mt-10">
           <CentralControl />
         </div>

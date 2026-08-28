@@ -89,7 +89,7 @@ export function CentralControl() {
   return (
     /* data-reveal hands the entrance to the site's own driver — see the
        note in globals.css for why the ported observer could not do it. */
-    <div data-reveal="" className="ez-cc mx-auto w-full max-w-4xl">
+    <div data-reveal="" className="ez-cc w-full">
       {/* Cropped viewBox: the source was "0 0 880 420" and carried its own
           caption pill at the top. Boxed onto the boundary rect instead, with
           10 units of breathing room. */}
