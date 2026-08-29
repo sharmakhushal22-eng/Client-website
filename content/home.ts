@@ -221,10 +221,8 @@ export const announcement = {
 /* The hero's scale row, ported from Website changes.html.
  *
  * "Data hosted in India" is the reference's fourth chip and is deliberately
- * absent here: the trust badges immediately below already carry it, in the
- * more specific form the product can actually stand behind ("Data stored in
- * India — Mumbai"). Two chips saying the same thing one line apart reads as
- * padding. */
+ * absent here: the trust badges immediately below already carry it. Two chips
+ * saying the same thing one line apart reads as padding. */
 export const heroScale = [
   'Startups to lakh-employee groups',
   'Hundreds of branches, plants & office types',

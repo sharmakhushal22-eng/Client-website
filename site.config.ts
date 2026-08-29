@@ -15,9 +15,14 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ezerhrms.com',
 
   /* The product application — a separate codebase, deliberately on a separate
-   * host. Handoff §1: "Do not merge the two." It is live today on Vercel;
-   * point NEXT_PUBLIC_APP_URL at app.ezerhrms.com once that DNS is cut over. */
-  appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'https://ezer-hrms-chi.vercel.app',
+   * host. Handoff §1: "Do not merge the two."
+   *
+   * NO HARDCODED FALLBACK. This used to default to the product's live Vercel
+   * preview hostname, which named the app's hosting in a PUBLIC repository
+   * and handed out a direct URL to it. The value was never rendered on any
+   * page, so the fallback bought nothing and only leaked. Set
+   * NEXT_PUBLIC_APP_URL in the environment when a link to the app is needed. */
+  appUrl: process.env.NEXT_PUBLIC_APP_URL ?? '',
 
   /* The product's own tagline, from the HRMS login screen — kept identical so
    * the two properties read as one company. */
@@ -140,9 +145,15 @@ export const company = {
     email: 'grievance@ezerhrms.com',      // TODO confirm
     phone: contact.phoneDisplay,
   },
-  /* Confirmed from the product's own login screen: "Data stored in India —
-   * Mumbai Server". IT gatekeepers ask this first. */
-  dataResidency: 'India (Mumbai)',
+  /* COUNTRY ONLY — do not put the city or the region back.
+   *
+   * Naming the specific data-centre location publicly narrows the search for
+   * anyone probing the infrastructure, and it buys nothing: the question an
+   * Indian buyer's IT gatekeeper actually asks is "does it leave India", and
+   * "India" answers that completely. The country also has to stay because the
+   * privacy policy discloses where enquiry data is stored, which is a DPDP
+   * obligation, not a marketing line. */
+  dataResidency: 'India',
   foundedYear: 2024,                      // TODO confirm
 } as const
 
@@ -183,7 +194,7 @@ export const ezerPillars = [
  * problem. Set `verified` to false and the badge stops rendering. */
 export const trustBadges = [
   { icon: 'lock' as const, label: 'SOC 2 Type 2 compliant', verified: true },
-  { icon: 'map-pin' as const, label: 'Data stored in India — Mumbai', verified: true },
+  { icon: 'map-pin' as const, label: 'Data stored in India', verified: true },
   { icon: 'shield' as const, label: 'DPDP Act 2023 compliant', verified: true },
 ] as const
 
