@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { Faq } from '@/components/sections/Faq'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema, faqSchema } from '@/lib/seo'
+import { IndustryMarquee } from '@/components/home/IndustryMarquee'
 import { industryCategories, industryCount } from '@/content/positioning'
 
 export const metadata: Metadata = pageMetadata({
@@ -115,7 +116,18 @@ export default function IndustriesPage() {
 
       {/* ── The full grid ────────────────────────────────────────────────── */}
       <Section tone="white" ariaLabel="Industries by category">
-        <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {/* The same drifting rows as the home section, in the same relative
+            position the reference puts them: under the heading, above the
+            category cards.
+
+            This page is a SEPARATE surface from the home industries section —
+            it renders its own layout from industryCategories rather than
+            reusing IndustryGrid — so the marquee had to be added here too.
+            Adding it only to the home page left the page you actually reach
+            by clicking "Industries" in the nav with no marquee at all. */}
+        <IndustryMarquee />
+
+        <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {industryCategories.map((category, i) => (
             <div
               key={category.name}
