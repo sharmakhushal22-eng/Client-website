@@ -78,19 +78,34 @@ export default function IndustriesPage() {
 
           <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-14 lg:items-end">
             <div>
+              {/* The reference's own eyebrow, heading and lede — the same
+                  three the home section carries, so the two surfaces for
+                  #industries say the same thing rather than each
+                  paraphrasing it.
+
+                  Rounded DOWN to the nearest ten, so the claim stays true as
+                  the list changes: 101 reads as "100+", never "101+", which
+                  sounds counted rather than mapped. */}
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
-                Configured per industry
+                {Math.floor(industryCount / 10) * 10}+ industries, one engine
               </p>
               <h1 className="mt-3 text-[2rem] font-bold leading-[1.12] sm:text-4xl lg:text-[2.75rem]">
-                {industryCount} industries, in {industryCategories.length} groups
+                India doesn&rsquo;t run on one kind of company.
+                <br className="hidden sm:block" /> Neither does EZER.
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-ink-600">
-                We mapped HR, payroll and compliance challenges across more than
-                a hundred Indian industries — from a twelve-branch NBFC to a
+                We mapped HR, payroll and compliance challenges across more
+                than 100 Indian industries — from a 12-branch NBFC to a
                 three-shift factory floor — before writing the rules engine.
-                Establishment type decides which registers apply, which leave
-                entitlement follows and which returns are due, so everything
-                below is one system set up differently.
+                This is who we built EZER for. Don&rsquo;t see your exact
+                industry below? It&rsquo;s probably still covered.
+              </p>
+              {/* The exact count keeps its place: the eyebrow rounds down on
+                  purpose, and this is where the real number belongs. */}
+              <p className="mt-4 text-[0.95rem] font-semibold text-ink-700">
+                {industryCount} industries in {industryCategories.length}{' '}
+                groups, mapped and counting — new sector rule-sets ship as
+                EZER&rsquo;s client base grows.
               </p>
             </div>
 
