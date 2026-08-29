@@ -110,10 +110,22 @@ export function Brand({
         {showTagline && (
           /* Tracked out so a small line reads as a considered second element
              rather than shrunken body copy. The tracking is em of the
-             TAGLINE, so it scales with the lockup too. */
+             TAGLINE, so it scales with the lockup too.
+
+             DARKER AND HEAVIER, and the weight is the part doing the work.
+             Contrast was already 7.6:1 on white and 10.6:1 on the footer —
+             both well past the 4.5:1 floor — so the colour was never what
+             made it hard to read. At the header's size this line renders
+             around 8px, and below roughly 10px a 400-weight stroke thins out
+             until it greys regardless of what colour it is nominally set in.
+             600 puts ink back in the stems; ink-800 and full-strength
+             on-dark then sharpen what is there.
+
+             Weight and colour do not move the baseline, so the emblem
+             alignment solved in the header note is untouched. */
           <span
-            className={`block text-[0.3759em] uppercase leading-[1.45] tracking-[0.115em] ${
-              onDark ? "text-on-dark-muted" : "text-ink-600"
+            className={`block text-[0.3759em] font-semibold uppercase leading-[1.45] tracking-[0.115em] ${
+              onDark ? "text-on-dark" : "text-ink-800"
             }`}
           >
             {site.tagline}
