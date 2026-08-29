@@ -42,7 +42,7 @@ const values = [
   {
     icon: 'lock' as const,
     title: 'Your data stays yours',
-    body: `Hosted in ${company.dataResidency}, exportable at any time in standard formats, and at no charge on exit. A system you cannot leave is one you should not enter, so we would rather compete on being worth staying with.`,
+    body: `Exportable at any time in standard formats, and at no charge on exit. A system you cannot leave is one you should not enter, so we would rather compete on being worth staying with.`,
   },
 ]
 
@@ -311,7 +311,6 @@ export default function AboutPage() {
                 'Registered office',
                 `${addr.line1}, ${addr.line2}, ${addr.city}, ${addr.state} ${addr.pincode}, ${addr.country}`,
               ],
-              ['Customer data hosted in', company.dataResidency],
               ['Business hours', contact.businessHours],
             ].filter(Boolean) as [string, string][]).map(([label, value]) => (
               <div key={label} className="grid gap-1 px-6 py-4 sm:grid-cols-[13rem_1fr] sm:gap-6 sm:px-8">

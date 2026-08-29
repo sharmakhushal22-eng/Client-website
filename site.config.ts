@@ -194,7 +194,6 @@ export const ezerPillars = [
  * problem. Set `verified` to false and the badge stops rendering. */
 export const trustBadges = [
   { icon: 'lock' as const, label: 'SOC 2 Type 2 compliant', verified: true },
-  { icon: 'map-pin' as const, label: 'Data stored in India', verified: true },
   { icon: 'shield' as const, label: 'DPDP Act 2023 compliant', verified: true },
 ] as const
 

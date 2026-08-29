@@ -137,8 +137,13 @@ export const foundingCustomer = {
 export const homeFaqs = [
   /* Ported verbatim from Website changes.html (#faq). */
   {
-    q: 'Is our data safe, and where is it stored?',
-    a: 'Your data is hosted in India. Sensitive fields — full Aadhaar number, bank account details — are masked by default and visible only to the specific roles that need them (HR Manager, Payroll Manager, Admin, Super Admin); everyone else sees a masked version, on every screen and every report export.',
+    /* The reference asks "and where is it stored?" and answers "hosted in
+       India". Both halves are dropped on request — hosting location is not
+       published anywhere on this site. The question narrows to safety, which
+       is what the rest of the answer actually addresses. This is a deliberate
+       divergence from Website changes.html. */
+    q: 'Is our data safe?',
+    a: 'Sensitive fields — full Aadhaar number, bank account details — are masked by default and visible only to the specific roles that need them (HR Manager, Payroll Manager, Admin, Super Admin); everyone else sees a masked version, on every screen and every report export.',
   },
   {
     q: 'We’re already on another HRMS mid-year — can we still switch?',
@@ -220,9 +225,9 @@ export const announcement = {
 
 /* The hero's scale row, ported from Website changes.html.
  *
- * "Data hosted in India" is the reference's fourth chip and is deliberately
- * absent here: the trust badges immediately below already carry it. Two chips
- * saying the same thing one line apart reads as padding. */
+ * The reference's fourth chip is "Data hosted in India". It is absent here,
+ * and so is the trust badge that used to carry it — hosting location is not
+ * published on this site. */
 export const heroScale = [
   'Startups to lakh-employee groups',
   'Hundreds of branches, plants & office types',

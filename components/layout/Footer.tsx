@@ -81,7 +81,6 @@ export function Footer() {
                   </p>
                 </>
               )}
-              <p>Customer data hosted in {company.dataResidency}</p>
             </address>
 
             {(companyDetails.hasCin || companyDetails.hasGstin) && (
@@ -187,9 +186,6 @@ export function Footer() {
         <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-on-dark-faint">
             © {new Date().getFullYear()} {displayLegalName}. All rights reserved.
-          </p>
-          <p className="text-sm text-on-dark-faint">
-            Customer data hosted in {company.dataResidency}.
           </p>
         </div>
       </Container>
