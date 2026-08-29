@@ -70,7 +70,7 @@ export function LifecycleStrip() {
             className="ez-lifeline absolute left-[8.333%] right-[8.333%] top-7 hidden h-0.5 lg:block"
           />
 
-          {/* The record itself, walking Hire to Exit.
+          {/* The record itself, walking Hire to Retire.
 
               Three nested spans, and the middle one is load-bearing: a
               transform percentage resolves against the ELEMENT'S OWN width,

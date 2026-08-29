@@ -1,7 +1,7 @@
 import type { IconName } from '@/components/ui/Icon'
 
 /* ============================================================================
- * "One employee record. Hire to exit."
+ * "One employee record. Hire to Retire."
  *
  * New in the redesign, and it earns its place by making an abstract claim
  * concrete. "One system, not five" is what every HR vendor says; showing the
@@ -12,7 +12,7 @@ import type { IconName } from '@/components/ui/Icon'
 
 export const lifecycle = {
   eyebrow: 'The whole arc',
-  title: 'One employee record. Hire to exit.',
+  title: 'One employee record. Hire to Retire.',
   lede:
     'Watch the same record travel the whole lifecycle — nothing re-keyed, ' +
     'nothing handed to another vendor.',

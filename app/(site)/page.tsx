@@ -73,7 +73,7 @@ export default function HomePage() {
       {/* What is broken today, and what replaces it. */}
       <TodayVsEzer />
 
-      {/* The arc, before the module list. "One record, hire to exit" is the
+      {/* The arc, before the module list. "One record, Hire to Retire" is the
           claim; the modules below are the evidence for it. Showing the parts
           first would make it a feature list looking for a story. */}
       <LifecycleStrip />
