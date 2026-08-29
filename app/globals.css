@@ -684,12 +684,18 @@ input[type='range']::-moz-range-thumb {
 .ez-navlink::after {
   content: "";
   position: absolute;
-  left: 0.75rem;
-  right: 0.75rem;
+  left: 0.875rem;
+  right: 0.875rem;
   bottom: 0.25rem;
   height: 2px;
   border-radius: 2px;
-  background: var(--color-brand-600);
+  /* A gradient rather than a flat rule, so the marker looks like it belongs
+     to the same family as the pill and the CTA. */
+  background: linear-gradient(
+    to right,
+    var(--color-brand-600),
+    var(--color-brand-400)
+  );
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.22s cubic-bezier(.2, .7, .3, 1);
@@ -700,6 +706,29 @@ input[type='range']::-moz-range-thumb {
    "you are pointing at this", the underline says "you are on this". */
 .ez-navlink:focus-visible::after,
 .ez-navlink[data-active]::after { transform: scaleX(1); }
+
+/* ...but NOT while the pill is sitting on it. The pill is now filled, and
+   the underline is a ::after on the link, which paints ABOVE it — leaving a
+   blue bar drawn across a blue pill. Higher specificity than the rule above
+   so it wins without !important. */
+.ez-navlink[data-active][data-on-pill]::after,
+.ez-navlink[data-on-pill]:focus-visible::after { transform: scaleX(0); }
+
+/* The label lifts a hair as the pill arrives. Small enough to register as
+   responsiveness rather than as movement. */
+.ez-navlink {
+  transition:
+    color 0.2s ease,
+    transform 0.2s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.ez-navlink[data-on-pill] { transform: translateY(-1px); }
+
+/* The chevron follows the label's colour, and turns over when its menu is
+   open rather than only tilting. */
+.ez-navlink .ez-nav-chev {
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.ez-navlink[aria-expanded="true"] .ez-nav-chev { transform: rotate(180deg); }
 
 /* The icon tile in a menu row, filling as the row is hovered. */
 .ez-menu-row .ez-menu-icon {
@@ -722,9 +751,12 @@ input[type='range']::-moz-range-thumb {
 
 @media (prefers-reduced-motion: reduce) {
   .ez-menu, .ez-menu-row { animation: none; }
+  .ez-navlink,
   .ez-navlink::after,
+  .ez-navlink .ez-nav-chev,
   .ez-menu-row .ez-menu-icon,
   .ez-menu-go { transition: none; }
+  .ez-navlink[data-on-pill] { transform: none; }
 }
 
 /* ── Scroll progress, along the header's bottom edge ───────────────────────

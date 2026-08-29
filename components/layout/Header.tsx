@@ -220,6 +220,11 @@ export function Header() {
   const itemRefs = useRef<Record<string, HTMLElement | null>>({});
   const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
   const [pillOn, setPillOn] = useState(false);
+  /* Which item the pill is currently over. The pill is a single shared
+     element sliding behind the row, so the label it lands on has no way to
+     know it is being covered — this is what lets that one label invert to
+     white while the others stay ink. */
+  const [pillKey, setPillKey] = useState<string | null>(null);
 
   const activeKey = NAV.find((n) =>
     n.kind === "link" ? isActive(n.href) : inMenu(n),
@@ -235,12 +240,14 @@ export function Header() {
     const el = key ? itemRefs.current[key] : null;
     if (!nav || !el) {
       setPillOn(false);
+      setPillKey(null);
       return;
     }
     const n = nav.getBoundingClientRect();
     const r = el.getBoundingClientRect();
     setPill({ x: r.left - n.left, w: r.width });
     setPillOn(true);
+    setPillKey(key);
   }, []);
 
   /* Park the pill on the current page's item, and re-measure when the route
@@ -296,7 +303,12 @@ export function Header() {
                 announced by aria-current on the link itself. */}
             <span
               aria-hidden="true"
-              className="ez-navpill pointer-events-none absolute inset-y-1 rounded-lg bg-brand-50 ring-1 ring-brand-100"
+              /* Filled, in the same gradient as the Book a Demo button, so
+                 the two brand-coloured things in the bar belong to one
+                 family. It was a flat brand-50 tint with a hairline ring —
+                 legible, but it read as a disabled chip rather than as the
+                 thing tracking the cursor. */
+              className="ez-navpill pointer-events-none absolute inset-y-1 rounded-full bg-gradient-to-b from-brand-600 to-brand-700 shadow-[0_1px_2px_rgba(16,24,40,0.08),0_8px_18px_-8px_rgba(37,99,235,0.65)] ring-1 ring-brand-700/40"
               style={{
                 transform: `translateX(${pill?.x ?? 0}px)`,
                 width: pill?.w ?? 0,
@@ -315,11 +327,16 @@ export function Header() {
                   onFocus={() => moveTo(item.href)}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   data-active={isActive(item.href) ? "" : undefined}
+                  data-on-pill={
+                    pillOn && pillKey === item.href ? "" : undefined
+                  }
                   className={cn(
-                    "ez-navlink relative rounded-lg px-3 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors",
-                    isActive(item.href)
-                      ? "text-brand-700"
-                      : "text-ink-600 hover:text-ink-900",
+                    "ez-navlink relative rounded-full px-3.5 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
+                    pillOn && pillKey === item.href
+                      ? "text-white"
+                      : isActive(item.href)
+                        ? "text-brand-700"
+                        : "text-ink-700",
                   )}
                 >
                   {item.label}
@@ -345,11 +362,16 @@ export function Header() {
                         ? ""
                         : undefined
                     }
+                    data-on-pill={
+                      pillOn && pillKey === item.id ? "" : undefined
+                    }
                     className={cn(
-                      "ez-navlink relative flex items-center gap-1.5 rounded-lg px-3 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors",
-                      inMenu(item)
-                        ? "text-brand-700"
-                        : "text-ink-600 hover:text-ink-900",
+                      "ez-navlink relative flex items-center gap-1.5 rounded-full px-3.5 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
+                      pillOn && pillKey === item.id
+                        ? "text-white"
+                        : inMenu(item)
+                          ? "text-brand-700"
+                          : "text-ink-700",
                     )}
                     aria-expanded={openMenu === item.id}
                     aria-haspopup="true"
@@ -371,12 +393,13 @@ export function Header() {
                     }}
                   >
                     {item.label}
+                    {/* The rotation is CSS off aria-expanded now, so the
+                        open state has one source of truth instead of two
+                        that can disagree. Slightly smaller and set back in
+                        opacity: it is punctuation, not a second label. */}
                     <Icon
                       name="chevron-down"
-                      className={cn(
-                        "h-4 w-4 transition-transform",
-                        openMenu === item.id && "rotate-180",
-                      )}
+                      className="ez-nav-chev h-3.5 w-3.5 opacity-70"
                     />
                   </button>
 
