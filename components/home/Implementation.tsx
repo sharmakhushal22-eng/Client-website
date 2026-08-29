@@ -67,7 +67,16 @@ export function Implementation() {
                 to the LEFT of every number it was meant to thread through. */}
             <span
               aria-hidden="true"
-              className="absolute left-[2.625rem] top-[2.625rem] bottom-0 w-px -translate-x-1/2 bg-brand-200"
+              /* brand-600 and 2px, not brand-200 and a hairline. Only the
+                 12px between two cards is ever visible — each card's own
+                 background covers the rest — so the little that shows has to
+                 carry the whole connection. At brand-200 it measured 1.42:1
+                 against the page, less than half the 3:1 WCAG asks of a
+                 graphic that means something, and it read as a smudge rather
+                 than a line. brand-600 is 5.17:1 and is the exact blue of the
+                 badges it joins, so the numbers and the track between them
+                 now read as one object instead of two unrelated greys. */
+              className="absolute left-[2.625rem] top-[2.625rem] bottom-0 w-0.5 -translate-x-1/2 rounded-full bg-brand-600"
             />
 
             <ol className="space-y-3">
