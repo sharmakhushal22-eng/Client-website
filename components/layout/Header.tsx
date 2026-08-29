@@ -438,8 +438,7 @@ export function Header() {
                             onMouseEnter={() => setPreviewHref(link.href)}
                             onFocus={() => setPreviewHref(link.href)}
                             data-previewing={
-                              item.id === "product" &&
-                              (previewHref ?? item.items[0].href) === link.href
+                              item.id === "product" && previewHref === link.href
                                 ? ""
                                 : undefined
                             }
@@ -478,8 +477,8 @@ export function Header() {
 
                         {/* ── The preview pane ───────────────────────────
                             Shows the hovered row's product without leaving
-                            the menu. Falls back to the first product, so it
-                            is never blank while the menu is open.
+                            the menu. Holds a neutral resting state until a
+                            row is actually pointed at — see the note inside.
 
                             xl only. Below that the header has no room for a
                             46rem panel — see the anchoring note above — and
@@ -492,20 +491,49 @@ export function Header() {
                             noise to a screen reader, not information. The
                             rows remain the accessible interface. */}
                         {item.id === "product" && (() => {
-                          const href = previewHref ?? item.items[0].href;
-                          const page = getFeaturePage(
-                            href.replace("/features/", ""),
-                          );
-                          if (!page) return null;
+                          /* NO FALLBACK TO THE FIRST PRODUCT.
+                           *
+                           * This used to default to item.items[0], so merely
+                           * opening the menu showed Payroll already expanded
+                           * and its row already highlighted — which reads as
+                           * a selection the reader did not make, and hides
+                           * the fact that the pane responds to pointing at
+                           * all. It now holds a neutral state until a row is
+                           * actually pointed at. */
+                          const page = previewHref
+                            ? getFeaturePage(previewHref.replace("/features/", ""))
+                            : null;
                           return (
                             <div
                               aria-hidden="true"
                               className="hidden min-w-0 rounded-lg bg-brand-50/60 p-5 ring-1 ring-brand-100 xl:block"
                             >
+                              {!page && (
+                                /* The resting state. It fills the pane so the
+                                   panel is not half empty, and says what the
+                                   pane is for, without standing in for any
+                                   one product. */
+                                <div className="ez-preview flex h-full flex-col justify-center text-center">
+                                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
+                                    <Icon name="sparkle" className="h-5 w-5" />
+                                  </span>
+                                  <p className="mt-3 text-[0.9rem] font-bold text-ink-900">
+                                    {moduleGroups.reduce(
+                                      (n, g) => n + g.modules.length,
+                                      0,
+                                    )}{" "}
+                                    modules, one employee master
+                                  </p>
+                                  <p className="mx-auto mt-1.5 max-w-[15rem] text-[0.8rem] leading-relaxed text-ink-600">
+                                    Point at any of them to see what it covers.
+                                  </p>
+                                </div>
+                              )}
                               {/* key on the slug so React swaps the subtree,
                                   which restarts the entrance animation — the
                                   crossfade is what makes this read as one
                                   pane changing rather than text popping. */}
+                              {page && (
                               <div key={page.slug} className="ez-preview">
                                 <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-brand-700">
                                   {page.eyebrow}
@@ -536,6 +564,7 @@ export function Header() {
                                   <Icon name="arrow-right" className="h-3.5 w-3.5" />
                                 </span>
                               </div>
+                              )}
                             </div>
                           );
                         })()}
