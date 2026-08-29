@@ -1528,3 +1528,14 @@ form p,
   .ez-preview,
   .ez-preview-row { animation: none; }
 }
+
+/* The preview pane slides between rows rather than jumping, so the flyout
+   reads as one panel tracking the pointer instead of separate panels
+   appearing. Only `top` transitions — the content swap is handled by the
+   ez-preview keyframes, which restart on remount. */
+.ez-pane {
+  transition: top 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ez-pane { transition: none; }
+}

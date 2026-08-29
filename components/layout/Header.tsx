@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Brand } from "./Brand";
@@ -243,6 +243,88 @@ export function Header() {
      product, so it needs a value that is not a product href. */
   const ALL_MODULES = "__all__";
 
+  /* Where the pane sits vertically. Set from the hovered row's own offset so
+     the flyout opens BESIDE the thing it describes rather than always at the
+     top of the panel. Clamped in the handler so it can never hang past the
+     bottom of the menu. */
+  const [previewTop, setPreviewTop] = useState(0);
+
+  /* Which module area is expanded inside the catalogue pane. */
+  const [openArea, setOpenArea] = useState<string | null>(null);
+
+  const paneRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+
+  /* The row's own offset, before clamping. */
+  const [previewRowTop, setPreviewRowTop] = useState(0);
+  /* Same, for the area row that opens the third panel. */
+  const [areaRowTop, setAreaRowTop] = useState(0);
+  const areaPanelRef = useRef<HTMLDivElement | null>(null);
+  const [areaTop, setAreaTop] = useState(0);
+
+  const alignPane = useCallback((row: HTMLElement) => {
+    const panel = panelRef.current;
+    if (!panel) return;
+    setPreviewRowTop(
+      row.getBoundingClientRect().top - panel.getBoundingClientRect().top,
+    );
+  }, []);
+
+  /* CLAMPING HAS TO HAPPEN AFTER THE CONTENT RENDERS.
+   *
+   * Measuring the pane inside the hover handler reads the height of whatever
+   * it held a moment ago, not what it is about to hold — so moving onto the
+   * "All N modules" row clamped against the height of the short product
+   * pane, and the much taller catalogue then hung out of the bottom of the
+   * menu, over the page.
+   *
+   * A layout effect runs after commit and before paint, so it measures the
+   * pane that is actually there. Keyed on the content as well as the row,
+   * because expanding an area changes the height too. */
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    const pane = paneRef.current;
+    if (!panel || !pane) return;
+    const max = Math.max(0, panel.offsetHeight - pane.offsetHeight);
+    setPreviewTop(Math.min(Math.max(0, previewRowTop), max));
+  }, [previewRowTop, previewHref, openArea, openMenu]);
+
+  /* Does the third panel still fit to the right of the menu? */
+  const [areaFlipped, setAreaFlipped] = useState(false);
+
+  /* The third panel gets the same treatment: measured after commit, clamped
+     so a long area list cannot hang below the menu.
+     
+     It also decides which SIDE to open on. Measured at 1440 the flyout ends
+     25px from the viewport edge, so at 1280 — still a desktop width where
+     this menu is shown — it would run off the screen. When the room is not
+     there it opens to the left of the panel instead, which is what a
+     cascading menu is expected to do rather than being clipped. */
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    const flyout = areaPanelRef.current;
+    if (!panel || !flyout) return;
+    const GUTTER = 16;
+    const panelBox = panel.getBoundingClientRect();
+
+    /* CLAMPED TO THE VIEWPORT, NOT TO THE PANEL.
+     *
+     * This first clamped against the panel's height, which is the right rule
+     * for the second pane — that one sits inside the panel — but wrong here.
+     * The third panel is an OVERLAY; nothing stops it extending below the
+     * menu as long as it is still on screen. Clamping it to the panel pushed
+     * it up to 154px away from the row that opened it, which is precisely
+     * the alignment this is supposed to have. Against the viewport it tracks
+     * its row for every area except the last one or two. */
+    const maxTop =
+      window.innerHeight - GUTTER - flyout.offsetHeight - panelBox.top;
+    setAreaTop(Math.min(Math.max(0, areaRowTop), Math.max(0, maxTop)));
+
+    setAreaFlipped(
+      panelBox.right + flyout.offsetWidth + GUTTER > window.innerWidth,
+    );
+  }, [areaRowTop, openArea]);
+
   /* Which item the pill is currently over. The pill is a single shared
      element sliding behind the row, so the label it lands on has no way to
      know it is being covered — this is what lets that one label invert to
@@ -375,6 +457,7 @@ export function Header() {
                   onMouseLeave={() => {
                     setOpenMenu(null);
                     setPreviewHref(null);
+                    setOpenArea(null);
                   }}
                 >
                   <button
@@ -446,14 +529,25 @@ export function Header() {
                             : "left-1/2 w-[30rem] -translate-x-1/2",
                       )}
                     >
-                      <div className="ez-menu grid rounded-xl bg-surface p-2 shadow-floating ring-1 ring-ink-200 xl:grid-cols-[1fr_1fr] xl:gap-1">
+                      <div
+                        ref={item.id === "product" ? panelRef : undefined}
+                        className="ez-menu relative grid rounded-xl bg-surface p-2 shadow-floating ring-1 ring-ink-200 xl:grid-cols-[1fr_1fr] xl:gap-1"
+                      >
                         <div className="min-w-0">
                         {item.items.map((link, li) => (
                           <Link
                             key={link.href}
                             href={link.href}
-                            onMouseEnter={() => setPreviewHref(link.href)}
-                            onFocus={() => setPreviewHref(link.href)}
+                            onMouseEnter={(e) => {
+                              setPreviewHref(link.href);
+                              setOpenArea(null);
+                              alignPane(e.currentTarget);
+                            }}
+                            onFocus={(e) => {
+                              setPreviewHref(link.href);
+                              setOpenArea(null);
+                              alignPane(e.currentTarget);
+                            }}
                             data-previewing={
                               item.id === "product" && previewHref === link.href
                                 ? ""
@@ -523,10 +617,19 @@ export function Header() {
                               ? getFeaturePage(previewHref.replace("/features/", ""))
                               : null;
                           return (
-                            <div
-                              aria-hidden="true"
-                              className="hidden min-w-0 rounded-lg bg-brand-50/60 p-5 ring-1 ring-brand-100 xl:block"
-                            >
+                            /* The right half is now a positioning context,
+                               and the pane inside it is absolute. That is
+                               what lets the flyout open BESIDE the row being
+                               pointed at instead of always at the top of the
+                               panel — and animating `top` means it slides
+                               between rows rather than jumping. */
+                            <div className="relative hidden min-h-[23rem] min-w-0 xl:block">
+                              <div
+                                ref={paneRef}
+                                aria-hidden="true"
+                                style={{ top: previewTop }}
+                                className="ez-pane absolute inset-x-0 rounded-lg bg-brand-50/60 p-5 ring-1 ring-brand-100"
+                              >
                               {showingAll && (
                                 /* THE WHOLE CATALOGUE, BY AREA.
                                  *
@@ -553,25 +656,52 @@ export function Header() {
                                     )}{" "}
                                     modules
                                   </h3>
-                                  <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-brand-100 pt-3">
+                                  {/* One column, not two. An expanding row
+                                      in a two-column grid pushes its
+                                      neighbour down and the whole block
+                                      jitters as the pointer moves. */}
+                                  <ul className="mt-3 max-h-[15rem] space-y-0.5 overflow-y-auto border-t border-brand-100 pt-3">
                                     {moduleGroups.map((g, gi) => (
                                       <li
                                         key={g.id}
-                                        className="ez-preview-row flex items-center gap-2 text-[0.78rem] leading-snug text-ink-800"
+                                        className="ez-preview-row"
                                         style={{ animationDelay: `${gi * 30}ms` }}
                                       >
-                                        <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-brand-100 text-brand-700">
+                                        {/* Opening the third panel is the
+                                            row's whole job — it carries no
+                                            expansion of its own. */}
+                                        <div
+                                          onMouseEnter={(e) => {
+                                            setOpenArea(g.id);
+                                            const panel = panelRef.current;
+                                            if (panel)
+                                              setAreaRowTop(
+                                                e.currentTarget.getBoundingClientRect().top -
+                                                  panel.getBoundingClientRect().top,
+                                              );
+                                          }}
+                                          data-open={openArea === g.id ? "" : undefined}
+                                          className="flex items-center gap-2 rounded-md px-1.5 py-1.5 text-[0.78rem] leading-snug text-ink-800 transition-colors data-[open]:bg-brand-100/70"
+                                        >
+                                          <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-brand-100 text-brand-700">
+                                            <Icon
+                                              name={moduleAreaIcons[g.id] ?? "check"}
+                                              className="h-3.5 w-3.5"
+                                            />
+                                          </span>
+                                          <span className="min-w-0 flex-1 truncate font-semibold">
+                                            {g.name}
+                                          </span>
+                                          <span className="shrink-0 text-[0.72rem] font-bold text-brand-700">
+                                            {g.modules.length}
+                                          </span>
+                                          {/* The affordance that says there is
+                                              another level to the right. */}
                                           <Icon
-                                            name={moduleAreaIcons[g.id] ?? "check"}
-                                            className="h-3.5 w-3.5"
+                                            name="chevron-down"
+                                            className="h-3 w-3 shrink-0 -rotate-90 text-brand-600 opacity-0 transition-opacity data-[open]:opacity-100 group-data-[open]:opacity-100"
                                           />
-                                        </span>
-                                        <span className="min-w-0 flex-1 truncate font-semibold">
-                                          {g.name}
-                                        </span>
-                                        <span className="shrink-0 text-[0.72rem] font-bold text-brand-700">
-                                          {g.modules.length}
-                                        </span>
+                                        </div>
                                       </li>
                                     ))}
                                   </ul>
@@ -639,15 +769,82 @@ export function Header() {
                                 </span>
                               </div>
                               )}
+                              </div>
                             </div>
                           );
                         })()}
 
+                        {/* ── THE THIRD PANEL ────────────────────────
+                              Cascades to the right of whichever area is
+                              pointed at, aligned to that row.
+
+                              A DESCENDANT of the panel, not a sibling: the
+                              menu closes on the wrapper's mouseleave, and a
+                              flyout parked outside the panel's box would
+                              still be inside its subtree, so moving onto it
+                              never reads as leaving the menu. Positioned at
+                              left-full with a small negative inset so the
+                              pointer crosses no gap on the way. */}
+                        {item.id === "product" && openArea && (() => {
+                            const g = moduleGroups.find((x) => x.id === openArea);
+                            if (!g) return null;
+                            return (
+                              <div
+                                ref={areaPanelRef}
+                                aria-hidden="true"
+                                style={{ top: areaTop }}
+                                className={cn(
+                                  "ez-pane absolute hidden w-[19rem] xl:block",
+                                  areaFlipped
+                                    ? "right-full -mr-2"
+                                    : "left-full -ml-2",
+                                )}
+                              >
+                                <div
+                                  key={g.id}
+                                  className="ez-preview rounded-lg bg-surface p-4 shadow-floating ring-1 ring-ink-200"
+                                >
+                                  <p className="flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.12em] text-brand-700">
+                                    <Icon
+                                      name={moduleAreaIcons[g.id] ?? "check"}
+                                      className="h-3.5 w-3.5"
+                                    />
+                                    {g.name}
+                                  </p>
+                                  <h4 className="mt-1 text-[0.95rem] font-bold leading-snug text-ink-900">
+                                    {g.promise}
+                                  </h4>
+                                  <ul className="mt-3 space-y-2 border-t border-ink-200 pt-3">
+                                    {g.modules.map((m, mi) => (
+                                      <li
+                                        key={m.name}
+                                        className="ez-preview-row flex items-start gap-2 text-[0.76rem] leading-snug text-ink-700"
+                                        style={{ animationDelay: `${mi * 40}ms` }}
+                                      >
+                                        <Icon
+                                          name="check"
+                                          className="mt-0.5 h-3 w-3 shrink-0 text-brand-600"
+                                        />
+                                        <span className="line-clamp-3">{m.name}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              </div>
+                            );
+                          })()}
+
                         {item.id === "product" && (
                           <Link
                             href="/features"
-                            onMouseEnter={() => setPreviewHref(ALL_MODULES)}
-                            onFocus={() => setPreviewHref(ALL_MODULES)}
+                            onMouseEnter={(e) => {
+                              setPreviewHref(ALL_MODULES);
+                              alignPane(e.currentTarget);
+                            }}
+                            onFocus={(e) => {
+                              setPreviewHref(ALL_MODULES);
+                              alignPane(e.currentTarget);
+                            }}
                             data-previewing={
                               previewHref === ALL_MODULES ? "" : undefined
                             }
