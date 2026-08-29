@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
-import { Icon, type IconName } from '@/components/ui/Icon'
+import { Icon } from '@/components/ui/Icon'
 import { ComplianceStrip } from '@/components/home/ComplianceStrip'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
@@ -14,18 +14,6 @@ export const metadata: Metadata = pageMetadata({
     'Recruitment, onboarding, attendance, payroll, statutory compliance, claims, self-service and reporting — the full module list, honestly grouped.',
   path: '/features',
 })
-
-const groupIcons: Record<string, IconName> = {
-  hire: 'briefcase',
-  plan: 'chart',
-  onboard: 'user-plus',
-  manage: 'users',
-  time: 'clock',
-  pay: 'wallet',
-  claims: 'receipt',
-  serve: 'sparkle',
-  control: 'shield',
-}
 
 /* Spec §4.2 — intro on the "one system, not five" pillar, a grid of module
  * groups each linking to its detail page, the full module list honestly
@@ -93,7 +81,7 @@ export default function FeaturesPage() {
             >
               <div className="flex items-start gap-4">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-brand-100 text-brand-700">
-                  <Icon name={groupIcons[group.id]} className="h-6 w-6" />
+                  <Icon name={group.icon} className="h-6 w-6" />
                 </span>
                 <div>
                   <h2 className="text-xl font-bold">{group.name}</h2>
