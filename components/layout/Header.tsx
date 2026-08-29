@@ -479,10 +479,22 @@ export function Header() {
                 happens to sit next to some text. */}
             <a
               href={`tel:${contact.phoneE164}`}
-              className="group/tel ez-util flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl px-3 py-2.5 text-[0.95rem] font-bold tracking-[-0.005em] text-ink-900 hover:bg-brand-50 hover:text-brand-700"
+              /* A resting ground, not just a hover one. This was transparent
+                 until pointed at, which made the most direct route to a sale
+                 look like plain text sitting next to the real button. */
+              className="group/tel ez-util flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full bg-brand-50/70 px-3.5 py-2.5 text-[0.95rem] font-bold tracking-[-0.005em] text-ink-900 ring-1 ring-brand-100 hover:bg-brand-50 hover:text-brand-700 hover:ring-brand-200"
             >
-              <span className="ez-util grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-brand-100 group-hover/tel:bg-brand-600 group-hover/tel:text-white group-hover/tel:ring-brand-600">
-                <Icon name="phone" className="h-4 w-4" />
+              <span className="relative grid h-8 w-8 shrink-0 place-items-center">
+                {/* The ring that expands and fades — what makes the handset
+                    read as live rather than as a static icon. Behind the
+                    tile, so it never washes out the glyph. */}
+                <span
+                  aria-hidden="true"
+                  className="ez-tel-ring pointer-events-none absolute inset-0 rounded-full bg-brand-500/40"
+                />
+                <span className="ez-util relative grid h-8 w-8 place-items-center rounded-full bg-brand-600 text-white ring-1 ring-brand-700/30 group-hover/tel:bg-brand-700">
+                  <Icon name="phone" className="h-4 w-4" />
+                </span>
               </span>
               {contact.phoneDisplay}
             </a>
@@ -491,17 +503,31 @@ export function Header() {
                 header, so it carries the most: a gradient ground, a brand
                 glow that deepens, a lift, and a shine that crosses it on
                 hover. The arrow reuses ez-bob from the hero. */}
-            <Link
-              href="/book-a-demo"
-              className="group/cta relative inline-flex shrink-0 items-center gap-2 overflow-hidden whitespace-nowrap rounded-full bg-gradient-to-b from-brand-600 to-brand-700 px-6 py-3 text-[0.95rem] font-bold tracking-[-0.005em] text-white shadow-[0_1px_2px_rgba(16,24,40,0.06),0_10px_22px_-8px_rgba(37,99,235,0.6)] ring-1 ring-brand-700/40 transition-all duration-300 hover:-translate-y-0.5 hover:from-brand-500 hover:to-brand-600 hover:shadow-[0_2px_4px_rgba(16,24,40,0.08),0_18px_34px_-10px_rgba(37,99,235,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-            >
+            {/* The glow has to live on a WRAPPER. The button itself is
+                overflow-hidden so the shine can be clipped to its shape, and
+                anything glowing outside the edge would be clipped with it. */}
+            <span className="relative inline-flex shrink-0">
               <span
                 aria-hidden="true"
-                className="ez-cta-shine pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-white/30 opacity-0"
+                className="ez-cta-glow pointer-events-none absolute -inset-2.5 rounded-full bg-[radial-gradient(closest-side,rgb(37_99_235/0.55),transparent)] blur-md"
               />
-              <span className="relative">Book a Demo</span>
-              <Icon name="arrow-right" className="ez-bob relative h-4 w-4" />
-            </Link>
+              <Link
+                href="/book-a-demo"
+                className="group/cta relative inline-flex shrink-0 items-center gap-2 overflow-hidden whitespace-nowrap rounded-full bg-gradient-to-b from-brand-600 to-brand-700 px-6 py-3 text-[0.95rem] font-bold tracking-[-0.005em] text-white shadow-[0_1px_2px_rgba(16,24,40,0.06),0_10px_22px_-8px_rgba(37,99,235,0.6)] ring-1 ring-brand-700/40 transition-all duration-300 hover:-translate-y-0.5 hover:from-brand-500 hover:to-brand-600 hover:shadow-[0_2px_4px_rgba(16,24,40,0.08),0_18px_34px_-10px_rgba(37,99,235,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+              >
+                {/* The shine. It now sweeps on its own as well as on hover —
+                    a button nobody has pointed at yet still needs a reason to
+                    be looked at. No opacity-0 class any more: the keyframes
+                    own that, and a static 0 alongside them was two things
+                    describing one property. */}
+                <span
+                  aria-hidden="true"
+                  className="ez-cta-shine pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-white/30"
+                />
+                <span className="relative">Book a Demo</span>
+                <Icon name="arrow-right" className="ez-bob relative h-4 w-4" />
+              </Link>
+            </span>
           </div>
 
           {/* ── Mobile actions ──────────────────────────────────────────── */}

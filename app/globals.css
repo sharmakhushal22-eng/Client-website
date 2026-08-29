@@ -1291,3 +1291,55 @@ html[data-reveal-ready]
   .ez-cc .ez-cc-rise,
   .ez-cc .ez-cc-wire { transition: none; }
 }
+
+/* ── Header CTA and phone: attention without nagging ───────────────────────
+ * These two are the conversion controls in the bar, so they get an idle
+ * animation the rest of the header does not have.
+ *
+ * Both follow the ezHaloPulse principle already used by the engine widget:
+ * MOSTLY IDLE, with a short swell. A continuous throb on a sticky header is
+ * visible on every screen of every page for the whole visit, and reads as a
+ * fault within about ten seconds. These rest at zero for roughly four fifths
+ * of the cycle.
+ *
+ * The two are deliberately OUT OF PHASE — the phone runs on a 3s delay
+ * against the CTA. Pulsing together would read as one blinking unit rather
+ * than two separate offers. */
+@keyframes ezCtaGlow {
+  0%, 68%, 100% { opacity: 0;    transform: scale(0.97); }
+  76%           { opacity: 0.75; transform: scale(1.04); }
+  90%           { opacity: 0;    transform: scale(1.09); }
+}
+
+.ez-cta-glow {
+  animation: ezCtaGlow 6s ease-out infinite;
+}
+
+/* The shine now also runs on its own, not only on hover: a button nobody has
+   pointed at yet still needs a reason to be looked at. Hover keeps its own,
+   faster sweep — see the hover rule below. */
+@keyframes ezCtaShineIdle {
+  0%, 72%, 100% { transform: translateX(0) skewX(-12deg); opacity: 0; }
+  78%           { opacity: 0.5; }
+  94%           { transform: translateX(560%) skewX(-12deg); opacity: 0; }
+}
+.ez-cta-shine { animation: ezCtaShineIdle 6s ease-in-out infinite; }
+.group\/cta:hover .ez-cta-shine {
+  animation: ezCtaShineIdle 0.9s ease-out;
+}
+
+/* The phone's tile: a ring that expands and fades, so the handset reads as
+   live rather than as a static icon. 3s offset against the CTA. */
+@keyframes ezTelRing {
+  0%, 70%, 100% { opacity: 0;   transform: scale(1); }
+  77%           { opacity: 0.5; transform: scale(1.35); }
+  92%           { opacity: 0;   transform: scale(1.7); }
+}
+.ez-tel-ring { animation: ezTelRing 6s ease-out infinite 3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-cta-glow,
+  .ez-cta-shine,
+  .group\/cta:hover .ez-cta-shine,
+  .ez-tel-ring { animation: none; opacity: 0; }
+}
