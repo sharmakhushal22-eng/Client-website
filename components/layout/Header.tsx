@@ -246,6 +246,44 @@ export function Header() {
   /* Which module area is expanded into the third panel. */
   const [openArea, setOpenArea] = useState<string | null>(null);
 
+  /* CLOSING IS DELAYED, OPENING IS NOT.
+   *
+   * A submenu has to survive the pointer travelling to it. The third panel
+   * sits to the RIGHT of its row, so the pointer necessarily leaves the row
+   * to reach it — clearing on mouseleave immediately would shut the panel
+   * on the way to itself. So leaving schedules a close, and entering
+   * anything that should keep it open cancels that. 160ms is long enough to
+   * cross the gap and short enough that a panel never lingers after the
+   * pointer has genuinely moved on.
+   *
+   * The same applies one level up: leaving a product row returns the pane to
+   * its neutral state rather than leaving the last product showing. */
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  }, []);
+
+  const scheduleClose = useCallback(
+    (what: "area" | "preview") => {
+      cancelClose();
+      closeTimer.current = setTimeout(() => {
+        if (what === "area") setOpenArea(null);
+        else {
+          setPreviewHref(null);
+          setOpenArea(null);
+        }
+      }, 160);
+    },
+    [cancelClose],
+  );
+
+  /* A pending close must not fire into an unmounted menu. */
+  useEffect(() => cancelClose, [cancelClose]);
+
   /* Which item the pill is currently over. The pill is a single shared
      element sliding behind the row, so the label it lands on has no way to
      know it is being covered — this is what lets that one label invert to
@@ -380,6 +418,19 @@ export function Header() {
                     setPreviewHref(null);
                     setOpenArea(null);
                   }}
+                  /* The keyboard twin of onMouseLeave. Without this the menu
+                     stays open behind a keyboard user for the rest of the
+                     page: Escape closes it, but Tab — the key someone
+                     actually presses to move on — did not. React's onBlur is
+                     a delegated focusout, so it fires for the button and for
+                     every link inside; the containment check is what keeps
+                     moving BETWEEN them from closing the menu. */
+                  onBlur={(e) => {
+                    if (e.currentTarget.contains(e.relatedTarget)) return;
+                    setOpenMenu(null);
+                    setPreviewHref(null);
+                    setOpenArea(null);
+                  }}
                 >
                   <button
                     type="button"
@@ -459,13 +510,17 @@ export function Header() {
                             key={link.href}
                             href={link.href}
                             onMouseEnter={() => {
+                              cancelClose();
                               setPreviewHref(link.href);
                               setOpenArea(null);
                             }}
+                            onMouseLeave={() => scheduleClose("preview")}
                             onFocus={() => {
+                              cancelClose();
                               setPreviewHref(link.href);
                               setOpenArea(null);
                             }}
+                            onBlur={() => scheduleClose("preview")}
                             data-previewing={
                               item.id === "product" && previewHref === link.href
                                 ? ""
@@ -542,7 +597,11 @@ export function Header() {
                              on where you were. One steady pane reads better
                              and cannot overflow. */
                           return (
-                            <div className="hidden min-w-0 xl:block">
+                            <div
+                              className="hidden min-w-0 xl:block"
+                              onMouseEnter={cancelClose}
+                              onMouseLeave={() => scheduleClose("preview")}
+                            >
                               <div
                                 aria-hidden="true"
                                 className="flex h-full flex-col rounded-lg bg-brand-50/60 p-5 ring-1 ring-brand-100"
@@ -588,7 +647,11 @@ export function Header() {
                                             row's whole job — it carries no
                                             expansion of its own. */}
                                         <div
-                                          onMouseEnter={() => setOpenArea(g.id)}
+                                          onMouseEnter={() => {
+                                            cancelClose();
+                                            setOpenArea(g.id);
+                                          }}
+                                          onMouseLeave={() => scheduleClose("area")}
                                           data-open={openArea === g.id ? "" : undefined}
                                           className="flex items-center gap-2 rounded-md px-1.5 py-1.5 text-[0.78rem] leading-snug text-ink-800 transition-colors data-[open]:bg-brand-100/70"
                                         >
@@ -700,6 +763,8 @@ export function Header() {
                             return (
                               <div
                                 aria-hidden="true"
+                                onMouseEnter={cancelClose}
+                                onMouseLeave={() => scheduleClose("area")}
                                 /* Full height, pinned to the panel's own top
                                    and bottom rather than to a row. It cannot
                                    overflow vertically because it is bounded
@@ -743,8 +808,16 @@ export function Header() {
                         {item.id === "product" && (
                           <Link
                             href="/features"
-                            onMouseEnter={() => setPreviewHref(ALL_MODULES)}
-                            onFocus={() => setPreviewHref(ALL_MODULES)}
+                            onMouseEnter={() => {
+                              cancelClose();
+                              setPreviewHref(ALL_MODULES);
+                            }}
+                            onMouseLeave={() => scheduleClose("preview")}
+                            onFocus={() => {
+                              cancelClose();
+                              setPreviewHref(ALL_MODULES);
+                            }}
+                            onBlur={() => scheduleClose("preview")}
                             data-previewing={
                               previewHref === ALL_MODULES ? "" : undefined
                             }
