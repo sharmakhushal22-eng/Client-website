@@ -87,7 +87,20 @@ export function Brand({
       /* items-start, not center: the emblem is positioned by the offset
          below, not centred against the text. Centring is what let the E
          drift off the cap line. */
-      className={`group inline-flex shrink-0 items-start gap-[0.4699em] ${size}`}
+      /* OPTICAL, NOT BOX, CENTRING.
+       *
+       * ezer-mark-tight.png carries 48px of transparent padding at the top of
+       * its 240px height, so the emblem's BOX extends further above the ink
+       * than below it. A parent using items-center therefore centres a box
+       * whose ink sits low — measured, 0.2397em low, which is 5.1px at the
+       * header's brand size and visibly out of line with the nav labels
+       * beside it.
+       *
+       * The translate lifts the lockup by exactly that, so what the eye reads
+       * as the brand's middle lands where the row's middle is. In em, so it
+       * holds at any `size`. translate rather than margin because this is an
+       * optical correction, not a layout one — the box stays where it is. */
+      className={`group inline-flex shrink-0 -translate-y-[0.2397em] items-start gap-[0.4699em] ${size}`}
       aria-label={`${site.name} — home`}
     >
       <BrandMark className="h-[2.7548em] w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.05]" />
