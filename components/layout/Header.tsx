@@ -121,17 +121,6 @@ const companyLinks: MenuLink[] = [
 
 /* Icons for the eight module areas, mirroring ModuleSections so the same area
    carries the same glyph wherever it appears. */
-const moduleAreaIcons: Record<string, IconName> = {
-  hire: "briefcase",
-  plan: "chart",
-  onboard: "user-plus",
-  time: "clock",
-  pay: "wallet",
-  ess: "users",
-  travel: "receipt",
-  exit: "shield",
-};
-
 const NAV: NavItem[] = [
   {
     kind: "menu",
@@ -706,7 +695,7 @@ export function Header() {
                                         >
                                           <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-brand-100 text-brand-700">
                                             <Icon
-                                              name={moduleAreaIcons[g.id] ?? "check"}
+                                              name={g.icon}
                                               className="h-3.5 w-3.5"
                                             />
                                           </span>
@@ -826,7 +815,7 @@ export function Header() {
                                 >
                                   <p className="flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.12em] text-brand-700">
                                     <Icon
-                                      name={moduleAreaIcons[g.id] ?? "check"}
+                                      name={g.icon}
                                       className="h-3.5 w-3.5"
                                     />
                                     {g.name}

@@ -1,3 +1,5 @@
+import type { IconName } from '@/components/ui/Icon'
+
 /* ============================================================================
  * The product's actual modules.
  *
@@ -9,6 +11,15 @@
 export type ModuleGroup = {
   id: string
   name: string
+  /* The area's symbol, carried by the data rather than by a lookup table
+     keyed on id. There were two such tables — one in the nav, one in the
+     home accordion — and the accordion's still held the OLD nine-area ids
+     (manage, claims, serve, control) after the areas were regenerated as
+     eight. Five ids still matched, so rows 01-05 drew their symbol and
+     06-08 silently drew nothing: Icon renders empty for an unknown name,
+     so nothing failed loudly. Required and typed here, a missing symbol is
+     a compile error instead. */
+  icon: IconName
   /* Spec §2.2 pillar this group ladders up to. */
   promise: string
   /* The reference's full tab label ("Recruitment & ATS"). `name` stays the
@@ -30,6 +41,7 @@ export const moduleGroups: ModuleGroup[] = [
      headings, bullets and mock rows, all verbatim. */
   {
     id: 'hire',
+    icon: 'briefcase',
     name: 'Hire',
     /* The reference's own tab label, kept verbatim. */
     label: 'Recruitment & ATS',
@@ -62,6 +74,7 @@ export const moduleGroups: ModuleGroup[] = [
   },
   {
     id: 'plan',
+    icon: 'chart',
     name: 'Plan',
     /* The reference's own tab label, kept verbatim. */
     label: 'CTC Planning & Manpower Budgeting',
@@ -92,6 +105,7 @@ export const moduleGroups: ModuleGroup[] = [
   },
   {
     id: 'onboard',
+    icon: 'user-plus',
     name: 'Onboard',
     /* The reference's own tab label, kept verbatim. */
     label: 'Onboarding',
@@ -123,6 +137,7 @@ export const moduleGroups: ModuleGroup[] = [
   },
   {
     id: 'time',
+    icon: 'clock',
     name: 'Time',
     /* The reference's own tab label, kept verbatim. */
     label: 'Attendance & Leave',
@@ -154,6 +169,7 @@ export const moduleGroups: ModuleGroup[] = [
   },
   {
     id: 'pay',
+    icon: 'wallet',
     name: 'Pay',
     /* The reference's own tab label, kept verbatim. */
     label: 'Payroll & Statutory',
@@ -185,6 +201,7 @@ export const moduleGroups: ModuleGroup[] = [
   },
   {
     id: 'ess',
+    icon: 'users',
     name: 'Self-service',
     /* The reference's own tab label, kept verbatim. */
     label: 'Employee Self-Service',
@@ -216,6 +233,7 @@ export const moduleGroups: ModuleGroup[] = [
   },
   {
     id: 'travel',
+    icon: 'receipt',
     name: 'Travel',
     /* The reference's own tab label, kept verbatim. */
     label: 'Travel & Reimbursement',
@@ -247,6 +265,7 @@ export const moduleGroups: ModuleGroup[] = [
   },
   {
     id: 'exit',
+    icon: 'shield',
     name: 'Exit',
     /* The reference's own tab label, kept verbatim. */
     label: 'Exit & Full-and-Final',

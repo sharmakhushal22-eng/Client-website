@@ -2,23 +2,23 @@
 
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Icon, type IconName } from '@/components/ui/Icon'
+import { Icon } from '@/components/ui/Icon'
 import type { ModuleGroup } from '@/content/modules'
 
 /* ============================================================================
- * The nine module areas, as sections that open.
+ * The eight module areas, as sections that open.
  *
  * WHY THIS REPLACED THE TAB BAR
  *
  * The old version was a pill tab-bar over one shared panel. The problem was
- * structural, not cosmetic: the groups hold between two and ten modules, and
- * a single panel can only be one height. Sized for Pay's ten, Hire's two sat
- * in a large empty card — which is exactly what "not looking clean" was.
+ * structural, not cosmetic: a single shared panel can only be one height,
+ * so it had to be sized for the largest group and every smaller one sat in a
+ * mostly empty card — which is exactly what "not looking clean" was.
  * Sections that each take their own height cannot have that problem.
  *
  * It also fixes a real information loss. A tab bar shows one group and hides
  * the other eight behind labels like "Control" and "Serve", which do not tell
- * you what is inside. Here all nine are on the page with their promise
+ * you what is inside. Here all eight are on the page with their promise
  * visible, and opening one is additive rather than a swap.
  *
  * HOVER *AND* CLICK
@@ -30,28 +30,33 @@ import type { ModuleGroup } from '@/content/modules'
  *   1. Only where the pointer is real — matchMedia('(hover: hover) and
  *      (pointer: fine)'). Touch never hovers; a phone would otherwise open a
  *      section on the tap that was meant to scroll.
- *   2. Only after the pointer RESTS for HOVER_INTENT_MS. Passing through does
- *      not trigger it; stopping on it does.
+ *   2. Only after the pointer RESTS for HOVER_INTENT_MS *inside* the row.
+ *      The timer is armed and re-armed by mousemove rather than by
+ *      mouseenter, which is the load-bearing detail — see below.
  *   3. Never against a pinned section. Once you click, the choice is yours
  *      and the mouse stops overriding it.
  *
- * Clicking pins, so a section you deliberately opened stays open when the
- * cursor leaves — which is what you want when you are reading the list.
+ * What hover opens, hover closes: leaving the row collapses it again, so the
+ * section is open exactly while you are pointing at it. Clicking pins, and a
+ * pinned section stays open when the cursor leaves — which is what you want
+ * when you are actually reading the list rather than skimming it.
+ *
+ * WHY THE TIMER IS ARMED ON MOUSEMOVE, NOT MOUSEENTER
+ *
+ * Closing on leave means the page height changes under the pointer. Collapse
+ * row 3 and every row below it jumps up by the height of its panel — so a
+ * row nobody pointed at can arrive underneath a cursor that never moved, and
+ * the browser fires a perfectly genuine mouseenter for it. Arming on
+ * mouseenter, that row would open on its own, shifting the page again: the
+ * accordion would walk down the list by itself.
+ *
+ * A pointer that has not moved produces no mousemove, so arming on mousemove
+ * ignores those arrivals entirely, and it makes gate 2 literal — the section
+ * opens when the pointer has been STILL for HOVER_INTENT_MS inside the row,
+ * rather than merely 140ms after crossing its edge while still travelling.
  * ========================================================================= */
 
 const HOVER_INTENT_MS = 140
-
-const groupIcons: Record<string, IconName> = {
-  hire: 'briefcase',
-  plan: 'chart',
-  onboard: 'user-plus',
-  manage: 'users',
-  time: 'clock',
-  pay: 'wallet',
-  claims: 'receipt',
-  serve: 'sparkle',
-  control: 'shield',
-}
 
 export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
   const [openId, setOpenId] = useState<string | null>(groups[0]?.id ?? null)
@@ -82,11 +87,26 @@ export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
     }
   }, [])
 
-  const onEnter = useCallback(
+  /* Armed by mousemove, so it measures stillness inside the row rather than
+     time since the edge was crossed. See the note at the top of the file. */
+  const onMove = useCallback(
     (id: string) => {
       if (!canHover.current || pinned) return
       clearHoverTimer()
       hoverTimer.current = setTimeout(() => setOpenId(id), HOVER_INTENT_MS)
+    },
+    [pinned, clearHoverTimer],
+  )
+
+  /* The counterpart hover was missing: it opened on the way in and then
+     stayed open behind you, so a section you had merely passed over sat
+     expanded with nothing pointing at it. A pinned section is exempt —
+     that one was opened on purpose. */
+  const onLeave = useCallback(
+    (id: string) => {
+      if (!canHover.current || pinned) return
+      clearHoverTimer()
+      setOpenId((cur) => (cur === id ? null : cur))
     },
     [pinned, clearHoverTimer],
   )
@@ -117,7 +137,8 @@ export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
             key={group.id}
             data-open={isOpen ? '' : undefined}
             className="ez-row group relative overflow-hidden rounded-2xl bg-surface ring-1 ring-ink-200 transition-shadow duration-300 data-[open]:shadow-floating data-[open]:ring-brand-200"
-            onMouseEnter={() => onEnter(group.id)}
+            onMouseMove={() => onMove(group.id)}
+            onMouseLeave={() => onLeave(group.id)}
           >
             {/* The accent rail, scaling down the left edge as the section
                 opens. Decorative, so it is out of the accessibility tree. */}
@@ -134,14 +155,14 @@ export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
                 aria-controls={panelId}
                 className="flex w-full cursor-pointer items-center gap-4 px-5 py-4 text-left sm:gap-5 sm:px-7 sm:py-5"
               >
-                {/* The running number gives the nine areas an order to read
+                {/* The running number gives the eight areas an order to read
                     in, which a bare grid of equal cards does not. */}
                 <span className="hidden w-6 shrink-0 font-mono text-[0.7rem] font-bold text-ink-400 sm:block">
                   {String(i + 1).padStart(2, '0')}
                 </span>
 
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-100 transition-colors duration-300 group-data-[open]:bg-brand-600 group-data-[open]:text-white group-data-[open]:ring-brand-600">
-                  <Icon name={groupIcons[group.id]} className="h-5 w-5" />
+                  <Icon name={group.icon} className="h-5 w-5" />
                 </span>
 
                 <span className="min-w-0 flex-1">
@@ -166,7 +187,7 @@ export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
 
             {/* Always rendered, never unmounted: the panel has to exist for
                 the height to animate, and leaving it in the DOM means a
-                crawler and a find-in-page both see all 43 modules rather
+                crawler and a find-in-page both see every module rather
                 than only the open group's. aria-hidden and inert keep it out
                 of the tree and out of tab order while it is closed. */}
             <div
@@ -176,7 +197,7 @@ export function ModuleSections({ groups }: { groups: ModuleGroup[] }) {
               /* A real boolean. React 19 warns that inert="" is treated as
                  FALSE — so the cast that used to be here left every closed
                  panel tab-reachable, which is the bug inert was added to
-                 prevent: 41 hidden links in the tab order. */
+                 prevent: every closed group's links, live in the tab order. */
               inert={!isOpen}
               aria-hidden={!isOpen}
             >
