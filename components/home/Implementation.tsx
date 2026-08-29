@@ -46,13 +46,31 @@ export function Implementation() {
             </div>
           </div>
 
-          <ol className="relative space-y-3">
-            {/* The spine. Sits behind the rows and stops at the last one. */}
+          {/* self-start is load-bearing, not tidying. This is a grid item
+              beside a much taller heading column, so by default it STRETCHED
+              to match — 45px past the last card. The spine was measured with
+              bottom-4 against that stretched box, so it ran on into the empty
+              stretch and hung 29px below card 05 with nothing to connect to.
+              Sized to its own content, the box ends where the cards end.
+
+              The wrapper exists so the spine is not a child of the <ol>:
+              space-y-3 puts a top margin on every child but the first, and
+              with the spine sitting first that margin landed on phase 01
+              instead. */}
+          <div className="relative self-start">
+            {/* The spine, running between the badge centres it joins. It is
+                drawn once, behind the rows, and each card's own background
+                masks the length crossing it — so what shows is the connector
+                in the gaps. left is the badge's centre: 1.25rem of card
+                padding plus half of the 2.75rem badge, then pulled back by
+                half its own width. It used to be 1.35rem, which put it 20px
+                to the LEFT of every number it was meant to thread through. */}
             <span
               aria-hidden="true"
-              className="absolute left-[1.35rem] top-4 bottom-4 w-px bg-brand-200"
+              className="absolute left-[2.625rem] top-[2.625rem] bottom-0 w-px -translate-x-1/2 bg-brand-200"
             />
 
+            <ol className="space-y-3">
             {implementation.phases.map((phase, i) => (
               <li
                 key={phase.days}
@@ -78,7 +96,8 @@ export function Implementation() {
                 </div>
               </li>
             ))}
-          </ol>
+            </ol>
+          </div>
         </div>
       </Container>
     </section>
