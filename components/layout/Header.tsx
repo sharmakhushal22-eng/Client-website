@@ -283,7 +283,7 @@ export function Header() {
             scrolled ? "h-16 lg:h-[4.5rem]" : "h-[4.5rem] lg:h-[5.5rem]",
           )}
         >
-          <Logo showTagline={false} />
+          <Logo showTagline="exceptLg" />
 
           {/* ── Desktop nav ─────────────────────────────────────────────── */}
           <nav

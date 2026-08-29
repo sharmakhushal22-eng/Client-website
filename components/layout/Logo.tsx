@@ -66,9 +66,18 @@ export function Logo({
   showTagline = true,
 }: {
   onDark?: boolean;
-  /* Off in the header, where the nav is already crowded and the tagline
-     competes with it; on in the footer, where there is room. */
-  showTagline?: boolean;
+  /* true      — always shown (the footer, which has room)
+   * false     — never (admin chrome, deliberately plain)
+   * 'exceptLg'— shown, but not through the crowded lg band (the header)
+   *
+   * It used to be off in the header entirely, on the grounds that the nav is
+   * crowded. But the emblem is 48px and portrait, and one line of type beside
+   * it left an obvious band of empty space under the name — the tagline is
+   * the second line the lockup was drawn with, and putting it back is what
+   * squares the text block against the mark.
+   *
+   * The lg carve-out is measured, not taste: see the note on the span. */
+  showTagline?: boolean | "exceptLg";
 }) {
   return (
     <Link
@@ -114,10 +123,28 @@ export function Logo({
           </span>
         </span>
         {showTagline && (
+          /* Tracked out and sized to sit under the wordmark rather than
+             compete with it: the letter-spacing is what makes a small line
+             read as a considered second element instead of shrunken body
+             copy. It scales with the wordmark across the same breakpoints so
+             the two-line block stays proportioned at each one. */
           <span
-            className={`block text-[0.6rem] uppercase tracking-[0.09em] ${
-              onDark ? "text-on-dark-muted" : "text-ink-600"
-            }`}
+            /* HIDDEN AT lg ONLY, and that is measured, not taste.
+             *
+             * The tagline is the WIDER of the two lines — tracked-out
+             * uppercase beats the wordmark even at 1.9rem — so it, not the
+             * name, sets the logo's width. Showing it takes the header logo
+             * from 158px to 212px, and at lg the header already needs about
+             * 1032px of content in the 960px available. 54px more would make
+             * a live overflow materially worse.
+             *
+             * So: visible on mobile, where the nav is behind a hamburger and
+             * there is room; hidden through the crowded lg band, which is
+             * exactly what the header does today; back at xl, where it fits.
+             */
+            className={`block text-[0.62rem] uppercase tracking-[0.12em] xl:text-[0.68rem] xl:tracking-[0.14em] ${
+              showTagline === "exceptLg" ? "lg:hidden xl:block" : ""
+            } ${onDark ? "text-on-dark-muted" : "text-ink-600"}`}
           >
             {site.tagline}
           </span>
