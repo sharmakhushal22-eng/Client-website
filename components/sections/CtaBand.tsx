@@ -43,28 +43,45 @@ export function CtaBand({
        * Placed at the final CTA specifically. By this point the argument is
        * made; what is left is deciding to talk to someone, and a room of
        * people is a better ground for that than another gradient. */}
-      <Image
-        src="/photos/team-india.jpg"
-        alt=""
+      {/* At 0.22 under a 0.78-0.94 scrim, this photograph was contributing
+          between 1% and 5% of each pixel — arithmetic, not opinion. That is
+          not a background, it is noise, which is why the band read as flat
+          dark. It is now 0.55 and the scrim below is a localised clearing
+          rather than a blanket, so the room is actually there.
+
+          Ken Burns inside a parallax wrapper: the frame pushes very slowly
+          while the whole layer drifts against the band as it crosses the
+          viewport. Neither is on a scroll listener. */}
+      <div
         aria-hidden="true"
-        fill
-        sizes="100vw"
-        priority={false}
-        className="pointer-events-none select-none object-cover object-center opacity-[0.22]"
-      />
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div className="ez-parallax absolute inset-0">
+          <div className="ez-kenburns relative h-full w-full">
+            <Image
+              src="/photos/team-india.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              priority={false}
+              className="select-none object-cover object-center opacity-[0.55]"
+            />
+          </div>
+        </div>
+      </div>
 
       {/* The scrim follows the layout, because the two variants need opposite
        * things. With the form, text sits in a left column and the photo should
        * survive on the right — so the wash runs left to right. Centred, text
        * crosses the full width and a directional wash leaves one side of the
        * heading darker than the other, so it needs a symmetric vignette. */}
+      {/* A light overall darkener only — enough to keep the band coherent
+          and the edges from glaring, but nowhere near enough to erase the
+          photograph. The heavy lifting for legibility is done by the panel
+          the text sits on, not by drowning the whole image. */}
       <div
         aria-hidden="true"
-        className={
-          variant === 'form'
-            ? 'pointer-events-none absolute inset-0 bg-gradient-to-r from-dark via-dark/95 to-dark/70'
-            : 'pointer-events-none absolute inset-0 bg-[radial-gradient(70rem_40rem_at_50%_50%,rgba(11,14,18,0.94),rgba(11,14,18,0.78))]'
-        }
+        className="pointer-events-none absolute inset-0 bg-dark/35"
       />
       <div
         aria-hidden="true"
@@ -79,7 +96,25 @@ export function CtaBand({
               : 'mx-auto max-w-2xl text-center'
           }
         >
-          <div>
+          {/* THE PANEL. This is what makes the text legible now that the
+              photograph is actually visible behind it.
+
+              bg-dark/72 is derived, not chosen. Over the BRIGHTEST possible
+              photo pixel (255), a panel of alpha A composites to
+              255(1-A) + 11A; white text needs that at or below 119 to clear
+              4.5:1. That puts the floor at 0.56. 0.72 leaves margin and
+              still passes 28% of the photograph through, so it reads as
+              glass over a room rather than a black box laid on one — 8.15:1
+              even in the worst case.
+
+              The 3D: a top highlight where light would catch the edge, a
+              long shadow beneath it, and ez-tilt so it responds to the
+              pointer. Those three together are what lift it off the plane
+              rather than a border alone. */}
+          <div
+            data-reveal=""
+            className="ez-tilt rounded-3xl border-t border-white/15 bg-dark/[0.72] p-7 shadow-[0_2px_6px_rgba(0,0,0,0.35),0_32px_64px_-24px_rgba(0,0,0,0.85)] ring-1 ring-white/10 backdrop-blur-md sm:p-9"
+          >
             {eyebrow && (
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-300">
                 {eyebrow}
@@ -88,11 +123,21 @@ export function CtaBand({
             <h2 className="mt-3 text-3xl font-bold leading-tight text-white sm:text-4xl">
               {title}
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-on-dark-muted">{lede}</p>
+            {/* on-dark, not on-dark-muted. Worst case — the panel over a
+                pure-white photo pixel — muted measured 4.9:1, which clears
+                4.5 but with nothing to spare over a background that varies
+                photograph by photograph. Full strength takes it to ~7:1.
+                Hierarchy still reads: the heading is twice the size and
+                bold. */}
+            <p className="mt-4 text-lg leading-relaxed text-on-dark">{lede}</p>
 
-            <ul className="mt-6 space-y-2.5">
+            {/* text-left inside a centred panel. The section centres its
+                heading, and the list was inheriting that — which centres each
+                wrapped line independently and leaves the ticks floating
+                against ragged text. A list reads down its left edge. */}
+            <ul className="mx-auto mt-6 max-w-lg space-y-2.5 text-left">
               {booking.whatHappens.slice(0, 3).map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-[0.95rem] text-on-dark-muted">
+                <li key={item} className="flex items-start gap-2.5 text-[0.95rem] text-on-dark">
                   <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-brand-300" />
                   {item}
                 </li>
@@ -119,8 +164,16 @@ export function CtaBand({
             <p className="mt-6 text-sm text-on-dark-faint">{booking.reassurance}</p>
           </div>
 
+          {/* Matched to the copy panel opposite it. bg-white/5 was tuned for
+              the old blanket scrim, where almost nothing showed through; with
+              the photograph now visible it was a 5% haze over a room, which
+              both weakened the labels and made the two halves of this band
+              look like different components. */}
           {variant === 'form' && (
-            <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-sm sm:p-8">
+            <div
+              data-reveal=""
+              className="ez-tilt rounded-3xl border-t border-white/15 bg-dark/[0.72] p-6 shadow-[0_2px_6px_rgba(0,0,0,0.35),0_32px_64px_-24px_rgba(0,0,0,0.85)] ring-1 ring-white/10 backdrop-blur-md sm:p-8"
+            >
               <h3 className="text-lg font-bold text-white">
                 Tell us where to send the details
               </h3>
