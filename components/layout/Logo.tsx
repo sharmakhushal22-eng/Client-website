@@ -82,16 +82,35 @@ export function Logo({
   return (
     <Link
       href="/"
-      className="group inline-flex shrink-0 items-center gap-2.5"
+      className="group inline-flex shrink-0 items-center gap-2.5 xl:items-start"
       aria-label={`${site.name} — home`}
     >
-      {/* Sized by HEIGHT, not forced into a square. The emblem's ink is
-          portrait (roughly 2:3) — padded to a square and set at h-10 w-10 it
-          renders about 27px wide inside a 40px box, which is why it looked
-          undersized next to the wordmark. The square-padded file is still
-          what the favicon uses, because a tab icon does need to be square. */}
-      <LogoMark className="h-12 w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.05]" />
-      <span className="whitespace-nowrap leading-tight">
+      {/* Sized by HEIGHT, not forced into a square: the ink is portrait,
+          roughly 2:3.
+
+          THE xl SIZE IS DERIVED, NOT PICKED. Measuring the artwork, the E
+          and its swoosh occupy rows 103-224 of the 240px image — 50.8% of
+          the box, starting at 42.9% down it. The rest is the people cluster
+          above, plus 48px of transparent padding at the top, which is why
+          the emblem read as small: a 48px box was only ever showing ~35px
+          of ink.
+
+          For the E alone to span the cap of EZER down to the baseline of
+          INDIA — a measured 28.5px at the type sizes below — the image box
+          has to be 28.5 / 0.508 = 56px. Hence h-14 at xl.
+
+          Not applied below xl: 56px is 88% of the 64px mobile bar, which
+          leaves the emblem touching both edges. Those widths keep the older
+          centred arrangement. */}
+      <LogoMark className="h-11 w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.05] xl:h-14" />
+      {/* The offset that does the alignment.
+
+          The E starts 42.9% down the emblem: 0.429 x 56 = 24.0px from its
+          top. EZER's cap sits 0.27em below its own line-box top, which at
+          1.33rem is 5.7px. So the text block starts 24.0 - 5.7 = 18.3px
+          lower than the emblem — 1.15rem. Anything else and the E floats
+          against the type instead of bracketing it. */}
+      <span className="whitespace-nowrap leading-tight xl:mt-[1.15rem]">
         {/* Set the way the artwork sets it: EZER in ink, HRMS in brand blue.
             Uppercase with tight tracking to echo the heavy geometric
             wordmark, rather than the lowercase "ezer hrms" that was here
@@ -115,7 +134,7 @@ export function Logo({
             there BEFORE any of this, and every item carries shrink-0, so a
             larger logo pushes an existing overflow further. */}
         <span
-          className={`block text-[1.5rem] font-extrabold uppercase tracking-[-0.015em] lg:text-[1.35rem] xl:text-[1.55rem] ${
+          className={`block text-[1.35rem] font-extrabold uppercase tracking-[-0.015em] lg:text-[1.3rem] xl:text-[1.33rem] ${
             onDark ? "text-white" : "text-ink-900"
           }`}
         >
@@ -144,7 +163,7 @@ export function Logo({
              * there is room; hidden through the crowded lg band, which is
              * exactly what the header does today; back at xl, where it fits.
              */
-            className={`block text-[0.56rem] uppercase tracking-[0.115em] xl:text-[0.58rem] xl:tracking-[0.12em] ${
+            className={`block text-[0.52rem] uppercase tracking-[0.11em] xl:text-[0.5rem] xl:tracking-[0.115em] ${
               showTagline === "exceptLg" ? "lg:hidden xl:block" : ""
             } ${onDark ? "text-on-dark-muted" : "text-ink-600"}`}
           >
