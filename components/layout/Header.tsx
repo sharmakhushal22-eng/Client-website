@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Logo } from "./Logo";
+import { Brand } from "./Brand";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Icon, type IconName } from "@/components/ui/Icon";
@@ -283,7 +283,7 @@ export function Header() {
             scrolled ? "h-16 lg:h-[4.5rem]" : "h-[4.5rem] lg:h-[5.5rem]",
           )}
         >
-          <Logo showTagline="exceptLg" />
+          <Brand />
 
           {/* ── Desktop nav ─────────────────────────────────────────────── */}
           <nav

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
-import { Logo } from './Logo'
+import { Brand } from './Brand'
 import { NewsletterForm } from '@/components/forms/NewsletterForm'
 import { company, companyDetails, contact, displayLegalName, site, social } from '@/site.config'
 
@@ -62,7 +62,9 @@ export function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           {/* ── Brand, address, contact ─────────────────────────────────── */}
           <div>
-            <Logo onDark />
+            {/* Bigger than the header: the footer has vertical room, and
+                one control is all it takes to use it. */}
+            <Brand onDark size="text-[1.45rem]" />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-on-dark-faint">
               {site.footerBlurb}
             </p>

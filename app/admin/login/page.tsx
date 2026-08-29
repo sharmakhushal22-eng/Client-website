@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LoginForm } from './LoginForm'
-import { Logo } from '@/components/layout/Logo'
+import { Brand } from '@/components/layout/Brand'
 
 export const metadata: Metadata = {
   title: 'Admin sign in',
@@ -18,7 +18,7 @@ export default async function AdminLoginPage({
     <div className="flex min-h-screen items-center justify-center bg-brand-50 px-5 py-12">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex justify-center">
-          <Logo />
+          <Brand size="text-[1.3rem]" />
         </div>
 
         <div className="rounded-2xl bg-surface p-8 shadow-xl shadow-ink-900/5 ring-1 ring-ink-200">

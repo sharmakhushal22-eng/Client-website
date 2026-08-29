@@ -4,7 +4,7 @@ import { headers } from 'next/headers'
 import { currentAdmin } from '@/lib/admin/auth'
 import { accessMode } from '@/lib/admin/db'
 import { logout } from './actions'
-import { Logo } from '@/components/layout/Logo'
+import { Brand } from '@/components/layout/Brand'
 import { Icon, type IconName } from '@/components/ui/Icon'
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="border-b border-ink-200 bg-surface">
         <div className="mx-auto flex max-w-[85rem] flex-wrap items-center justify-between gap-4 px-5 py-3.5 sm:px-6">
           <div className="flex items-center gap-4">
-            <Logo showTagline={false} />
+            <Brand showTagline={false} size="text-[1.1rem]" />
             <span className="rounded-md bg-brand-100 px-2 py-0.5 text-[0.7rem] font-bold uppercase tracking-wider text-brand-700">
               Admin
             </span>
