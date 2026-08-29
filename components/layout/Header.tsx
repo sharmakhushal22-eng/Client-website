@@ -119,6 +119,19 @@ const companyLinks: MenuLink[] = [
   },
 ];
 
+/* Icons for the eight module areas, mirroring ModuleSections so the same area
+   carries the same glyph wherever it appears. */
+const moduleAreaIcons: Record<string, IconName> = {
+  hire: "briefcase",
+  plan: "chart",
+  onboard: "user-plus",
+  time: "clock",
+  pay: "wallet",
+  ess: "users",
+  travel: "receipt",
+  exit: "shield",
+};
+
 const NAV: NavItem[] = [
   {
     kind: "menu",
@@ -225,6 +238,10 @@ export function Header() {
      swaps it; leaving the menu resets to the first product, so the pane is
      never blank while the menu is open. */
   const [previewHref, setPreviewHref] = useState<string | null>(null);
+
+  /* The "All N modules" row previews the whole catalogue rather than one
+     product, so it needs a value that is not a product href. */
+  const ALL_MODULES = "__all__";
 
   /* Which item the pill is currently over. The pill is a single shared
      element sliding behind the row, so the label it lands on has no way to
@@ -500,15 +517,72 @@ export function Header() {
                            * the fact that the pane responds to pointing at
                            * all. It now holds a neutral state until a row is
                            * actually pointed at. */
-                          const page = previewHref
-                            ? getFeaturePage(previewHref.replace("/features/", ""))
-                            : null;
+                          const showingAll = previewHref === ALL_MODULES;
+                          const page =
+                            previewHref && !showingAll
+                              ? getFeaturePage(previewHref.replace("/features/", ""))
+                              : null;
                           return (
                             <div
                               aria-hidden="true"
                               className="hidden min-w-0 rounded-lg bg-brand-50/60 p-5 ring-1 ring-brand-100 xl:block"
                             >
-                              {!page && (
+                              {showingAll && (
+                                /* THE WHOLE CATALOGUE, BY AREA.
+                                 *
+                                 * Not 32 rows. The module names in
+                                 * moduleGroups are full sentences — up to 101
+                                 * characters — because they are the bullets
+                                 * the feature pages render. Thirty-two of
+                                 * those is a page, not a hover panel.
+                                 *
+                                 * The eight areas ARE the 32, grouped, and
+                                 * each carries its own count, so the panel
+                                 * shows the whole shape of the catalogue and
+                                 * stays scannable at a glance. The row still
+                                 * links to /features for the full list. */
+                                <div key="all" className="ez-preview">
+                                  <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-brand-700">
+                                    The whole platform
+                                  </p>
+                                  <h3 className="mt-1.5 text-[1.05rem] font-bold leading-snug text-ink-900">
+                                    {moduleGroups.length} areas,{" "}
+                                    {moduleGroups.reduce(
+                                      (n, g) => n + g.modules.length,
+                                      0,
+                                    )}{" "}
+                                    modules
+                                  </h3>
+                                  <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-brand-100 pt-3">
+                                    {moduleGroups.map((g, gi) => (
+                                      <li
+                                        key={g.id}
+                                        className="ez-preview-row flex items-center gap-2 text-[0.78rem] leading-snug text-ink-800"
+                                        style={{ animationDelay: `${gi * 30}ms` }}
+                                      >
+                                        <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-brand-100 text-brand-700">
+                                          <Icon
+                                            name={moduleAreaIcons[g.id] ?? "check"}
+                                            className="h-3.5 w-3.5"
+                                          />
+                                        </span>
+                                        <span className="min-w-0 flex-1 truncate font-semibold">
+                                          {g.name}
+                                        </span>
+                                        <span className="shrink-0 text-[0.72rem] font-bold text-brand-700">
+                                          {g.modules.length}
+                                        </span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                  <span className="mt-3 inline-flex items-center gap-1.5 text-[0.82rem] font-semibold text-brand-700">
+                                    See every module in detail
+                                    <Icon name="arrow-right" className="h-3.5 w-3.5" />
+                                  </span>
+                                </div>
+                              )}
+
+                              {!page && !showingAll && (
                                 /* The resting state. It fills the pane so the
                                    panel is not half empty, and says what the
                                    pane is for, without standing in for any
@@ -572,7 +646,12 @@ export function Header() {
                         {item.id === "product" && (
                           <Link
                             href="/features"
-                            className="mt-1 flex items-center gap-1.5 rounded-md px-3 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 xl:col-span-2"
+                            onMouseEnter={() => setPreviewHref(ALL_MODULES)}
+                            onFocus={() => setPreviewHref(ALL_MODULES)}
+                            data-previewing={
+                              previewHref === ALL_MODULES ? "" : undefined
+                            }
+                            className="mt-1 flex items-center gap-1.5 rounded-md px-3 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 data-[previewing]:bg-brand-50 xl:col-span-2"
                           >
                             All{" "}
                             {moduleGroups.reduce(
