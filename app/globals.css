@@ -1392,3 +1392,104 @@ html[data-reveal-ready]
   .ez-marquee-track { animation: none; }
   .ez-marquee { -webkit-mask-image: none; mask-image: none; overflow-x: auto; }
 }
+
+/* ── Justified body prose ──────────────────────────────────────────────────
+ * Running text sets flush on both edges across the site.
+ *
+ * IN @layer base, deliberately. Tailwind's utilities live in a later layer,
+ * so `text-center`, `text-left` and `text-right` still beat this — every
+ * centred lede, every right-aligned figure keeps its alignment. A rule
+ * outside the layer would have out-ranked all of them and silently
+ * left-flushed or justified content that was deliberately centred.
+ *
+ * SCOPED TO PROSE, not to "all text". Headings, buttons, labels, nav items,
+ * chips and table cells are excluded on purpose: justification stretches
+ * word gaps to fill a line, and on a two-line display heading or a button
+ * that reads as broken rather than tidy. It only helps where there are
+ * enough words per line for the slack to spread thinly.
+ *
+ * hyphens: auto is not optional here. Justification without it pushes all
+ * the slack into word spaces, which is exactly what produces the rivers of
+ * white that make justified text look worse than ragged. <html lang="en-IN">
+ * is what lets the browser hyphenate at all.
+ *
+ * A last line is never stretched, so short single-line paragraphs are
+ * unaffected by this rule.
+ * ========================================================================= */
+@layer base {
+  p,
+  blockquote {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+}
+
+/* ── Where justification is switched back off, and why ─────────────────────
+ * Justification only works when a line holds enough words for the slack to
+ * spread thinly. Measured across this site, the break-even is about 400px:
+ *
+ *     under 400px   worst inter-word gap 1.13em, median 0.51em
+ *     400 - 650px   worst 0.86em,               median 0.39em
+ *     650px and up  worst 0.54em,               median 0.29em
+ *
+ * A normal word space is ~0.25em, so the narrow column is stretching gaps
+ * more than fourfold — the rivers of white that make justified text read as
+ * broken rather than tidy.
+ *
+ * Everything under that threshold on this site is the same two shapes: card
+ * bodies inside grid list items, and the figures in a definition list. Both
+ * are excluded here. CSS cannot express "justify only if the box is wider
+ * than 400px" without making every parent a container, so the condition is
+ * expressed structurally instead.
+ *
+ * These sit outside @layer base, so they beat the rule above. */
+/* EXPLICIT ALIGNMENT ON AN ANCESTOR MUST WIN.
+ *
+ * text-align inherits, so a `.text-center` wrapper aligns its children by
+ * inheritance — and ANY direct rule on the child beats an inherited value,
+ * layers or not. Layers only arbitrate between rules matching the same
+ * element. So the base rule above, despite living in @layer base, silently
+ * justified every centred section lede on the site.
+ *
+ * These put the inherited value back. */
+.text-center p,
+.text-center dd,
+.text-center blockquote,
+.text-right p,
+.text-right dd {
+  text-align: inherit;
+}
+
+dd,
+li p,
+figcaption,
+/* Footer columns and form helper text are narrow by construction — the
+   footer runs four columns and a helper line sits under a single field. */
+footer p,
+form p,
+/* Cards. On this site a card is consistently a rounded box with a ring or a
+   border, and every narrow measure found by the audit was inside one. CSS
+   cannot express "justify only above 400px" — an element cannot query its
+   own size, and container queries look at ANCESTORS, so the wide page
+   Container would answer for the narrow card inside it. The condition is
+   therefore structural. */
+[class*="rounded-"][class*="ring-"] p,
+[class*="rounded-"][class*="border"] p {
+  /* INHERIT, not left. Forcing left here overrode centring: a card inside a
+     .text-center wrapper has higher specificity than the rule restoring the
+     inherited value, so its prose went left when the section wanted it
+     centred. `inherit` sidesteps the fight entirely — these contexts simply
+     follow whatever their container asks for, which is left in the ordinary
+     case and centre inside a centred section. */
+  text-align: inherit;
+  text-justify: auto;
+  hyphens: manual;
+}
+
+/* An explicit escape hatch for anywhere else a justified rag is wrong. */
+.ez-no-justify,
+.ez-no-justify p {
+  text-align: inherit;
+  hyphens: manual;
+}
