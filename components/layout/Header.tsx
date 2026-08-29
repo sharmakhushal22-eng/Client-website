@@ -557,6 +557,55 @@ export function Header() {
                           </Link>
                         ))}
 
+                          {/* Lives INSIDE the left column, not in a row
+                              spanning underneath the preview pane. It used to
+                              span both, which put it in the grid's SECOND row
+                              — so its position depended on the height of the
+                              pane above it. Pointing at it swapped the pane to
+                              the 8-area catalogue, that row grew 112px, and
+                              this link was pushed 112px down, out from under
+                              the very pointer that was hovering it. mouseleave
+                              fired, the pane reverted, the link snapped back
+                              under the pointer, mouseenter fired: a blink that
+                              sustained itself for as long as you pointed at it.
+                              In the left column its position depends only on
+                              the five links above it, which never change. */}
+                          {item.id === "product" && (
+                            <Link
+                              href="/features"
+                              /* setOpenArea(null) matters as much as the
+                                 rest: arriving here CANCELS the close that
+                                 leaving an area row just scheduled, so
+                                 without it the third panel survives a trip
+                                 back to this row and hangs open with nothing
+                                 pointing at it. The five product rows above
+                                 already clear it for the same reason. */
+                              onMouseEnter={() => {
+                                cancelClose();
+                                setPreviewHref(ALL_MODULES);
+                                setOpenArea(null);
+                              }}
+                              onMouseLeave={() => scheduleClose("preview")}
+                              onFocus={() => {
+                                cancelClose();
+                                setPreviewHref(ALL_MODULES);
+                                setOpenArea(null);
+                              }}
+                              onBlur={() => scheduleClose("preview")}
+                              data-previewing={
+                                previewHref === ALL_MODULES ? "" : undefined
+                              }
+                              className="mt-1 flex items-center gap-1.5 rounded-md px-3 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 data-[previewing]:bg-brand-50"
+                            >
+                              All{" "}
+                              {moduleGroups.reduce(
+                                (n, g) => n + g.modules.length,
+                                0,
+                              )}{" "}
+                              modules
+                              <Icon name="arrow-right" className="h-4 w-4" />
+                            </Link>
+                          )}
                         </div>
 
                         {/* ── The preview pane ───────────────────────────
@@ -805,33 +854,6 @@ export function Header() {
                             );
                           })()}
 
-                        {item.id === "product" && (
-                          <Link
-                            href="/features"
-                            onMouseEnter={() => {
-                              cancelClose();
-                              setPreviewHref(ALL_MODULES);
-                            }}
-                            onMouseLeave={() => scheduleClose("preview")}
-                            onFocus={() => {
-                              cancelClose();
-                              setPreviewHref(ALL_MODULES);
-                            }}
-                            onBlur={() => scheduleClose("preview")}
-                            data-previewing={
-                              previewHref === ALL_MODULES ? "" : undefined
-                            }
-                            className="mt-1 flex items-center gap-1.5 rounded-md px-3 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 data-[previewing]:bg-brand-50 xl:col-span-2"
-                          >
-                            All{" "}
-                            {moduleGroups.reduce(
-                              (n, g) => n + g.modules.length,
-                              0,
-                            )}{" "}
-                            modules
-                            <Icon name="arrow-right" className="h-4 w-4" />
-                          </Link>
-                        )}
                       </div>
                     </div>
                   )}
