@@ -206,8 +206,14 @@ export default function CompliancePage() {
 
         {/* The diagram states the same thing the heading does, in one look:
             one office issuing down to every site, every site reporting back.
-            Full width too — capped narrower than the copy above it, it read
-            as a misalignment rather than a choice. */}
+
+            Capped to the same max-w-3xl as the heading above it. Run to the
+            full container it scaled to 1.35x its native 840-unit box, which
+            blew the 14px labels up past the body copy around them — the
+            diagram started competing with the section instead of supporting
+            it. At this width it sits just under 1:1, so the type inside is
+            close to the size it was drawn at, and it lines up with the
+            heading rather than overhanging it. */}
         <div className="mt-10">
           <CentralControl />
         </div>

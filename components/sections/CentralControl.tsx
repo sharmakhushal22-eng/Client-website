@@ -89,7 +89,7 @@ export function CentralControl() {
   return (
     /* data-reveal hands the entrance to the site's own driver — see the
        note in globals.css for why the ported observer could not do it. */
-    <div data-reveal="" className="ez-cc w-full">
+    <div data-reveal="" className="ez-cc mx-auto w-full max-w-3xl">
       {/* Cropped viewBox: the source was "0 0 880 420" and carried its own
           caption pill at the top. Boxed onto the boundary rect instead, with
           10 units of breathing room. */}
@@ -196,7 +196,11 @@ export function CentralControl() {
             <path d="M11 5V1" />
             <path d="M6.5 10h2M13 10h2M6.5 14.5h2M13 14.5h2" />
           </g>
-          <text x="386" y="118" dominantBaseline="central" fontSize="15" fontWeight="600" fill={C.brandDeep}>
+          {/* 16.4, not 15. The box renders at 0.91x (768px wide against an
+              840-unit viewBox), so a 15-unit label lands at 13.7px — under the
+              size it was drawn for, and noticeably small beside 16.3px body
+              copy. Scaled up by the same factor to render at its intended 15. */}
+          <text x="386" y="118" dominantBaseline="central" fontSize="16.4" fontWeight="600" fill={C.brandDeep}>
             Corporate office
           </text>
         </g>
@@ -224,7 +228,7 @@ export function CentralControl() {
             <g transform={`translate(${u.x + 18},301)`} fill="none" stroke={C.ink2} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
               {u.icon}
             </g>
-            <text x={u.x + 48} y="312" dominantBaseline="central" fontSize="14" fontWeight="600" fill={C.ink}>
+            <text x={u.x + 48} y="312" dominantBaseline="central" fontSize="15.3" fontWeight="600" fill={C.ink}>
               {u.title}
             </text>
           </g>
