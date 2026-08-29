@@ -96,24 +96,26 @@ export function Logo({
             Uppercase with tight tracking to echo the heavy geometric
             wordmark, rather than the lowercase "ezer hrms" that was here
             when the mark was a placeholder. */}
-        {/* Sized per breakpoint, because the header's width budget is not
-            the same at each one.
+        {/* Sized against two things that were both measured, not guessed.
+ 
+            Against the EMBLEM: the two-line text block comes out 43px
+            against the 48px mark, so it sits inside the mark's height rather
+            than overhanging it. 1.9rem put the block at 52px — 107% — which
+            is what made the type look like it was bursting out of the
+            lockup.
 
-            At 1.35rem the wordmark's cap height was about 31% of the 48px
-            emblem, so the type read as small change floating beside a tall
-            mark. 1.9rem takes it to roughly half the emblem height, which is
-            where a horizontal lockup with a PORTRAIT mark starts to look
-            deliberate. Matching cap height to the full 48px would need a
-            ~67px font — not a nav bar.
+            Against the NAV: items there are 15.2px. At 1.9rem the wordmark
+            was exactly 2x that and read as shouting; 1.55rem is about 1.6x,
+            which is the ratio a wordmark normally holds over the navigation
+            beside it.
 
-            The lg step back to 1.35rem is not cosmetic. Measured at the
-            lg breakpoint the header already needs ~1032px of content in the
-            960px available: logo 158 + nav 510 + phone and CTA 364. It is
-            over-subscribed there BEFORE this change, and every item carries
-            shrink-0, so growing the logo would push it further. Full size
-            returns at xl, where it fits with room to spare. */}
+            The lg step down is not cosmetic. Measured at that breakpoint the
+            header already needs ~1032px of content in the 960px available:
+            logo 158 + nav 510 + phone and CTA 364. It is over-subscribed
+            there BEFORE any of this, and every item carries shrink-0, so a
+            larger logo pushes an existing overflow further. */}
         <span
-          className={`block text-[1.7rem] font-extrabold uppercase tracking-[-0.015em] lg:text-[1.35rem] xl:text-[1.9rem] ${
+          className={`block text-[1.5rem] font-extrabold uppercase tracking-[-0.015em] lg:text-[1.35rem] xl:text-[1.55rem] ${
             onDark ? "text-white" : "text-ink-900"
           }`}
         >
@@ -142,7 +144,7 @@ export function Logo({
              * there is room; hidden through the crowded lg band, which is
              * exactly what the header does today; back at xl, where it fits.
              */
-            className={`block text-[0.62rem] uppercase tracking-[0.12em] xl:text-[0.68rem] xl:tracking-[0.14em] ${
+            className={`block text-[0.56rem] uppercase tracking-[0.115em] xl:text-[0.58rem] xl:tracking-[0.12em] ${
               showTagline === "exceptLg" ? "lg:hidden xl:block" : ""
             } ${onDark ? "text-on-dark-muted" : "text-ink-600"}`}
           >
