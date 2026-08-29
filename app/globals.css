@@ -1493,3 +1493,38 @@ form p,
   text-align: inherit;
   hyphens: manual;
 }
+
+/* ── Product menu preview pane ─────────────────────────────────────────────
+ * The right half of the Product dropdown, showing whichever row the pointer
+ * is on without the reader having to open the page.
+ *
+ * The pane is keyed on the product slug in React, so moving between rows
+ * unmounts and remounts this subtree — which is what restarts the animation.
+ * Without the remount the text would simply swap in place, and the panel
+ * would read as content popping rather than as one pane changing.
+ *
+ * Deliberately short: 180ms. This fires on every row the pointer crosses, so
+ * anything slower turns a glance down the list into a queue of half-finished
+ * transitions. */
+@keyframes ezPreviewIn {
+  from { opacity: 0; transform: translateX(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.ez-preview {
+  animation: ezPreviewIn 0.18s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* The capability lines follow, a beat behind the pane itself, so the block
+   assembles rather than arriving flat. */
+@keyframes ezPreviewRow {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+.ez-preview-row {
+  animation: ezPreviewRow 0.22s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-preview,
+  .ez-preview-row { animation: none; }
+}

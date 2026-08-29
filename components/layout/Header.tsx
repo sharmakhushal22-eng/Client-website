@@ -7,6 +7,7 @@ import { Brand } from "./Brand";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { getFeaturePage } from '@/content/features';
 import { moduleGroups } from "@/content/modules";
 import { contact } from "@/site.config";
 import { cn } from "@/lib/cn";
@@ -220,6 +221,11 @@ export function Header() {
   const itemRefs = useRef<Record<string, HTMLElement | null>>({});
   const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
   const [pillOn, setPillOn] = useState(false);
+  /* The product row the preview pane is showing. Hovering or focusing a row
+     swaps it; leaving the menu resets to the first product, so the pane is
+     never blank while the menu is open. */
+  const [previewHref, setPreviewHref] = useState<string | null>(null);
+
   /* Which item the pill is currently over. The pill is a single shared
      element sliding behind the row, so the label it lands on has no way to
      know it is being covered — this is what lets that one label invert to
@@ -349,7 +355,10 @@ export function Header() {
                     setOpenMenu(item.id);
                     moveTo(item.id);
                   }}
-                  onMouseLeave={() => setOpenMenu(null)}
+                  onMouseLeave={() => {
+                    setOpenMenu(null);
+                    setPreviewHref(null);
+                  }}
                 >
                   <button
                     type="button"
@@ -411,15 +420,30 @@ export function Header() {
                            centred panel would overflow the viewport. */
                         item.id === "company"
                           ? "right-0 w-[20rem]"
-                          : "left-1/2 w-[30rem] -translate-x-1/2",
+                          : item.id === "product"
+                            /* Left-anchored at xl, not centred: the preview
+                               pane takes this to 46rem, and a panel that
+                               wide centred on a button near the left of the
+                               bar hangs off the viewport. */
+                            ? "left-1/2 w-[30rem] -translate-x-1/2 xl:left-0 xl:w-[46rem] xl:translate-x-0"
+                            : "left-1/2 w-[30rem] -translate-x-1/2",
                       )}
                     >
-                      <div className="ez-menu rounded-xl bg-surface p-2 shadow-floating ring-1 ring-ink-200">
+                      <div className="ez-menu grid rounded-xl bg-surface p-2 shadow-floating ring-1 ring-ink-200 xl:grid-cols-[1fr_1fr] xl:gap-1">
+                        <div className="min-w-0">
                         {item.items.map((link, li) => (
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="ez-menu-row flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-brand-50"
+                            onMouseEnter={() => setPreviewHref(link.href)}
+                            onFocus={() => setPreviewHref(link.href)}
+                            data-previewing={
+                              item.id === "product" &&
+                              (previewHref ?? item.items[0].href) === link.href
+                                ? ""
+                                : undefined
+                            }
+                            className="ez-menu-row flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-brand-50 data-[previewing]:bg-brand-50"
                             /* 26ms apart: five rows finish arriving in about
                                140ms, which reads as the list assembling
                                without ever making someone wait for it. */
@@ -450,10 +474,76 @@ export function Header() {
                           </Link>
                         ))}
 
+                        </div>
+
+                        {/* ── The preview pane ───────────────────────────
+                            Shows the hovered row's product without leaving
+                            the menu. Falls back to the first product, so it
+                            is never blank while the menu is open.
+
+                            xl only. Below that the header has no room for a
+                            46rem panel — see the anchoring note above — and
+                            the menu stays the single list it has always
+                            been.
+
+                            aria-hidden: every word here also appears on the
+                            page the row links to, and a pane that silently
+                            rewrites itself as focus moves down a list is
+                            noise to a screen reader, not information. The
+                            rows remain the accessible interface. */}
+                        {item.id === "product" && (() => {
+                          const href = previewHref ?? item.items[0].href;
+                          const page = getFeaturePage(
+                            href.replace("/features/", ""),
+                          );
+                          if (!page) return null;
+                          return (
+                            <div
+                              aria-hidden="true"
+                              className="hidden min-w-0 rounded-lg bg-brand-50/60 p-5 ring-1 ring-brand-100 xl:block"
+                            >
+                              {/* key on the slug so React swaps the subtree,
+                                  which restarts the entrance animation — the
+                                  crossfade is what makes this read as one
+                                  pane changing rather than text popping. */}
+                              <div key={page.slug} className="ez-preview">
+                                <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-brand-700">
+                                  {page.eyebrow}
+                                </p>
+                                <h3 className="mt-1.5 text-[1.05rem] font-bold leading-snug text-ink-900">
+                                  {page.name}
+                                </h3>
+                                <p className="mt-2 text-[0.85rem] leading-relaxed text-ink-700">
+                                  {page.promise}
+                                </p>
+                                <ul className="mt-4 space-y-2 border-t border-brand-100 pt-3">
+                                  {page.capabilities.slice(0, 3).map((c, ci) => (
+                                    <li
+                                      key={c.title}
+                                      className="ez-preview-row flex items-start gap-2 text-[0.82rem] leading-snug text-ink-800"
+                                      style={{ animationDelay: `${ci * 45}ms` }}
+                                    >
+                                      <Icon
+                                        name="check"
+                                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-600"
+                                      />
+                                      {c.title}
+                                    </li>
+                                  ))}
+                                </ul>
+                                <span className="mt-4 inline-flex items-center gap-1.5 text-[0.82rem] font-semibold text-brand-700">
+                                  Open {page.name.toLowerCase()}
+                                  <Icon name="arrow-right" className="h-3.5 w-3.5" />
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })()}
+
                         {item.id === "product" && (
                           <Link
                             href="/features"
-                            className="mt-1 flex items-center gap-1.5 rounded-md px-3 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+                            className="mt-1 flex items-center gap-1.5 rounded-md px-3 py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50 xl:col-span-2"
                           >
                             All{" "}
                             {moduleGroups.reduce(
