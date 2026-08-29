@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { site } from "@/site.config";
 
 /* ============================================================================
@@ -81,9 +84,45 @@ export function Brand({
   size?: string;
   href?: string;
 }) {
+  const pathname = usePathname();
+
+  /* THE BRAND IS THE HOME BUTTON.
+   *
+   * It has always been a Link to "/", which was enough to look like one and
+   * not enough to behave like one, in two different ways:
+   *
+   *   From another page it navigated, but the smooth scroll declared on html
+   *   turned the App Router's landing scroll into an animation that the
+   *   loading page outran — you arrived on the home page a thousand pixels
+   *   below the hero. That one is fixed in globals.css, for every link on
+   *   the site rather than just this one.
+   *
+   *   From the home page itself it did nothing at all. Next treats a Link to
+   *   the route you are already on as a no-op, so the click was swallowed:
+   *   scrolled halfway down the page, pressing the logo left you exactly
+   *   where you were. That is this handler.
+   *
+   * Modified clicks are left alone, so cmd/ctrl/shift/alt-click still opens
+   * the home page in a new tab or window the way any other link would. */
+  const backToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (pathname !== href) return;
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      /* A deliberate, user-asked-for scroll on a page whose height is
+         settled — the one place easing is safe. Honoured only if they have
+         not asked for less motion. */
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  };
+
   return (
     <Link
       href={href}
+      onClick={backToTop}
       /* items-start, not center: the emblem is positioned by the offset
          below, not centred against the text. Centring is what let the E
          drift off the cap line. */

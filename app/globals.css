@@ -167,7 +167,22 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* NO scroll-behavior: smooth here, deliberately.
+   *
+   * The App Router lands a navigation by calling window.scrollTo(0, 0).
+   * With smooth scrolling declared on html that stops being a jump and
+   * becomes an ANIMATION, which then races the page it is scrolling
+   * through: lazy images decode, [data-reveal] blocks expand, the document
+   * grows under the animation, and it stalls wherever it happened to be.
+   * Measured with it on — clicking Compliance from a page scrolled to 3532
+   * landed on /compliance at 6400, and the header brand landed on the home
+   * page 1279px below its own hero. Every navigation on the site was
+   * arriving somewhere in the middle.
+   *
+   * Nothing wanted it. The only in-page anchor is the #main skip link, and
+   * a skip link that glides is worse for the keyboard users it exists for:
+   * it should be where they asked to be, at once. Deliberate scrolls that
+   * DO want easing pass behavior: 'smooth' themselves — see Brand. */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -209,7 +224,9 @@ body {
 /* The site's motion is decorative — fade-ins and a marquee. None of it
    carries meaning, so honouring the preference costs nothing. */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  /* scroll-behavior is no longer set on html, so there is nothing to undo
+     here any more. The scrolls that ease are the ones that ask for it in
+     JS, and those check this preference themselves. */
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
