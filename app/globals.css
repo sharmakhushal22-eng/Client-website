@@ -1343,3 +1343,52 @@ html[data-reveal-ready]
   .group\/cta:hover .ez-cta-shine,
   .ez-tel-ring { animation: none; opacity: 0; }
 }
+
+/* ── The industry marquee ──────────────────────────────────────────────────
+ * Two chip rows drifting in opposite directions, ported from
+ * Website changes.html (#industries).
+ *
+ * The track holds the list TWICE and travels exactly -50%, which is what
+ * makes the loop seamless: at the end of the cycle the second copy sits
+ * precisely where the first began, so the jump back to 0 is invisible. Any
+ * other distance, or a single copy, and the row visibly snaps.
+ *
+ * The mask fades both ends rather than letting chips collide with the
+ * section edge — without it the row looks cut off rather than continuing.
+ *
+ * Paused on hover, so a reader who spots their own industry can stop and
+ * read it instead of chasing it across the screen.
+ * ========================================================================= */
+@keyframes ezMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ez-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg, transparent, #000 7%, #000 93%, transparent
+  );
+  mask-image: linear-gradient(
+    90deg, transparent, #000 7%, #000 93%, transparent
+  );
+}
+
+.ez-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0.625rem;
+  animation: ezMarquee 46s linear infinite;
+}
+.ez-marquee-track[data-reverse] {
+  animation-direction: reverse;
+  animation-duration: 56s;
+}
+.ez-marquee:hover .ez-marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Stopped, not hidden: the chips are content, and a reader who has asked
+     for less motion should still see which industries are named. */
+  .ez-marquee-track { animation: none; }
+  .ez-marquee { -webkit-mask-image: none; mask-image: none; overflow-x: auto; }
+}

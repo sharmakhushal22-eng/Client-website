@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { IndustryMarquee } from './IndustryMarquee'
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { industryCategories, industryCount } from "@/content/positioning";
@@ -114,13 +115,22 @@ export function IndustryGrid() {
                 belongs, because "and counting" is what makes it a promise
                 rather than a boast. */}
             <p className="mt-3 text-[0.92rem] font-semibold text-ink-700">
-              {industryCount} industries mapped and counting — new sector
-              rule-sets ship as EZER&rsquo;s client base grows.
+              {industryCount}{' '}
+              {/* Explicit {' '}: the space between the expression and the
+                  text was being eaten, rendering "101industries". */}
+              industries mapped and counting — new sector rule-sets ship as
+              EZER&rsquo;s client base grows.
             </p>
           </div>
         </div>
 
-        <div className="mt-12 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+        {/* The drifting rows sit between the heading and the cards, which is
+            exactly where the reference puts them: breadth at a glance first,
+            then the structured list for anyone who wants to find their own
+            sector in it. */}
+        <IndustryMarquee />
+
+        <div className="mt-10 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
           {industryCategories.map((category, i) => (
             <div
               key={category.name}

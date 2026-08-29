@@ -644,3 +644,56 @@ export const taxCalculator = {
     'deductions under the old regime (HRA, 80C, etc). Your EZER dashboard ' +
     'calculates the exact number from each employee’s real declaration.',
 }
+
+
+/* ── The industry marquee ──────────────────────────────────────────────────
+ * The two drifting chip rows from Website changes.html (#industries), in
+ * their order. `hot` is the reference's own emphasis — a handful of chips
+ * set solid so the row has rhythm instead of reading as one grey mass.
+ *
+ * These 32 are a SAMPLE. The full list of 91 is industryCategories below,
+ * which the cards render; this row exists to show breadth at a glance. */
+export const industryMarquee: { chips: { label: string; hot: boolean }[]; reverse: boolean }[] = [
+  {
+    reverse: false,
+    chips: [
+      { label: 'Auto Components', hot: true },
+      { label: 'IT Services', hot: false },
+      { label: 'NBFCs', hot: false },
+      { label: 'Hospital Chains', hot: false },
+      { label: '3PL & Warehousing', hot: false },
+      { label: 'Textile & Apparel', hot: true },
+      { label: 'SaaS Products', hot: false },
+      { label: 'Quick Commerce', hot: false },
+      { label: 'EPC Contracting', hot: false },
+      { label: 'K-12 School Groups', hot: false },
+      { label: 'Hotel Chains', hot: true },
+      { label: 'Renewable Energy', hot: false },
+      { label: 'Pharma Manufacturing', hot: false },
+      { label: 'Microfinance', hot: false },
+      { label: 'Cold Chain Logistics', hot: false },
+      { label: 'D2C E-commerce', hot: true },
+    ],
+  },
+  {
+    reverse: true,
+    chips: [
+      { label: 'Food Processing', hot: true },
+      { label: 'FinTech', hot: false },
+      { label: 'Diagnostic Labs', hot: false },
+      { label: 'Auto Dealerships', hot: false },
+      { label: 'Facility Management', hot: false },
+      { label: 'Coaching Institutes', hot: true },
+      { label: 'QSR Chains', hot: false },
+      { label: 'Data Centers', hot: false },
+      { label: 'Security Services', hot: false },
+      { label: 'Steel Fabrication', hot: false },
+      { label: 'Media & Production', hot: true },
+      { label: 'Agri-processing', hot: false },
+      { label: 'Law Firms', hot: false },
+      { label: 'Staffing & Flexi', hot: false },
+      { label: 'Electronics Assembly', hot: false },
+      { label: 'Jewellery Retail', hot: true },
+    ],
+  },
+]
