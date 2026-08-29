@@ -87,8 +87,24 @@ export function Logo({
             Uppercase with tight tracking to echo the heavy geometric
             wordmark, rather than the lowercase "ezer hrms" that was here
             when the mark was a placeholder. */}
+        {/* Sized per breakpoint, because the header's width budget is not
+            the same at each one.
+
+            At 1.35rem the wordmark's cap height was about 31% of the 48px
+            emblem, so the type read as small change floating beside a tall
+            mark. 1.9rem takes it to roughly half the emblem height, which is
+            where a horizontal lockup with a PORTRAIT mark starts to look
+            deliberate. Matching cap height to the full 48px would need a
+            ~67px font — not a nav bar.
+
+            The lg step back to 1.35rem is not cosmetic. Measured at the
+            lg breakpoint the header already needs ~1032px of content in the
+            960px available: logo 158 + nav 510 + phone and CTA 364. It is
+            over-subscribed there BEFORE this change, and every item carries
+            shrink-0, so growing the logo would push it further. Full size
+            returns at xl, where it fits with room to spare. */}
         <span
-          className={`block text-[1.35rem] font-extrabold uppercase tracking-[-0.015em] ${
+          className={`block text-[1.7rem] font-extrabold uppercase tracking-[-0.015em] lg:text-[1.35rem] xl:text-[1.9rem] ${
             onDark ? "text-white" : "text-ink-900"
           }`}
         >
