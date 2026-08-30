@@ -123,16 +123,17 @@ export const contact = {
  * Website changes.html, which is the company's own document — so it is a
  * real address, not a placeholder.
  *
- * ⚠ The registered ENTITY name, CIN and GSTIN are still not carried anywhere
- * and remain TODO. Address alone does not satisfy an Indian buyer's due
- * diligence, and the placeholder guard below still trips on them. */
+ * Entity name and CIN are now CONFIRMED — they come from the company's own
+ * privacy policy document, which is authoritative for its own identity.
+ * GSTIN is still not carried anywhere and remains TODO; the placeholder guard
+ * below still trips on it. */
 export const company = {
-  legalName: 'TODO Private Limited',      // TODO registered entity name
-  cin: 'TODO',                            // TODO Corporate Identity Number
+  legalName: 'ORGASOFT GLOBAL PRIVATE LIMITED',
+  cin: 'U70200HR2025PTC138716',
   gstin: 'TODO',                          // TODO GST number
   registeredAddress: {
-    line1: 'B-603, The Roselia',
-    line2: 'Sector 95A',
+    line1: 'B-603, The Roselia, Signature Global',
+    line2: 'Sector 95A, Garhi Harsaru',
     city: 'Gurugram',
     state: 'Haryana',
     pincode: '122505',
@@ -141,10 +142,19 @@ export const company = {
   /* DPDP Act 2023 requires a NAMED grievance officer with reachable contact
    * details, not a generic inbox. */
   grievanceOfficer: {
-    name: 'TODO full name',
-    email: 'grievance@ezerhrms.com',      // TODO confirm
-    phone: contact.phoneDisplay,
+    name: 'TODO full name',               // TODO — required by the DPDP Act
+    designation: 'TODO designation',      // TODO — required by the DPDP Act
+    email: 'TODO',                        // TODO confirm; the policy draft
+                                          // brackets it, so it is a proposal
+                                          // rather than a working inbox
+    phone: contact.phoneDisplay,          // confirmed — stated unbracketed
   },
+  /* The privacy contact route. Bracketed in the policy draft, which means it
+     was proposed and not confirmed to exist. Until someone verifies the inbox
+     is monitored, the page renders a visible gap rather than an address that
+     may bounce — a privacy policy naming a dead mailbox is worse than one
+     that admits the address is pending. */
+  privacyEmail: 'TODO',                   // TODO confirm working inbox
   /* COUNTRY ONLY — do not put the city or the region back.
    *
    * Naming the specific data-centre location publicly narrows the search for
