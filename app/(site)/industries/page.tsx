@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
-import { Section } from '@/components/ui/Section'
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
 import { Faq } from '@/components/sections/Faq'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema, faqSchema } from '@/lib/seo'
 import { IndustryMarquee } from '@/components/home/IndustryMarquee'
+import { LatticePlate } from '@/components/sections/LatticePlate'
 import { industryCategories, industryCount } from '@/content/positioning'
 
 export const metadata: Metadata = pageMetadata({
@@ -63,37 +63,52 @@ export default function IndustriesPage() {
         ]}
       />
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="bg-brand-50 py-10 sm:py-14 lg:py-16">
-        <Container>
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-ink-600">
-            <Link href="/" className="hover:text-brand-700">
+      {/* ── Hero and the full grid, as ONE band ──────────────────────────
+       *
+       * These were two sections, a brand-50 hero over a white grid. They are
+       * now a single dark band on the shared lattice plate, because the home
+       * page renders this same claim as ONE section and the brief was that
+       * the two surfaces match. Kept as two sections they would have needed
+       * two plates, and the edge blend at the bottom of the first would have
+       * drawn a seam straight across the middle of the band. */}
+      <section
+        className="relative isolate overflow-hidden border-y border-white/10 bg-dark py-14 text-white sm:py-16 lg:py-20"
+        aria-label="Industries"
+      >
+        <LatticePlate />
+
+        <Container className="relative">
+          <nav aria-label="Breadcrumb" className="mb-6 text-sm text-on-dark-muted">
+            <Link href="/" className="hover:text-brand-200">
               Home
             </Link>
             <span className="mx-2" aria-hidden="true">
               /
             </span>
-            <span className="font-medium text-ink-900">Industries</span>
+            <span className="font-medium text-white">Industries</span>
           </nav>
 
           <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-14 lg:items-end">
             <div>
               {/* The reference's own eyebrow, heading and lede — the same
-                  three the home section carries, so the two surfaces for
-                  #industries say the same thing rather than each
+                  three the home section carries, at the same sizes and the
+                  same glyph shadows, so the two surfaces for #industries say
+                  the same thing in the same voice rather than each
                   paraphrasing it.
 
                   Rounded DOWN to the nearest ten, so the claim stays true as
                   the list changes: 101 reads as "100+", never "101+", which
                   sounds counted rather than mapped. */}
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
+              <p className="text-[0.8rem] font-bold uppercase tracking-[0.16em] text-brand-200 [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
                 {Math.floor(industryCount / 10) * 10}+ industries, one engine
               </p>
-              <h1 className="mt-3 text-[2rem] font-bold leading-[1.12] sm:text-4xl lg:text-[2.75rem]">
+              {/* text-white is REQUIRED: globals.css sets h1-h4 to ink-900 in
+                  @layer base, which on this plate is all but invisible. */}
+              <h1 className="mt-3 text-[2rem] font-bold leading-[1.14] text-white [text-shadow:0_1px_2px_rgb(7_12_24/1),0_3px_10px_rgb(7_12_24/0.98),0_6px_28px_rgb(7_12_24/0.95)] sm:text-[2.6rem]">
                 India doesn&rsquo;t run on one kind of company.
                 <br className="hidden sm:block" /> Neither does EZER.
               </h1>
-              <p className="mt-5 text-lg leading-relaxed text-ink-600">
+              <p className="mt-5 text-[1.06rem] leading-relaxed text-white [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
                 We mapped HR, payroll and compliance challenges across more
                 than 100 Indian industries — from a 12-branch NBFC to a
                 three-shift factory floor — before writing the rules engine.
@@ -102,18 +117,21 @@ export default function IndustriesPage() {
               </p>
               {/* The exact count keeps its place: the eyebrow rounds down on
                   purpose, and this is where the real number belongs. */}
-              <p className="mt-4 text-[0.95rem] font-semibold text-ink-700">
+              <p className="mt-4 text-[0.95rem] font-semibold text-brand-200 [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
                 {industryCount} industries in {industryCategories.length}{' '}
                 groups, mapped and counting — new sector rule-sets ship as
                 EZER&rsquo;s client base grows.
               </p>
             </div>
 
-            <div className="rounded-xl bg-surface p-6 ring-1 ring-brand-100">
-              <p className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-700">
-                <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+            {/* An opaque ground, matching the category cards: at low opacity
+                the lattice reads straight through and the aside sits on the
+                pattern rather than on a surface. */}
+            <div className="rounded-xl border border-white/20 bg-[#0b1730] p-6">
+              <p className="flex items-start gap-2.5 text-sm leading-relaxed text-on-dark">
+                <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />
                 <span>
-                  <strong className="font-bold text-ink-900">
+                  <strong className="font-bold text-white">
                     Not on the list?
                   </strong>{' '}
                   The list is not the constraint — the statutory rules are.
@@ -126,56 +144,50 @@ export default function IndustriesPage() {
               </Button>
             </div>
           </div>
+
+          {/* The same drifting rows as the home section, in the same relative
+              position the reference puts them: under the heading, above the
+              category cards. */}
+          <IndustryMarquee onDark />
+
+          <div className="mt-10 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+            {industryCategories.map((category, i) => (
+              <div
+                key={category.name}
+                data-reveal=""
+                style={{ transitionDelay: `${(i % 3) * 45}ms` }}
+                className="ez-lattice-card relative overflow-hidden rounded-2xl border border-white/15 border-t-2 border-t-brand-500 bg-[#0b1730] p-5 backdrop-blur-md"
+              >
+                <h2 className="relative z-10 text-[1.05rem] font-bold tracking-[-0.01em] text-white">
+                  {category.name}
+                </h2>
+
+                {/* The line that earns the section. A list of industry names
+                    proves nothing — anyone can paste an NIC code table.
+                    Saying what is statutorily different about construction
+                    proves somebody has run payroll in it. This is the one
+                    thing this surface carries that the home section does
+                    not, and it is why the page exists. */}
+                <p className="relative z-10 mt-2 flex items-start gap-1.5 text-xs leading-relaxed text-brand-200">
+                  <Icon name="shield" className="mt-0.5 h-3 w-3 shrink-0" />
+                  {category.note}
+                </p>
+
+                <ul className="relative z-10 mt-4 flex flex-wrap gap-1.5">
+                  {category.industries.map((industry) => (
+                    <li
+                      key={industry}
+                      className="ez-chip rounded-md border border-white/30 bg-white/[0.17] px-2.5 py-1 text-[0.79rem] font-semibold text-white"
+                    >
+                      {industry}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
-
-      {/* ── The full grid ────────────────────────────────────────────────── */}
-      <Section tone="white" ariaLabel="Industries by category">
-        {/* The same drifting rows as the home section, in the same relative
-            position the reference puts them: under the heading, above the
-            category cards.
-
-            This page is a SEPARATE surface from the home industries section —
-            it renders its own layout from industryCategories rather than
-            reusing IndustryGrid — so the marquee had to be added here too.
-            Adding it only to the home page left the page you actually reach
-            by clicking "Industries" in the nav with no marquee at all. */}
-        <IndustryMarquee />
-
-        <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {industryCategories.map((category, i) => (
-            <div
-              key={category.name}
-              data-reveal=""
-              style={{ transitionDelay: `${(i % 3) * 45}ms` }}
-            >
-              <h2 className="border-t-2 border-brand-600 pt-3.5 text-[1.05rem] font-bold text-ink-900">
-                {category.name}
-              </h2>
-
-              {/* The line that earns the section. A list of industry names
-                  proves nothing — anyone can paste an NIC code table. Saying
-                  what is statutorily different about construction proves
-                  somebody has run payroll in it. */}
-              <p className="mt-2 flex items-start gap-1.5 text-xs leading-relaxed text-brand-700">
-                <Icon name="shield" className="mt-0.5 h-3 w-3 shrink-0" />
-                {category.note}
-              </p>
-
-              <ul className="mt-4 flex flex-wrap gap-1.5">
-                {category.industries.map((industry) => (
-                  <li
-                    key={industry}
-                    className="rounded-md bg-brand-50 px-2.5 py-1 text-xs font-medium text-ink-700 ring-1 ring-brand-100"
-                  >
-                    {industry}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </Section>
 
       <Faq
         faqs={industryFaqs}
