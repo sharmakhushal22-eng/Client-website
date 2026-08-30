@@ -1695,3 +1695,111 @@ form p,
      trail behind a stationary thing would be a lie. */
   .ez-arc-comet::before { display: none; }
 }
+
+/* ── #industries — the category wall, on the isometric lattice ───────────
+ *
+ * Same lesson as the lifecycle plate, applied from the start rather than
+ * after two corrections: no local scrim behind the type. The lattice is a
+ * regular geometric field, so darkening a patch of it would outline that
+ * patch — the eye reads the interruption in the pattern, not the softness
+ * of the gradient. The band is quietened edge to edge and the type carries
+ * its own glyph-shaped shadow instead.
+ *
+ * And no CSS filter on the plate. It is scaled continuously by ez-contour,
+ * and a filter on a continuously-scaled element re-rasterises every frame. */
+
+/* The category cards are the depth in this section. On the dark plate a
+   drop shadow reads as nothing, so they are lit instead: a glass face, a
+   rim that brightens, and a real rotation toward the reader. */
+.ez-lattice-card {
+  transform: perspective(1000px) translate3d(0, 0, 0);
+  transition: transform 0.42s cubic-bezier(.2, .7, .3, 1),
+              box-shadow 0.42s cubic-bezier(.2, .7, .3, 1),
+              border-color 0.42s ease;
+}
+.ez-lattice-card:hover,
+.ez-lattice-card:focus-within {
+  transform: perspective(1000px) rotateX(3.5deg) rotateY(-3.5deg)
+             translate3d(0, -6px, 0) scale(1.018);
+  box-shadow: 0 26px 48px -18px rgb(0 0 0 / 0.85),
+              0 0 0 1px rgb(147 197 253 / 0.4),
+              inset 0 1px 0 rgb(255 255 255 / 0.16);
+}
+
+/* A sheen crossing the card face, clipped to it — the light the lattice
+   behind it is already implying, landing on the surface in front. */
+.ez-lattice-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(105deg,
+    transparent 34%, rgb(255 255 255 / 0.13) 50%, transparent 66%);
+  transform: translateX(-125%);
+  transition: transform 0.9s cubic-bezier(.2, .7, .3, 1);
+}
+.ez-lattice-card:hover::after { transform: translateX(125%); }
+
+/* The chips lift as a group with the card rather than one at a time —
+   fourteen cards of nine chips each is far too many individual hover
+   targets to animate, and they are evidence, not controls. */
+.ez-lattice-card .ez-chip {
+  transition: background-color 0.42s ease, color 0.42s ease,
+              border-color 0.42s ease;
+}
+.ez-lattice-card:hover .ez-chip {
+  background-color: rgb(37 99 235 / 0.34);
+  border-color: rgb(147 197 253 / 0.45);
+  color: #fff;
+}
+
+/* ── The reveal was silently killing every 3D tilt ───────────────────────
+ *
+ * html[data-reveal-ready] [data-reveal][data-revealed] sets transform: none
+ * to undo the 8px entrance offset, and that selector scores (0,3,1).
+ * .ez-tilt is (0,1,0) and .ez-tilt:hover is (0,2,0), so BOTH lose to it.
+ * Every card that tilts on hover and also arrives on scroll — which is most
+ * of them — has therefore had no tilt at all: measured, .ez-tilt[data-reveal]
+ * computed `none` while .ez-tilt without the attribute computed a real
+ * matrix3d. The effect was in the stylesheet and never on the screen.
+ *
+ * Restated here at a specificity that wins. The entrance is untouched: these
+ * only match the REVEALED state, so an element still starts at translateY(8px)
+ * and transitions from it. */
+html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt,
+html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt {
+  transform: perspective(900px) translate3d(0, 0, 0);
+}
+html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt:hover,
+html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt:hover {
+  transform: perspective(900px) rotateX(2deg) rotateY(-2deg)
+             translate3d(0, -4px, 0) scale(1.015);
+}
+html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card,
+html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card {
+  transform: perspective(1000px) translate3d(0, 0, 0);
+}
+html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card:hover,
+html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card:hover,
+html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card:focus-within,
+html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card:focus-within {
+  transform: perspective(1000px) rotateX(3.5deg) rotateY(-3.5deg)
+             translate3d(0, -6px, 0) scale(1.018);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* These have to be restated at the same weight, or the overrides above
+     would now outrank the reduced-motion opt-out they are meant to obey. */
+  html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt,
+  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt,
+  html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt:hover,
+  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt:hover,
+  html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card,
+  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card,
+  html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card:hover,
+  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card:hover {
+    transform: none;
+    transition: none;
+  }
+}

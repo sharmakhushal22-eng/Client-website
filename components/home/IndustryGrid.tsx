@@ -23,18 +23,18 @@ import { industryCategories, industryCount } from "@/content/positioning";
 export function IndustryGrid() {
   return (
     <section
-      className="relative overflow-hidden border-y border-ink-200 bg-surface py-12 sm:py-14 lg:py-16"
+      className="relative isolate overflow-hidden border-y border-white/10 bg-dark py-14 text-white sm:py-16 lg:py-20"
       aria-label="Industries served"
     >
-      {/* ── The contour field, and the motion it does not ship with ────────
-       *
-       * The file is 40 stroked contour paths and 59KB of path data, static.
-       * Inlining it to draw the contours individually would put all of that
-       * in the document; the layer moves as a whole instead, and the effects
-       * are built from four CSS elements on top.
+      {/* ── The isometric lattice, and the motion it does not ship with ────
        *
        * A plain <img> because it is an SVG — Next will not optimise SVG
-       * without dangerouslyAllowSVG, and there is nothing to optimise. */}
+       * without dangerouslyAllowSVG, and there is nothing to optimise. The
+       * layer moves as a whole; the effects are CSS elements on top of it.
+       *
+       * NO CSS filter on this element: ez-contour scales it continuously, and
+       * a filter on a continuously-scaled node re-rasterises the whole plate
+       * every frame. That is what made the lifecycle band judder. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -42,7 +42,7 @@ export function IndustryGrid() {
         <div className="ez-parallax absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/photos/contour-light.svg"
+            src="/photos/isometric-lattice-dark.svg"
             alt=""
             loading="lazy"
             decoding="async"
@@ -57,7 +57,7 @@ export function IndustryGrid() {
             top: "-22%",
             right: "4%",
             background:
-              "radial-gradient(circle, rgba(37,99,235,.16), transparent 70%)",
+              "radial-gradient(circle, rgba(37,99,235,.34), transparent 70%)",
           }}
         />
         <span
@@ -66,44 +66,44 @@ export function IndustryGrid() {
             bottom: "-24%",
             left: "3%",
             background:
-              "radial-gradient(circle, rgba(103,232,249,.16), transparent 70%)",
+              "radial-gradient(circle, rgba(103,232,249,.2), transparent 70%)",
           }}
         />
 
         {/* A light shaft crossing the field. */}
-        <span className="ez-sweep absolute inset-y-0 -left-1/4 w-1/3 bg-[linear-gradient(90deg,transparent,rgb(255_255_255/0.55),transparent)]" />
+        <span className="ez-sweep absolute inset-y-0 -left-1/4 w-1/3 bg-[linear-gradient(90deg,transparent,rgb(147_197_253/0.1),transparent)]" />
 
-        {/* Lifts the whole field toward the page white so the contours read
-            as a watermark rather than as a picture the text is sitting on. */}
-        <span className="absolute inset-0 bg-surface/25" />
-        <span className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-surface)_0%,transparent_14%,transparent_86%,var(--color-surface)_100%)]" />
+        {/* A LIGHT scrim, edge to edge. Light because a wash does not dim a
+            regular field, it flattens one — at alpha a the distance between
+            a lattice line and the ground beside it survives at only (1 - a),
+            so a heavy wash leaves the artwork visible but lifeless. It sat at
+            30% and did exactly that; the lines are boosted in the FILE
+            instead — lightened, thickened past a hairline, and their group
+            opacity raised — so the wash can stay out of the way at 18%.
+            Edge to edge because darkening a PATCH of a geometric pattern
+            outlines the patch: the eye reads the interruption, not the
+            gradient. The type is separated from the lattice per-glyph
+            instead, by text-shadows that follow the letterforms. */}
+        <span className="absolute inset-0 bg-[#070c18]/26" />
+        <span className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(7_12_24/0.34)_0%,rgb(7_12_24/0.4)_22%,rgb(7_12_24/0.22)_48%,rgb(7_12_24/0.16)_80%,transparent_100%)]" />
+        <span className="absolute inset-0 bg-[linear-gradient(to_bottom,#111827_0%,transparent_10%,transparent_90%,#111827_100%)]" />
       </div>
 
       <Container className="relative">
         <div className="relative mx-auto max-w-3xl text-center">
-          <span
-            aria-hidden="true"
-            /* An EXPLICIT ellipse, not closest-side. This box is wide and
-               short, and closest-side sizes the gradient to the SHORT axis —
-               so the solid core was a narrow vertical band that had already
-               faded out by the time it reached the left and right ends of the
-               text. The lede is the widest line here and was the one still
-               sitting on contour strokes. Sizing both axes independently is
-               the fix. */
-            className="pointer-events-none absolute -inset-x-[22%] -inset-y-28 rounded-[50%] bg-[radial-gradient(ellipse_58%_62%_at_50%_50%,rgb(255_255_255/0.97)_0%,rgb(255_255_255/0.95)_30%,rgb(255_255_255/0.86)_48%,rgb(255_255_255/0.66)_62%,rgb(255_255_255/0.4)_75%,rgb(255_255_255/0.16)_88%,transparent_100%)]"
-          />
+          {/* No local scrim: see the note on the plate above. */}
           <div className="relative">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-700">
+            <p className="text-[0.8rem] font-bold uppercase tracking-[0.16em] text-brand-200 [text-shadow:0_1px_3px_rgb(7_12_24/0.95),0_2px_14px_rgb(7_12_24/0.85)]">
               {/* Rounded DOWN to the nearest ten, so the claim stays true as
                 the list changes — 101 reads as "100+", never "101+", which
                 sounds like it was counted rather than mapped. */}
               {Math.floor(industryCount / 10) * 10}+ industries, one engine
             </p>
-            <h2 className="mt-3 text-3xl font-bold leading-[1.15] text-ink-900 sm:text-4xl">
+            <h2 className="mt-3 text-[2rem] font-bold leading-[1.14] text-white [text-shadow:0_1px_2px_rgb(7_12_24/1),0_3px_10px_rgb(7_12_24/0.98),0_6px_28px_rgb(7_12_24/0.95)] sm:text-[2.6rem]">
               India doesn&rsquo;t run on one kind of company.
               <br className="hidden sm:block" /> Neither does EZER.
             </h2>
-            <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-700">
+            <p className="mt-5 text-[1.06rem] leading-relaxed text-white [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
               We mapped HR, payroll and compliance challenges across more than 100
             Indian industries — from a 12-branch NBFC to a three-shift factory
             floor — before writing the rules engine. This is who we built EZER
@@ -114,7 +114,7 @@ export function IndustryGrid() {
                 rounds down on purpose; this line is where the real number
                 belongs, because "and counting" is what makes it a promise
                 rather than a boast. */}
-            <p className="mt-3 text-[0.92rem] font-semibold text-ink-700">
+            <p className="mt-3 text-[0.92rem] font-semibold text-brand-200 [text-shadow:0_1px_3px_rgb(7_12_24/0.95),0_2px_14px_rgb(7_12_24/0.85)]">
               {industryCount}{' '}
               {/* Explicit {' '}: the space between the expression and the
                   text was being eaten, rendering "101industries". */}
@@ -128,7 +128,7 @@ export function IndustryGrid() {
             exactly where the reference puts them: breadth at a glance first,
             then the structured list for anyone who wants to find their own
             sector in it. */}
-        <IndustryMarquee />
+        <IndustryMarquee onDark />
 
         <div className="mt-10 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
           {industryCategories.map((category, i) => (
@@ -136,16 +136,21 @@ export function IndustryGrid() {
               key={category.name}
               data-reveal=""
               style={{ transitionDelay: `${(i % 3) * 45}ms` }}
-              className="ez-tilt relative rounded-2xl border-t-2 border-brand-600 bg-surface/95 p-5 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_12px_28px_-14px_rgba(16,24,40,0.28)] ring-1 ring-ink-200/70 backdrop-blur-sm hover:shadow-[0_2px_4px_rgba(16,24,40,0.06),0_26px_50px_-18px_rgba(16,24,40,0.38)] hover:ring-brand-200"
+              className="ez-lattice-card relative overflow-hidden rounded-2xl border border-white/15 border-t-2 border-t-brand-500 bg-[#0b1730] p-5 shadow-[0_14px_30px_-16px_rgba(0,0,0,0.85),inset_0_1px_0_rgb(255_255_255/0.1)] backdrop-blur-md"
             >
-              <h3 className="text-[0.98rem] font-bold text-ink-900">
+              <h3 className="relative z-10 text-[1.05rem] font-bold tracking-[-0.01em] text-white">
                 {category.name}
               </h3>
-              <ul className="mt-3 flex flex-wrap gap-1.5">
+              <ul className="relative z-10 mt-3 flex flex-wrap gap-1.5">
                 {category.industries.map((industry) => (
                   <li
                     key={industry}
-                    className="rounded-md bg-brand-50 px-2.5 py-1 text-[0.74rem] font-medium text-ink-800 ring-1 ring-brand-100"
+                    /* The pills were 1.25:1 against the card — WCAG wants 3:1
+                       before a boundary is perceivable at all, so a hundred of
+                       them read as one grey mass rather than as a list of
+                       named sectors. A real fill, a real edge and a size that
+                       is not fine print. */
+                    className="ez-chip rounded-md border border-white/30 bg-white/[0.17] px-2.5 py-1 text-[0.79rem] font-semibold text-white"
                   >
                     {industry}
                   </li>
@@ -165,14 +170,11 @@ export function IndustryGrid() {
             the headers lets the contours run through the note instead; the
             icon and the narrow measure still set it apart as an aside. */}
         <div className="relative mx-auto mt-12 max-w-3xl">
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -inset-x-[14%] -inset-y-16 rounded-[50%] bg-[radial-gradient(ellipse_58%_62%_at_50%_50%,rgb(255_255_255/0.96)_0%,rgb(255_255_255/0.94)_30%,rgb(255_255_255/0.84)_48%,rgb(255_255_255/0.62)_62%,rgb(255_255_255/0.36)_75%,rgb(255_255_255/0.14)_88%,transparent_100%)]"
-          />
-          <p className="relative flex items-start gap-2.5 px-2 text-sm leading-relaxed text-ink-700">
+          {/* No local scrim here either — same reason. */}
+          <p className="relative flex items-start gap-2.5 rounded-xl border border-white/15 bg-[#0b1730] px-5 py-4 text-[0.92rem] leading-relaxed text-on-dark backdrop-blur-md">
             <Icon
               name="shield"
-              className="mt-0.5 h-4 w-4 shrink-0 text-brand-700"
+              className="mt-0.5 h-4 w-4 shrink-0 text-brand-300"
             />
             Rules apply differently to an IT office, a factory, a warehouse and
             a BFSI branch. EZER&rsquo;s compliance engine is configured per

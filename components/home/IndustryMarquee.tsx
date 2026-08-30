@@ -13,7 +13,7 @@ import { industryMarquee } from '@/content/positioning'
  * aria-hidden on the duplicate, so a screen reader is not read 32 industries
  * twice. The list is announced once, from the first copy.
  * ========================================================================= */
-export function IndustryMarquee() {
+export function IndustryMarquee({ onDark = false }: { onDark?: boolean }) {
   return (
     <div className="mt-10 space-y-2.5" aria-label="Industries EZER covers">
       {industryMarquee.map((track, t) => (
@@ -34,8 +34,10 @@ export function IndustryMarquee() {
                     className={
                       'whitespace-nowrap rounded-full px-4 py-2 text-[0.8rem] font-semibold ' +
                       (chip.hot
-                        ? 'bg-brand-600 text-white ring-1 ring-brand-700/30'
-                        : 'bg-surface text-ink-800 ring-1 ring-ink-200')
+                        ? 'bg-brand-600 text-white ring-1 ring-brand-400/50'
+                        : onDark
+                          ? 'bg-white/[0.17] text-white ring-1 ring-white/30'
+                          : 'bg-surface text-ink-800 ring-1 ring-ink-200')
                     }
                   >
                     {chip.label}
