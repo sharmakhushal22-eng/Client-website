@@ -586,7 +586,11 @@ input[type='range']::-moz-range-thumb {
    as "the record arrived" rather than as a thing on a conveyor belt. */
 @keyframes ezTravel {
   0%          { transform: translateX(0);    opacity: 0; }
-  4%          { opacity: 1; }
+  /* Fully lit by 1.5% of the cycle, which is 18px along a 945px track — still
+     inside the 56px first disc, so the record appears ON the Hire node and
+     departs from it. At the old 4% it did not become visible until 47px past
+     the disc's centre, which read as starting somewhere after the icon. */
+  1.5%        { opacity: 1; }
   80%         { transform: translateX(var(--ez-travel-span, 100%)); opacity: 1; }
   88%, 97%    { transform: translateX(var(--ez-travel-span, 100%)); opacity: 0; }
   100%        { transform: translateX(0);    opacity: 0; }
@@ -1667,9 +1671,23 @@ form p,
   top: 50%;
   height: 2px;
   width: 4.5rem;
-  transform: translateY(-50%);
   border-radius: 9999px;
   background: linear-gradient(to left, rgb(52 211 153 / 0.8), transparent);
+  /* GROWN, not carried. At full length from the first frame the tail hangs
+     72px to the LEFT of the dot — and the dot starts exactly on the Hire
+     node, so the trail stuck out 72px BEFORE the first icon and the record
+     looked like it began off the track. Scaled from the dot end instead, it
+     is nothing at the node and full length by the time the record is 118px
+     clear of it, so it never reaches back past the icon it came from.
+     scaleX, not width: this is on the compositor with everything else here,
+     rather than relaying out the strip every frame. */
+  transform-origin: 100% 50%;
+  transform: translateY(-50%) scaleX(0);
+  animation: ezCometTail 6s linear infinite;
+}
+@keyframes ezCometTail {
+  0%          { transform: translateY(-50%) scaleX(0); }
+  10%, 100%   { transform: translateY(-50%) scaleX(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
