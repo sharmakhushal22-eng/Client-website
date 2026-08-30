@@ -591,7 +591,17 @@ input[type='range']::-moz-range-thumb {
   88%, 97%    { transform: translateX(var(--ez-travel-span, 100%)); opacity: 0; }
   100%        { transform: translateX(0);    opacity: 0; }
 }
-.ez-travel-dot { animation: ezTravel 6s linear infinite; }
+.ez-travel-dot {
+  animation: ezTravel 6s linear infinite;
+  /* Promoted deliberately. This element is a full track wide and carries a
+     glowing dot with a large box-shadow and a gradient tail; without a layer
+     of its own the browser repaints that whole strip every frame, which is
+     what made a constant-speed linear walk look like it was stuttering.
+     will-change gives it a compositor layer, so the animation is a transform
+     on an already-painted surface. translateZ(0) is not enough on its own
+     here — the layer has to exist before the animation starts. */
+  will-change: transform, opacity;
+}
 
 /* The spine is dashed, not solid: a dashed track reads as a route the dot is
    following, where a solid rule reads as a divider it happens to sit on. */
@@ -619,7 +629,12 @@ input[type='range']::-moz-range-thumb {
    one second apart, matching the six-second walk. Reuses ezHaloPulse, which
    is mostly idle with a short swell, so five dark nodes and one lit one is
    the normal state rather than six nodes throbbing together. */
-.ez-node-pulse { animation: ezHaloPulse 6s ease-in-out infinite; }
+.ez-node-pulse {
+  animation: ezHaloPulse 6s ease-in-out infinite;
+  /* Six of these scale at once; on their own layers the swell composites
+     instead of repainting the disc, the label and the plate behind them. */
+  will-change: transform, opacity;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ez-node-pulse { animation: none; opacity: 0; }
@@ -1546,3 +1561,119 @@ form p,
   .ez-preview-row { animation: none; }
 }
 
+
+/* ── #simplify — the Today vs EZER comparison ────────────────────────────
+ *
+ * The table's problem was never the contrast ratio. Measured, the body copy
+ * was already 7.56:1 and 10.07:1 — comfortably past WCAG. It was 13.1px of
+ * mid-grey with a 40%-opacity tint separating the two columns, so the whole
+ * comparison read as fine print and the two sides looked the same. Darker,
+ * larger type does the reading; what follows does the seeing.
+ *
+ * All of it is hover- or scroll-driven and none of it loops in the corner of
+ * the eye — a table that twitches while you are trying to read across a row
+ * is worse than a dull one. The reduced-motion block above flattens every
+ * duration to 0.01ms, so this whole file degrades to the static version. */
+.ez-vs-row {
+  transition: background-color 0.3s ease;
+}
+.ez-vs-row:hover {
+  background-color: var(--color-brand-50);
+}
+
+/* The icon tile is the one element with room to move in a table row, so it
+   carries the depth: a real rotation on two axes, lifted and enlarged, with
+   the shadow growing to match. */
+.ez-vs-icon {
+  transform: perspective(600px) translate3d(0, 0, 0);
+  transition: transform 0.38s cubic-bezier(.2, .7, .3, 1),
+              box-shadow 0.38s cubic-bezier(.2, .7, .3, 1);
+}
+.ez-vs-row:hover .ez-vs-icon {
+  transform: perspective(600px) rotateX(-14deg) rotateY(12deg)
+             translate3d(0, -2px, 0) scale(1.1);
+  box-shadow: 0 12px 22px -8px rgb(37 99 235 / 0.65);
+}
+
+/* A light passing over the answer, not over the problem — the sweep runs on
+   the EZER cell alone, so pointing at a row lights up the side you want
+   read. overflow-hidden keeps it inside the cell's own box. */
+.ez-vs-win { position: relative; overflow: hidden; }
+.ez-vs-win::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg,
+    transparent 32%, rgb(255 255 255 / 0.72) 50%, transparent 68%);
+  transform: translateX(-130%);
+  transition: transform 0.85s cubic-bezier(.2, .7, .3, 1);
+}
+.ez-vs-row:hover .ez-vs-win::after { transform: translateX(130%); }
+
+/* The rule down the left of each state cell, scaling up from nothing as the
+   row is pointed at: amber on the problem, emerald on the fix. */
+.ez-vs-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform 0.4s cubic-bezier(.2, .7, .3, 1);
+}
+.ez-vs-row:hover .ez-vs-edge::before { transform: scaleY(1); }
+.ez-vs-today::before { background: var(--color-amber-400, #fbbf24); }
+.ez-vs-win::before   { background: var(--color-emerald-500, #10b981); }
+
+/* ── #lifecycle — the arc, standing on the halftone ground ───────────────
+ *
+ * The section moved onto a dark halftone plate, which changes what the
+ * illustration has to do. On the light canvas the stage discs read by their
+ * shadow; on a near-black ground a shadow is invisible, so they have to read
+ * by their own light instead — a lit rim, an inner highlight, and a glow
+ * that answers the pointer.
+ *
+ * Everything below is hover- or scroll-driven except the two that were
+ * already looping here before the ground changed (the travelling record and
+ * the node halos), and the reduced-motion block flattens all of it. */
+
+/* The discs are the illustration, so they carry the depth: a real rotation
+   on two axes, lifted toward the reader, with the glow growing under it. */
+.ez-arc-node {
+  transform: perspective(700px) translate3d(0, 0, 0);
+  transition: transform 0.45s cubic-bezier(.2, .7, .3, 1),
+              box-shadow 0.45s cubic-bezier(.2, .7, .3, 1);
+}
+.ez-arc-stage:hover .ez-arc-node,
+.ez-arc-stage:focus-within .ez-arc-node {
+  transform: perspective(700px) rotateX(-15deg) rotateY(13deg)
+             translate3d(0, -6px, 0) scale(1.09);
+  box-shadow: 0 22px 36px -14px rgb(37 99 235 / 0.85),
+              inset 0 1px 0 rgb(255 255 255 / 0.3);
+}
+
+/* The dashed spine has to glow rather than sit, or it disappears into the
+   plate between the discs it is meant to connect. */
+.ez-lifeline-lit { filter: drop-shadow(0 0 5px rgb(96 165 250 / 0.65)); }
+
+/* A tail behind the travelling record. The dot alone reads as a bead on the
+   line; a tail reads as something moving ALONG it, which is what the lede
+   promises. Drawn to the left of the dot because the walk is left to right. */
+.ez-arc-comet::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  height: 2px;
+  width: 4.5rem;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  background: linear-gradient(to left, rgb(52 211 153 / 0.8), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The dot is parked at the end of the track in that mode, so a motion
+     trail behind a stationary thing would be a lie. */
+  .ez-arc-comet::before { display: none; }
+}

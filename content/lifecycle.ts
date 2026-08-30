@@ -23,7 +23,7 @@ export const lifecycle = {
     { icon: 'clock' as IconName, name: 'Work', detail: 'attendance' },
     { icon: 'wallet' as IconName, name: 'Pay', detail: 'payroll + TDS' },
     { icon: 'chart' as IconName, name: 'Grow', detail: 'reviews, FBP' },
-    { icon: 'check' as IconName, name: 'Exit', detail: 'FNF settled' },
+    { icon: 'check' as IconName, name: 'Retire', detail: 'FNF settled' },
   ],
 
   /* The line that turns the diagram into an argument. Without it a reader
