@@ -170,7 +170,11 @@ export function RegimeCalculator() {
         </p>
       </div>
 
-      <figcaption className="mt-3 text-sm leading-relaxed text-on-dark-muted">
+      {/* Full strength, not muted, and carrying its own shadow. This line
+          sits BESIDE the calculator on the exposed half of the artwork — the
+          part the scrim deliberately releases — so at 78% opacity it was the
+          worst-lit text in the section at every width, not just narrow ones. */}
+      <figcaption className="mt-3 text-sm leading-relaxed text-on-dark [text-shadow:0_1px_3px_rgb(9_18_38/0.95),0_2px_12px_rgb(9_18_38/0.85)]">
         {taxCalculator.illustrativeNote}
       </figcaption>
     </figure>

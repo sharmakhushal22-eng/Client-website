@@ -64,14 +64,29 @@ export function TaxCalculator() {
             So the ramp holds heavier across the copy column and releases from
             about 58% on, where the illustration sits and the artwork should
             show. */}
-        <span className="absolute inset-0 bg-[linear-gradient(to_right,#0f1f3f_0%,rgb(15_31_63/0.96)_40%,rgb(15_31_63/0.74)_56%,rgb(15_31_63/0.36)_76%,rgb(15_31_63/0.14)_100%)]" />
+        {/* THE RAMP IS lg-ONLY, and that is the whole fix.
+            It releases to 0.14 at the right edge so the artwork shows beside
+            the calculator, which is right — at lg the copy is locked in the
+            LEFT column and never goes near it. Below lg the grid collapses to
+            one column and the copy spans the full width, walking straight
+            into the released end: measured across that band, white text falls
+            from 16:1 at the left to 5.35:1 at 90% and 3.69:1 at 97%, and the
+            eyebrow's brand-200 to 2.6:1. Both under the floor, on the half of
+            the section where nothing was ever meant to be read.
+            So the ramp only applies where the two-column layout protects it.
+            Below that the scrim is near-uniform and vertical, which has no
+            horizontal falloff to walk into. */}
+        <span className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(15_31_63/0.95)_0%,rgb(15_31_63/0.9)_100%)] lg:bg-[linear-gradient(to_right,#0f1f3f_0%,rgb(15_31_63/0.96)_40%,rgb(15_31_63/0.74)_56%,rgb(15_31_63/0.36)_76%,rgb(15_31_63/0.14)_100%)]" />
         <span className="absolute inset-0 bg-[linear-gradient(to_bottom,#0f1f3f_0%,transparent_12%,transparent_88%,#0f1f3f_100%)]" />
       </div>
 
       <Container className="relative">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="relative">
-            <div className="relative">
+            {/* Glyph-shaped shadows rather than a panel: they follow the
+                letterforms exactly, so they separate the type from the
+                artwork without drawing an edge of their own anywhere. */}
+            <div className="relative [&_h2]:[text-shadow:0_1px_2px_rgb(9_18_38/0.95),0_3px_14px_rgb(9_18_38/0.85)] [&_p]:[text-shadow:0_1px_3px_rgb(9_18_38/0.95),0_2px_12px_rgb(9_18_38/0.8)]">
               <SectionHeading
                 eyebrow={taxCalculator.eyebrow}
                 title={taxCalculator.title}
