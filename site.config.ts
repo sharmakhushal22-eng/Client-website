@@ -72,22 +72,28 @@ export const site = {
  * Handoff §1 and §8: one number carries both call and WhatsApp sitewide.
  * Handoff §6 records that no contact inbox existed at handoff time; §7 lists
  * "set up a real contact inbox (e.g. hello@ezerhrms.com)" as a launch task. */
+/* The one number the business answers on, written once.
+ *
+ * Call and WhatsApp used to be two different lines — there was a dedicated
+ * WhatsApp number, split off deliberately so a chat and a call reached
+ * different people. That is no longer the arrangement: both now reach
+ * +91 87967 46222.
+ *
+ * Derived rather than typed twice on purpose. The two forms differ only by
+ * punctuation, and the failure mode when they drift is silent — wa.me accepts
+ * any digits and shows "delivered" for a number nobody owns, so a wrong
+ * WhatsApp line loses enquiries without ever erroring. */
+const PHONE_E164 = '+918796746222'
+
 export const contact = {
   phoneDisplay: '+91 87967 46222',
-  phoneE164: '+918796746222',
-  /* WhatsApp is a SEPARATE line from the call number above.
-   *
-   * The handoff had one number serving both; this is a deliberate split onto
-   * a dedicated WhatsApp line, so a chat and a call reach different places.
-   * Keep both in step with whoever is actually rostered on each — the failure
-   * mode is silent, because an unmonitored WhatsApp still shows "delivered". */
-  whatsappE164: '919871034622',           // wa.me format, no +
+  phoneE164: PHONE_E164,
+  /* wa.me wants digits only, no leading +. */
+  whatsappE164: PHONE_E164.replace('+', ''),
   /* Human-readable form of the same line. Deliberately NOT rendered on the
    * floating button — the button is the action, and printing the digits
-   * invites someone to dial instead, losing the prefilled message. Kept here
-   * so the number is legible to whoever maintains this file, and available if
-   * a contact page ever needs to list it. */
-  whatsappDisplay: '+91 98710 34622',
+   * invites someone to dial instead, losing the prefilled message. */
+  whatsappDisplay: '+91 87967 46222',
 
   /* ⚠ Handoff §6: at handoff time NO contact inbox existed — the site ran on
    * phone and WhatsApp alone, and §7 lists "set up a real contact inbox" as a
