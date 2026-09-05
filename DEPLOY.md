@@ -59,33 +59,71 @@ rate must not reach a public page. The repo is public.
 
 ---
 
-## 3. Domains and DNS
+## 3. Domains and DNS — GoDaddy
 
-Add in Vercel → project → **Settings → Domains**:
+The domain is registered at **GoDaddy**. Keep DNS there and add records; do
+**not** switch the nameservers to Vercel.
 
-1. `www.ezerhrms.com` — set as **primary**
-2. `ezerhrms.com` — Vercel will offer to redirect it to `www`; accept
+> **Why not switch nameservers.** Moving nameservers hands the whole zone to
+> Vercel, which silently drops any MX records the domain has — so if email on
+> `@ezerhrms.com` is ever set up at GoDaddy, or already is, it stops being
+> delivered and nothing reports an error. Adding three records keeps mail and
+> everything else where it is. Check for existing MX records before touching
+> anything.
 
-Then add the records your registrar asks for. Vercel prints the exact values on
-that screen — **use those, not the ones below**, which are only what to expect:
+### 3.1 Add the domains in Vercel first
 
-| Type | Name | Value |
+Do this before editing DNS, so Vercel can show you the values to paste and can
+verify the moment the records resolve.
+
+On the **marketing** project (`Client-website`) → Settings → Domains:
+1. Add `www.ezerhrms.com` — set as **primary**
+2. Add `ezerhrms.com` — choose **redirect to `www.ezerhrms.com`**
+
+On the **product** project (`ezer-hrms`) → Settings → Domains:
+3. Add `app.ezerhrms.com`
+
+### 3.2 Then add the records at GoDaddy
+
+GoDaddy → **My Products → Domains → ezerhrms.com → DNS → Manage Zones**.
+
+| Type | Name | Value | TTL |
+| --- | --- | --- | --- |
+| `A` | `@` | `76.76.21.21` | 600 |
+| `CNAME` | `www` | `cname.vercel-dns.com` | 600 |
+| `CNAME` | `app` | `cname.vercel-dns.com` | 600 |
+
+⚠ **Use whatever Vercel prints on its Domains screen over the values above.**
+They are the long-standing defaults, but Vercel assigns different targets to
+some accounts and regions, and a stale value here fails verification with no
+useful error.
+
+**Measured starting state** (checked against live DNS on 5 Sep 2026):
+
+| Record | Now | Action |
 | --- | --- | --- |
-| `CNAME` | `www` | `cname.vercel-dns.com` |
-| `A` | `@` (apex) | `76.76.21.21` |
-| `CNAME` | `app` | `cname.vercel-dns.com` → the **`ezer-hrms`** project |
+| nameservers | `ns45/ns46.domaincontrol.com` | leave alone — GoDaddy DNS, as intended |
+| `@` (apex) | no `A` record | **add** `A → 76.76.21.21` |
+| `www` | `CNAME → ezerhrms.com` (GoDaddy default) | **edit this record** → `cname.vercel-dns.com` |
+| `app` | absent | **add** `CNAME → cname.vercel-dns.com` |
+| `MX` | none — no email on the domain yet | see the note in §5 about the privacy policy |
 
-`app` is added on the **product's** Vercel project, not this one.
+**GoDaddy specifics that trip people up:**
 
-⚠ **HSTS.** This site sends
-`Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`.
-Once a browser sees that, it forces HTTPS on **every** `*.ezerhrms.com`
-subdomain for two years — including `app`. Both hosts must have working
-certificates before launch, which Vercel issues automatically, but it means
-any future subdomain must be HTTPS from its first request. There is no quick
-way to undo this in a browser that has already cached it.
+- The existing `CNAME www → ezerhrms.com` must be **edited**, not left in place
+  alongside a new one. GoDaddy will accept a second `www` entry and then answer
+  with whichever it likes, so the site resolves intermittently — the worst kind
+  of failure, because it looks like it works.
+- Do **not** use GoDaddy's **Forwarding** feature to send apex → www. It
+  answers before Vercel does, breaks the HTTPS certificate check on the apex,
+  and Vercel's own redirect already does the job properly.
+- The apex is an `A` record because GoDaddy does not support `ALIAS`/`ANAME`
+  at the root.
+- GoDaddy's default TTL is 1 hour. Drop it to 600s **before** you start, so a
+  mistake costs ten minutes instead of an hour.
 
----
+Propagation is usually minutes, occasionally up to a few hours. Vercel issues
+the TLS certificates automatically once the records resolve.
 
 ## 4. Verify after the first deploy
 
