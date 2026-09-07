@@ -185,9 +185,9 @@ export default function PrivacyPolicyPage() {
 
       <h3>3.2 When you simply browse the website</h3>
       <p>
-        The website sets no cookies, uses no analytics or advertising trackers,
-        and stores nothing in your browser. Two things still happen
-        automatically:
+        Nothing that identifies you is loaded before you choose. Until you
+        answer the cookie banner, no analytics or advertising script runs at
+        all. Four things happen either way:
       </p>
       <ul>
         <li>
@@ -195,10 +195,27 @@ export default function PrivacyPolicyPage() {
           timestamp, page requested, browser type) for security and reliability.
         </li>
         <li>
-          Fonts load from Google Fonts, so your IP address is visible to Google
-          when a page loads. See Section 7.
+          We store your cookie choice itself in your browser
+          (<code>ezer_cookie_consent</code>), so we do not ask again on every
+          page. Without it we could not honour a refusal.
+        </li>
+        <li>
+          If you arrived from a campaign or a shared link, we keep which one in
+          your browser for the current session only
+          (<code>ezer_attribution</code>), so that an enquiry you send can be
+          attributed to the channel it came from.
+        </li>
+        <li>
+          If — and only if — you accept analytics cookies, we then load Google
+          Analytics 4 and Microsoft Clarity. See Section 15 and our{' '}
+          <Link href="/cookie-policy">cookie policy</Link>, which lists each one
+          and how long it is kept.
         </li>
       </ul>
+      <p>
+        Fonts are served from our own domain, not from a third-party font CDN,
+        so loading a page does not disclose your IP address to a font provider.
+      </p>
 
       <h3>3.3 Employee data inside the EZER product</h3>
       <p>
@@ -295,9 +312,26 @@ export default function PrivacyPolicyPage() {
             <td>It is the channel our contact form uses</td>
           </tr>
           <tr>
-            <td>Google (Google Fonts)</td>
-            <td>Your IP address and browser details</td>
-            <td>Fonts are served from Google&rsquo;s CDN</td>
+            <td>Google (Google Analytics 4)</td>
+            <td>
+              Pages visited, how you arrived, and device and browser details.
+              IP addresses are anonymised
+            </td>
+            <td>
+              To understand which pages are used — loaded only after you accept
+              analytics cookies
+            </td>
+          </tr>
+          <tr>
+            <td>Microsoft (Clarity)</td>
+            <td>
+              Aggregated interaction data and session recordings, with form
+              input masked
+            </td>
+            <td>
+              To see where visitors get stuck — loaded only after you accept
+              analytics cookies
+            </td>
           </tr>
           <tr>
             <td>Our website hosting provider</td>
@@ -381,6 +415,16 @@ export default function PrivacyPolicyPage() {
           <tr>
             <td>Server and access logs</td>
             <td>At least 1 year, as required by the DPDP Rules</td>
+          </tr>
+          {/* Both figures are the ones already published on the cookie policy
+              — stated here too so a reader who only opens this page still
+              learns how long analytics data lives. */}
+          <tr>
+            <td>Analytics data, if you accepted analytics cookies</td>
+            <td>
+              Google Analytics 4: up to 2 years. Microsoft Clarity: up to 1
+              year. Nothing is collected if you declined
+            </td>
           </tr>
           <tr>
             <td>Records we must keep by law (tax, statutory)</td>
@@ -489,10 +533,28 @@ export default function PrivacyPolicyPage() {
 
       <h2>15. Cookies and tracking</h2>
       <p>
-        This website currently sets no cookies and runs no analytics, advertising
-        or tracking scripts. If we add analytics later, we will update this policy
-        and obtain consent where the law requires it before any non-essential
-        tracking begins.
+        We use two kinds of browser storage, and the difference is the consent.
+      </p>
+      <p>
+        <strong>Essential, always present.</strong> Your cookie choice
+        (<code>ezer_cookie_consent</code>) and, for the current session only,
+        which campaign or link brought you here
+        (<code>ezer_attribution</code>). Neither tracks you across other
+        websites, and the first exists so that a refusal can be honoured.
+      </p>
+      <p>
+        <strong>Analytics, only if you accept.</strong> Google Analytics 4 and
+        Microsoft Clarity. Nothing from either is loaded, and no request is made
+        to either company, until you choose Accept on the banner — declining
+        leaves them uninstalled rather than merely inactive. Clarity records
+        sessions with form input masked; Analytics anonymises IP addresses.
+        Neither is used to build an advertising profile of you.
+      </p>
+      <p>
+        Our <Link href="/cookie-policy">cookie policy</Link> lists each item,
+        what it does and how long it is kept. You can change your mind at any
+        time by clearing this site&rsquo;s storage in your browser, which brings
+        the banner back.
       </p>
 
       <h2>16. Marketing communications and opt-out</h2>
