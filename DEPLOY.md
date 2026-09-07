@@ -4,9 +4,12 @@ Two properties, one domain, **separate hosts** (the "Option A" split):
 
 | Host | Serves | Repo | Vercel project |
 | --- | --- | --- | --- |
-| `www.ezerhrms.com` | this marketing site | `sharmakhushal22-eng/Client-website` | _to be created_ |
+| `www.ezerhrms.com` | this marketing site | `sharmakhushal22-eng/Client-website` | `ezer-hrms-website` |
 | `ezerhrms.com` | redirect → `www` | — | (same project) |
 | `app.ezerhrms.com` | the HRMS product | `sharmakhushal22-eng/ezer-hrms` | `ezer-hrms` (already live) |
+
+Both projects live in the Vercel team **`khushal-sharma-s-projects`**, which is
+where `ezer-hrms` already was — one billing and access boundary for both.
 
 Why separate hosts rather than one hostname split by path: both apps own `/api`,
 the product authenticates with Supabase cookies, and this site sends
@@ -90,8 +93,12 @@ GoDaddy → **My Products → Domains → ezerhrms.com → DNS → Manage Zones*
 | Type | Name | Value | TTL |
 | --- | --- | --- | --- |
 | `A` | `@` | `76.76.21.21` | 600 |
-| `CNAME` | `www` | `cname.vercel-dns.com` | 600 |
+| `A` | `www` | `76.76.21.21` | 600 |
 | `CNAME` | `app` | `cname.vercel-dns.com` | 600 |
+
+`www` is an **A record, not a CNAME** — that is what Vercel actually asked for
+once the domain was attached (`A www.ezerhrms.com 76.76.21.21`), rather than
+the CNAME this file predicted before the project existed.
 
 ⚠ **Use whatever Vercel prints on its Domains screen over the values above.**
 They are the long-standing defaults, but Vercel assigns different targets to
