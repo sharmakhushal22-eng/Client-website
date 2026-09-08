@@ -27,33 +27,66 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const envPath = join(root, '.env.local')
 const wantHash = process.argv.includes('--hash')
 
-/* ── Hidden prompt ─────────────────────────────────────────────────────────
- * readline echoes what you type, which defeats the whole point. Muting the
- * output stream while the answer is being typed is the standard trick; the
- * terminal still receives the keystrokes, it just does not paint them. */
+/* ── Prompts ───────────────────────────────────────────────────────────────
+ * ONE readline interface for the whole script, deliberately.
+ *
+ * The obvious shape — a fresh interface per question — leaks. Closing a
+ * terminal-mode interface does not immediately detach it from stdin, so the
+ * second prompt has two readers attached and the stale one echoes every
+ * keystroke it sees. Measured: the first prompt stayed hidden and the second
+ * printed the password one character at a time.
+ *
+ * So: one interface, and muting is a flag on it. readline echoes through
+ * _writeToOutput, so that is the method to override — reassigning
+ * rl.output.write does nothing. While muted it repaints the prompt instead of
+ * the keystroke: erase the line, return to column 0, print the prompt again.
+ * ------------------------------------------------------------------------ */
+let rl = null
+const mute = { on: false, prompt: '' }
+
+function terminal() {
+  if (rl) return rl
+  rl = createInterface({ input: process.stdin, output: process.stdout, terminal: true })
+  rl._writeToOutput = (str) => {
+    if (mute.on) rl.output.write(`\x1B[2K\x1B[200D${mute.prompt}`)
+    else rl.output.write(str)
+  }
+  return rl
+}
+
 function askHidden(question) {
-  return new Promise((resolve) => {
-    const rl = createInterface({ input: process.stdin, output: process.stdout, terminal: true })
-    process.stdout.write(question)
-    let muted = false
-    const realWrite = rl.output.write.bind(rl.output)
-    rl.output.write = (chunk, ...rest) => (muted ? true : realWrite(chunk, ...rest))
-    muted = true
-    rl.question('', (answer) => {
-      muted = false
-      rl.output.write = realWrite
+  return new Promise((resolve, reject) => {
+    const t = terminal()
+    mute.prompt = question
+    /* A closed stdin would otherwise leave this pending forever, and Node
+       exits with "unsettled top-level await" — which tells nobody anything. */
+    const onClose = () => reject(new Error('input closed before a password was entered'))
+    t.once('close', onClose)
+    t.question(question, (answer) => {
+      mute.on = false
+      t.removeListener('close', onClose)
       process.stdout.write('\n')
-      rl.close()
       resolve(answer)
     })
+    mute.on = true
   })
 }
 
 function ask(question) {
-  return new Promise((resolve) => {
-    const rl = createInterface({ input: process.stdin, output: process.stdout })
-    rl.question(question, (a) => { rl.close(); resolve(a) })
+  return new Promise((resolve, reject) => {
+    const t = terminal()
+    mute.on = false
+    const onClose = () => reject(new Error('input closed'))
+    t.once('close', onClose)
+    t.question(question, (a) => { t.removeListener('close', onClose); resolve(a) })
   })
+}
+
+/** Every exit path goes through here, or the process hangs with the terminal
+ *  still in raw mode. */
+function done(code) {
+  if (rl) rl.close()
+  process.exit(code)
 }
 
 if (!process.stdin.isTTY) {
@@ -68,16 +101,22 @@ if (!process.stdin.isTTY) {
 /* ── --hash: mint credentials for pasting into Vercel ─────────────────────── */
 
 if (wantHash) {
-  const pw = await askHidden('  New admin password (hidden): ')
-  const again = await askHidden('  Type it again:              ')
+  let pw, again
+  try {
+    pw = await askHidden('  New admin password (hidden): ')
+    again = await askHidden('  Type it again:              ')
+  } catch (e) {
+    console.error(`\n  ${e.message}. Run this in a terminal and type the password.\n`)
+    done(1)
+  }
 
   if (pw !== again) {
     console.error('\n  Those did not match. Nothing was generated — run it again.\n')
-    process.exit(1)
+    done(1)
   }
   if (pw.length < 8) {
     console.error('\n  Too short. Use at least 8 characters.\n')
-    process.exit(1)
+    done(1)
   }
 
   const salt = randomBytes(16).toString('hex')
@@ -100,14 +139,14 @@ if (wantHash) {
   The password itself was not printed and is not stored anywhere. If you
   forget it, run this again — there is no recovery, only replacement.
 `)
-  process.exit(0)
+  done(0)
 }
 
 /* ── default: check against .env.local ────────────────────────────────────── */
 
 if (!existsSync(envPath)) {
   console.error('\n  No .env.local found. Nothing to check against.\n')
-  process.exit(1)
+  done(1)
 }
 
 const env = readFileSync(envPath, 'utf8')
@@ -147,7 +186,7 @@ line(
 
 if (fatal) {
   console.log('\n  Fix the above first — run: npm run admin:check -- --hash\n')
-  process.exit(1)
+  done(1)
 }
 
 console.log(`  Stored email: ${storedEmail}\n`)
@@ -164,7 +203,7 @@ try {
   pwOk = candidate.length === expected.length && timingSafeEqual(candidate, expected)
 } catch (e) {
   console.error(`\n  Could not compute the hash: ${e.message}\n`)
-  process.exit(1)
+  done(1)
 }
 
 console.log('')
@@ -185,7 +224,7 @@ if (emailOk && pwOk) {
   Production. A redeploy is required — environment variables are read at
   boot, so an existing deployment keeps the old ones.
 `)
-  process.exit(0)
+  done(0)
 }
 
 console.log(`
