@@ -39,6 +39,19 @@ export async function verifyPassword(password: string, stored: string): Promise<
   return timingSafeEqual(candidate, expected)
 }
 
+/** True when ADMIN_PASSWORD_HASH holds something this code could ever match.
+ *
+ *  Worth its own function because of the failure it catches: pasting the
+ *  PASSWORD into ADMIN_PASSWORD_HASH. The variable is set, so the site looks
+ *  configured; verifyPassword then rejects it on the first line for the right
+ *  reason — the scheme is not 'scrypt' — and the operator is told only that
+ *  their details do not match, which sends them off checking a password that
+ *  was never wrong. The name says HASH; the value has to be one. */
+export function isPasswordHashWellFormed(stored = process.env.ADMIN_PASSWORD_HASH): boolean {
+  const [scheme, salt, hash] = (stored ?? '').split(':')
+  return scheme === 'scrypt' && salt?.length === 32 && hash?.length === 128
+}
+
 export function isAdminConfigured(): boolean {
   return Boolean(
     process.env.ADMIN_EMAIL &&

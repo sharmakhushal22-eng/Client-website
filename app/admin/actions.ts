@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import {
-  verifyPassword, isAdminConfigured,
+  verifyPassword, isAdminConfigured, isPasswordHashWellFormed,
   loginThrottleKey, checkLoginThrottle, clearLoginThrottle, requireAdmin,
 } from '@/lib/admin/auth'
 import { SESSION_COOKIE, SESSION_MAX_AGE, signSession } from '@/lib/admin/session'
@@ -18,6 +18,21 @@ export async function login(_prev: LoginState, form: FormData): Promise<LoginSta
       error:
         'Admin login is not configured. Set ADMIN_EMAIL, ADMIN_PASSWORD_HASH and ' +
         'ADMIN_SESSION_SECRET in .env.local — run `npm run admin:password` to generate them.',
+    }
+  }
+
+  /* Reported before the throttle runs, so a misconfigured site does not also
+   * lock out the person trying to diagnose it. This says nothing an attacker
+   * can use — there are no credentials in it, and it only appears when login
+   * is already impossible for everyone. */
+  if (!isPasswordHashWellFormed()) {
+    return {
+      error:
+        'ADMIN_PASSWORD_HASH does not contain a scrypt hash, so no password can ' +
+        'ever match it. It looks like a plaintext password was stored there — the ' +
+        'variable holds a HASH of the password, never the password itself. ' +
+        'Generate one with `npm run admin:check -- --hash`, set it in Vercel ' +
+        '(Settings → Environment Variables → Production) and redeploy.',
     }
   }
 
