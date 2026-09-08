@@ -233,32 +233,43 @@ if (present.has('website_leads')) {
   try {
     await client.query('set local role anon')
 
-    let inserted = null
-    try {
-      const r = await client.query(
+    /* Each probe runs inside a SAVEPOINT.
+     *
+     * The read probe is EXPECTED to fail — that is the whole point of it —
+     * and in Postgres a failed statement poisons the transaction: everything
+     * after it returns 25P02 "current transaction is aborted" until a
+     * rollback. Catching the error in JavaScript is not enough; the server
+     * still considers the transaction dead. A savepoint is what lets a
+     * deliberately-failing probe leave the transaction usable. */
+    const probe = async (name, fn) => {
+      await client.query(`savepoint ${name}`)
+      try {
+        const out = await fn()
+        await client.query(`release savepoint ${name}`)
+        return { ok: true, out }
+      } catch (e) {
+        await client.query(`rollback to savepoint ${name}`)
+        return { ok: false, error: e.message }
+      }
+    }
+
+    const ins = await probe('p_insert', () =>
+      client.query(
         `insert into public.website_leads
            (work_email, phone, company_name, consent, consent_at, form_name)
          values ('db-verify@example.invalid', '+910000000000', 'db:verify',
                  true, now(), 'db:verify')`,
-      )
-      inserted = r.rowCount === 1
-    } catch (e) {
-      inserted = false
-      check('anon can submit an enquiry', false, e.message)
-    }
-    if (inserted) check('anon can submit an enquiry', true)
+      ))
+    check('anon can submit an enquiry', ins.ok && ins.out.rowCount === 1, ins.error)
 
-    /* Reading it back must fail. Two different failures are both correct:
-     * a hard privilege error, or an empty result because RLS filtered it. */
-    let leaked = null
-    try {
-      const r = await client.query('select id from public.website_leads limit 1')
-      leaked = r.rowCount > 0
-    } catch {
-      leaked = false
-    }
-    check('anon cannot read enquiries back', leaked === false,
+    /* Reading it back must fail. Two different failures are both correct: a
+     * hard privilege error, or an empty result because RLS filtered it. */
+    const sel = await probe('p_select', () =>
+      client.query('select id from public.website_leads limit 1'))
+    const leaked = sel.ok && sel.out.rowCount > 0
+    check('anon cannot read enquiries back', !leaked,
       'DATA LEAK: anyone with the publishable key can list your leads')
+    if (!sel.ok) console.log(`      (refused at the privilege layer: ${sel.error.split('\n')[0]})`)
 
     await client.query('reset role')
 
@@ -267,7 +278,7 @@ if (present.has('website_leads')) {
     check('the owner role can read what anon wrote', seen.n >= 1,
       'the admin panel would show nothing')
   } finally {
-    await client.query('rollback')
+    await client.query('rollback').catch(() => {})
   }
 
   const left = await one(
@@ -287,9 +298,11 @@ if (fns.has('check_rate_limit')) {
     check('anon can call check_rate_limit()', r.ok === true,
       'every form submission will be rejected as rate-limited')
   } catch (e) {
-    check('anon can call check_rate_limit()', false, e.message)
+    check('anon can call check_rate_limit()', false, e.message.split('\n')[0])
   } finally {
-    await client.query('rollback')
+    /* Unconditional: the transaction may be aborted, and rollback is the only
+       statement Postgres still accepts in that state. */
+    await client.query('rollback').catch(() => {})
   }
 }
 
