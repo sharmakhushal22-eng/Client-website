@@ -18,6 +18,7 @@ const NAV: { href: string; label: string; icon: IconName }[] = [
   { href: '/admin/bookings', label: 'Demo bookings', icon: 'calendar' },
   { href: '/admin/subscribers', label: 'Subscribers', icon: 'mail' },
   { href: '/admin/downloads', label: 'Downloads', icon: 'download' },
+  { href: '/admin/posts', label: 'Blog posts', icon: 'upload' },
   { href: '/admin/content', label: 'Content', icon: 'file' },
 ]
 

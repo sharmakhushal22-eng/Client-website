@@ -6,7 +6,8 @@ import { Icon } from '@/components/ui/Icon'
 import { MeshField } from '@/components/ui/MeshField'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
-import { articles, contentHub } from '@/content/articles'
+import { contentHub } from '@/content/articles'
+import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = pageMetadata({
   title: 'Blog — Indian payroll and compliance, explained',
@@ -27,7 +28,15 @@ export const metadata: Metadata = pageMetadata({
  * The article text itself is unchanged.
  * ========================================================================= */
 
-export default function BlogPage() {
+/* Revalidated rather than fully static: the list now includes anything
+   published from the admin panel, and an editor should not need a deploy to
+   see their post appear. Sixty seconds is short enough to feel immediate and
+   long enough that the database is not queried on every visit. */
+export const revalidate = 60
+
+export default async function BlogPage() {
+  const articles = await getAllPosts()
+
   return (
     <>
       <JsonLd

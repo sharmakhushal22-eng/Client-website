@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { requireAdmin } from '@/lib/admin/auth'
 import { accessMode, listRows } from '@/lib/admin/db'
 import { AccessError, Panel, Th, Td, When, EmptyState } from '@/components/admin/Table'
@@ -5,12 +6,11 @@ import { AccessError, Panel, Th, Td, When, EmptyState } from '@/components/admin
 export const dynamic = 'force-dynamic'
 export const metadata = { title: 'Content' }
 
-/* The four content tables on one page. They are Phase 2 in the spec (§8.1
- * keeps content as MDX at launch), so they are almost certainly empty — the
- * page exists so nothing in the database is invisible from here. */
+/* The content tables that have no editor of their own, on one page, so nothing
+ * in the database is invisible from here. Blog posts are NOT in this list any
+ * more: they have a real editor at /admin/posts, and a second read-only view of
+ * the same rows is the kind of duplicate that goes stale and then misleads. */
 const TABLES = [
-  { table: 'posts', title: 'Blog posts',
-    cols: [['title','Title'],['slug','Slug'],['status','Status'],['category','Category'],['published_at','Published']] },
   { table: 'guides', title: 'Guides',
     cols: [['title','Title'],['slug','Slug'],['gated','Gated'],['status','Status'],['published_at','Published']] },
   { table: 'authors', title: 'Authors',
@@ -42,8 +42,11 @@ export default async function ContentPage() {
       <div>
         <h1 className="text-2xl font-bold">Content</h1>
         <p className="mt-1 text-sm text-ink-500">
-          Blog, guides, authors and the compliance calendar. Phase 2 in the spec — the
-          site still renders content from MDX in the repo, so these are read-only here.
+          Guides, authors and the compliance calendar — read-only. Blog posts are
+          written and published under{' '}
+          <Link href="/admin/posts" className="font-semibold text-brand-700 underline">
+            Blog posts
+          </Link>.
         </p>
       </div>
 

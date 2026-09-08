@@ -7,13 +7,21 @@ import { Button } from '@/components/ui/Button'
 import { MeshField } from '@/components/ui/MeshField'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
-import { articles, getArticle } from '@/content/articles'
+import { getAllPosts, getPost, repoSlugs } from '@/lib/blog'
 import { site } from '@/site.config'
 
 /* One static route per article — the set is known at build time, so there is
  * no reason to render these on demand. */
+export const revalidate = 60
+
+/* Only the repo articles are known at build time. dynamicParams lets a slug
+   that exists solely in the database render on first request instead of
+   404ing, which is what makes "publish" in the admin take effect without a
+   deploy. */
+export const dynamicParams = true
+
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }))
+  return repoSlugs().map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({
@@ -22,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const article = getArticle(slug)
+  const article = await getPost(slug)
   if (!article)
     return pageMetadata({
       title: 'Article not found',
@@ -44,10 +52,10 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const article = getArticle(slug)
+  const article = await getPost(slug)
   if (!article) notFound()
 
-  const others = articles.filter((a) => a.slug !== article.slug)
+  const others = (await getAllPosts()).filter((a) => a.slug !== article.slug)
 
   return (
     <>
