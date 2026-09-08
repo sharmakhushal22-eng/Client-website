@@ -9,7 +9,7 @@ export default function BookingsPage() {
       title="Demo bookings"
       order="slot_start"
       description="Slots booked from /book-a-demo. Outcome drives the no-show rate in §1.3."
-      emptyHint="Bookings appear once a calendar is connected via NEXT_PUBLIC_CALENDAR_URL."
+      emptyHint="Two things are needed: NEXT_PUBLIC_CALENDAR_URL to embed the calendar on /book-a-demo, and a webhook in cal.com or Calendly pointing at /api/webhooks/booking with BOOKING_WEBHOOK_SECRET set. The calendar alone only shows a booking form — the booking then lives in the provider and never reaches this table."
       columns={[
         { key: 'company_name', label: 'Company' },
         { key: 'full_name', label: 'Name' },
