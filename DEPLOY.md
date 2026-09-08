@@ -51,6 +51,12 @@ That is deliberate — see the notes in `site.config.ts`.
 | `NEXT_PUBLIC_GA4_ID` | GA4 measurement ID | no analytics — **see §5** |
 | `NEXT_PUBLIC_CLARITY_ID` | Clarity project ID | no session recording — **see §5** |
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | the marketing project's Supabase | enquiries are not stored server-side; the forms still hand off to WhatsApp |
+
+> **Database setup is its own document.** Provisioning the Supabase project,
+> applying the migrations, the schema, the data flow and how to verify it all
+> live in [`docs/DATABASE.md`](docs/DATABASE.md). Production currently has none
+> of the three Supabase variables, so enquiries are not being saved.
+
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD_HASH` / `ADMIN_SESSION_SECRET` | admin credentials | `/admin` cannot be logged into (it already redirects to the login page) |
 | `RESEND_API_KEY` + `EMAIL_FROM`, or the `GMAIL_*` set | transactional email | no notification email is sent |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile | forms run without a captcha |
