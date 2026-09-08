@@ -108,6 +108,18 @@ export const contact = {
    * is rostered to read them. */
   emailsLive: false,
 
+  /* WHERE LEAD NOTIFICATIONS ACTUALLY GO. Internal only — never rendered on
+   * any page, never in structured data. Kept separate from salesEmail on
+   * purpose: salesEmail is a PUBLICATION address, this is a DELIVERY address,
+   * and conflating them means flipping emailsLive to true would publish
+   * whatever inbox operations happen to be using that week.
+   *
+   * A gmail.com address is not the long-term answer — it is the address that
+   * works today, which beats @ezerhrms.com, where nothing works at all
+   * because the domain has no MX records. Move this to the domain mailbox
+   * once one exists. */
+  leadInbox: 'ezerhrms@gmail.com',
+
   salesEmail: 'sales@ezerhrms.com',       // TODO confirm the mailbox exists
   supportEmail: 'support@ezerhrms.com',   // TODO confirm
   partnerEmail: 'partners@ezerhrms.com',  // TODO confirm

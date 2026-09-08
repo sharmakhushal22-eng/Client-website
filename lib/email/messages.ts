@@ -69,7 +69,9 @@ export async function sendEnquirerAutoReply(lead: {
 
   return sendMail({
     to: lead.work_email,
-    replyTo: contact.salesEmail,
+    /* Replies to the auto-reply must land where somebody reads them, which
+       is the delivery inbox, not the published address. */
+    replyTo: contact.leadInbox,
     subject: `We've got your enquiry — ${site.name}`,
     html,
   })
@@ -114,7 +116,7 @@ export async function sendInternalNotification(
 </div>`.trim()
 
   return sendMail({
-    to: contact.salesEmail,
+    to: contact.leadInbox,
     replyTo: typeof lead.work_email === 'string' ? lead.work_email : undefined,
     subject: `New lead: ${company} (${band})`,
     html,
