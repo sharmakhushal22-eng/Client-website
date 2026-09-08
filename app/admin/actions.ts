@@ -22,7 +22,7 @@ export async function login(_prev: LoginState, form: FormData): Promise<LoginSta
   }
 
   const throttleKey = await loginThrottleKey()
-  const throttle = checkLoginThrottle(throttleKey)
+  const throttle = await checkLoginThrottle(throttleKey)
   if (!throttle.ok) {
     return { error: `Too many attempts. Try again in about ${throttle.retryInMin} minutes.` }
   }
@@ -39,7 +39,7 @@ export async function login(_prev: LoginState, form: FormData): Promise<LoginSta
     return { error: 'Those details do not match. Check the email and password.' }
   }
 
-  clearLoginThrottle(throttleKey)
+  await clearLoginThrottle(throttleKey)
 
   const token = await signSession(email, process.env.ADMIN_SESSION_SECRET!)
   const jar = await cookies()
