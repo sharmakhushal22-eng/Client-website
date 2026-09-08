@@ -32,9 +32,15 @@ export function accessMode(): AccessMode {
 }
 
 export function accessDiagnostic(): string {
+  /* On Vercel there is no .env.local, so naming it is actively misleading —
+   * this message is read far more often in production than on a laptop. */
+  const where = process.env.VERCEL
+    ? 'Add ONE of these in Vercel → Settings → Environment Variables\n' +
+      '(Production), then redeploy:'
+    : 'Add ONE of these to .env.local, then restart the dev server:'
   return (
     'The admin panel cannot read the database.\n\n' +
-    'Add ONE of these to .env.local:\n\n' +
+    where + '\n\n' +
     '  SUPABASE_SERVICE_ROLE_KEY=sb_secret_…\n' +
     '    Supabase dashboard → Project Settings → API keys → secret key.\n' +
     '    This is the recommended route: HTTPS over IPv4, works on Vercel.\n\n' +
