@@ -3,6 +3,7 @@ import { requireAdmin } from '@/lib/admin/auth'
 import { accessMode, listRows } from '@/lib/admin/db'
 import { AccessError, Panel, Th, Td, EmptyState, StatusChip, When } from '@/components/admin/Table'
 import { explainDbError } from '@/lib/admin/explain'
+import { DeletePost } from '@/components/admin/DeletePost'
 import { setPostStatus } from './actions'
 
 export const dynamic = 'force-dynamic'
@@ -78,15 +79,21 @@ export default async function PostsPage() {
                   <Td><When value={r.published_at} /></Td>
                   <Td><When value={r.updated_at} /></Td>
                   <Td>
-                    <form action={setPostStatus} className="flex gap-2">
-                      <input type="hidden" name="id" value={r.id} />
-                      <input type="hidden" name="slug" value={r.slug} />
-                      {r.published_at && <input type="hidden" name="published_at" value={r.published_at} />}
-                      <input type="hidden" name="status" value={r.status === 'published' ? 'draft' : 'published'} />
-                      <button type="submit" className="text-xs font-semibold text-ink-600 hover:text-brand-700">
-                        {r.status === 'published' ? 'Unpublish' : 'Publish'}
-                      </button>
-                    </form>
+                    {/* Publish and Delete are separate forms on purpose: one
+                        submit button per form, so the browser can never post
+                        the wrong intent for the row. */}
+                    <div className="flex items-start gap-3">
+                      <form action={setPostStatus}>
+                        <input type="hidden" name="id" value={r.id} />
+                        <input type="hidden" name="slug" value={r.slug} />
+                        {r.published_at && <input type="hidden" name="published_at" value={r.published_at} />}
+                        <input type="hidden" name="status" value={r.status === 'published' ? 'draft' : 'published'} />
+                        <button type="submit" className="text-xs font-semibold text-ink-600 hover:text-brand-700">
+                          {r.status === 'published' ? 'Unpublish' : 'Publish'}
+                        </button>
+                      </form>
+                      <DeletePost id={r.id} slug={r.slug} title={r.title} status={r.status} />
+                    </div>
                   </Td>
                 </tr>
               ))}

@@ -4,6 +4,7 @@ import { useActionState, useRef, useState } from 'react'
 import Link from 'next/link'
 import { createPost, updatePost, type PostFormState } from '@/app/admin/posts/actions'
 import { PostImport, type ImportedDraft } from '@/components/admin/PostImport'
+import { DeletePost } from '@/components/admin/DeletePost'
 import { htmlToMarkup, pdfTextToMarkup, tidyBlockSpacing } from '@/lib/import/markup'
 
 /* The one form, used for both new and existing posts. Two forms would drift:
@@ -272,6 +273,25 @@ export function PostEditor({ post }: { post?: PostDraft }) {
           </Link>
         </div>
       </form>
+
+      {/* OUTSIDE the form above — a <form> inside a <form> is invalid HTML and
+          the browser drops the inner one, which would leave a delete button
+          that silently submits the editor instead. */}
+      {editing && post?.id && (
+        <div className="border-t border-ink-200 pt-5">
+          <DeletePost
+            id={post.id}
+            slug={post.slug ?? ''}
+            title={post.title ?? 'this post'}
+            status={post.status ?? 'draft'}
+            variant="page"
+          />
+          <p className="mt-2 max-w-xl text-xs leading-relaxed text-ink-500">
+            Deleting removes the row for good. To take a post off the site and keep the text,
+            set its status to <span className="font-semibold">Archived</span> and save instead.
+          </p>
+        </div>
+      )}
     </div>
   )
 }

@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { requireAdmin } from '@/lib/admin/auth'
-import { insertRow, updateRow } from '@/lib/admin/db'
+import { deleteRow, insertRow, updateRow } from '@/lib/admin/db'
 import { readingMinutes } from '@/lib/blog'
 
 /* ============================================================================
@@ -143,6 +143,71 @@ export async function updatePost(
   revalidatePath('/blog')
   revalidatePath(`/blog/${slug}`)
   return { ok: true }
+}
+
+/* ── Delete ────────────────────────────────────────────────────────────────
+ *
+ * The one action here that cannot be walked back. Three things follow from
+ * that, and they are the whole design:
+ *
+ *   - The UI arms it first (see components/admin/DeletePost.tsx). A delete
+ *     control that fires on one click, in a table row, next to Publish, is a
+ *     mis-click away from losing a post.
+ *   - "Deleted" and "it was already gone" are reported differently. The
+ *     second usually means two tabs, or a second click on a submit that had
+ *     not finished — and telling someone their post is gone when it was never
+ *     there is how they lose confidence in everything else on the page.
+ *   - The blog and the article's own path are revalidated, so a deleted post
+ *     stops 200ing on a URL that no longer has anything behind it.
+ *
+ * Archiving exists for taking a post down (setPostStatus below) and is the
+ * better answer nine times out of ten: the row survives, the URL 404s, and
+ * the text is still there when somebody asks for it back. This is for the
+ * tenth — the test post, the duplicate, the import that went wrong.
+ * ------------------------------------------------------------------------ */
+
+export type DeleteState = { error?: string } | null
+
+export async function deletePost(
+  _prev: DeleteState,
+  form: FormData,
+): Promise<DeleteState> {
+  await requireAdmin()
+
+  const id = String(form.get('id') ?? '').trim()
+  const slug = String(form.get('slug') ?? '').trim()
+  if (!id) return { error: 'Missing post id.' }
+
+  /* The typed-confirmation belt to the UI's braces: the form sends back the
+     id it is about to delete, and both must agree. A stale row rendered
+     before someone else reordered the list cannot delete a different post. */
+  if (String(form.get('confirm_id') ?? '').trim() !== id) {
+    return { error: 'That confirmation did not match the post. Nothing was deleted — try again.' }
+  }
+
+  let removed: number
+  try {
+    removed = await deleteRow('posts', id)
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    if (/permission denied|42501/i.test(msg)) {
+      return {
+        error:
+          'The database refused the delete: service_role has no DELETE privilege on posts. ' +
+          'Re-run migration 006 (npm run db:push), then try again.',
+      }
+    }
+    return { error: `Could not delete: ${msg}` }
+  }
+
+  if (removed === 0) {
+    return { error: 'That post was already deleted — the list was out of date. Refresh to see what is there now.' }
+  }
+
+  revalidatePath('/blog')
+  if (slug) revalidatePath(`/blog/${slug}`)
+  revalidatePath('/admin/posts')
+  redirect('/admin/posts')
 }
 
 /** Publish / unpublish / archive from the list, without opening the editor. */

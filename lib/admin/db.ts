@@ -218,6 +218,29 @@ export async function updateRow(table: string, id: string, patch: Record<string,
   await sql(`update public.${table} set ${set} where id = $1`, [id, ...Object.values(patch)])
 }
 
+/** Delete one row by id. Returns how many rows went — 0 means it was already
+ *  gone, which the caller should report differently from success: "deleted"
+ *  and "there was nothing there" are not the same answer, and an admin who
+ *  sees the first when the second happened stops trusting the panel.
+ *
+ *  Always filtered by id. A PostgREST delete with no filter empties the
+ *  table, so the filter is not a nicety here. */
+export async function deleteRow(table: string, id: string): Promise<number> {
+  const mode = accessMode()
+  if (mode === 'none') throw new Error(accessDiagnostic())
+  if (!id) throw new Error('Refusing to delete without an id.')
+
+  if (mode === 'secret-key') {
+    const { data, error } = await client().from(table).delete().eq('id', id).select('id')
+    if (error) throw new Error(error.message)
+    return (data ?? []).length
+  }
+  const rows = await sql<{ id: string }>(
+    `delete from public.${table} where id = $1 returning id`, [id],
+  )
+  return rows.length
+}
+
 export async function insertRow(table: string, row: Record<string, unknown>) {
   const mode = accessMode()
   if (mode === 'none') throw new Error(accessDiagnostic())
