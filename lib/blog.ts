@@ -62,22 +62,71 @@ type PostRow = {
  *
  *   ## heading        → h2          - item        → ul (consecutive lines)
  *   ### heading       → h3          1. item       → ol (consecutive lines)
- *   anything else     → p
+ *   | a | b |         → table       anything else → p
+ *
+ * The table row is the one piece of syntax nobody would guess, and it earns
+ * its place: the repo articles carry slab tables and a three-way comparison,
+ * and any import that flattens a <tr> turns "Slab | Rate" into an unreadable
+ * run — which is exactly what a Word or PDF import would otherwise do. A row
+ * of dashes under the first row marks it as the header, the same convention
+ * Markdown uses, so an editor who has met one has met this.
  * ------------------------------------------------------------------------ */
+
+/** `| a | b |` → ['a', 'b']. Null when the line is not a table row at all. */
+function tableCells(line: string): string[] | null {
+  if (!line.startsWith('|') || !line.endsWith('|') || line.length < 3) return null
+  return line.slice(1, -1).split('|').map((c) => c.trim())
+}
+
+/** `| --- | --- |` — the row that promotes the one above it to a header. */
+function isDivider(cells: string[]): boolean {
+  return cells.length > 0 && cells.every((c) => /^:?-{2,}:?$/.test(c))
+}
+
 export function parseBody(body: string): ArticleBlock[] {
   const blocks: ArticleBlock[] = []
   let list: { kind: 'ul' | 'ol'; items: string[] } | null = null
+  let table: { rows: string[][]; headRows: number } | null = null
 
   const flush = () => {
     if (list) {
       blocks.push({ t: list.kind, items: list.items })
       list = null
     }
+    if (table) {
+      /* Ragged rows are normal in imported content — a merged cell in Word
+         produces one. Pad them, because the renderer draws a grid and a short
+         row would leave a hole in it. */
+      const width = Math.max(...table.rows.map((r) => r.length))
+      blocks.push({
+        t: 'table',
+        rows: table.rows.map((cells, i) => ({
+          head: i < table!.headRows,
+          cells: [...cells, ...Array(width - cells.length).fill('')],
+        })),
+      })
+      table = null
+    }
   }
 
   for (const raw of body.replace(/\r\n/g, '\n').split('\n')) {
     const line = raw.trim()
     if (!line) { flush(); continue }
+
+    const cells = tableCells(line)
+    if (cells) {
+      if (isDivider(cells)) {
+        /* A divider only means anything under a row we have already seen.
+           On its own it is a stray line, not a table. */
+        if (table && table.rows.length) table.headRows = table.rows.length
+        continue
+      }
+      if (list) flush()
+      table ??= { rows: [], headRows: 0 }
+      table.rows.push(cells)
+      continue
+    }
+    if (table) flush()
 
     const bullet = line.match(/^[-*]\s+(.*)$/)
     const numbered = line.match(/^\d+[.)]\s+(.*)$/)

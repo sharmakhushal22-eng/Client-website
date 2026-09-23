@@ -174,6 +174,24 @@ npm run admin:password              # generate a password, print it once
 npm run admin:password -- 'my pw'   # or hash one you chose
 ```
 
+#### Writing a post without typing it again
+
+The post editor takes a **document**: drop a `.docx`, `.pdf`, `.md`, `.txt`,
+`.html` or `.rtf` on it (4 MB, the Vercel request-body ceiling) and it fills in
+the title, excerpt and body. **Pasting** from Word, Google Docs or a web page
+keeps the same structure, because the clipboard's HTML is run through the same
+converter as the upload — `lib/import/markup.ts`, which is written DOM-free
+precisely so the browser and the server cannot disagree about a document.
+
+Headings, bullets, numbered lists and tables survive; images, fonts and colours
+do not, and the editor is told which of those applied. Nothing is saved: the
+import fills the form, and a human still presses the button. `.doc` and `.odt`
+are refused by name with the two-click fix, and a scanned PDF is told it is a
+scan rather than silently importing nothing.
+
+Text copied out of a PDF viewer breaks at every visual line. **Tidy up line
+breaks** re-joins it — on a selection if only part of it needs fixing.
+
 Auth is a scrypt password hash plus an HMAC-signed, httpOnly session cookie —
 no user table, no third-party auth. `proxy.ts` gates `/admin/*`, and every
 page *also* calls `requireAdmin()`, because a matcher typo must not be the only
