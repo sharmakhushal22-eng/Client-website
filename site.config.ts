@@ -10,9 +10,20 @@
 
 export const site = {
   name: 'EZER HRMS',
-  /* Handoff §1: intended domain is ezerhrms.com. Override with
-   * NEXT_PUBLIC_SITE_URL rather than editing code. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.ezerhrms.com',
+  /* The marketing site lives at besthrms.co (apex, no www) as of September
+   * 2026. The handoff named ezerhrms.com and the site launched there; that
+   * domain now 301s here, and www.besthrms.co 301s to the apex, so exactly
+   * one address is canonical and the other three funnel into it.
+   *
+   * This is only a FALLBACK. NEXT_PUBLIC_SITE_URL decides, because it has to
+   * differ per environment — and note it is inlined at build time, so
+   * changing it in Vercel requires a redeploy before any canonical, sitemap
+   * entry, robots Host line or og:url moves with it.
+   *
+   * The PRODUCT is unaffected and stays on app.ezerhrms.com. Two domains for
+   * two properties is the point (§8.1, "do not merge the two"), so nothing
+   * here should be read as the company leaving ezerhrms.com. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://besthrms.co',
 
   /* The product application — a separate codebase, deliberately on a separate
    * host. Handoff §1: "Do not merge the two."

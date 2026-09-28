@@ -138,6 +138,76 @@ useful error.
 Propagation is usually minutes, occasionally up to a few hours. Vercel issues
 the TLS certificates automatically once the records resolve.
 
+### 3.3 The move to besthrms.co — September 2026
+
+The marketing site moved to **`besthrms.co`**. Everything in §3.1 and §3.2
+above still describes how `ezerhrms.com` was set up and is kept because that
+domain is still attached — it now redirects rather than serves.
+
+**Canonical is the apex, `https://besthrms.co`.** Three hostnames funnel into
+it with a 301, so there is exactly one address search engines can index:
+
+```
+www.besthrms.co  ─301─┐
+ezerhrms.com     ─301─┼─→  https://besthrms.co
+www.ezerhrms.com ─301─┘
+```
+
+`app.ezerhrms.com` is **untouched**. That is the product, a different Vercel
+project, and §8.1 says the two properties stay apart. The move is the
+marketing site's alone.
+
+**Records to set at GoDaddy** — *besthrms.co* is registered there too
+(created 12 Sep 2026, nameservers `ns55/ns56.domaincontrol.com`). Keep DNS at
+GoDaddy for the reason in §3, and set:
+
+| Type | Name | Value | TTL |
+| --- | --- | --- | --- |
+| `A` | `@` | `216.150.1.1` | 600 |
+| `A` | `@` | `216.150.16.1` | 600 |
+| `CNAME` | `www` | `cname.vercel-dns.com` | 600 |
+
+⚠ **Two A records on the apex, and note the values are NOT `76.76.21.21`.**
+That is the address §3.2 used for `ezerhrms.com`; Vercel now hands out
+`216.150.1.1` / `216.150.16.1` for this project. Read the values off Vercel's
+own Domains screen — or `vercel domains verify besthrms.co` — rather than
+copying either table, for the reason already given in §3.2.
+
+**Measured starting state** (live DNS, 28 Sep 2026):
+
+| Record | Was | Action |
+| --- | --- | --- |
+| nameservers | `ns55/ns56.domaincontrol.com` | leave alone |
+| `@` (apex) | `A → 15.197.148.33`, `A → 3.33.130.190` | **replace** with the two Vercel A records |
+| `www` | `CNAME → besthrms.co` (GoDaddy default) | **edit** → `cname.vercel-dns.com` |
+| `MX` | none | nothing to preserve — mail is on `ezerhrms@gmail.com` |
+
+> Those two apex addresses are **GoDaddy's parking**, which is why the domain
+> already answered 200 with a for-sale-style page. Turn Forwarding off in
+> GoDaddy's domain settings as well as deleting the records: leaving it on
+> re-adds them, and forwarding answers before Vercel does, which breaks the
+> certificate check on the apex (§3.2 makes the same point about apex → www).
+
+**Cutover order. This part matters more than the records.**
+
+1. Add both hostnames to the Vercel project, `www` as a 301 to the apex.
+   *Done — neither serves anything until DNS moves, so this is free.*
+2. Fix DNS at GoDaddy. `besthrms.co` starts serving the site. For a short
+   while both domains serve it and the canonical still says
+   `www.ezerhrms.com`, which is correct: the old address is still the
+   published one.
+3. **Only once `https://besthrms.co` actually loads**, set
+   `NEXT_PUBLIC_SITE_URL=https://besthrms.co` in Vercel → Production and
+   **redeploy**. It is inlined at build time, so nothing moves without a new
+   build. This is the step that moves every canonical, `og:url`, the sitemap
+   and the robots `Host` line.
+4. Switch `ezerhrms.com` and `www.ezerhrms.com` to a 301 to `besthrms.co`.
+5. Re-submit the sitemap in Search Console and add `besthrms.co` as a
+   property, keeping the old one so the redirects can be seen being followed.
+
+Doing 3 before 2 points every canonical at a domain that does not resolve,
+which is the one way to turn a domain move into lost rankings.
+
 ## 4. Verify after the first deploy
 
 ```bash
