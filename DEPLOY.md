@@ -190,6 +190,13 @@ copying either table, for the reason already given in §3.2.
 
 **Cutover order. This part matters more than the records.**
 
+> **Done, 28 Sep 2026.** All five steps below were carried out and verified:
+> every route 200s on `besthrms.co`, all three old hostnames 301 with the path
+> preserved (`ezerhrms.com/pricing` → `besthrms.co/pricing`), canonicals,
+> `og:url`, all 21 sitemap entries and the robots `Host` line read
+> `besthrms.co`, HSTS and the rest of the header set are intact on the new
+> hostname, and `app.ezerhrms.com` still answers 200.
+
 1. Add both hostnames to the Vercel project, `www` as a 301 to the apex.
    *Done — neither serves anything until DNS moves, so this is free.*
 2. Fix DNS at GoDaddy. `besthrms.co` starts serving the site. For a short
@@ -207,6 +214,23 @@ copying either table, for the reason already given in §3.2.
 
 Doing 3 before 2 points every canonical at a domain that does not resolve,
 which is the one way to turn a domain move into lost rankings.
+
+**The TLS certificate did not issue itself.** Worth knowing, because it looks
+exactly like a broken DNS change and it is not. DNS propagated in under a
+minute, `vercel domains verify besthrms.co` reported
+`configured-correctly`, and the site served fine over **HTTP** — our own CSP
+header came back on port 80, so Vercel was plainly answering. But HTTPS
+refused the handshake (`SSL_ERROR_SYSCALL`) for six minutes with no
+certificate and no error anywhere. There were no CAA records to blame. The fix
+was to ask for it explicitly:
+
+```bash
+vercel certs issue besthrms.co www.besthrms.co
+```
+
+HTTPS was live within seconds of that. If a newly attached domain serves on
+port 80 but not 443, do not go back and re-check the DNS — issue the
+certificate.
 
 ## 4. Verify after the first deploy
 
