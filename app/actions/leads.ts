@@ -235,11 +235,35 @@ export async function submitLead(
   const supabase = getServiceClient()
   const elevated = hasElevatedAccess()
 
-  const { data: saved, error: insertError } = elevated
-    ? await supabase.from('website_leads').insert(lead).select('id').single()
-    : await supabase.from('website_leads').insert(lead).then(
-        (r) => ({ data: null as { id: string } | null, error: r.error }),
-      )
+  const save = (row: Record<string, unknown>) =>
+    elevated
+      ? supabase.from('website_leads').insert(row).select('id').single()
+      : supabase.from('website_leads').insert(row).then(
+          (r) => ({ data: null as { id: string } | null, error: r.error }),
+        )
+
+  let { data: saved, error: insertError } = await save(lead)
+
+  /* THE COLUMN MIGHT NOT BE THERE YET, and a lead must not die of it.
+   *
+   * source_site arrives with migration 008. Code and migrations deploy
+   * separately, so there is a window — in either direction, and on any
+   * environment where the migration has not been run — when this app sends a
+   * column the table does not have. Postgres answers 42703 and rejects the
+   * whole insert, which would mean every enquiry failing for the sake of a
+   * label. §5.4 puts the lead first: drop the label, keep the lead, and say
+   * so in the log so the missing migration is findable rather than silent. */
+  if (insertError && /42703|column .*source_site|does not exist/i.test(
+    `${insertError.code ?? ''} ${insertError.message}`,
+  )) {
+    console.error(
+      '[lead] website_leads.source_site does not exist — saving without it. ' +
+        'Apply migration 008 (npm run db:push) to record which website each lead came from.',
+    )
+    const withoutSite = { ...(lead as Record<string, unknown>) }
+    delete withoutSite.source_site
+    ;({ data: saved, error: insertError } = await save(withoutSite))
+  }
 
   if (insertError) {
     console.error('[lead] insert failed:', insertError.message, insertError.details)
