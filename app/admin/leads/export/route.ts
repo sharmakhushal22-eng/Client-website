@@ -23,7 +23,7 @@ export async function GET() {
     'timeline', 'modules_interest', 'message', 'status', 'owner',
     'next_action_date', 'first_contacted_at',
     'utm_source', 'utm_medium', 'utm_campaign', 'referrer', 'landing_page',
-    'form_name', 'consent', 'consent_at',
+    'source_site', 'form_name', 'consent', 'consent_at',
   ]
 
   /* RFC 4180: wrap every field and double any embedded quote. A lead's free

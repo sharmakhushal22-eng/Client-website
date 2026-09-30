@@ -22,7 +22,7 @@ const FIELD_GROUPS: { title: string; fields: [keyof Lead, string][] }[] = [
   ]},
   { title: 'Attribution', fields: [
     ['utm_source', 'Source'], ['utm_medium', 'Medium'], ['utm_campaign', 'Campaign'],
-    ['referrer', 'Referrer'], ['landing_page', 'Landing page'], ['form_name', 'Form'],
+    ['source_site', 'Website'], ['referrer', 'Referrer'], ['landing_page', 'Landing page'], ['form_name', 'Form'],
   ]},
   { title: 'Delivery', fields: [
     ['autoreply_sent_at', 'Auto-reply sent'], ['internal_notified_at', 'Sales notified'],

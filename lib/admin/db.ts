@@ -130,6 +130,8 @@ export type Lead = {
   referrer: string | null
   landing_page: string | null
   form_name: string
+  /* Absent until migration 008 is applied; treat that as ezerhrms.com. */
+  source_site?: string
   status: string
   owner: string | null
   next_action_date: string | null
@@ -138,6 +140,9 @@ export type Lead = {
   internal_notified_at: string | null
   is_spam: boolean
 }
+
+/* Websites that write to website_leads — the CHECK in migration 008. */
+export const LEAD_SITES = ['ezerhrms.com', 'besthrms.co'] as const
 
 export const LEAD_STATUSES = [
   'New', 'Contacted', 'Demo booked', 'Demo done', 'Proposal', 'Won', 'Lost',
