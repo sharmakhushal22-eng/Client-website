@@ -138,24 +138,22 @@ useful error.
 Propagation is usually minutes, occasionally up to a few hours. Vercel issues
 the TLS certificates automatically once the records resolve.
 
-### 3.3 The move to besthrms.co — September 2026
+### 3.3 The besthrms.co move — made, then reverted, September 2026
 
-The marketing site moved to **`besthrms.co`**. Everything in §3.1 and §3.2
-above still describes how `ezerhrms.com` was set up and is kept because that
-domain is still attached — it now redirects rather than serves.
+**The site is on `ezerhrms.com`. It was moved to `besthrms.co` on 28 Sep 2026
+and moved back on 30 Sep 2026.** §3.1 and §3.2 above describe the live setup;
+this section is kept for the two things that cost real time and would cost
+them again.
 
-**Canonical is the apex, `https://besthrms.co`.** Three hostnames funnel into
-it with a 301, so there is exactly one address search engines can index:
+**What the revert took, in case it is ever needed again:** clear the
+`redirect` on `ezerhrms.com` and `www.ezerhrms.com` (PATCH the project domain
+with `{"redirect": null}`), set `NEXT_PUBLIC_SITE_URL` back to
+`https://www.ezerhrms.com`, **redeploy**, then remove the new domain from the
+project. Taking the redirect off first means the old domain serves again
+immediately instead of pointing at a domain being dismantled.
 
-```
-www.besthrms.co  ─301─┐
-ezerhrms.com     ─301─┼─→  https://besthrms.co
-www.ezerhrms.com ─301─┘
-```
-
-`app.ezerhrms.com` is **untouched**. That is the product, a different Vercel
-project, and §8.1 says the two properties stay apart. The move is the
-marketing site's alone.
+`app.ezerhrms.com` was **untouched** throughout. That is the product, a
+different Vercel project, and §8.1 says the two properties stay apart.
 
 **Records to set at GoDaddy** — *besthrms.co* is registered there too
 (created 12 Sep 2026, nameservers `ns55/ns56.domaincontrol.com`). Keep DNS at
@@ -190,12 +188,8 @@ copying either table, for the reason already given in §3.2.
 
 **Cutover order. This part matters more than the records.**
 
-> **Done, 28 Sep 2026.** All five steps below were carried out and verified:
-> every route 200s on `besthrms.co`, all three old hostnames 301 with the path
-> preserved (`ezerhrms.com/pricing` → `besthrms.co/pricing`), canonicals,
-> `og:url`, all 21 sitemap entries and the robots `Host` line read
-> `besthrms.co`, HSTS and the rest of the header set are intact on the new
-> hostname, and `app.ezerhrms.com` still answers 200.
+**The cutover order below is the part to keep.** It is right for any domain
+move; only the destination changed its mind.
 
 1. Add both hostnames to the Vercel project, `www` as a 301 to the apex.
    *Done — neither serves anything until DNS moves, so this is free.*
