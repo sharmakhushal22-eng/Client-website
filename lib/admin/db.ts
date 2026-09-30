@@ -141,8 +141,11 @@ export type Lead = {
   is_spam: boolean
 }
 
-/* Websites that write to website_leads — the CHECK in migration 008. */
-export const LEAD_SITES = ['ezerhrms.com', 'besthrms.co'] as const
+/* Websites that write to website_leads — the CHECK in migration 008.
+   Declared in lib/lead-sites.ts and re-exported here so the admin panel keeps
+   importing it from one place, and so the public lead action can reach the
+   same list without pulling in this module's service-role client. */
+export { LEAD_SITES, DEFAULT_LEAD_SITE, type LeadSite } from '@/lib/lead-sites'
 
 export const LEAD_STATUSES = [
   'New', 'Contacted', 'Demo booked', 'Demo done', 'Proposal', 'Won', 'Lost',

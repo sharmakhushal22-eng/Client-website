@@ -25,6 +25,7 @@ import {
   CURRENTLY_USING,
   TIMELINES,
 } from '@/lib/validation'
+import { leadSiteFromHost } from '@/lib/lead-sites'
 
 /* ============================================================================
  * Lead submission — spec §5.4.
@@ -167,6 +168,10 @@ export async function submitLead(
   const attribution = attributionFromFormData(form)
   const h = await headers()
 
+  /* x-forwarded-host first: behind Vercel's proxy that is the host the
+     visitor actually typed, while `host` can be the internal one. */
+  const sourceSite = leadSiteFromHost(h.get('x-forwarded-host') ?? h.get('host'))
+
   const modulesInterest = form
     .getAll('modules_interest')
     .filter((v): v is string => typeof v === 'string')
@@ -189,6 +194,21 @@ export async function submitLead(
     consent_text: CONSENT_TEXT,
     ...attribution,
     form_name: formName,
+    /* WHICH WEBSITE THIS CAME FROM — read from the request, never from the
+     * form. A hidden field would be trivially editable, and "which site
+     * produced this lead" is a number the business acts on.
+     *
+     * Migration 008 defaults the column to ezerhrms.com, so this app was
+     * already labelling its own leads correctly by doing nothing. That only
+     * held while this app served one domain: it served besthrms.co for two
+     * days in September, and every lead from those days would have been
+     * stamped ezerhrms.com. The host is the fact; use it.
+     *
+     * Omitted rather than guessed when the host is neither site — previews
+     * and localhost — because the column has a CHECK constraint and a
+     * rejected insert is a LOST LEAD. The default then applies, which is the
+     * same answer the row would have had anyway. */
+    ...(sourceSite ? { source_site: sourceSite } : {}),
     ip_hash: ipHash,
     user_agent: (h.get('user-agent') ?? '').slice(0, 500),
   }
