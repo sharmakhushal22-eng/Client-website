@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { requireAdmin } from '@/lib/admin/auth'
-import { accessMode, listRows, LEAD_SITES, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
+import { accessMode, leadSite, listRows, LEAD_SITES, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
 import { AccessError, Panel, Th, Td, StatusChip, When, EmptyState } from '@/components/admin/Table'
 
 export const dynamic = 'force-dynamic'
@@ -137,7 +137,7 @@ export default async function LeadsPage({
                   <Td>{l.designation ?? '—'}</Td>
                   <Td>{[l.city, l.state].filter(Boolean).join(', ') || '—'}</Td>
                   <Td>
-                    <SiteChip site={l.source_site ?? 'ezerhrms.com'} />
+                    <SiteChip site={leadSite(l)} />
                   </Td>
                   <Td>
                     <span className="block text-xs">{l.utm_source ?? 'direct'}</span>

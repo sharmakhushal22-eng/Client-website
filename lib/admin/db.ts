@@ -147,6 +147,15 @@ export type Lead = {
    same list without pulling in this module's service-role client. */
 export { LEAD_SITES, DEFAULT_LEAD_SITE, type LeadSite } from '@/lib/lead-sites'
 
+/** Which website a lead came from. Reads source_site; for rows written before
+ *  migration 008 added that column, falls back to the form name, since
+ *  besthrms.co's only form is 'besthrms-demo'. Never defaults blindly to
+ *  ezerhrms.com — that would mislabel every besthrms.co lead. */
+export function leadSite(l: Pick<Lead, 'source_site' | 'form_name'>): string {
+  if (l.source_site) return l.source_site
+  return l.form_name.startsWith('besthrms') ? 'besthrms.co' : 'ezerhrms.com'
+}
+
 export const LEAD_STATUSES = [
   'New', 'Contacted', 'Demo booked', 'Demo done', 'Proposal', 'Won', 'Lost',
 ] as const

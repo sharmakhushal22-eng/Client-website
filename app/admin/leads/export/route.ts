@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { currentAdmin } from '@/lib/admin/auth'
-import { listRows, type Lead } from '@/lib/admin/db'
+import { leadSite, listRows, type Lead } from '@/lib/admin/db'
 
 /* CSV export — spec §7. A route handler rather than a page so the browser
  * gets a real file download with the right headers. */
@@ -37,7 +37,7 @@ export async function GET() {
 
   const csv = [
     columns.join(','),
-    ...leads.map((l) => columns.map((c) => esc(l[c])).join(',')),
+    ...leads.map((l) => columns.map((c) => esc(c === 'source_site' ? leadSite(l) : l[c])).join(',')),
   ].join('\r\n')
 
   const stamp = new Date().toISOString().slice(0, 10)

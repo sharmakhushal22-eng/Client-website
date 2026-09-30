@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { requireAdmin } from '@/lib/admin/auth'
-import { accessMode, getRow, listRows, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
+import { accessMode, getRow, leadSite, listRows, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
 import { AccessError, Panel, StatusChip, When } from '@/components/admin/Table'
 import { Icon } from '@/components/ui/Icon'
 import { setLeadStatus, setLeadOwner, addLeadNote } from '../../actions'
@@ -55,6 +55,7 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
   if (!lead) notFound()
 
   const value = (k: keyof Lead) => {
+    if (k === 'source_site') return leadSite(lead!)
     const v = lead![k]
     if (v === null || v === undefined || v === '') return null
     if (Array.isArray(v)) return v.length ? v.join(', ') : null
