@@ -182,7 +182,7 @@ export async function listRows<T>(table: string, opts: ListOpts = {}): Promise<T
       if (isNotNull.length > 0) return [] as T[]   // a bin that cannot exist is empty
       ;({ data, error } = await run([], []))
     }
-    if (error) throw new Error(`${error.code ?? ''} ${error.message}`.trim())
+    if (error) throw new Error(describe(error))
     return (data ?? []) as T[]
   }
 
@@ -197,11 +197,34 @@ export async function listRows<T>(table: string, opts: ListOpts = {}): Promise<T
 }
 
 /** True when an error is Postgres complaining about one of these columns not
- *  existing — 42703 — rather than anything we should be hiding. */
+ *  existing — 42703 — rather than anything we should be hiding.
+ *
+ *  NOT usable on a `head: true` request. A HEAD response carries no body, so
+ *  supabase-js has nothing to parse and hands back `{ message: '' }` with no
+ *  code — the column name never reaches us. countRows therefore does not ask
+ *  this question; see the comment there. */
 function missingColumn(error: { code?: string; message: string }, columns: string[]): boolean {
   if (columns.length === 0) return false
   const text = `${error.code ?? ''} ${error.message}`
   return /42703|does not exist/i.test(text) && columns.some((c) => text.includes(c))
+}
+
+/** A message that is never empty.
+ *
+ *  `throw new Error(error.message)` on a HEAD failure throws an Error whose
+ *  message is ''. Every caller then does
+ *  `catch (e) { error = e.message }` … `if (error) return <AccessError/>` —
+ *  and an empty string is FALSY, so the page skips its own error screen and
+ *  renders as though the query had simply found nothing. That is how an inbox
+ *  full of leads displays "No enquiries yet". An error that cannot be seen is
+ *  worse than one that is ugly. */
+function describe(error: { code?: string; message?: string; details?: string | null }): string {
+  const text = [error.code, error.message, error.details].filter(Boolean).join(' ').trim()
+  return (
+    text ||
+    'The database rejected the query and gave no reason. This is usually a column ' +
+      'in a filter that does not exist — check that the migrations have been applied.'
+  )
 }
 
 export async function getRow<T>(table: string, id: string): Promise<T | null> {
@@ -210,7 +233,7 @@ export async function getRow<T>(table: string, id: string): Promise<T | null> {
 
   if (mode === 'secret-key') {
     const { data, error } = await client().from(table).select('*').eq('id', id).maybeSingle()
-    if (error) throw new Error(error.message)
+    if (error) throw new Error(describe(error))
     return (data ?? null) as T | null
   }
   const rows = await sql<T>(`select * from public.${table} where id = $1`, [id])
@@ -235,11 +258,19 @@ export async function countRows(
       return q
     }
     let { count, error } = await run(isNull, isNotNull)
-    if (error && missingColumn(error, [...isNull, ...isNotNull])) {
+
+    /* `head: true` means the error arrives with an empty message — see
+       describe() — so there is no way to tell "that column does not exist"
+       from anything else. When a null filter was applied, assume it was the
+       filter and try again without it: the retry is strictly broader, so a
+       genuine failure still surfaces from it, and a count that is merely too
+       high is recoverable where a lead list that silently reads as empty is
+       not. */
+    if (error && (isNull.length > 0 || isNotNull.length > 0)) {
       if (isNotNull.length > 0) return 0
       ;({ count, error } = await run([], []))
     }
-    if (error) throw new Error(error.message)
+    if (error) throw new Error(describe(error))
     return count ?? 0
   }
   const clauses = Object.keys(filters).map((c, i) => `${c} = $${i + 1}`)
