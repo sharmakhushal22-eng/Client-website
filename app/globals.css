@@ -1803,3 +1803,55 @@ html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card:focus-w
     transition: none;
   }
 }
+
+/* ── Delete bin ─────────────────────────────────────────────────────────────
+ *
+ * The lid lifts when the cursor — or the keyboard — reaches the button, and
+ * the can gives a short shake while a delete is actually in flight. The two
+ * states say different things: "this is the destructive one" before the
+ * click, and "it is happening" after it.
+ *
+ * transform-box: view-box is the part that is easy to miss. Without it the
+ * lid's transform-origin resolves against the element's own tight bounding
+ * box rather than the 24×24 viewBox, and the lid hinges from roughly its own
+ * middle — it shears instead of opening.
+ * ------------------------------------------------------------------------ */
+.ez-bin {
+  transition: transform 0.18s ease;
+}
+.ez-bin-lid {
+  transform-box: view-box;
+  transform-origin: 19.4px 5.2px;
+  /* Overshoots slightly on the way up, which is what makes it read as a lid
+     being flipped rather than a shape being rotated. */
+  transition: transform 0.24s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.group:hover .ez-bin-lid,
+.group:focus-visible .ez-bin-lid {
+  transform: rotate(-22deg) translate(-0.4px, -0.6px);
+}
+.group:hover .ez-bin {
+  transform: translateY(-1px) scale(1.08);
+}
+.group:active .ez-bin {
+  transform: translateY(0) scale(0.94);
+}
+
+.ez-bin-working {
+  transform-box: view-box;
+  transform-origin: 12px 14px;
+  animation: ez-bin-shake 0.55s ease-in-out infinite;
+}
+@keyframes ez-bin-shake {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-9deg); }
+  75%      { transform: rotate(9deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-bin, .ez-bin-lid { transition: none; }
+  .group:hover .ez-bin, .group:active .ez-bin { transform: none; }
+  /* The lid still OPENS, it just does not travel — the hover cue survives
+     for anyone who asked only for less movement, not none. */
+  .ez-bin-working { animation: none; }
+}

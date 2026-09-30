@@ -1,10 +1,11 @@
 'use client'
 
-import { useActionState, useEffect, useRef, useState } from 'react'
+import { Fragment, useActionState, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Th, Td, StatusChip, When } from '@/components/admin/Table'
 import { deleteLeads, type DeleteLeadsState } from '@/app/admin/leads/actions'
 import { DEFAULT_LEAD_SITE, leadSite } from '@/lib/lead-sites'
+import { BinButton } from '@/components/admin/BinButton'
 
 /* ============================================================================
  * The lead inbox table: selection, bulk delete, and a delete on every row.
@@ -105,13 +106,13 @@ export function LeadTable({ leads }: { leads: LeadRow[] }) {
               <span className="text-sm font-semibold">
                 {selected.size} of {leads.length} on this page selected
               </span>
-              <button
-                type="button"
+              <BinButton
+                variant="solid"
+                label={`Delete ${selected.size} selected ${selected.size === 1 ? 'lead' : 'leads'}`}
                 onClick={() => setArmedBulk(true)}
-                className="rounded-lg bg-red-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-red-700"
               >
                 Delete {selected.size}
-              </button>
+              </BinButton>
               <button
                 type="button"
                 onClick={() => setSelected(new Set())}
@@ -137,13 +138,14 @@ export function LeadTable({ leads }: { leads: LeadRow[] }) {
                 {selectedLeads.length > 4 && ` and ${selectedLeads.length - 4} more`}
               </p>
               <div className="flex flex-wrap items-center gap-2">
-                <button
+                <BinButton
                   type="submit"
-                  disabled={pending}
-                  className="rounded-lg bg-red-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-red-700 disabled:opacity-60"
+                  variant="solid"
+                  working={pending}
+                  label={`Confirm deleting ${selectedLeads.length}`}
                 >
                   {pending ? 'Deleting…' : `Yes, delete ${selectedLeads.length} permanently`}
-                </button>
+                </BinButton>
                 <button
                   type="button"
                   onClick={() => setArmedBulk(false)}
@@ -188,8 +190,8 @@ export function LeadTable({ leads }: { leads: LeadRow[] }) {
           {leads.map((l) => {
             const isSelected = selected.has(l.id)
             return (
+              <Fragment key={l.id}>
               <tr
-                key={l.id}
                 className={`transition-colors ${isSelected ? 'bg-brand-50' : 'hover:bg-brand-50/50'}`}
               >
                 <Td>
@@ -232,48 +234,56 @@ export function LeadTable({ leads }: { leads: LeadRow[] }) {
                 <Td>{l.owner ?? <span className="text-ink-300">unassigned</span>}</Td>
                 <Td><When value={l.created_at} /></Td>
                 <Td>
-                  {armedRow === l.id ? (
+                  <BinButton
+                    label={`Delete ${l.company_name}`}
+                    onClick={() => setArmedRow(armedRow === l.id ? null : l.id)}
+                  />
+                </Td>
+              </tr>
+
+              {/* The confirmation spans the whole row rather than living in
+                  the last cell. In an 80rem table that cell is off the right
+                  edge, so the question the operator has to answer would need
+                  scrolling to read — which is not a question, it is a trap. */}
+              {armedRow === l.id && (
+                <tr className="bg-red-50">
+                  <td colSpan={12} className="px-4 py-3">
                     <form
                       action={action}
                       onKeyDown={(e) => { if (e.key === 'Escape') setArmedRow(null) }}
-                      className="min-w-[13rem] rounded-lg bg-red-50 px-3 py-2 ring-1 ring-red-200"
+                      className="flex flex-wrap items-center gap-x-4 gap-y-2"
                     >
                       <input type="hidden" name="id" value={l.id} />
                       <input type="hidden" name="expected" value={1} />
-                      <p className="text-xs leading-relaxed text-red-900">
+                      <p className="text-sm leading-relaxed text-red-900">
                         Delete <span className="font-bold">{l.company_name}</span>? Its notes and
-                        history go too. <span className="font-semibold">Cannot be undone.</span>
+                        status history go too.{' '}
+                        <span className="font-semibold">This cannot be undone.</span>
                       </p>
-                      <div className="mt-2 flex items-center gap-2">
-                        <button
+                      <div className="flex items-center gap-2">
+                        <BinButton
                           type="submit"
-                          disabled={pending}
+                          variant="solid"
+                          working={pending}
                           autoFocus
-                          className="rounded-lg bg-red-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-red-800 disabled:opacity-60"
+                          label={`Confirm deleting ${l.company_name}`}
                         >
                           {pending ? 'Deleting…' : 'Delete'}
-                        </button>
+                        </BinButton>
                         <button
                           type="button"
                           onClick={() => setArmedRow(null)}
                           disabled={pending}
-                          className="px-1.5 py-1.5 text-xs font-semibold text-ink-700 hover:text-ink-900"
+                          className="px-2 py-1.5 text-xs font-semibold text-ink-700 hover:text-ink-900"
                         >
                           Cancel
                         </button>
                       </div>
                     </form>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setArmedRow(l.id)}
-                      className="text-xs font-semibold text-ink-400 hover:text-red-700"
-                    >
-                      Delete
-                    </button>
-                  )}
-                </Td>
-              </tr>
+                  </td>
+                </tr>
+              )}
+              </Fragment>
             )
           })}
         </tbody>
