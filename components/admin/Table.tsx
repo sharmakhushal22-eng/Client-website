@@ -1,5 +1,5 @@
 import { Icon } from '@/components/ui/Icon'
-import { accessDiagnostic } from '@/lib/admin/db'
+import { accessDiagnostic } from '@/lib/admin/diagnostic'
 
 /** Shown when a page cannot read the database at all. An admin panel that
  *  quietly renders an empty table in this situation is actively misleading —

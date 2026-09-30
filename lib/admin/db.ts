@@ -31,25 +31,8 @@ export function accessMode(): AccessMode {
   return 'none'
 }
 
-export function accessDiagnostic(): string {
-  /* On Vercel there is no .env.local, so naming it is actively misleading —
-   * this message is read far more often in production than on a laptop. */
-  const where = process.env.VERCEL
-    ? 'Add ONE of these in Vercel → Settings → Environment Variables\n' +
-      '(Production), then redeploy:'
-    : 'Add ONE of these to .env.local, then restart the dev server:'
-  return (
-    'The admin panel cannot read the database.\n\n' +
-    where + '\n\n' +
-    '  SUPABASE_SERVICE_ROLE_KEY=sb_secret_…\n' +
-    '    Supabase dashboard → Project Settings → API keys → secret key.\n' +
-    '    This is the recommended route: HTTPS over IPv4, works on Vercel.\n\n' +
-    '  DATABASE_URL=postgresql://…\n' +
-    '    Project Settings → Database → Connection string. Use the SESSION\n' +
-    '    POOLER URI — the direct db.<ref>.supabase.co host is IPv6-only and\n' +
-    '    will not resolve on an IPv4-only network.'
-  )
-}
+export { accessDiagnostic } from '@/lib/admin/diagnostic'
+import { accessDiagnostic } from '@/lib/admin/diagnostic'
 
 let sb: SupabaseClient | null = null
 function client(): SupabaseClient {
@@ -145,16 +128,7 @@ export type Lead = {
    Declared in lib/lead-sites.ts and re-exported here so the admin panel keeps
    importing it from one place, and so the public lead action can reach the
    same list without pulling in this module's service-role client. */
-export { LEAD_SITES, DEFAULT_LEAD_SITE, type LeadSite } from '@/lib/lead-sites'
-
-/** Which website a lead came from. Reads source_site; for rows written before
- *  migration 008 added that column, falls back to the form name, since
- *  besthrms.co's only form is 'besthrms-demo'. Never defaults blindly to
- *  ezerhrms.com — that would mislabel every besthrms.co lead. */
-export function leadSite(l: Pick<Lead, 'source_site' | 'form_name'>): string {
-  if (l.source_site) return l.source_site
-  return l.form_name.startsWith('besthrms') ? 'besthrms.co' : 'ezerhrms.com'
-}
+export { LEAD_SITES, DEFAULT_LEAD_SITE, leadSite, type LeadSite } from '@/lib/lead-sites'
 
 export const LEAD_STATUSES = [
   'New', 'Contacted', 'Demo booked', 'Demo done', 'Proposal', 'Won', 'Lost',
@@ -256,6 +230,44 @@ export async function deleteRow(table: string, id: string): Promise<number> {
     `delete from public.${table} where id = $1 returning id`, [id],
   )
   return rows.length
+}
+
+/** Delete many rows by id. Returns how many actually went.
+ *
+ *  Chunked, and that is not premature: the lead inbox loads up to 500 rows and
+ *  "select all" means all of them. PostgREST puts `id=in.(…)` in the QUERY
+ *  STRING, so 500 uuids is roughly 18 KB of URL and the request comes back
+ *  414 — which would read to the operator as "delete is broken" only on the
+ *  large selections, the ones where it matters most.
+ *
+ *  An empty list deletes nothing and says so, rather than falling through to
+ *  a filterless delete that would empty the table. */
+export async function deleteRows(table: string, ids: string[]): Promise<number> {
+  const mode = accessMode()
+  if (mode === 'none') throw new Error(accessDiagnostic())
+
+  const unique = [...new Set(ids.filter((id) => typeof id === 'string' && id.length > 0))]
+  if (unique.length === 0) return 0
+
+  const CHUNK = 100
+  let removed = 0
+
+  for (let i = 0; i < unique.length; i += CHUNK) {
+    const batch = unique.slice(i, i + CHUNK)
+
+    if (mode === 'secret-key') {
+      const { data, error } = await client().from(table).delete().in('id', batch).select('id')
+      if (error) throw new Error(error.message)
+      removed += (data ?? []).length
+      continue
+    }
+    const rows = await sql<{ id: string }>(
+      `delete from public.${table} where id = any($1::uuid[]) returning id`,
+      [batch],
+    )
+    removed += rows.length
+  }
+  return removed
 }
 
 export async function insertRow(table: string, row: Record<string, unknown>) {

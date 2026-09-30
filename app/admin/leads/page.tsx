@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { requireAdmin } from '@/lib/admin/auth'
-import { accessMode, leadSite, listRows, LEAD_SITES, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
-import { AccessError, Panel, Th, Td, StatusChip, When, EmptyState } from '@/components/admin/Table'
+import { accessMode, listRows, LEAD_SITES, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
+import { AccessError, Panel, EmptyState } from '@/components/admin/Table'
+import { LeadTable } from '@/components/admin/LeadTable'
 
 export const dynamic = 'force-dynamic'
 export const metadata = { title: 'Leads' }
@@ -96,77 +97,10 @@ export default async function LeadsPage({
             hint="Submissions from /contact and /book-a-demo appear here within seconds."
           />
         ) : (
-          <table className="w-full min-w-[74rem] border-collapse">
-            <thead>
-              <tr>
-                <Th>Company</Th>
-                <Th>Contact</Th>
-                <Th>Headcount</Th>
-                <Th>Role</Th>
-                <Th>Location</Th>
-                <Th>Website</Th>
-                <Th>Source</Th>
-                <Th>Status</Th>
-                <Th>Owner</Th>
-                <Th>Received</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {leads.map((l) => (
-                <tr key={l.id} className="transition-colors hover:bg-brand-50/50">
-                  <Td>
-                    <Link href={`/admin/leads/${l.id}`} className="font-semibold text-brand-700 hover:underline">
-                      {l.company_name}
-                    </Link>
-                    {l.is_spam && (
-                      <span className="ml-2 rounded bg-ink-200 px-1.5 py-0.5 text-[0.65rem] font-bold text-ink-600">
-                        SPAM
-                      </span>
-                    )}
-                  </Td>
-                  <Td>
-                    <span className="block">{l.full_name ?? '—'}</span>
-                    <a href={`mailto:${l.work_email}`} className="block text-xs text-brand-700 hover:underline">
-                      {l.work_email}
-                    </a>
-                    <a href={`tel:+91${l.phone}`} className="block text-xs text-ink-400 hover:text-brand-700">
-                      +91 {l.phone}
-                    </a>
-                  </Td>
-                  <Td className="font-medium">{l.employee_band ?? '—'}</Td>
-                  <Td>{l.designation ?? '—'}</Td>
-                  <Td>{[l.city, l.state].filter(Boolean).join(', ') || '—'}</Td>
-                  <Td>
-                    <SiteChip site={leadSite(l)} />
-                  </Td>
-                  <Td>
-                    <span className="block text-xs">{l.utm_source ?? 'direct'}</span>
-                    <span className="block text-xs text-ink-400">{l.form_name}</span>
-                  </Td>
-                  <Td><StatusChip status={l.status} /></Td>
-                  <Td>{l.owner ?? <span className="text-ink-300">unassigned</span>}</Td>
-                  <Td><When value={l.created_at} /></Td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <LeadTable leads={leads} />
         )}
       </Panel>
     </div>
   )
 }
 
-/* besthrms.co gets the accent so the less common source stands out in a
- * list that is mostly ezerhrms.com. */
-function SiteChip({ site }: { site: string }) {
-  const other = site !== 'ezerhrms.com'
-  return (
-    <span
-      className={`inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${
-        other ? 'bg-brand-50 text-brand-700 ring-brand-200' : 'bg-surface text-ink-600 ring-ink-200'
-      }`}
-    >
-      {site}
-    </span>
-  )
-}

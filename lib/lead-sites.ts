@@ -42,3 +42,18 @@ export function leadSiteFromHost(host: string | null | undefined): LeadSite | nu
 
   return (LEAD_SITES as readonly string[]).includes(bare) ? (bare as LeadSite) : null
 }
+
+/** Which website a lead came from, for display.
+ *
+ *  Reads source_site; for rows written before migration 008 added that
+ *  column, falls back to the form name, since besthrms.co's only form is
+ *  'besthrms-demo'. Never defaults blindly to ezerhrms.com — that would
+ *  mislabel every besthrms.co lead written before the column existed.
+ *
+ *  Lives here rather than in lib/admin/db.ts because the lead TABLE is a
+ *  client component: a helper behind `import 'server-only'` cannot be called
+ *  from the browser, and the alternative is a second copy of this rule. */
+export function leadSite(lead: { source_site?: string | null; form_name: string }): string {
+  if (lead.source_site) return lead.source_site
+  return lead.form_name.startsWith('besthrms') ? 'besthrms.co' : DEFAULT_LEAD_SITE
+}
