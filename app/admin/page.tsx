@@ -16,14 +16,16 @@ export default async function AdminOverview() {
   let error: string | null = null
 
   try {
-    recent = await listRows<Lead>('website_leads', { limit: 8 })
+    recent = await listRows<Lead>('website_leads', { limit: 8, isNull: ['deleted_at'] })
     totals = {
-      leads: await countRows('website_leads'),
+      leads: await countRows('website_leads', {}, { isNull: ['deleted_at'] }),
       bookings: await countRows('demo_bookings'),
       subs: await countRows('newsletter_subscribers'),
       downloads: await countRows('asset_downloads'),
     }
-    for (const s of LEAD_STATUSES) counts[s] = await countRows('website_leads', { status: s })
+    for (const s of LEAD_STATUSES) {
+      counts[s] = await countRows('website_leads', { status: s }, { isNull: ['deleted_at'] })
+    }
   } catch (e) {
     error = e instanceof Error ? e.message : String(e)
   }

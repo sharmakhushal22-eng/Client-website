@@ -67,9 +67,29 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
 
   return (
     <div className="space-y-6">
-      <Link href="/admin/leads" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
-        <span aria-hidden="true">←</span> All leads
+      <Link
+        href={lead.deleted_at ? '/admin/leads/bin' : '/admin/leads'}
+        className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline"
+      >
+        <span aria-hidden="true">←</span> {lead.deleted_at ? 'Recycle bin' : 'All leads'}
       </Link>
+
+      {/* A retired lead must not read as a live one. Someone arriving from a
+          bookmark or an old link would otherwise start working an enquiry
+          that is no longer in anyone's inbox. */}
+      {lead.deleted_at && (
+        <div className="rounded-xl bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-200">
+          <span className="font-semibold">This lead is in the recycle bin.</span> It was moved
+          there{lead.deleted_by ? ` by ${lead.deleted_by}` : ''} on{' '}
+          {new Date(lead.deleted_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}, so it
+          does not appear in the inbox, the dashboard counts or the CSV export. Nothing has been
+          deleted —{' '}
+          <Link href="/admin/leads/bin" className="font-semibold underline">
+            restore it from the recycle bin
+          </Link>{' '}
+          to put it back.
+        </div>
+      )}
 
       {/* Header: who they are and how to reach them, first. */}
       <div className="rounded-2xl bg-surface p-6 ring-1 ring-ink-200 sm:p-8">

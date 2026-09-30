@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { requireAdmin } from '@/lib/admin/auth'
-import { accessMode, listRows, LEAD_SITES, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
+import { accessMode, countRows, listRows, LEAD_SITES, LEAD_STATUSES, type Lead } from '@/lib/admin/db'
 import { AccessError, Panel, EmptyState } from '@/components/admin/Table'
 import { LeadTable } from '@/components/admin/LeadTable'
 
@@ -33,10 +33,13 @@ export default async function LeadsPage({
     }`
 
   let leads: Lead[] = []
+  let binned = 0
   let error: string | null = null
   try {
+    binned = await countRows('website_leads', {}, { isNotNull: ['deleted_at'] })
     leads = await listRows<Lead>('website_leads', {
       limit: 500,
+      isNull: ['deleted_at'],
       filters: {
         ...(valid ? { status: status! } : {}),
         ...(validSite ? { source_site: site! } : {}),
@@ -58,13 +61,26 @@ export default async function LeadsPage({
             {validSite && ` Website: ${site}.`}
           </p>
         </div>
-        <Link
-          href="/admin/leads/export"
-          prefetch={false}
-          className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-on-accent hover:bg-brand-700"
-        >
-          Export CSV
-        </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/admin/leads/bin"
+            className="rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-ink-700 ring-1 ring-ink-200 hover:ring-brand-300"
+          >
+            Recycle bin
+            {binned > 0 && (
+              <span className="ml-2 rounded-full bg-ink-900 px-2 py-0.5 text-xs font-bold text-white">
+                {binned}
+              </span>
+            )}
+          </Link>
+          <Link
+            href="/admin/leads/export"
+            prefetch={false}
+            className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-on-accent hover:bg-brand-700"
+          >
+            Export CSV
+          </Link>
+        </div>
       </div>
 
       {/* Status filter — §7 pipeline */}

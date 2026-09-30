@@ -12,7 +12,10 @@ export async function GET() {
 
   let leads: Lead[]
   try {
-    leads = await listRows<Lead>('website_leads', { limit: 5000 })
+    /* The bin is not part of the export: a CSV that quietly includes
+       retired leads would put them back into circulation in a spreadsheet,
+       which is the one place nobody can retire them again. */
+    leads = await listRows<Lead>('website_leads', { limit: 5000, isNull: ['deleted_at'] })
   } catch (e) {
     return new NextResponse(e instanceof Error ? e.message : 'Export failed', { status: 500 })
   }
