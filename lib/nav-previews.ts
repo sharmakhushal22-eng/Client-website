@@ -1,4 +1,3 @@
-import { articles } from '@/content/articles'
 import { policyCategories, policyCount, operatedCount } from '@/content/policy-handbook'
 import { visionGoal } from '@/content/positioning'
 import { contact, ezerPillars } from '@/site.config'
@@ -41,15 +40,6 @@ export function companyPreviews(): Record<string, NavPreview> {
       blurb: visionGoal.why.support,
       bullets: ezerPillars.map((p) => p.title),
       cta: 'Read about us',
-    },
-    '/blog': {
-      eyebrow: 'Compliance explainers',
-      title: `${articles.length} articles for Indian HR teams`,
-      blurb:
-        'What actually changed, what it costs you, and what to tell employees — ' +
-        'written for the person who has to run the payroll.',
-      bullets: articles.map((a) => a.title),
-      cta: 'Read the blog',
     },
     '/resources/policy-handbook': {
       eyebrow: 'Free resource',

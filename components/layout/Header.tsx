@@ -115,12 +115,6 @@ const companyLinks: MenuLink[] = [
     icon: "briefcase",
   },
   {
-    href: "/blog",
-    label: "Blog",
-    desc: "Labour codes, PF/ESIC/PT and the tax regimes",
-    icon: "file",
-  },
-  {
     href: "/resources/policy-handbook",
     label: "Policy handbook",
     /* Filled from the real count by the server — see navPolicyCount. */
@@ -148,14 +142,20 @@ const NAV: NavItem[] = [
   { kind: "link", href: "/compliance", label: "Compliance" },
   { kind: "link", href: "/industries", label: "Industries" },
   { kind: "link", href: "/pricing", label: "Pricing" },
+  /* Top level rather than inside Company. The articles are the one thing on
+     this site a stranger arrives at from a search rather than from the home
+     page, and a destination people land on first should not be two hovers
+     deep inside a menu about the company. */
+  { kind: "link", href: "/blog", label: "Blog" },
   {
     kind: "menu",
     id: "company",
     label: "Company",
     match: "/about",
-    /* /blog and /resources live under this menu but do not share the /about
-       prefix, so the active state needs them named. */
-    alsoMatch: ["/blog", "/resources"],
+    /* /resources lives under this menu but does not share the /about prefix,
+       so the active state needs it named. /blog used to be here too and is
+       now its own top-level item, which lights itself. */
+    alsoMatch: ["/resources"],
     items: companyLinks,
   },
 ];
@@ -529,20 +529,25 @@ export function Header({
                              
                              The width steps, because what fits is whatever
                              is left between that edge and the viewport.
-                             Company sits 676px into a 75rem container, so the
-                             room to its right is decided by the viewport
-                             alone — measured, with a 16px gutter: 34.3rem at
-                             1280, 39.3rem at 1440, 42.3rem at 1536. Each
+                             Company sits 737px into a 75rem container, so
+                             the room to its right is decided by the viewport
+                             alone — measured, with a 16px gutter: 30.5rem at
+                             1280, 35.5rem at 1440, 38.5rem at 1536. Each
                              width here is the largest that clears its own
                              breakpoint, so the panel never hangs off the
                              right edge.
+
+                             RE-MEASURE IF THE NAV CHANGES. Promoting Blog to
+                             a top-level item pushed Company 61px right and
+                             took 3.8rem off every number above; the widths
+                             that fitted before it overflowed after.
 
                              Two steps, not three: a min-[1400px] step would
                              suit 1440 laptops better, but that arbitrary
                              variant generated no media query here, and a
                              class that silently does nothing is worse than
                              a panel that is 64px narrower than it could be. */
-                          ? "left-0 w-[20rem] xl:w-[34rem] 2xl:w-[42rem]"
+                          ? "left-0 w-[20rem] xl:w-[30rem] 2xl:w-[38rem]"
                           : item.id === "product"
                             /* Left-anchored at xl, not centred: the preview
                                pane takes this to 46rem, and a panel that
