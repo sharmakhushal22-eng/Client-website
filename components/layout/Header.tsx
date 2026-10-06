@@ -523,11 +523,26 @@ export function Header({
                         /* Company sits at the right end of the bar, so a
                            centred panel would overflow the viewport. */
                         item.id === "company"
-                          /* Right-anchored: Company sits at the right end of
-                             the bar, so a centred panel would overflow. The
-                             preview pane takes it to 44rem at xl, which is
-                             still clear of the left edge. */
-                          ? "right-0 w-[20rem] xl:w-[44rem]"
+                          /* Opens FROM the Company item and runs rightwards:
+                             left-0 on the relatively-positioned wrapper puts
+                             the panel's left edge on the button's.
+                             
+                             The width steps, because what fits is whatever
+                             is left between that edge and the viewport.
+                             Company sits 676px into a 75rem container, so the
+                             room to its right is decided by the viewport
+                             alone — measured, with a 16px gutter: 34.3rem at
+                             1280, 39.3rem at 1440, 42.3rem at 1536. Each
+                             width here is the largest that clears its own
+                             breakpoint, so the panel never hangs off the
+                             right edge.
+
+                             Two steps, not three: a min-[1400px] step would
+                             suit 1440 laptops better, but that arbitrary
+                             variant generated no media query here, and a
+                             class that silently does nothing is worse than
+                             a panel that is 64px narrower than it could be. */
+                          ? "left-0 w-[20rem] xl:w-[34rem] 2xl:w-[42rem]"
                           : item.id === "product"
                             /* Left-anchored at xl, not centred: the preview
                                pane takes this to 46rem, and a panel that
