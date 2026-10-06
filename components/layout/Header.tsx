@@ -9,7 +9,10 @@ import { Container } from "@/components/ui/Container";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { getFeaturePage } from '@/content/features';
 import { moduleGroups } from "@/content/modules";
-import { contact } from "@/site.config";
+import { articles } from "@/content/articles";
+import { policyCategories, policyCount, operatedCount } from "@/content/policy-handbook";
+import { visionGoal } from "@/content/positioning";
+import { contact, ezerPillars } from "@/site.config";
 import { cn } from "@/lib/cn";
 
 /* ============================================================================
@@ -57,6 +60,22 @@ type MenuLink = {
   label: string;
   desc?: string;
   icon?: IconName;
+  /* What the preview pane shows when this row is pointed at.
+   *
+   * Product builds its pane from the feature pages themselves, so it needs no
+   * copy here. Company has no equivalent source — /about, /blog, the handbook
+   * and /contact are four different kinds of page — so each one names what it
+   * wants shown. Every value below is READ FROM existing content: the article
+   * titles, the policy counts, the brand pillars, the contact details. None of
+   * it is written twice, so none of it can go stale while the page it
+   * describes moves on. */
+  preview?: {
+    eyebrow: string;
+    title: string;
+    blurb: string;
+    bullets: string[];
+    cta: string;
+  };
 };
 
 const productLinks: MenuLink[] = [
@@ -98,24 +117,58 @@ const companyLinks: MenuLink[] = [
     label: "About us",
     desc: "Who builds EZER, and how early we are",
     icon: "briefcase",
+    preview: {
+      eyebrow: "Why EZER exists",
+      title: "Built for Indian compliance first",
+      blurb: visionGoal.why.support,
+      bullets: ezerPillars.map((p) => p.title),
+      cta: "Read about us",
+    },
   },
   {
     href: "/blog",
     label: "Blog",
     desc: "Labour codes, PF/ESIC/PT and the tax regimes",
     icon: "file",
+    preview: {
+      eyebrow: "Compliance explainers",
+      title: `${articles.length} articles for Indian HR teams`,
+      blurb:
+        "What actually changed, what it costs you, and what to tell employees — " +
+        "written for the person who has to run the payroll.",
+      bullets: articles.map((a) => a.title),
+      cta: "Read the blog",
+    },
   },
   {
     href: "/resources/policy-handbook",
     label: "Policy handbook",
-    desc: "75 policies an Indian company needs",
+    desc: `${policyCount} policies an Indian company needs`,
     icon: "file",
+    preview: {
+      eyebrow: "Free resource",
+      title: `${policyCount} policies, ${policyCategories.length} areas`,
+      blurb: `The policy library an Indian company is expected to have, grouped by area. ${operatedCount} of them are operated inside EZER rather than filed and forgotten.`,
+      bullets: policyCategories.slice(0, 3).map((c) => c.name),
+      cta: "Open the handbook",
+    },
   },
   {
     href: "/contact",
     label: "Contact",
     desc: "Sales, support and partnerships",
     icon: "phone",
+    preview: {
+      eyebrow: "Talk to us",
+      title: "Sales, support and partnerships",
+      blurb: `One number, answered by people who know the product. We reply ${contact.responseSla}.`,
+      bullets: [
+        `Call ${contact.phoneDisplay}`,
+        `WhatsApp ${contact.whatsappDisplay}`,
+        contact.businessHours,
+      ],
+      cta: "Open contact",
+    },
   },
 ];
 
@@ -480,7 +533,11 @@ export function Header() {
                         /* Company sits at the right end of the bar, so a
                            centred panel would overflow the viewport. */
                         item.id === "company"
-                          ? "right-0 w-[20rem]"
+                          /* Right-anchored: Company sits at the right end of
+                             the bar, so a centred panel would overflow. The
+                             preview pane takes it to 44rem at xl, which is
+                             still clear of the left edge. */
+                          ? "right-0 w-[20rem] xl:w-[44rem]"
                           : item.id === "product"
                             /* Left-anchored at xl, not centred: the preview
                                pane takes this to 46rem, and a panel that
@@ -511,9 +568,7 @@ export function Header() {
                             }}
                             onBlur={() => scheduleClose("preview")}
                             data-previewing={
-                              item.id === "product" && previewHref === link.href
-                                ? ""
-                                : undefined
+                              previewHref === link.href ? "" : undefined
                             }
                             className="ez-menu-row flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-brand-50 data-[previewing]:bg-brand-50"
                             /* 26ms apart: five rows finish arriving in about
@@ -784,6 +839,90 @@ export function Header() {
                           );
                         })()}
 
+                        {/* ── The Company preview pane ──────────────────
+                            Same pane, same behaviour, different source: each
+                            Company row carries its own preview because the
+                            four destinations have nothing in common to read
+                            it from, where the five Product rows all have a
+                            feature page behind them.
+
+                            aria-hidden for the reason the Product pane is:
+                            every word here also appears on the page the row
+                            links to, and a pane that rewrites itself as focus
+                            moves down a list is noise to a screen reader. The
+                            rows remain the accessible interface. */}
+                        {item.id === "company" && (() => {
+                          const active = item.items.find(
+                            (l) => l.href === previewHref && l.preview,
+                          );
+                          return (
+                            <div
+                              className="hidden min-w-0 xl:block"
+                              onMouseEnter={cancelClose}
+                              onMouseLeave={() => scheduleClose("preview")}
+                            >
+                              <div
+                                aria-hidden="true"
+                                className="flex h-full flex-col rounded-lg bg-brand-50/60 p-5 ring-1 ring-brand-100"
+                              >
+                                {!active && (
+                                  /* The resting state. No row is pointed at
+                                     yet, so the pane stands for the menu
+                                     rather than for any one page in it. */
+                                  <div className="ez-preview flex h-full flex-col justify-center text-center">
+                                    <span className="mx-auto grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
+                                      <Icon name="briefcase" className="h-5 w-5" />
+                                    </span>
+                                    <p className="mt-3 text-[0.9rem] font-bold text-ink-900">
+                                      Who we are, and how to reach us
+                                    </p>
+                                    <p className="mx-auto mt-1.5 max-w-[15rem] text-[0.8rem] leading-relaxed text-ink-600">
+                                      Point at any of them to see what is there.
+                                    </p>
+                                  </div>
+                                )}
+
+                                {/* key on the href so React swaps the subtree
+                                    and the entrance animation restarts — the
+                                    crossfade is what makes this read as one
+                                    pane changing rather than text popping. */}
+                                {active?.preview && (
+                                  <div key={active.href} className="ez-preview">
+                                    <p className="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-brand-700">
+                                      {active.preview.eyebrow}
+                                    </p>
+                                    <h3 className="mt-1.5 text-[1.05rem] font-bold leading-snug text-ink-900">
+                                      {active.preview.title}
+                                    </h3>
+                                    <p className="mt-2 text-[0.85rem] leading-relaxed text-ink-700">
+                                      {active.preview.blurb}
+                                    </p>
+                                    <ul className="mt-4 space-y-2 border-t border-brand-100 pt-3">
+                                      {active.preview.bullets.slice(0, 4).map((b, bi) => (
+                                        <li
+                                          key={b}
+                                          className="ez-preview-row flex items-start gap-2 text-[0.82rem] leading-snug text-ink-800"
+                                          style={{ animationDelay: `${bi * 45}ms` }}
+                                        >
+                                          <Icon
+                                            name="check"
+                                            className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-600"
+                                          />
+                                          {b}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                    <span className="mt-4 inline-flex items-center gap-1.5 text-[0.82rem] font-semibold text-brand-700">
+                                      {active.preview.cta}
+                                      <Icon name="arrow-right" className="h-3.5 w-3.5" />
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })()}
+
                         {/* ── THE THIRD PANEL ────────────────────────
                               Cascades to the right of whichever area is
                               pointed at, aligned to that row.
@@ -978,15 +1117,22 @@ export function Header() {
                       <Link
                         key={link.href}
                         href={link.href}
-                        className="flex items-center gap-3 rounded-md p-3 hover:bg-brand-50"
+                        className="flex items-start gap-3 rounded-md p-3 hover:bg-brand-50"
                       >
                         {link.icon && (
                           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-brand-100 text-brand-700">
                             <Icon name={link.icon} className="h-5 w-5" />
                           </span>
                         )}
-                        <span className="text-[0.95rem] font-semibold text-ink-900">
-                          {link.label}
+                        <span className="min-w-0">
+                          <span className="block text-[0.95rem] font-semibold text-ink-900">
+                            {link.label}
+                          </span>
+                          {link.desc && (
+                            <span className="mt-0.5 block text-[0.8rem] leading-snug text-ink-600">
+                              {link.desc}
+                            </span>
+                          )}
                         </span>
                       </Link>
                     ))}
