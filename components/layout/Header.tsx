@@ -152,10 +152,11 @@ const NAV: NavItem[] = [
     id: "company",
     label: "Company",
     match: "/about",
-    /* /resources lives under this menu but does not share the /about prefix,
-       so the active state needs it named. /blog used to be here too and is
-       now its own top-level item, which lights itself. */
-    alsoMatch: ["/resources"],
+    /* Pages under this menu that do not share the /about prefix have to be
+       named, or the menu stays unlit on a page it plainly owns. /contact was
+       missing from this list since before Blog moved out — /contact lit
+       nothing at all. /blog used to be here and is now its own item. */
+    alsoMatch: ["/contact", "/resources"],
     items: companyLinks,
   },
 ];
@@ -247,7 +248,13 @@ export function Header({
     };
   }, [mobileOpen]);
 
-  const isActive = (href: string) => pathname === href;
+  /* A section link stays lit on the pages BELOW it, not just its index.
+     Exact matching left /blog/<article> with nothing lit at all — a reader
+     deep in an article could not tell which part of the site they were in.
+     "/" is the exception: every path starts with it, so it must match
+     exactly or Home would light up everywhere. */
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
   const inMenu = (n: Extract<NavItem, { kind: "menu" }>) =>
     [n.match, ...(n.alsoMatch ?? [])].some((m) => pathname.startsWith(m));
 
@@ -479,7 +486,21 @@ export function Header({
                       pillOn && pillKey === item.id ? "" : undefined
                     }
                     className={cn(
-                      "ez-navlink relative flex items-center gap-1.5 rounded-full px-3.5 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
+                      /* pr-2 + gap-1 + a 12px chevron, NOT the symmetric px-3.5 the
+                         plain links use. The chevron is content: at the old
+                         gap-1.5/16px/px-3.5 it put 34px between "Product" and
+                         the pill edge where every other item puts 14, so the
+                         word after a dropdown sat 50px away while every other
+                         pair sat at 30. Measured, not guessed. Tightening it
+                         brings that to 38 — a 8px residual on a 30px rhythm,
+                         which the eye does not pick up, where 20px did.
+
+                         It cannot reach zero while the chevron exists: it is
+                         real content in the line box, and the only ways to
+                         erase it are to delete the affordance that says this
+                         opens a menu, or to pad every plain link to match and
+                         push the bar 100px wider. Both cost more than 8px. */
+                      "ez-navlink relative flex items-center gap-1 rounded-full py-2.5 pl-3.5 pr-1 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
                       pillOn && pillKey === item.id
                         ? "text-white"
                         : inMenu(item)
@@ -512,7 +533,7 @@ export function Header({
                         opacity: it is punctuation, not a second label. */}
                     <Icon
                       name="chevron-down"
-                      className="ez-nav-chev h-3.5 w-3.5 opacity-70"
+                      className="ez-nav-chev h-2.5 w-2.5 opacity-70"
                     />
                   </button>
 
