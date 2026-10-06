@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
 import { Header } from '@/components/layout/Header'
+import { companyPreviews, navPolicyCount } from '@/lib/nav-previews'
 import { Footer } from '@/components/layout/Footer'
 import { CookieConsent } from '@/components/layout/CookieConsent'
 import { SiteScripts } from '@/components/layout/SiteScripts'
@@ -59,7 +60,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             is sticky, so the bar scrolls away and does not eat a strip of
             every screen for the rest of the visit. */}
         <AnnouncementBar />
-        <Header />
+        {/* The Company menu's preview copy is assembled here, in a server
+            component, and handed down as plain strings. Built inside the
+            header — a client component — it dragged the whole content layer
+            into the browser bundle; see lib/nav-previews.ts. */}
+        <Header companyPreviews={companyPreviews()} policyCount={navPolicyCount} />
         <main id="main" className="flex-1">
           {children}
         </main>

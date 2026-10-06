@@ -9,10 +9,8 @@ import { Container } from "@/components/ui/Container";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { getFeaturePage } from '@/content/features';
 import { moduleGroups } from "@/content/modules";
-import { articles } from "@/content/articles";
-import { policyCategories, policyCount, operatedCount } from "@/content/policy-handbook";
-import { visionGoal } from "@/content/positioning";
-import { contact, ezerPillars } from "@/site.config";
+import { contact } from "@/site.config";
+import type { NavPreview } from "@/lib/nav-previews";
 import { cn } from "@/lib/cn";
 
 /* ============================================================================
@@ -62,20 +60,18 @@ type MenuLink = {
   icon?: IconName;
   /* What the preview pane shows when this row is pointed at.
    *
-   * Product builds its pane from the feature pages themselves, so it needs no
-   * copy here. Company has no equivalent source — /about, /blog, the handbook
-   * and /contact are four different kinds of page — so each one names what it
-   * wants shown. Every value below is READ FROM existing content: the article
-   * titles, the policy counts, the brand pillars, the contact details. None of
-   * it is written twice, so none of it can go stale while the page it
-   * describes moves on. */
-  preview?: {
-    eyebrow: string;
-    title: string;
-    blurb: string;
-    bullets: string[];
-    cta: string;
-  };
+   * Product builds its pane from the feature pages themselves. Company has no
+   * equivalent source — /about, /blog, the handbook and /contact are four
+   * different kinds of page — so its previews are assembled in
+   * lib/nav-previews.ts and handed in as a prop by the SERVER component that
+   * renders the header.
+   *
+   * That indirection is not ceremony. This file is a client component, so
+   * importing content/articles and content/policy-handbook here to read a few
+   * titles put the full text of three blog articles and all 75 policy details
+   * into an 80 KB chunk that every page downloaded. The strings arrive
+   * already reduced now. */
+  preview?: NavPreview;
 };
 
 const productLinks: MenuLink[] = [
@@ -117,58 +113,25 @@ const companyLinks: MenuLink[] = [
     label: "About us",
     desc: "Who builds EZER, and how early we are",
     icon: "briefcase",
-    preview: {
-      eyebrow: "Why EZER exists",
-      title: "Built for Indian compliance first",
-      blurb: visionGoal.why.support,
-      bullets: ezerPillars.map((p) => p.title),
-      cta: "Read about us",
-    },
   },
   {
     href: "/blog",
     label: "Blog",
     desc: "Labour codes, PF/ESIC/PT and the tax regimes",
     icon: "file",
-    preview: {
-      eyebrow: "Compliance explainers",
-      title: `${articles.length} articles for Indian HR teams`,
-      blurb:
-        "What actually changed, what it costs you, and what to tell employees — " +
-        "written for the person who has to run the payroll.",
-      bullets: articles.map((a) => a.title),
-      cta: "Read the blog",
-    },
   },
   {
     href: "/resources/policy-handbook",
     label: "Policy handbook",
-    desc: `${policyCount} policies an Indian company needs`,
+    /* Filled from the real count by the server — see navPolicyCount. */
+    desc: "The policies an Indian company needs",
     icon: "file",
-    preview: {
-      eyebrow: "Free resource",
-      title: `${policyCount} policies, ${policyCategories.length} areas`,
-      blurb: `The policy library an Indian company is expected to have, grouped by area. ${operatedCount} of them are operated inside EZER rather than filed and forgotten.`,
-      bullets: policyCategories.slice(0, 3).map((c) => c.name),
-      cta: "Open the handbook",
-    },
   },
   {
     href: "/contact",
     label: "Contact",
     desc: "Sales, support and partnerships",
     icon: "phone",
-    preview: {
-      eyebrow: "Talk to us",
-      title: "Sales, support and partnerships",
-      blurb: `One number, answered by people who know the product. We reply ${contact.responseSla}.`,
-      bullets: [
-        `Call ${contact.phoneDisplay}`,
-        `WhatsApp ${contact.whatsappDisplay}`,
-        contact.businessHours,
-      ],
-      cta: "Open contact",
-    },
   },
 ];
 
@@ -197,8 +160,35 @@ const NAV: NavItem[] = [
   },
 ];
 
-export function Header() {
+export function Header({
+  companyPreviews,
+  policyCount,
+}: {
+  /** Built server-side in lib/nav-previews.ts and keyed by href. Optional so
+   *  the header still renders — as the plain list it used to be — anywhere it
+   *  is mounted without them. */
+  companyPreviews?: Record<string, NavPreview>;
+  policyCount?: number;
+} = {}) {
   const pathname = usePathname();
+
+  /* Merged here rather than in the module-level NAV, which is shared by every
+     render and must stay a constant. */
+  const nav: NavItem[] = NAV.map((item) =>
+    item.kind === "menu" && item.id === "company"
+      ? {
+          ...item,
+          items: item.items.map((link) => ({
+            ...link,
+            desc:
+              link.href === "/resources/policy-handbook" && policyCount
+                ? `${policyCount} policies an Indian company needs`
+                : link.desc,
+            preview: companyPreviews?.[link.href] ?? link.preview,
+          })),
+        }
+      : item,
+  );
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   /* One id rather than a boolean per menu — with two dropdowns, separate
@@ -421,7 +411,7 @@ export function Header() {
                 opacity: pillOn ? 1 : 0,
               }}
             />
-            {NAV.map((item) =>
+            {nav.map((item) =>
               item.kind === "link" ? (
                 <Link
                   key={item.href}
@@ -1088,7 +1078,7 @@ export function Header() {
                 the reader is usually mid-evaluation, and "do you cover my
                 state" outranks a module list. */}
             <div className="space-y-1">
-              {NAV.filter((i) => i.kind === "link").map((i) => {
+              {nav.filter((i) => i.kind === "link").map((i) => {
                 const link = i as Extract<NavItem, { kind: "link" }>;
                 return (
                   <Link
@@ -1102,7 +1092,7 @@ export function Header() {
               })}
             </div>
 
-            {NAV.filter((i) => i.kind === "menu").map((i) => {
+            {nav.filter((i) => i.kind === "menu").map((i) => {
               const menu = i as Extract<NavItem, { kind: "menu" }>;
               return (
                 <div
