@@ -42,7 +42,7 @@ export function ComplianceStrip() {
       <ul className="sr-only">
         {complianceItems.map((item) => (
           <li key={item.code}>
-            {item.code} — {item.label}
+            {item.code} · {item.label}
           </li>
         ))}
       </ul>

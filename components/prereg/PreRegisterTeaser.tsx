@@ -54,7 +54,7 @@ export function PreRegisterTeaser({
               type="button"
               onClick={onDismiss}
               tabIndex={open ? 0 : -1}
-              aria-label="Dismiss — do not show this again"
+              aria-label="Dismiss, do not show this again"
               className="-mr-1.5 -mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-md text-ink-400 transition-colors hover:bg-ink-100 hover:text-ink-900"
             >
               <Icon name="close" className="h-3.5 w-3.5" />

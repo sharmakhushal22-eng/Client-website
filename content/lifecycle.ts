@@ -14,7 +14,7 @@ export const lifecycle = {
   eyebrow: 'The whole arc',
   title: 'One employee record. Hire to Retire.',
   lede:
-    'Watch the same record travel the whole lifecycle — nothing re-keyed, ' +
+    'Watch the same record travel the whole lifecycle, with nothing re-keyed ' +
     'nothing handed to another vendor.',
 
   stages: [
@@ -33,7 +33,7 @@ export const lifecycle = {
    * which is the thing this section exists to say does not happen. Copy that
    * described arrows would contradict the picture beside it. */
   note:
-    'Every join above is a handoff somewhere else — an export, a re-keyed PAN, ' +
+    'Every join above is a handoff somewhere else: an export, a re-keyed PAN, ' +
     'a spreadsheet emailed to payroll. Here there is nothing to hand off: it is ' +
     'one record the whole way, which is why the line does not break.',
 } as const

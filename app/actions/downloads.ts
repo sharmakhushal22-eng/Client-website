@@ -33,7 +33,7 @@ export type DownloadState = {
 
 const ASSETS: Record<string, { title: string; href: string }> = {
   'policy-handbook': {
-    title: 'Complete Company Policy Handbook — India Pvt Ltd',
+    title: 'Complete Company Policy Handbook for an India Pvt Ltd',
     href: '/downloads/ezer-company-policy-handbook.pdf',
   },
 }

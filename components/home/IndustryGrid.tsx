@@ -45,8 +45,8 @@ export function IndustryGrid() {
             </h2>
             <p className="mt-5 text-[1.06rem] leading-relaxed text-white [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
               We mapped HR, payroll and compliance challenges across more than 100
-            Indian industries — from a 12-branch NBFC to a three-shift factory
-            floor — before writing the rules engine. This is who we built EZER
+            Indian industries, from a 12-branch NBFC to a three-shift factory
+            floor, before writing the rules engine. This is who we built EZER
             for. Don&rsquo;t see your exact industry below? It&rsquo;s probably
             still covered.
             </p>
@@ -58,7 +58,7 @@ export function IndustryGrid() {
               {industryCount}{' '}
               {/* Explicit {' '}: the space between the expression and the
                   text was being eaten, rendering "101industries". */}
-              industries mapped and counting — new sector rule-sets ship as
+              industries mapped and counting. New sector rule-sets ship as
               EZER&rsquo;s client base grows.
             </p>
           </div>
@@ -118,7 +118,7 @@ export function IndustryGrid() {
             />
             Rules apply differently to an IT office, a factory, a warehouse and
             a BFSI branch. EZER&rsquo;s compliance engine is configured per
-            industry and per establishment type — never a single generic
+            industry and per establishment type. There is no single generic
             template stretched across your whole company.
           </p>
         </div>

@@ -174,7 +174,7 @@ export function Footer() {
                 Compliance updates
               </h2>
               <p className="mt-3 max-w-md text-sm text-on-dark-faint">
-                Statutory changes that affect Indian payroll — EPF, ESIC, PT slabs,
+                Statutory changes that affect Indian payroll: EPF, ESIC, PT slabs,
                 TDS. Sent when something actually changes, not on a schedule.
               </p>
               <div className="mt-4 max-w-md">

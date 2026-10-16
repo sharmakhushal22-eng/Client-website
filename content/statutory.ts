@@ -47,12 +47,12 @@ export const statutoryCoverage: StatutoryRow[] = [
     act: 'LWF',
     fullName: 'State Labour Welfare Fund Acts',
     whatItDoes:
-      'Applies the contribution at the rate and frequency the relevant state requires — which may be monthly, half-yearly or annual — per registration.',
+      'Applies the contribution at the rate and frequency the relevant state requires, which may be monthly, half-yearly or annual, per registration.',
     basis: 'State-wise rate and frequency',
   },
   {
     act: 'TDS',
-    fullName: 'Income Tax Act, 1961 — salary TDS',
+    fullName: 'Income Tax Act, 1961 (salary TDS)',
     whatItDoes:
       'Runs both the old and new regime, takes declarations and verified proofs, projects tax across the remaining months of the year, and issues Form 16.',
     basis: 'Old and new regime · monthly projection · Form 16',
@@ -102,7 +102,7 @@ export const workedPayslip = {
   employee: {
     name: 'Priya Deshmukh',
     code: 'EZ-1042',
-    designation: 'Senior Executive — Finance',
+    designation: 'Senior Executive, Finance',
     location: 'Pune, Maharashtra',
     month: 'August 2026',
     paidDays: '31 of 31',
@@ -114,12 +114,12 @@ export const workedPayslip = {
     { label: 'Special Allowance', amount: 21600 },
   ],
   deductions: [
-    { label: 'EPF — employee contribution', amount: 1800, note: '12% of ₹15,000 ceiling wage' },
+    { label: 'EPF employee contribution', amount: 1800, note: '12% of ₹15,000 ceiling wage' },
     { label: 'Professional Tax', amount: 200, note: 'Maharashtra slab for this gross' },
     { label: 'TDS', amount: 4350, note: 'Projected across the remaining year' },
   ],
   employerContributions: [
-    { label: 'EPF — employer contribution', amount: 1800, note: '3.67% EPF + 8.33% EPS on ceiling wage' },
+    { label: 'EPF employer contribution', amount: 1800, note: '3.67% EPF + 8.33% EPS on ceiling wage' },
     { label: 'EPF admin & EDLI charges', amount: 225, note: 'Employer cost, not an employee deduction' },
   ],
   notes: [
@@ -129,4 +129,4 @@ export const workedPayslip = {
 }
 
 export const auditabilityNote =
-  'Every figure on a payslip can be opened to show what produced it: the attendance days counted, the salary structure in force that month, the statutory rate and ceiling applied, and the regime or slab used. That trail is the difference between a payroll that is correct and one that can be shown to be correct — which is the only version that survives an audit or a dispute.'
+  'Every figure on a payslip can be opened to show what produced it: the attendance days counted, the salary structure in force that month, the statutory rate and ceiling applied, and the regime or slab used. That trail is the difference between a payroll that is correct and one that can be shown to be correct. Only the second kind survives an audit or a dispute.'

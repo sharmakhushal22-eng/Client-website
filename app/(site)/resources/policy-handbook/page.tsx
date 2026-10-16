@@ -17,7 +17,7 @@ import {
 export const metadata: Metadata = pageMetadata({
   title: 'The company policy handbook for Indian companies',
   description:
-    `${policyCount} HR, IT and compliance policies an Indian private limited company needs — across 12 categories, with a recommended rollout order. Free PDF.`,
+    `${policyCount} HR, IT and compliance policies an Indian private limited company needs, across 12 categories, with a recommended rollout order. Free PDF.`,
   path: '/resources/policy-handbook',
 })
 
@@ -72,7 +72,7 @@ export default function PolicyHandbookPage() {
 
               <p className="mt-5 text-lg leading-relaxed text-ink-600">
                 Employment, leave, recruitment, payroll, conduct, IT security,
-                welfare, operations, exit and statutory compliance — organised
+                welfare, operations, exit and statutory compliance, organised
                 into 12 categories, with a recommended order to build them in.
               </p>
 
@@ -96,7 +96,7 @@ export default function PolicyHandbookPage() {
                 <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
                 This is a starting framework, not legal advice. Each policy
                 still has to become a company-specific document once you have
-                settled headcount, states, industry and working model — and
+                settled headcount, states, industry and working model, and
                 some apply only above particular legal thresholds.
               </p>
             </div>
@@ -105,7 +105,7 @@ export default function PolicyHandbookPage() {
               <div className="rounded-xl bg-surface p-6 shadow-floating ring-1 ring-ink-200 sm:p-7">
                 <h2 className="text-lg font-bold">Get the PDF</h2>
                 <p className="mt-1.5 text-sm leading-relaxed text-ink-600">
-                  Two fields. The whole list is on this page either way — the
+                  Two fields. The whole list is on this page either way, so the
                   PDF is just the version you can circulate.
                 </p>
                 <div className="mt-5">
@@ -122,7 +122,7 @@ export default function PolicyHandbookPage() {
         <SectionHeading
           eyebrow="The full list"
           title="Every policy, and who operates it"
-          lede={`Marked entries are the ones EZER runs as a live process rather than a document in a folder — ${operatedCount} of ${policyCount}. The unmarked ones are yours to write; no software writes a code of conduct.`}
+          lede={`Marked entries are the ones EZER runs as a live process rather than a document in a folder: ${operatedCount} of ${policyCount}. The unmarked ones are yours to write; no software writes a code of conduct.`}
           align="left"
         />
 
@@ -211,7 +211,7 @@ export default function PolicyHandbookPage() {
 
       <CtaBand
         title="The policies are yours. The operating them is ours."
-        lede={`${operatedCount} of these stop being documents and become a running process the day EZER goes live — leave balances, attendance, payroll, statutory filings, full & final and the compliance calendar.`}
+        lede={`${operatedCount} of these stop being documents and become a running process the day EZER goes live: leave balances, attendance, payroll, statutory filings, full & final and the compliance calendar.`}
       />
     </>
   )

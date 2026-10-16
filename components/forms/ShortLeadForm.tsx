@@ -70,7 +70,7 @@ export function ShortLeadForm({
         autoComplete="tel"
         inputMode="numeric"
         placeholder="98765 43210"
-        hint="+91 — we will only call about this enquiry."
+        hint="+91. We will only call about this enquiry."
         onDark={onDark}
         defaultValue={state.values?.phone}
         serverError={state.errors?.phone}

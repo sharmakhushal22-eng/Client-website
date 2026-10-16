@@ -56,7 +56,7 @@ export function ComfortModes() {
             <br className="hidden sm:block" /> We designed it that way round.
           </h2>
           <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-600">
-            Payroll software is not glanced at — it is stared at, for hours, on
+            Payroll software is not glanced at. It is stared at, for hours, on
             the same three screens. Two things in EZER exist purely because of
             that, and both are in the product today.
           </p>
@@ -71,7 +71,7 @@ export function ComfortModes() {
 
             <h3 className="mt-5 text-xl font-bold">Day mode and dark mode</h3>
             <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
-              Not an inverted light theme. Dark is its own designed palette —
+              Not an inverted light theme. Dark is its own designed palette,
               neutral slate, with the brand lifted so an action still reads as
               an action, and text on a filled button inverted so it does not
               drop below legible.
@@ -84,7 +84,7 @@ export function ComfortModes() {
                    true when the site carried a live toggle and is not now. */
                 [
                   "Three states, not two",
-                  "In the app: light, dark, or follow the operating system — because that is a real preference a two-way switch overrides.",
+                  "In the app: light, dark, or follow the operating system, because that is a real preference a two-way switch overrides.",
                 ],
                 [
                   "No flash on load",
@@ -156,7 +156,7 @@ export function ComfortModes() {
             <h3 className="mt-5 text-xl font-bold">Eye comfort mode</h3>
             <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
               A warm layer over the app that removes blue light from its own
-              pixels — continuously adjustable, and measured rather than
+              pixels, continuously adjustable and measured rather than
               decorative.
             </p>
 
@@ -233,7 +233,7 @@ export function ComfortModes() {
 
               <p className="mt-3 text-[0.72rem] leading-relaxed text-ink-600">
                 At full strength the blue channel is emitted at{" "}
-                {channels(100).b}/255 — a 64% cut — while primary text still
+                {channels(100).b}/255, a 64% cut, while primary text still
                 measures 11.44:1 and muted text 6.25:1. Both stay clear of the
                 4.5:1 the rest of the product is held to, which is why the
                 slider is allowed to run all the way.
@@ -247,7 +247,7 @@ export function ComfortModes() {
                 name="alert"
                 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-600"
               />
-              A web page cannot change what your monitor emits — only the OS or
+              A web page cannot change what your monitor emits. Only the OS or
               the display can do that. This works on EZER&rsquo;s own pixels,
               which for a full-screen HR tool is most of what you are looking
               at.

@@ -22,7 +22,7 @@ export default function CookiePolicyPage() {
       <p>
         When you first visit, a banner asks whether you accept analytics cookies.
         Until you choose, <strong>no analytics or advertising script is loaded at
-        all</strong> — the tags are not sitting dormant on the page waiting to be
+        all</strong>. The tags are not sitting dormant on the page waiting to be
         switched on; they are simply not there. If you choose &ldquo;Essential
         only&rdquo;, they are never loaded.
       </p>
@@ -61,7 +61,7 @@ export default function CookiePolicyPage() {
         </tbody>
       </table>
 
-      <h2>3. Analytics cookies — only with your consent</h2>
+      <h2>3. Analytics cookies: only with your consent</h2>
       <p>
         If you accept, we load two analytics tools. Both tell us how pages are
         used; neither is used to build an advertising profile of you.
@@ -111,14 +111,14 @@ export default function CookiePolicyPage() {
         </li>
       </ul>
       <p>
-        Both are loaded lazily — they are not fetched until you scroll to them.
+        Both are loaded lazily, so they are not fetched until you scroll to them.
       </p>
 
       <h2>5. Changing your mind</h2>
       <p>
         To change your choice, clear this site&rsquo;s data in your browser
         settings; the banner will appear again on your next visit. You can also
-        block or delete cookies entirely in your browser — the site will continue
+        block or delete cookies entirely in your browser, and the site will continue
         to work, including the enquiry forms.
       </p>
 

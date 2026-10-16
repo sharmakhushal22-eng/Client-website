@@ -56,7 +56,7 @@ export async function sendEnquirerAutoReply(lead: {
     </a>
   </p>
   <p style="color:#475569;font-size:14px">
-    It is a live walkthrough of the product against your own scenario — your salary
+    It is a live walkthrough of the product against your own scenario: your salary
     structure, your states, your statutory setup. ${esc(booking.reassurance)}
   </p>
   <p style="color:#475569;font-size:14px">
@@ -64,7 +64,7 @@ export async function sendEnquirerAutoReply(lead: {
     <a href="tel:${esc(contact.phoneE164)}" style="color:#2563eb">${esc(contact.phoneDisplay)}</a>
     or on WhatsApp.
   </p>
-  <p>— The ${esc(site.name)} team</p>
+  <p>The ${esc(site.name)} team</p>
 </div>`.trim()
 
   return sendMail({
@@ -72,7 +72,7 @@ export async function sendEnquirerAutoReply(lead: {
     /* Replies to the auto-reply must land where somebody reads them, which
        is the delivery inbox, not the published address. */
     replyTo: contact.leadInbox,
-    subject: `We've got your enquiry — ${site.name}`,
+    subject: `We've got your enquiry · ${site.name}`,
     html,
   })
 }
@@ -105,7 +105,7 @@ export async function sendInternalNotification(
 
   const html = `
 <div style="font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:15px;color:#111827">
-  <p style="margin:0 0 4px;font-size:18px;font-weight:700">${company} — ${band} employees</p>
+  <p style="margin:0 0 4px;font-size:18px;font-weight:700">${company} · ${band} employees</p>
   <p style="margin:0 0 16px;color:#64748b">New enquiry from the website.</p>
   <table style="border-collapse:collapse;font-size:14px">${rows}</table>
   <p style="margin-top:20px">

@@ -42,21 +42,21 @@ export const site = {
    * the site earns it on the page: labour-code rules held as configuration,
    * applied without waiting for a release. */
   headline:
-    "India's most proactive HRMS — built for every industry, every establishment type",
+    "India's most proactive HRMS, built for every industry and every establishment type",
 
   /* Repositioned from the 50–2,000 mid-market to ANY size. The old framing
    * ("underserved mid-market", "too large for spreadsheets") is gone — it
    * excluded both ends of the market the product can actually serve. */
   positioning:
     'One employee or several lakh, one office or hundreds of branches, plants and ' +
-    'warehouses — it all consolidates into one platform. Recruitment, CTC and ' +
+    'warehouses: it all consolidates into one platform. Recruitment, CTC and ' +
     'manpower planning, payroll, statutory compliance and employee experience, ' +
     'across every establishment type, every industry, every state.',
 
   /* Taken from the meta description in Website changes.html, so the search
      snippet matches what the company already publishes. */
   description:
-    'EZER is India’s proactive HRMS — payroll, statutory compliance, ATS, CTC ' +
+    'EZER is India’s proactive HRMS, covering payroll, statutory compliance, ATS, CTC ' +
     'planning and employee experience on one platform. Built for startups ' +
     'through multi-entity groups with lakhs of employees across hundreds of ' +
     'offices, branches and plants. Request a demo.',
@@ -64,14 +64,14 @@ export const site = {
   /* The reference's footer blurb. Separate from `description` above, which
      is its meta description — the footer runs longer and names the scale. */
   footerBlurb:
-    'India’s proactive HRMS, payroll and compliance engine — built for 100+ ' +
+    'India’s proactive HRMS, payroll and compliance engine, built for 100+ ' +
     'types of Indian business, from startups to groups running lakhs of ' +
     'employees across hundreds of establishments.',
 
   /* The reference's og:description — the social-card line, deliberately
      shorter and punchier than the search description above. */
   ogDescription:
-    'One login. Every branch. Every compliance register — generated in one go.',
+    'One login. Every branch. Every compliance register, generated in one go.',
 } as const
 
 /* ── Contact ───────────────────────────────────────────────────────────────
@@ -281,7 +281,7 @@ export const pricing = {
     id: 'complete',
     name: 'EZER Platform',
     tagline:
-      'Every live module, included — from your first ten hires to your first lakh.',
+      'Every live module, included, from your first ten hires to your first lakh.',
     /* Per employee per month, on annual billing.
      *
      * Deliberately NOT a literal. This repository is public, and a number
@@ -316,7 +316,7 @@ export const pricing = {
     /* The commercial promises, stated as the things a buyer is usually
      * charged for elsewhere. */
     guarantees: [
-      'Implementation, configuration and migration — included, not quoted separately',
+      'Implementation, configuration and migration, included rather than quoted separately',
       'Unlimited legal entities and locations on the same subscription',
       'Every module included. Nothing is gated behind a higher plan',
       'Training for your HR and Finance team, and ESS rollout to employees',
@@ -329,7 +329,7 @@ export const pricing = {
     id: 'enterprise',
     name: 'Enterprise',
     tagline:
-      'Same full platform — plus dedicated support for multi-entity groups running at real scale.',
+      'The same full platform, plus dedicated support for multi-entity groups running at real scale.',
     bestFor: 'Multi-entity groups running at real scale, or where IT owns the decision',
     /* Everything in the plan, plus: */
     adds: [
@@ -399,12 +399,12 @@ export const booking = {
   steps: [
     'We call within 1 business day.',
     'We configure a demo around your industry and branches.',
-    'You decide — no pressure, no lock-in pitch.',
+    'You decide. No pressure, no lock-in pitch.',
   ],
   whatHappens: [
     'Thirty minutes in the live product. Not a slide deck, and not a recorded video.',
     'We ask first: how many entities, which states, how many employees, what you run payroll on today.',
-    'Then we show your case — your salary structure, your statutory setup, your locations.',
+    'Then we show your case: your salary structure, your statutory setup, your locations.',
     'A product specialist joins, and a compliance specialist too if payroll is the focus.',
     'You leave with a written summary and an indicative number the same day.',
   ],

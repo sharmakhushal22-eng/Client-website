@@ -11,7 +11,7 @@ import { contact, booking } from '@/site.config'
 /* noIndex: a thank-you page in the search results is a page that fires a
  * conversion event for someone who never converted. */
 export const metadata: Metadata = pageMetadata({
-  title: 'Thanks — we have your enquiry',
+  title: 'Thanks, we have your enquiry',
   description: 'We have your enquiry and will be in touch shortly.',
   path: '/thank-you',
   noIndex: true,
@@ -24,7 +24,7 @@ const nextSteps: { icon: IconName; title: string; body: string }[] = [
   {
     icon: 'mail',
     title: 'A confirmation is on its way',
-    body: 'Check your inbox — it should arrive within a minute. If it does not, look in spam and mark it as safe, or call us.',
+    body: 'Check your inbox. It should arrive within a minute. If it does not, look in spam and mark it as safe, or call us.',
   },
   {
     icon: 'phone',
@@ -52,7 +52,7 @@ const onwardLinks: { href: string; title: string; body: string }[] = [
   {
     href: '/features',
     title: 'Every module in the product',
-    body: 'The full list, honestly grouped — so you know what you are not getting too.',
+    body: 'The full list, honestly grouped, so you know what you are not getting too.',
   },
 ]
 
@@ -75,7 +75,7 @@ export default async function ThankYouPage({
               <Icon name="check" className="h-8 w-8" />
             </span>
             <h1 className="mt-6 text-[2.1rem] font-bold leading-[1.12] sm:text-4xl">
-              Thanks — we have your enquiry
+              Thanks, we have your enquiry
             </h1>
             <p className="mt-4 text-lg leading-relaxed text-ink-600">
               Nothing else is needed from you right now. Here is exactly what

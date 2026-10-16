@@ -27,7 +27,7 @@ const values = [
   {
     icon: 'map-pin' as const,
     title: 'Built for India, not adapted to it',
-    body: 'EPF, ESIC, state-wise Professional Tax, LWF, TDS across both regimes, gratuity, bonus, Shops & Establishments. These live in the calculation engine, not in a localisation layer bolted onto a global product — which is why the edge cases behave, and the edge cases are the whole job.',
+    body: 'EPF, ESIC, state-wise Professional Tax, LWF, TDS across both regimes, gratuity, bonus, Shops & Establishments. These live in the calculation engine, not in a localisation layer bolted onto a global product. That is why the edge cases behave, and the edge cases are the whole job.',
   },
   {
     icon: 'shield' as const,
@@ -105,7 +105,7 @@ export default function AboutPage() {
               four sets of deadlines, and registers assembled branch by branch
               in the week before they are due. Then the labour codes redrew the
               definition of wages itself, and every structure built on the old
-              one became wrong — monthly, and backwards, and quietly.
+              one became wrong, monthly and backwards and quietly.
             </p>
             <p>
               The options available were either global platforms with an India
@@ -122,7 +122,7 @@ export default function AboutPage() {
             <h3 className="text-base font-bold">Why the name?</h3>
             {/* TODO: confirm the real derivation with the founders. */}
             <p className="mt-2 text-sm leading-relaxed text-ink-600">
-              <em>Ezer</em> means a help that arrives where the need is —
+              <em>Ezer</em> means a help that arrives where the need is,
               support that does the work rather than supervising it. That is the
               intended relationship between this software and an HR team: not
               another system to feed, but one that takes the feeding away.
@@ -237,7 +237,7 @@ export default function AboutPage() {
         src="/photos/corporate/boardroom-quarterly-screened.webp"
         eyebrow="Why we started"
         title="Compliance is not the hard part. Keeping up with it is."
-        body="Four labour codes, twenty-nine states and an establishment type per site — the rules are knowable, but they move, and they move separately. We built EZER so that keeping up is the software's job rather than a person's memory."
+        body="Four labour codes, twenty-nine states and an establishment type per site. The rules are knowable, but they move, and they move separately. We built EZER so that keeping up is the software's job rather than a person's memory."
       />
 
       <Section tone="white" ariaLabel="Where we are">
@@ -253,7 +253,7 @@ export default function AboutPage() {
               EZER is a young product. The payroll and statutory engine is built
               and running; the company is not yet at the stage of publishing a
               wall of customer logos, and we are not going to manufacture one.
-              If you are doing diligence, you would find this out anyway — so
+              If you are doing diligence, you would find this out anyway, so
               here it is first.
             </p>
             <p>

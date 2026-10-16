@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
     <LegalLayout
       title="Privacy policy"
       updated="30 August 2026"
-      intro={`How ${entity}, which operates EZER HRMS, handles personal data — both on this website and inside the product. Version 1.0, written against the Digital Personal Data Protection Act, 2023 and the DPDP Rules, 2025.`}
+      intro={`How ${entity}, which operates EZER HRMS, handles personal data, both on this website and inside the product. Version 1.0, written against the Digital Personal Data Protection Act, 2023 and the DPDP Rules, 2025.`}
     >
       <h2>1. Who we are</h2>
       <p>
@@ -90,14 +90,14 @@ export default function PrivacyPolicyPage() {
         to that data.
       </p>
 
-      <h2>2. Our two roles — please read this first</h2>
+      <h2>2. Our two roles: please read this first</h2>
       <p>
         EZER handles personal data in two very different capacities, and your
         rights are exercised differently in each. This distinction matters more
         than anything else in this policy.
       </p>
 
-      <h3>Role 1 — Data Fiduciary: our website and our own business contacts</h3>
+      <h3>Role 1, Data Fiduciary: our website and our own business contacts</h3>
       <p>
         When you visit our website, request a demo, or contact us, we decide why
         and how your data is used. Here EZER is the Data Fiduciary, and you
@@ -106,13 +106,13 @@ export default function PrivacyPolicyPage() {
       </p>
 
       <h3>
-        Role 2 — Data Processor: employee data inside a customer&rsquo;s EZER
+        Role 2, Data Processor: employee data inside a customer&rsquo;s EZER
         account
       </h3>
       <p>
-        When a company subscribes to EZER and loads its employee records — salary
-        structures, attendance, PF and ESIC details, investment declarations —
-        that company is the Data Fiduciary, not us. It decides what to collect
+        When a company subscribes to EZER and loads its employee records, such
+        as salary structures, attendance, PF and ESIC details and investment
+        declarations, that company is the Data Fiduciary, not us. It decides what to collect
         and why. EZER only processes that data on its written instructions, as a
         Data Processor.
       </p>
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
         Please send requests to access, correct or erase your records to your
         employer&rsquo;s HR or grievance contact. If you approach us directly, we
         will refer you to your employer and, where appropriate, notify them of
-        your request — we are not permitted to alter their records on our own
+        your request. We are not permitted to alter their records on our own
         initiative.
       </p>
 
@@ -206,7 +206,7 @@ export default function PrivacyPolicyPage() {
           attributed to the channel it came from.
         </li>
         <li>
-          If — and only if — you accept analytics cookies, we then load Google
+          If, and only if, you accept analytics cookies, we then load Google
           Analytics 4 and Microsoft Clarity. See Section 15 and our{' '}
           <Link href="/cookie-policy">cookie policy</Link>, which lists each one
           and how long it is kept.
@@ -224,7 +224,7 @@ export default function PrivacyPolicyPage() {
         attendance and leave records, statutory identifiers such as PAN, Aadhaar,
         UAN and ESIC numbers, bank account details for salary credit, and
         investment declarations. This data is collected and controlled by the
-        employer — see Section 2.
+        employer. See Section 2.
       </p>
 
       <h2>4. Why we use your data</h2>
@@ -318,7 +318,7 @@ export default function PrivacyPolicyPage() {
               IP addresses are anonymised
             </td>
             <td>
-              To understand which pages are used — loaded only after you accept
+              To understand which pages are used. Loaded only after you accept
               analytics cookies
             </td>
           </tr>
@@ -329,7 +329,7 @@ export default function PrivacyPolicyPage() {
               input masked
             </td>
             <td>
-              To see where visitors get stuck — loaded only after you accept
+              To see where visitors get stuck. Loaded only after you accept
               analytics cookies
             </td>
           </tr>
@@ -388,7 +388,7 @@ export default function PrivacyPolicyPage() {
       </ul>
       <p>
         No system is perfectly secure. We commit to reasonable, current
-        safeguards and to telling you promptly if something goes wrong — see
+        safeguards and to telling you promptly if something goes wrong. See
         Section 14.
       </p>
 
@@ -441,21 +441,21 @@ export default function PrivacyPolicyPage() {
       <p>Under the DPDP Act you have the right to:</p>
       <ul>
         <li>
-          <strong>Access</strong> — a summary of the personal data we hold about
+          <strong>Access.</strong> A summary of the personal data we hold about
           you, how we are processing it, and who we have shared it with.
         </li>
         <li>
-          <strong>Correction, completion, updating and erasure</strong> — to have
+          <strong>Correction, completion, updating and erasure.</strong> To have
           inaccurate or misleading data corrected, incomplete data completed, and
           data erased where it is no longer needed and no law requires us to keep
           it.
         </li>
         <li>
-          <strong>Grievance redressal</strong> — a readily available means of
+          <strong>Grievance redressal.</strong> A readily available means of
           raising a complaint with us, which we must respond to. See Section 13.
         </li>
         <li>
-          <strong>Nomination</strong> — to nominate another individual to
+          <strong>Nomination.</strong> To nominate another individual to
           exercise these rights on your behalf if you die or become
           incapacitated.
         </li>
@@ -467,7 +467,7 @@ export default function PrivacyPolicyPage() {
       </p>
       <p>
         If your data sits inside your employer&rsquo;s EZER account, send the
-        request to your employer — see Section 2.
+        request to your employer. See Section 2.
       </p>
 
       <h2>12. Your duties as a Data Principal</h2>
@@ -517,7 +517,7 @@ export default function PrivacyPolicyPage() {
         <strong>Escalation.</strong> If we do not respond, or you are not
         satisfied with our response, you may complain to the Data Protection
         Board of India, which is constituted and accepting complaints. Please
-        raise the matter with us first — the Board expects you to have exhausted
+        raise the matter with us first. The Board expects you to have exhausted
         our grievance process.
       </p>
 
@@ -545,7 +545,7 @@ export default function PrivacyPolicyPage() {
       <p>
         <strong>Analytics, only if you accept.</strong> Google Analytics 4 and
         Microsoft Clarity. Nothing from either is loaded, and no request is made
-        to either company, until you choose Accept on the banner — declining
+        to either company, until you choose Accept on the banner. Declining
         leaves them uninstalled rather than merely inactive. Clarity records
         sessions with form input masked; Analytics anonymises IP addresses.
         Neither is used to build an advertising profile of you.
@@ -565,8 +565,8 @@ export default function PrivacyPolicyPage() {
         also write to {PRIVACY_EMAIL} at any time to stop.
       </p>
       <p>
-        Opting out of marketing does not stop service messages — for example,
-        notices about billing, security, downtime, or a change to this policy —
+        Opting out of marketing does not stop service messages such as
+        notices about billing, security, downtime, or a change to this policy.
         which we must send to customers while their subscription is active.
       </p>
 
@@ -584,7 +584,7 @@ export default function PrivacyPolicyPage() {
         {PRIVACY_EMAIL} to withdraw an application or have your data erased.
       </p>
 
-      <h2>18. Customers — Data Processing Agreement</h2>
+      <h2>18. Customers: Data Processing Agreement</h2>
       <p>
         Where EZER acts as a Data Processor for a customer (see Section 2), our
         processing is governed by a written Data Processing Agreement forming

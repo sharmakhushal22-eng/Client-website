@@ -16,7 +16,7 @@ import { complianceItems } from '@/content/modules'
 export const metadata: Metadata = pageMetadata({
   title: 'Statutory compliance & the labour codes',
   description:
-    'EPF, ESIC, state-wise Professional Tax, LWF, TDS, gratuity and bonus — calculated inside the payroll run. Built on the four labour codes and the revised wage definition.',
+    'EPF, ESIC, state-wise Professional Tax, LWF, TDS, gratuity and bonus, all calculated inside the payroll run. Built on the four labour codes and the revised wage definition.',
   path: '/compliance',
 })
 
@@ -43,7 +43,7 @@ const complianceFaqs = [
   },
   {
     q: 'The labour codes are still being notified. What happens when our state notifies?',
-    a: 'Rules are held as configuration per registration, so a notification is applied without waiting for a product release. That is the practical difference between being ready and being told it is on the roadmap — and it matters because the codes are being notified by state and by establishment type, in stages, rather than all at once.',
+    a: 'Rules are held as configuration per registration, so a notification is applied without waiting for a product release. That is the practical difference between being ready and being told it is on the roadmap. It matters because the codes are being notified by state and by establishment type, in stages, rather than all at once.',
   },
   {
     q: 'Can you show that a deduction was calculated correctly?',
@@ -51,7 +51,7 @@ const complianceFaqs = [
   },
   {
     q: 'Do you file returns on our behalf?',
-    a: 'We produce the filing-ready output — ECR for EPF, contribution files for ESIC, state-wise PT and LWF, TDS and Form 16 — against the registration each one belongs to. Filing itself stays with you or your consultant, which is deliberate: the statutory liability is the employer’s and we would rather not sit between you and it.',
+    a: 'We produce the filing-ready output against the registration each one belongs to. Filing itself stays with you or your consultant, which is deliberate: the statutory liability is the employer’s and we would rather not sit between you and it.',
   },
 ]
 

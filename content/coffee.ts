@@ -34,7 +34,7 @@ export const coffee = {
   headline: 'Whether you’re 40 employees or four lakh, you get the same depth',
   lede:
     'No feature-gating designed to force an upsell once you’re locked in. Every ' +
-    'module, at every size. One platform, priced per employee per month — the ' +
+    'module, at every size. One platform, priced per employee per month, at ' +
     'only thing that changes with scale is the support around it.',
 
   /* The reference's two tiers. Feature lists are verbatim; the rate is not
@@ -42,7 +42,7 @@ export const coffee = {
   tiers: [
     {
       name: 'EZER Platform',
-      note: 'Every live module, included — from your first ten hires to your first lakh.',
+      note: 'Every live module, included, from your first ten hires to your first lakh.',
       features: [
         'Recruitment, onboarding & employee master',
         'Payroll engine with full statutory compliance',
@@ -57,7 +57,7 @@ export const coffee = {
     {
       name: 'Enterprise',
       price: 'Custom',
-      note: 'Same full platform — plus dedicated support for multi-entity groups running at real scale.',
+      note: 'The same full platform, plus dedicated support for multi-entity groups running at real scale.',
       features: [
         'Everything in EZER Platform',
         'CFO & leadership dashboards',

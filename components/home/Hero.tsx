@@ -101,7 +101,7 @@ export function Hero() {
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-brand-700 shadow-raised ring-1 ring-white/40">
               <span aria-hidden="true">🇮🇳</span>
-              India&rsquo;s most proactive HRMS — built for every industry,
+              India&rsquo;s most proactive HRMS, built for every industry
               every establishment type
             </p>
 
@@ -116,12 +116,12 @@ export function Hero() {
                 className="text-brand-200"
                 startDelay={380}
               />{" "}
-              <RisingWords text="— all consolidated." startDelay={760} />
+              <RisingWords text="all consolidated." startDelay={760} />
             </h1>
 
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-on-dark">
               One employee or several lakh, one office or hundreds of branches,
-              plants and warehouses — it all consolidates into one platform.
+              plants and warehouses: it all consolidates into one platform.
               Recruitment, CTC and manpower planning, payroll, statutory
               compliance and employee experience, across every establishment
               type, every industry, every state.
@@ -227,7 +227,7 @@ export function Hero() {
                   href="/contact"
                   className="font-semibold text-brand-300 underline"
                 >
-                  Tell us where — we&rsquo;ll set the demo up on your structure
+                  Tell us where, and we&rsquo;ll set the demo up on your structure
                 </Link>
               </p>
             </div>

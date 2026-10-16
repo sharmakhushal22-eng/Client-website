@@ -118,7 +118,7 @@ export function PricingCalculator({
         <div className="inline-flex rounded-xl bg-ink-100 p-1">
           {[
             { value: false, label: 'Monthly' },
-            { value: true, label: `Annual — save ${annualDiscountPct}%` },
+            { value: true, label: `Annual, save ${annualDiscountPct}%` },
           ].map((option) => (
             <label
               key={String(option.value)}
@@ -163,7 +163,7 @@ export function PricingCalculator({
           </p>
           <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-600">
             We have not published the rate yet. Tell us your headcount, states
-            and entities and you get it in writing the same day — priced on what
+            and entities and you get it in writing the same day, priced on what
             you actually run, which is more useful than a list price anyway.
           </p>
 
@@ -214,7 +214,7 @@ export function PricingCalculator({
             </span>
           </p>
           <p className="mt-1.5 text-sm leading-relaxed text-ink-600">
-            per employee, per day — to run their payroll, hold their statutory
+            per employee, per day, to run their payroll, hold their statutory
             record and answer their questions without HR.
           </p>
         </div>
@@ -229,7 +229,7 @@ export function PricingCalculator({
       )}
 
       <p className="mt-6 text-center text-sm leading-relaxed text-ink-500">
-        Indicative only. {gstNote} Every module is in the figure above —
+        Indicative only. {gstNote} Every module is in the figure above,
         what is quoted on the call is migration scope for unusual setups, not a
         longer feature list.
       </p>

@@ -76,7 +76,7 @@ export function ScreenshotFrame({
             </p>
             <p className="max-w-md text-[0.7rem] leading-relaxed text-ink-600">
               Build the demo company with fictional names, salaries and PAN/Aadhaar
-              values first, then drop the image in — see site.config.ts.
+              values first, then drop the image in. See site.config.ts.
             </p>
           </div>
         )}

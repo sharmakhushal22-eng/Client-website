@@ -9,9 +9,9 @@ import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
 import { moduleGroups } from '@/content/modules'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Features — every module in one system',
+  title: 'Features: every module in one system',
   description:
-    'Recruitment, onboarding, attendance, payroll, statutory compliance, claims, self-service and reporting — the full module list, honestly grouped.',
+    'Recruitment, onboarding, attendance, payroll, statutory compliance, claims, self-service and reporting. The full module list, honestly grouped.',
   path: '/features',
 })
 
@@ -54,7 +54,7 @@ export default function FeaturesPage() {
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-600">
               Group companies usually end up with a recruitment tool, an attendance
-              system, a payroll bureau, a reimbursement process in email — and then
+              system, a payroll bureau, a reimbursement process in email, and then
               all of that again for the next entity. Each choice is defensible on its
               own. Together they mean the same employee exists several times over,
               and no two records agree.
@@ -63,8 +63,9 @@ export default function FeaturesPage() {
               EZER is one system across the whole group. A change to an employee is
               made once. Attendance becomes payroll input without an export. An
               approved claim becomes a salary component without an instruction. And
-              the statutory position — for every company, in every state it operates
-              in — is a consequence of the data rather than a separate reconciliation.
+              the statutory position, for every company and every state it
+              operates in, is a consequence of the data rather than a separate
+              reconciliation.
             </p>
           </div>
         </Container>

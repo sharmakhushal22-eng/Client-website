@@ -18,7 +18,7 @@ export function ProductTour() {
       <SectionHeading
         eyebrow="See it working"
         title="The actual product, not a mockup"
-        lede="The screens that carry most of the month. Every figure shown is from a demo company — no customer data appears on this site."
+        lede="The screens that carry most of the month. Every figure shown is from a demo company, and no customer data appears on this site."
       />
 
       <div className="mt-10 space-y-12 lg:space-y-16">

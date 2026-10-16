@@ -10,7 +10,7 @@ import { contentHub } from '@/content/articles'
 import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Blog — Indian payroll and compliance, explained',
+  title: 'Blog: Indian payroll and compliance, explained',
   description:
     'What changed in the four Labour Codes, how PF, ESIC and PT actually differ, and how to help employees choose between the old and new tax regime.',
   path: '/blog',

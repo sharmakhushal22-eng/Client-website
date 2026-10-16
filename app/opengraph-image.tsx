@@ -17,7 +17,7 @@ import { ImageResponse } from 'next/og'
  * card shows the actual mark rather than a letter in a box. The edge runtime
  * has no filesystem. OG cards are generated at build time and then cached, so
  * nothing about this is on a hot path. */
-export const alt = 'EZER HRMS — HR and payroll software built for Indian companies'
+export const alt = 'EZER HRMS, HR and payroll software built for Indian companies'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -74,7 +74,7 @@ export default async function OpengraphImage() {
             maxWidth: 900,
           }}
         >
-          Hiring to onboarding to attendance to payroll to full &amp; final — with
+          Hiring to onboarding to attendance to payroll to full &amp; final, with
           Indian statutory compliance built in.
         </div>
 

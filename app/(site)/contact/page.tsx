@@ -9,7 +9,7 @@ import { company, companyDetails, contact, displayLegalName } from '@/site.confi
 export const metadata: Metadata = pageMetadata({
   title: 'Contact us',
   description:
-    'Talk to sales, get support, or ask about partnerships. Phone, WhatsApp, an enquiry form and our registered office — with a stated response time.',
+    'Talk to sales, get support, or ask about partnerships. Phone, WhatsApp, an enquiry form and our registered office, with a stated response time.',
   path: '/contact',
 })
 
@@ -31,7 +31,7 @@ const routes: {
     title: 'Sales',
     body: 'Pricing, demos, migration scope, or whether EZER fits what you run today.',
     email: contact.salesEmail,
-    fallbackNote: 'Use the enquiry form, or WhatsApp us — both reach the sales team directly.',
+    fallbackNote: 'Use the enquiry form, or WhatsApp us. Both reach the sales team directly.',
   },
   {
     icon: 'settings',
@@ -77,8 +77,8 @@ export default function ContactPage() {
               Tell us what you are trying to fix
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-600">
-              The more you tell us up front — headcount, states, what you are
-              running today — the less of the first call is spent establishing
+              The more you tell us up front about headcount, states and what you
+              are running today, the less of the first call is spent establishing
               it. We reply {contact.responseSla} during business hours.
             </p>
             <p className="mt-4 text-[0.95rem] leading-relaxed text-ink-700">
@@ -103,7 +103,7 @@ export default function ContactPage() {
             <h2 className="text-2xl font-bold">Send an enquiry</h2>
             <p className="mt-2 text-[0.95rem] text-ink-600">
               Fields marked <span className="text-brand-600">*</span> are required.
-              The rest help us prepare — skip them if you would rather just talk.
+              The rest help us prepare, so skip them if you would rather just talk.
             </p>
             <div className="mt-8">
               <FullEnquiryForm formName="contact-page" submitLabel="Send enquiry" />

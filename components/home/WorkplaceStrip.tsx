@@ -61,14 +61,14 @@ const PLACES: Place[] = [
     alt: "A boardroom and executive seating area on an upper floor of a head office",
     name: "Head office",
     rule:
-      "Where the group sits — entity structure, approval chains and the " +
+      "Where the group sits: entity structure, approval chains and the " +
       "consolidated view across every site.",
   },
   {
     src: "manufacturing-plant",
     alt: "A production line inside a manufacturing plant",
     name: "Manufacturing plant",
-    rule: "Factories Act — shift patterns, overtime and the muster roll.",
+    rule: "Factories Act: shift patterns, overtime and the muster roll.",
   },
   {
     src: "warehouse",
@@ -88,7 +88,7 @@ const PLACES: Place[] = [
     name: "All of them, in one group",
     rule:
       "Each site keeps its own registrations and its own statutory position, " +
-      "on one employee master — a transfer is a transfer, not a re-hire.",
+      "on one employee master, so a transfer is a transfer and not a re-hire.",
   },
 ].map((p) => ({ ...p, src: `/photos/establishments/${p.src}.webp` }));
 
@@ -143,7 +143,7 @@ export function WorkplaceStrip() {
             </h2>
             <p className="mt-4 text-[1.02rem] leading-relaxed text-ink-700">
               The same platform runs the head office on Shops &amp;
-              Establishments and the plant on the Factories Act — one employee
+              Establishments and the plant on the Factories Act, with one employee
               master underneath both, and the statutory position worked out per
               registration.
             </p>

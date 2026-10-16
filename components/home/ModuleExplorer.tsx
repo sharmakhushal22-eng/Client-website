@@ -34,12 +34,12 @@ export function ModuleExplorer() {
               One platform, hire to retire
             </p>
             <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl">
-              Every HR and payroll function in one place — not stitched
+              Every HR and payroll function in one place, not stitched
               together from six tools
             </h2>
             <p className="mt-4 text-[1.02rem] leading-relaxed text-ink-600">
               Recruitment, talent retention, CTC and manpower planning,
-              payroll, employee self-service and exit — on one employee record,
+              payroll, employee self-service and exit, all on one employee record,
               not six. {totalModules} modules across {moduleGroups.length}{' '}
               areas, sharing one employee master, so a change made once is a
               change made everywhere.
@@ -64,7 +64,7 @@ export function ModuleExplorer() {
             <span>
               All {solutions.length} solutions, one login
               <span className="ml-2 font-medium text-ink-600">
-                The complete list — including what&rsquo;s shipping next.
+                The complete list, including what&rsquo;s shipping next.
               </span>
             </span>
             <Icon

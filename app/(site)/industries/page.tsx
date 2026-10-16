@@ -11,9 +11,9 @@ import { LatticePlate } from '@/components/sections/LatticePlate'
 import { industryCategories, industryCount } from '@/content/positioning'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Industries — HRMS & payroll by sector',
+  title: 'Industries: HRMS & payroll by sector',
   description:
-    'Manufacturing, IT/ITES, BFSI, construction, logistics, healthcare, retail and more. Establishment type decides which registers apply — configured per sector, not one generic template.',
+    'Manufacturing, IT/ITES, BFSI, construction, logistics, healthcare, retail and more. Establishment type decides which registers apply, configured per sector rather than one generic template.',
   path: '/industries',
 })
 
@@ -34,15 +34,15 @@ export const metadata: Metadata = pageMetadata({
 const industryFaqs = [
   {
     q: 'Our industry is not on the list. Does that mean you cannot help?',
-    a: 'Almost certainly not. The list is not the constraint — the statutory rules are, and those are configuration. What actually decides whether EZER fits is your establishment type, the states you operate in and how your wages are structured, not the label on your industry. Tell us those three and we will say plainly whether it works.',
+    a: 'Almost certainly not. The list is not the constraint. The statutory rules are, and those are configuration. What actually decides whether EZER fits is your establishment type, the states you operate in and how your wages are structured, not the label on your industry. Tell us those three and we will say plainly whether it works.',
   },
   {
     q: 'What actually changes between industries?',
-    a: 'Which registers you owe and which rules drive them. A factory falls under the Factories Act with its own registers, shift and overtime rules; a multi-city IT company is under state Shops & Establishments rules with a different leave entitlement in each state; a construction site adds BOCW cess and welfare board registration. The payroll arithmetic is the same — what changes is what has to come out of it.',
+    a: 'Which registers you owe and which rules drive them. A factory falls under the Factories Act with its own registers, shift and overtime rules; a multi-city IT company is under state Shops & Establishments rules with a different leave entitlement in each state; a construction site adds BOCW cess and welfare board registration. The payroll arithmetic is the same. What changes is what has to come out of it.',
   },
   {
     q: 'We operate across several industries under one group. Is that a problem?',
-    a: 'It is the normal case, and it is what the structure is built for. Each company in the group holds its own registrations, and each location under it carries its own establishment type — so a group with a corporate office, a factory and a warehouse runs three different statutory regimes in one system rather than three systems.',
+    a: 'It is the normal case, and it is what the structure is built for. Each company in the group holds its own registrations, and each location under it carries its own establishment type, so a group with a corporate office, a factory and a warehouse runs three different statutory regimes in one system rather than three systems.',
   },
   {
     q: 'Do you handle contract labour and principal-employer obligations?',
@@ -110,8 +110,8 @@ export default function IndustriesPage() {
               </h1>
               <p className="mt-5 text-[1.06rem] leading-relaxed text-white [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
                 We mapped HR, payroll and compliance challenges across more
-                than 100 Indian industries — from a 12-branch NBFC to a
-                three-shift factory floor — before writing the rules engine.
+                than 100 Indian industries, from a 12-branch NBFC to a
+                three-shift factory floor, before writing the rules engine.
                 This is who we built EZER for. Don&rsquo;t see your exact
                 industry below? It&rsquo;s probably still covered.
               </p>
@@ -119,7 +119,7 @@ export default function IndustriesPage() {
                   purpose, and this is where the real number belongs. */}
               <p className="mt-4 text-[0.95rem] font-semibold text-brand-200 [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
                 {industryCount} industries in {industryCategories.length}{' '}
-                groups, mapped and counting — new sector rule-sets ship as
+                groups, mapped and counting. New sector rule-sets ship as
                 EZER&rsquo;s client base grows.
               </p>
             </div>
@@ -134,7 +134,7 @@ export default function IndustriesPage() {
                   <strong className="font-bold text-white">
                     Not on the list?
                   </strong>{' '}
-                  The list is not the constraint — the statutory rules are.
+                  The list is not the constraint. The statutory rules are.
                   Tell us your establishment type and the states you operate
                   in, and we will tell you plainly whether this fits.
                 </span>
@@ -163,7 +163,7 @@ export default function IndustriesPage() {
                 </h2>
 
                 {/* The line that earns the section. A list of industry names
-                    proves nothing — anyone can paste an NIC code table.
+                    proves nothing, because anyone can paste an NIC code table.
                     Saying what is statutorily different about construction
                     proves somebody has run payroll in it. This is the one
                     thing this surface carries that the home section does
@@ -198,7 +198,7 @@ export default function IndustriesPage() {
 
       <CtaBand
         title="See it set up for your sector"
-        lede="Thirty minutes, against your own establishment type and states — not a generic demo company."
+        lede="Thirty minutes, against your own establishment type and states, not a generic demo company."
       />
     </>
   )

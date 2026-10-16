@@ -90,7 +90,7 @@ export async function submitLead(
      * will retune and try again; one that is told it succeeded usually
      * stops. Nothing was written. */
     console.warn('[lead] rejected:', cheap.reason, { formName })
-    return { status: 'success', message: 'Thanks — we have your enquiry.' }
+    return { status: 'success', message: 'Thanks, we have your enquiry.' }
   }
 
   /* ── Validation (server-side; §5.3 never trust the client) ─────────────── */
@@ -148,7 +148,7 @@ export async function submitLead(
     return {
       status: 'error',
       message:
-        'That is a few enquiries in a short time. Give it an hour, or call us directly — we would rather just talk.',
+        'That is a few enquiries in a short time. Give it an hour, or call us directly. We would rather just talk.',
       values,
     }
   }
@@ -220,7 +220,7 @@ export async function submitLead(
     return {
       status: 'error',
       message:
-        'Our enquiry form is temporarily unavailable. Please email or call us — we will pick it up straight away.',
+        'Our enquiry form is temporarily unavailable. Please email or call us and we will pick it up straight away.',
       values,
     }
   }
@@ -257,7 +257,7 @@ export async function submitLead(
     `${insertError.code ?? ''} ${insertError.message}`,
   )) {
     console.error(
-      '[lead] website_leads.source_site does not exist — saving without it. ' +
+      '[lead] website_leads.source_site does not exist, saving without it. ' +
         'Apply migration 008 (npm run db:push) to record which website each lead came from.',
     )
     const withoutSite = { ...(lead as Record<string, unknown>) }
@@ -270,7 +270,7 @@ export async function submitLead(
     return {
       status: 'error',
       message:
-        'Something went wrong saving your enquiry. Nothing you typed has been lost — please try again, or call us.',
+        'Something went wrong saving your enquiry. Nothing you typed has been lost, so please try again or call us.',
       values,
     }
   }
@@ -301,7 +301,7 @@ export async function submitLead(
 
   return {
     status: 'success',
-    message: 'Thanks — we have your enquiry.',
+    message: 'Thanks, we have your enquiry.',
   }
 }
 
@@ -313,7 +313,7 @@ export async function subscribeToNewsletter(
   form: FormData,
 ): Promise<SubscribeState> {
   const cheap = checkHoneypotAndTiming(form)
-  if (!cheap.ok) return { status: 'success', message: 'Thanks — please check your inbox.' }
+  if (!cheap.ok) return { status: 'success', message: 'Thanks, please check your inbox.' }
 
   const email = str(form, 'email').toLowerCase()
   const emailError = validateEmail(email)
@@ -345,6 +345,6 @@ export async function subscribeToNewsletter(
 
   return {
     status: 'success',
-    message: 'Almost there — check your inbox and confirm the subscription.',
+    message: 'Almost there. Check your inbox and confirm the subscription.',
   }
 }

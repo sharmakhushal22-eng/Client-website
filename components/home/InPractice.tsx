@@ -34,7 +34,7 @@ const SCENES = [
     /* Descriptive, because the picture is carrying an argument rather than
        decorating one. A screen reader user should get the claim, not "image". */
     alt:
-      "A payroll run closing for October — 398 employees, ₹4.82 crore net " +
+      "A payroll run closing for October: 398 employees, ₹4.82 crore net " +
       "payable, progressing to issued.",
     title: "The month closes in one pass",
     body:
@@ -99,7 +99,7 @@ export function InPractice() {
             <SectionHeading
               eyebrow="In practice"
               title="What it actually looks like on a working month"
-              lede="Three of the moments the platform is built around — not screenshots of a settings page."
+              lede="Three of the moments the platform is built around, not screenshots of a settings page."
               onPattern
             />
           </div>
@@ -149,8 +149,8 @@ export function InPractice() {
             and this line keeps it honest, rather than implying a track record
             that does not exist yet. */}
         <p className="relative mx-auto mt-8 max-w-3xl text-center text-[0.82rem] leading-relaxed text-ink-600">
-          Illustrative. Figures shown are from EZER&rsquo;s own instance — three
-          companies, 398 employees — not a customer&rsquo;s.
+          Illustrative. Figures shown are from EZER&rsquo;s own instance of
+          three companies and 398 employees, not from a customer&rsquo;s.
         </p>
       </Container>
     </section>

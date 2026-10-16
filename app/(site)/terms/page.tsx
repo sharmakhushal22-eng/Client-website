@@ -18,7 +18,7 @@ export default function TermsPage() {
     <LegalLayout
       title="Terms of service"
       updated="20 August 2026"
-      intro={`These terms govern your use of ${site.url}. They are not the terms of the EZER HRMS product — if your company subscribes, that is governed by a separate subscription agreement.`}
+      intro={`These terms govern your use of ${site.url}. They are not the terms of the EZER HRMS product. If your company subscribes, that is governed by a separate subscription agreement.`}
     >
       <h2>1. Scope</h2>
       <p>
@@ -99,7 +99,7 @@ export default function TermsPage() {
         We try to keep this site available but do not guarantee it. We may change,
         suspend or withdraw any part of it without notice. Availability
         commitments for the EZER HRMS product, where they exist, are in the
-        subscription agreement — not here.
+        subscription agreement, not here.
       </p>
 
       <h2>10. Liability</h2>

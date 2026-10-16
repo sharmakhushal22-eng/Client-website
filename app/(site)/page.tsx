@@ -30,7 +30,7 @@ import { site } from "@/site.config";
 export const metadata: Metadata = {
   /* absolute, so the "| EZER HRMS" template does not append a second time.
      Verbatim from the reference's <title>. */
-  title: { absolute: "EZER HRMS — India's 1st HRMS, Payroll & Compliance Engine" },
+  title: { absolute: "EZER HRMS: India's 1st HRMS, Payroll & Compliance Engine" },
   /* The reference's own meta description, verbatim. Kept here rather than
      inherited from the root default so the home page's search snippet is the
      one the company already publishes. */
@@ -106,7 +106,7 @@ export default function HomePage() {
       <BoardroomBand
         eyebrow="Made to be shown"
         title="The number your CFO asks for, without a week of assembling it"
-        body="Headcount, cost, statutory position and variance against last month — per company, per location, per state — read off one platform rather than reconciled across five."
+        body="Headcount, cost, statutory position and variance against last month, per company, per location and per state, read off one platform rather than reconciled across five."
       />
       {/* One workforce-grid field runs continuously behind this whole run —
           implementation, pricing and the testimonial ground — rather than

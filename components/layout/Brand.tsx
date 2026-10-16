@@ -140,7 +140,7 @@ export function Brand({
        * holds at any `size`. translate rather than margin because this is an
        * optical correction, not a layout one — the box stays where it is. */
       className={`group inline-flex shrink-0 -translate-y-[0.2397em] items-start gap-[0.4699em] ${size}`}
-      aria-label={`${site.name} — home`}
+      aria-label={`${site.name}, home`}
     >
       <BrandMark className="h-[2.7548em] w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.05]" />
 
@@ -199,7 +199,7 @@ export function BrandLockup({
   return (
     <Image
       src={onDark ? "/brand/ezer-lockup-dark.png" : "/brand/ezer-lockup.png"}
-      alt={`${site.name} — People · Process · Performance`}
+      alt={`${site.name}: People · Process · Performance`}
       width={900}
       height={575}
       className={`${className} select-none object-contain`}

@@ -20,17 +20,17 @@ export const problems = [
   {
     stat: 'Per entity',
     title: 'One system per company, or one sheet per site',
-    body: 'Group companies end up with the same employee existing several times over. A transfer between entities becomes an exit and a re-hire — losing the service history the gratuity clock runs on — and consolidated headcount is whatever the last person to build the sheet said it was.',
+    body: 'Group companies end up with the same employee existing several times over. A transfer between entities becomes an exit and a re-hire, which loses the service history the gratuity clock runs on. Consolidated headcount ends up being whatever the last person to build the sheet said it was.',
   },
   {
     stat: 'Manual',
     title: 'Registers are assembled branch by branch',
-    body: 'Someone pulls each location’s data, formats it to that state’s requirement, and files it. The month it is missed is the month nobody notices — until the inspection, when the gap is a year old.',
+    body: 'Someone pulls each location’s data, formats it to that state’s requirement, and files it. The month it is missed is the month nobody notices. Then the inspection comes and the gap is a year old.',
   },
   {
     stat: 'New codes',
     title: 'The wage definition changed under you',
-    body: 'The labour codes redrew what counts as wages for PF, gratuity and encashment. A structure built on the old definition is not slightly wrong — it is wrong every month, and backwards, and it compounds while everyone assumes it is fine.',
+    body: 'The labour codes redrew what counts as wages for PF, gratuity and encashment. A structure built on the old definition is not slightly wrong. It is wrong every month, and backwards, and it compounds while everyone assumes it is fine.',
   },
 ]
 
@@ -103,8 +103,8 @@ export const foundingCustomer = {
   eyebrow: 'Early, by design',
   title: 'Be one of EZER’s first case studies',
   lede:
-    'EZER is newly built — which means the roadmap still bends toward what our ' +
-    'first companies actually need, instead of what a five-year-old product has ' +
+    'EZER is newly built, so the roadmap still bends toward what our first ' +
+    'companies actually need rather than what a five-year-old product has ' +
     'already locked in.',
 
   offer: [
@@ -125,7 +125,7 @@ export const foundingCustomer = {
   fitNote:
     'This suits a company that wants influence over the product and can tolerate ' +
     'being early. If you need a vendor with two hundred reference customers and a ' +
-    'Gartner listing, we are not that yet — and we would rather say so now than ' +
+    'Gartner listing, we are not that yet. We would rather say so now than ' +
     'on the third call.',
   ctaLabel: 'Talk to Us About Early Access',
 }
@@ -143,23 +143,23 @@ export const homeFaqs = [
        is what the rest of the answer actually addresses. This is a deliberate
        divergence from Website changes.html. */
     q: 'Is our data safe?',
-    a: 'Sensitive fields — full Aadhaar number, bank account details — are masked by default and visible only to the specific roles that need them (HR Manager, Payroll Manager, Admin, Super Admin); everyone else sees a masked version, on every screen and every report export.',
+    a: 'Sensitive fields such as the full Aadhaar number and bank account details are masked by default and visible only to the specific roles that need them (HR Manager, Payroll Manager, Admin, Super Admin); everyone else sees a masked version, on every screen and every report export.',
   },
   {
-    q: 'We’re already on another HRMS mid-year — can we still switch?',
+    q: 'We’re already on another HRMS mid-year. Can we still switch?',
     a: 'Yes. The 10-day implementation program is built around migrating existing employee, CTC and compliance data, not starting from a blank sheet. Your implementation professional maps what you already have before anything moves.',
   },
   {
-    q: 'How large can EZER actually go — and can it run multiple group companies?',
-    a: 'There is no headcount ceiling. Multi-company is core to how EZER is built, not an add-on bolted on later — one login, separate books and separate statutory registers per company, from the first run. The same architecture that runs one 40-person startup runs a group of dozens of entities totalling lakhs of employees across hundreds of corporate offices, branches, plants and warehouses.',
+    q: 'How large can EZER actually go, and can it run multiple group companies?',
+    a: 'There is no headcount ceiling. Multi-company is core to how EZER is built, not an add-on bolted on later: one login, separate books and separate statutory registers per company, from the first run. The same architecture that runs one 40-person startup runs a group of dozens of entities totalling lakhs of employees across hundreds of corporate offices, branches, plants and warehouses.',
   },
   {
     q: 'What if our branches sit in different states or industries?',
-    a: 'Compliance rules are configured per branch and per industry — minimum wage, PT and shift rules differ by state and establishment type, and EZER accounts for that instead of applying one template everywhere.',
+    a: 'Compliance rules are configured per branch and per industry. Minimum wage, PT and shift rules differ by state and establishment type, and EZER accounts for that instead of applying one template everywhere.',
   },
   {
     q: 'Do employees need training to use it?',
-    a: 'Employee self-service is built to be self-explanatory — punch in/out, apply leave, check a payslip, declare investments. Formal training for your HR and payroll team is covered on Days 9–10 of implementation.',
+    a: 'Employee self-service is built to be self-explanatory: punch in and out, apply for leave, check a payslip, declare investments. Formal training for your HR and payroll team is covered on Days 9–10 of implementation.',
   },
 ]
 
@@ -199,7 +199,7 @@ export const productTour = [
     alt: 'EZER HRMS employee self-service portal showing payslips and leave balance',
     title: 'Employees serve themselves',
     caption:
-      'Payslips, tax declarations, leave balances, attendance and documents in the ESS portal — which is where most of the HR inbox goes to die.',
+      'Payslips, tax declarations, leave balances, attendance and documents in the ESS portal, which is where most of the HR inbox goes to die.',
   },
 ]
 

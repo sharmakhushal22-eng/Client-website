@@ -201,12 +201,12 @@ export function EngineWidget() {
         className="mt-2.5 min-h-5 text-center text-[0.75rem] font-bold text-success"
       >
         {finished
-          ? `${OUTPUTS.length} statutory registers generated — every location type covered`
+          ? `${OUTPUTS.length} statutory registers generated, every location type covered`
           : ''}
       </p>
 
       <p className="mt-1.5 text-center text-[0.7rem] leading-relaxed text-ink-600">
-        Illustrative — every location type feeds one engine, one register
+        Illustrative. Every location type feeds one engine, one register
         output. {structure.locationTypes.length} location types are modelled in
         the product.
       </p>

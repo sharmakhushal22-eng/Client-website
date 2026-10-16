@@ -65,7 +65,7 @@ export function StatutoryTable() {
         </div>
 
         <p className="mt-6 text-sm text-ink-500">
-          Rates, ceilings and slabs are configuration, not code — so a statutory
+          Rates, ceilings and slabs are configuration, not code, so a statutory
           change is applied without waiting for a product release.
         </p>
       </Section>
@@ -75,7 +75,7 @@ export function StatutoryTable() {
         <SectionHeading
           eyebrow="A worked example"
           title="One payslip, with the arithmetic shown"
-          lede="A fictional employee in Pune on a monthly gross of ₹58,000. The figures tie out — that is the whole point of showing them."
+          lede="A fictional employee in Pune on a monthly gross of ₹58,000. The figures tie out, which is the whole point of showing them."
         />
 
         <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl bg-surface shadow-xl shadow-ink-900/5 ring-1 ring-ink-200">

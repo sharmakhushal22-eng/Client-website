@@ -72,7 +72,7 @@ export function PriceReveal({
         } ${onDark ? 'text-on-dark-muted' : 'text-ink-500'}`}
       >
         We have not published the rate yet. Ask on the demo and you get the
-        number in writing the same day — priced on your headcount rather than
+        number in writing the same day, priced on your headcount rather than
         read off a list.
       </p>
 

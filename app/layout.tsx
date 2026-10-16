@@ -25,7 +25,7 @@ export const metadata: Metadata = {
        on request — but it is the one line on this site that could draw an
        ASCI complaint, and it should be substantiated or softened before
        launch. Nothing else here asserts a ranking. */
-    default: "EZER HRMS — India's 1st HRMS, Payroll & Compliance Engine",
+    default: "EZER HRMS: India's 1st HRMS, Payroll & Compliance Engine",
     template: `%s | ${site.name}`,
   },
   description: site.description,

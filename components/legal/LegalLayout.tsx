@@ -38,7 +38,7 @@ export function LegalLayout({
             <p className="flex items-start gap-2.5 text-sm leading-relaxed text-amber-900">
               <Icon name="alert" className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
               <span>
-                <strong>Draft — pending legal review.</strong> This document is a
+                <strong>Draft, pending legal review.</strong> This document is a
                 working draft written to cover what the site actually does. It
                 must be reviewed by a lawyer before launch, and this notice
                 removed by passing <code className="font-mono">needsReview=&#123;false&#125;</code>.

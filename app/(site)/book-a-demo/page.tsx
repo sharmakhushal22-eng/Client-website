@@ -42,7 +42,7 @@ export default function BookADemoPage() {
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-600">
               Tell us a little about your company. We&rsquo;ll show you EZER
-              configured for your industry and branch structure — not a generic
+              configured for your industry and branch structure, not a generic
               script. Not a slide deck and not a recorded tour: we open the
               live product, set it up the way your company is set up, and run
               the parts you actually care about.

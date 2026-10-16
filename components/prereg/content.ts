@@ -12,11 +12,11 @@ export const prereg = {
   eyebrow: 'Founding customers',
   teaserTitle: 'Priced like a coffee. Not public yet.',
   teaserLine:
-    'One coffee a month, per employee — and the founding rate is held for your term.',
+    'One coffee a month, per employee, and the founding rate is held for your term.',
 
   panelTitle: 'Lock the coffee price',
   panelLead:
-    'Per employee, per month, EZER costs about what one coffee costs. That rate is not public yet — pre-register and it is held for your founding term.',
+    'Per employee, per month, EZER costs about what one coffee costs. That rate is not public yet. Pre-register and it is held for your founding term.',
 
   /* The urgency line. Every clause is a fact, not a device:
    *   · the rate genuinely is not published (pricing.disclosed === false)
@@ -28,7 +28,7 @@ export const prereg = {
    * first prospect who asks "up to what?" turns the whole page into a
    * negotiation about credibility. */
   urgency:
-    'The rate goes public at general launch. Pre-register before then and it is held for your founding term — including through the versions that add more than you signed up for.',
+    'The rate goes public at general launch. Pre-register before then and it is held for your founding term, including through the versions that add more than you signed up for.',
 
   benefits: [
     {
@@ -44,7 +44,7 @@ export const prereg = {
     {
       icon: 'shield' as IconName,
       title: 'Your statutory edge cases get built',
-      detail: 'Your state, your establishment type, your wage structure — because you asked.',
+      detail: 'Your state, your establishment type, your wage structure, because you asked.',
     },
     {
       icon: 'sparkle' as IconName,
@@ -59,7 +59,7 @@ export const prereg = {
     'This suits a company that wants influence over the product and can tolerate being early. If you need a vendor with two hundred reference customers, we are not that yet.',
 
   reassurance:
-    'No obligation and no credit card. We will call once to understand what you run — if it is not a fit, we will say so.',
+    'No obligation and no credit card. We will call once to understand what you run. If it is not a fit, we will say so.',
 
   cta: 'Pre-register my company',
 } as const

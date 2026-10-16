@@ -11,9 +11,9 @@ import { pricing, publicPricePerEmployee } from '@/site.config'
 import { PriceReveal } from '@/components/pricing/PriceReveal'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Pricing — one plan, every module',
+  title: 'Pricing: one plan, every module',
   description:
-    'One plan for the whole of EZER HRMS — every statutory module, unlimited entities, implementation and migration included. Pricing shared on the demo call.',
+    'One plan for the whole of EZER HRMS, with every statutory module, unlimited entities, implementation and migration included. Pricing shared on the demo call.',
   path: '/pricing',
 })
 
@@ -21,11 +21,11 @@ export const metadata: Metadata = pageMetadata({
 const pricingFaqs = [
   {
     q: 'Why is there only one plan?',
-    a: 'Because tiering an HRMS means tiering compliance, and that is the wrong thing to sell. In a three-tier model the statutory depth — multi-state Professional Tax, LWF frequency, contribution-period handling, labour-code wage definitions — always lands in the upper tier. The company least able to absorb a PF notice ends up with the weakest coverage. We would rather charge one rate and let headcount do the scaling.',
+    a: 'Because tiering an HRMS means tiering compliance, and that is the wrong thing to sell. In a three-tier model the statutory depth always lands in the upper tier: multi-state Professional Tax, LWF frequency, contribution-period handling, labour-code wage definitions. The company least able to absorb a PF notice ends up with the weakest coverage. We would rather charge one rate and let headcount do the scaling.',
   },
   {
     q: 'Is GST included in this price?',
-    a: 'No. The price is exclusive of GST, charged at the applicable rate on your invoice. We state it this way round deliberately — a price that quietly includes tax is the one that causes an argument at the first invoice.',
+    a: 'No. The price is exclusive of GST, charged at the applicable rate on your invoice. We state it this way round deliberately, because a price that quietly includes tax is the one that causes an argument at the first invoice.',
   },
   {
     q: 'Is there really no implementation fee?',
@@ -37,11 +37,11 @@ const pricingFaqs = [
   },
   {
     q: 'What happens if our headcount changes mid-cycle?',
-    a: 'You are billed on active employees, so joiners and exits are reflected at the next billing date rather than requiring a contract change. There is no minimum headcount — ten employees or ten thousand, you pay for the people you actually employ.',
+    a: 'You are billed on active employees, so joiners and exits are reflected at the next billing date rather than requiring a contract change. There is no minimum headcount. Ten employees or ten thousand, you pay for the people you actually employ.',
   },
   {
     q: 'Does each legal entity or location cost extra?',
-    a: 'No. Entities, locations and statutory registrations are unlimited on the same subscription. This is the charge most often buried elsewhere, and it is the one that punishes exactly the companies EZER is built for — a group running a corporate office, two factories and a warehouse should not pay four times.',
+    a: 'No. Entities, locations and statutory registrations are unlimited on the same subscription. This is the charge most often buried elsewhere, and it is the one that punishes exactly the companies EZER is built for. A group running a corporate office, two factories and a warehouse should not pay four times.',
   },
   {
     q: 'Can we get our data out if we leave?',
@@ -49,7 +49,7 @@ const pricingFaqs = [
   },
   {
     q: 'Do you offer a free trial?',
-    a: 'Not at the moment, and the reason is honest rather than commercial. Payroll cannot be meaningfully evaluated on sample data — the value only shows up when it is running against your salary structures, your states and your registrations. So we demo against your own scenario instead, and during implementation we run one full cycle in parallel with your existing process before you cut over. You see your own numbers reconcile before anything depends on them.',
+    a: 'Not at the moment, and the reason is honest rather than commercial. Payroll cannot be meaningfully evaluated on sample data. The value only shows up when it is running against your salary structures, your states and your registrations. So we demo against your own scenario instead, and during implementation we run one full cycle in parallel with your existing process before you cut over. You see your own numbers reconcile before anything depends on them.',
   },
 ]
 
@@ -80,9 +80,9 @@ export default function PricingPage() {
               One plan. Everything in it.
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-600">
-              Most HRMS pricing puts compliance in the expensive tier — which
-              means the company least able to absorb a PF notice gets the
-              weakest protection. We do not sell it that way. Every module,
+              Most HRMS pricing puts compliance in the expensive tier, so the
+              company least able to absorb a PF notice gets the weakest
+              protection. We do not sell it that way. Every module,
               every statutory head and every entity is in one rate, and
               headcount does the scaling.
             </p>
@@ -225,7 +225,7 @@ export default function PricingPage() {
           title={pricing.disclosed ? 'What it costs at your headcount' : 'Start with your headcount'}
           lede={pricing.disclosed
             ? 'Drag the slider. One rate, so there is only one number to read.'
-            : 'Set your headcount — it is the first thing we ask on the call, and it is what your quote is priced on.'}
+            : 'Set your headcount. It is the first thing we ask on the call, and it is what your quote is priced on.'}
         />
         <div className="mt-10">
           <PricingCalculator
@@ -242,7 +242,7 @@ export default function PricingPage() {
       <Section tone="white" ariaLabel="What is included">
         <SectionHeading
           eyebrow="No surprises"
-          title="What the price covers — and what it does not"
+          title="What the price covers, and what it does not"
           lede="The second list matters more than the first. Every unpleasant surprise in a software contract is something that was on it and never stated."
         />
 
