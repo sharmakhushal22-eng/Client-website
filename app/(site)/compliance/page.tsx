@@ -1,17 +1,16 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
-import { Section, SectionHeading } from '@/components/ui/Section'
-import { Icon } from '@/components/ui/Icon'
-import { Button } from '@/components/ui/Button'
-import { CentralControl } from '@/components/sections/CentralControl'
-import { LabourCodeCards } from '@/components/sections/LabourCodeCards'
+import { Button, Arrow } from '@/components/ui/Button'
 import { StatutoryTable } from '@/components/sections/StatutoryTable'
 import { Faq } from '@/components/sections/Faq'
 import { CtaBand } from '@/components/sections/CtaBand'
+import { PageHero } from '@/components/brand/PageHero'
+import { PageTransition } from '@/components/brand/PageTransition'
+import { Eyebrow } from '@/components/brand/Bars'
+import { ComplianceBand } from '@/components/story/ComplianceBand'
+import { GroupShape } from '@/components/story/GroupShape'
 import { JsonLd, pageMetadata, breadcrumbSchema, faqSchema } from '@/lib/seo'
-import { complianceEngine, labourCodes, structure, flags } from '@/content/positioning'
-import { complianceItems } from '@/content/modules'
+import { complianceEngine, labourCodes, flags, ruleChanges } from '@/content/positioning'
 
 export const metadata: Metadata = pageMetadata({
   title: 'Statutory compliance & the labour codes',
@@ -33,6 +32,10 @@ export const metadata: Metadata = pageMetadata({
  * ========================================================================= */
 
 const complianceFaqs = [
+  {
+    q: 'Is EZER up to date with the 2026 changes: the ₹25,000 EPF ceiling and the Income-tax Act, 2025?',
+    a: 'Yes. Rules are held as configuration with the date they take effect, so the EPF ceiling is ₹15,000 for months before 17 September 2026 and ₹25,000 after it, and salary TDS runs under section 392 of the Income-tax Act, 2025 with the new regime as the default and Form 130 at the end of the tax year. The bonus ceilings the Code on Wages set in August 2026 are applied the same way.',
+  },
   {
     q: 'Which states do you cover for Professional Tax and LWF?',
     a: 'Every state that levies them. PT slabs and LWF rates are held per state registration and applied by the location the employee actually works at, not by where the company is headquartered. LWF is the one people get caught by: it is monthly in some states, half-yearly in others and annual elsewhere, and the frequency is configured per registration rather than assumed.',
@@ -59,7 +62,7 @@ export default function CompliancePage() {
   const live = flags.complianceEngineLive
 
   return (
-    <>
+    <PageTransition kind="ledger">
       <JsonLd
         schemas={[
           breadcrumbSchema([
@@ -70,209 +73,129 @@ export default function CompliancePage() {
         ]}
       />
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="bg-brand-50 py-10 sm:py-14 lg:py-16">
-        <Container>
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-ink-600">
-            <Link href="/" className="hover:text-brand-700">
-              Home
-            </Link>
-            <span className="mx-2" aria-hidden="true">
-              /
-            </span>
-            <span className="font-medium text-ink-900">Compliance</span>
-          </nav>
-
-          <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
-                {complianceEngine.eyebrow}
-              </p>
-              <h1 className="mt-3 text-[2rem] font-bold leading-[1.12] sm:text-4xl lg:text-[2.75rem]">
-                {live
-                  ? 'One run. Every location’s register together.'
-                  : 'Four states is not one statutory position. It is four.'}
-              </h1>
-              <p className="mt-5 text-lg leading-relaxed text-ink-600">
-                {complianceEngine.lede}
-              </p>
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Button href="/book-a-demo" size="lg">
-                  See it on your registrations
-                  <Icon name="arrow-right" className="h-4 w-4" />
-                </Button>
-                <Button href="/industries" variant="secondary" size="lg">
-                  Rules for your sector
-                </Button>
+      {/* ── Hero: the claim, then the register of what the run produces ── */}
+      <PageHero
+        kind="product"
+        stage="shield"
+        stageChips={['EPF', 'ESIC', 'PT', 'LWF', 'TDS', 'Gratuity', 'Bonus']}
+        crumbs={[{ name: 'Compliance' }]}
+        eyebrow={complianceEngine.eyebrow}
+        title={
+          live
+            ? ['One run.', <span key="b" className="text-ink-400">Every register together.</span>]
+            : ['36 states and UTs.', '36 statutory positions.', <span key="c" className="text-brand-600">One payroll run.</span>]
+        }
+        lede={complianceEngine.lede}
+        actions={
+          <>
+            <Button href="/book-a-demo" size="lg">
+              See it on your registrations
+              <Arrow />
+            </Button>
+            <Button href="/industries" variant="secondary" size="lg">
+              Rules for your sector
+            </Button>
+          </>
+        }
+      >
+        <div data-h="fade" style={{ '--d': '560ms' } as React.CSSProperties} className="mt-16 lg:mt-20">
+          <p className="ez-kicker text-ink-500">{live ? 'Generated together' : 'Calculated in the run'}</p>
+          <dl className="mt-4 grid border-t border-ink-900/10 sm:grid-cols-2 lg:grid-cols-3">
+            {complianceEngine.outputs.map((output, i) => (
+              <div
+                key={output.label}
+                className={`border-b border-ink-900/10 py-6 sm:pr-6 ${i % 2 === 1 ? 'sm:border-l sm:pl-6' : ''} ${i % 3 !== 0 ? 'lg:border-l lg:pl-6' : 'lg:border-l-0 lg:pl-0'}`}
+              >
+                <dt className="font-display text-[1.35rem] font-[640] tracking-[-0.025em] text-ink-900 [font-stretch:106%]">
+                  {output.label}
+                </dt>
+                <dd className="mt-1.5 text-[0.95rem] leading-relaxed text-ink-600">{output.detail}</dd>
               </div>
-            </div>
+            ))}
+          </dl>
+        </div>
+      </PageHero>
 
-            {/* What comes out of the run. */}
-            <div className="rounded-xl bg-surface p-6 ring-1 ring-brand-100">
-              <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
-                {live ? 'Generated together' : 'Calculated in the run'}
+      {/* ── The acts, as the band the home page uses ─────────────────────── */}
+      <ComplianceBand showLink={false} />
+
+      {/* ── What changed, and when ─────────────────────────────────────────
+          Dated, newest first, each with what EZER does about it. The line
+          draws itself as the section arrives; the four codes follow once. */}
+      <section aria-labelledby="changes-title" className="bg-white py-16 sm:py-20 lg:py-28">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <Eyebrow>What changed, and when</Eyebrow>
+              <h2 id="changes-title" className="mt-5 text-[2rem] leading-[1.08] sm:text-[2.6rem] lg:text-[3rem]">
+                The law moved four times in a year.
+                <span className="text-brand-600"> The rules moved with it.</span>
               </h2>
-              <dl className="mt-4 divide-y divide-ink-200">
-                {complianceEngine.outputs.map((output) => (
-                  <div key={output.label} className="py-2.5">
-                    <dt className="text-sm font-bold text-ink-900">
-                      {output.label}
-                    </dt>
-                    <dd className="mt-0.5 text-xs leading-relaxed text-ink-600">
-                      {output.detail}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+              <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-600">
+                Each change is held as configuration with the date it takes effect, so a month
+                before the change is worked out under the old rule and a month after under the new one.
+              </p>
             </div>
+            <ol data-m="settle" className="ez-timeline relative lg:col-span-8">
+              {ruleChanges.map((c, i) => (
+                <li key={c.date} style={{ '--i': i } as React.CSSProperties} className="relative grid gap-2 pb-10 pl-10 last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                  <span aria-hidden="true" className="absolute left-0 top-1 z-10 grid h-6 w-6 place-items-center rounded-full bg-brand-600 ring-4 ring-brand-50">
+                    <span className="h-2 w-2 rounded-full bg-white" />
+                  </span>
+                  <p className="ez-kicker pt-1.5 text-brand-700">{c.date}</p>
+                  <div>
+                    <h3 className="font-display text-[1.35rem] font-[650] leading-snug tracking-[-0.025em] text-ink-900 [font-stretch:106%]">{c.what}</h3>
+                    <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-600">{c.detail}</p>
+                    <p className="mt-3 rounded-[14px] bg-paper px-4 py-3 text-[0.9rem] leading-relaxed text-ink-800">
+                      <span className="font-semibold text-brand-700">In EZER: </span>{c.applied}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </Container>
       </section>
 
-      {/* ── The acts, at a glance ────────────────────────────────────────── */}
-      <section className="border-y border-ink-200 bg-surface py-10" aria-label="Acts covered">
+      {/* ── What changed: the four codes, as numbered rows ───────────────── */}
+      <section aria-labelledby="codes-title" className="bg-paper py-16 sm:py-20 lg:py-28">
         <Container>
-          <p className="text-center text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
-            Calculated inside the payroll run
-          </p>
-          <ul className="mt-6 flex flex-wrap justify-center gap-2.5">
-            {complianceItems.map((item) => (
-              <li
-                key={item.code}
-                className="flex items-center gap-2 rounded-md bg-brand-50 px-3.5 py-2 ring-1 ring-brand-100"
-              >
-                <span className="text-sm font-bold text-ink-900">{item.code}</span>
-                <span className="text-xs text-ink-600">{item.label}</span>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+          <div className="max-w-3xl">
+            <Eyebrow>{labourCodes.eyebrow}</Eyebrow>
+            <h2 id="codes-title" className="mt-5 text-[2rem] leading-[1.08] sm:text-[2.6rem] lg:text-[3rem]">
+              {labourCodes.title}
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-ink-600">{labourCodes.lede}</p>
+          </div>
 
-      {/* ── What changed ─────────────────────────────────────────────────── */}
-      <Section tone="tint" ariaLabel="The labour codes">
-        <SectionHeading
-          eyebrow={labourCodes.eyebrow}
-          title={labourCodes.title}
-          lede={labourCodes.lede}
-          align="left"
-        />
-
-        <div className="mt-10">
-          <LabourCodeCards />
-        </div>
-
-        <p className="mt-6 flex items-start gap-2.5 rounded-lg bg-surface px-5 py-4 text-sm leading-relaxed text-ink-600 ring-1 ring-brand-100">
-          <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
-          {labourCodes.note}
-        </p>
-      </Section>
-
-      {/* ── Why multi-state is the hard part ─────────────────────────────── */}
-      <Section tone="white" ariaLabel="Multi-state and multi-entity">
-        {/* Centred in the section, and NOT set in columns.
-
-            Two columns did span the full frame, but the split fell inside a
-            sentence — the first column ended "...the way it actually exists:"
-            and the second opened "a group holding several companies", so the
-            colon and the list it introduces sat in different columns. A
-            reader has to jump back up the page to finish the thought.
-
-            max-w-3xl matches SectionHeading, which every other centred
-            heading on the site uses — this block is hand-rolled rather than
-            using that component (it needs the diagram slotted in beneath),
-            so the width is matched by hand to keep it in step. */}
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
-            {structure.eyebrow}
-          </p>
-          <h2 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-[2.6rem]">
-            {structure.title}
-          </h2>
-          {/* Justified, so both edges are flush. The eyebrow and heading
-              stay centred — justifying a two-line display heading stretches
-              its word gaps into something that reads as broken.
-
-              hyphens-auto goes with it deliberately: justification without
-              hyphenation pushes the slack into word spaces, and at this
-              measure that is what produces the rivers of white running down
-              a justified block. The <html lang="en-IN"> is what lets the
-              browser hyphenate at all. */}
-          <p className="mt-5 hyphens-auto text-justify text-[1.02rem] leading-relaxed text-ink-700">
-            {structure.lede}
-          </p>
-        </div>
-
-        {/* The diagram states the same thing the heading does, in one look:
-            one office issuing down to every site, every site reporting back.
-
-            Capped to the same max-w-3xl as the heading above it. Run to the
-            full container it scaled to 1.35x its native 840-unit box, which
-            blew the 14px labels up past the body copy around them — the
-            diagram started competing with the section instead of supporting
-            it. At this width it sits just under 1:1, so the type inside is
-            close to the size it was drawn at, and it lines up with the
-            heading rather than overhanging it. */}
-        <div className="mt-10">
-          <CentralControl />
-        </div>
-
-        {/* items-stretch so both columns are the same height, and each
-            column is a flex column whose children flex-1. Three levels on
-            the left and four points on the right then span the SAME total
-            height, with each side dividing it evenly — which is what makes
-            the two read as a pair rather than as a card stack next to a
-            loose list.
-
-            Without this the points were four plain check lines, ending well
-            short of the levels beside them and leaving the right half of the
-            section visibly unfinished. */}
-        <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-14">
-          <ol className="flex flex-col gap-3">
-            {structure.levels.map((level) => (
-              <li
-                key={level.name}
-                className="flex flex-1 items-start gap-4 rounded-xl bg-brand-50 p-5 ring-1 ring-brand-100"
-              >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-brand-600 text-on-accent">
-                  <Icon name={level.icon} className="h-5 w-5" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-[1.02rem] font-bold text-ink-900">
-                    {level.name}
-                  </span>
-                  <span className="mt-1 block text-sm leading-relaxed text-ink-600">
-                    {level.detail}
-                  </span>
-                </span>
+          <ol className="mt-14 border-t border-ink-900/15">
+            {labourCodes.codes.map((code, i) => (
+              <li key={code.name} data-m="rise" className="grid gap-4 border-b border-ink-900/10 py-8 lg:grid-cols-12 lg:gap-10">
+                <div className="flex items-baseline gap-5 lg:col-span-5">
+                  <span className="ez-num ez-kicker text-brand-600">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="font-display text-[1.7rem] font-[650] leading-tight tracking-[-0.03em] text-ink-900 [font-stretch:108%] sm:text-[2rem]">
+                    {code.name}
+                  </h3>
+                </div>
+                <div className="lg:col-span-7">
+                  <p className="ez-kicker text-ink-400">{code.covers}</p>
+                  <p className="mt-2 text-[1.02rem] leading-relaxed text-ink-700">{code.what}</p>
+                </div>
               </li>
             ))}
           </ol>
 
-          {/* The points get the same card treatment, in the neutral tone
-              rather than the brand one — matched in weight so the columns
-              balance, distinct in colour so the right side does not read as
-              a second copy of the left. */}
-          <ul className="flex flex-col gap-3">
-            {structure.points.map((point) => (
-              <li
-                key={point}
-                className="flex flex-1 items-start gap-3 rounded-xl bg-surface p-5 text-[0.95rem] leading-relaxed text-ink-700 ring-1 ring-ink-200"
-              >
-                <Icon
-                  name="check"
-                  className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600"
-                />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
+          <p className="mt-10 max-w-3xl border-l-2 border-marigold pl-6 text-[1.02rem] leading-relaxed text-ink-700">
+            {labourCodes.note}
+          </p>
+          <p className="mt-6 max-w-3xl text-[0.98rem] leading-relaxed text-ink-600">{labourCodes.industryNote}</p>
+        </Container>
+      </section>
 
-      {/* The act-by-act table, the worked payslip and the auditability line —
-          previously reachable only from /features/payroll. */}
+      {/* ── Why multi-state is the hard part ─────────────────────────────── */}
+      <GroupShape />
+
+      {/* The act-by-act table, the worked payslip and the auditability line. */}
       <StatutoryTable />
 
       <Faq
@@ -286,6 +209,6 @@ export default function CompliancePage() {
         title="Bring your registrations to the call"
         lede="Tell us the states you operate in and the establishment types you hold. We will show you the statutory setup against your own structure rather than a demo company."
       />
-    </>
+    </PageTransition>
   )
 }

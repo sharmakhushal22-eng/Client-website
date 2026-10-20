@@ -35,18 +35,14 @@ export function PreRegisterTeaser({
           : 'pointer-events-none translate-y-4 opacity-0'
       }`}
     >
-      <div className="overflow-hidden rounded-xl bg-surface shadow-floating ring-1 ring-ink-200">
+      <div className="overflow-hidden rounded-[20px] bg-white shadow-[0_1px_2px_rgb(11_22_51/0.06),0_30px_60px_-24px_rgb(11_22_51/0.35)] ring-1 ring-ink-900/[0.08]">
         {/* A thin brand rule instead of a filled header — this is a nudge,
             not an announcement, and it should sit quietly next to the page. */}
-        <div
-          aria-hidden="true"
-          className="h-1 bg-gradient-to-r from-brand-600 to-brand-400"
-        />
 
         <div className="p-5">
           <div className="flex items-start justify-between gap-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-[0.1em] text-brand-700 ring-1 ring-brand-100">
-              <Icon name="sparkle" className="h-3 w-3" />
+            <span className="ez-kicker inline-flex items-center gap-2 text-[#8a5a00]">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-marigold" />
               {prereg.eyebrow}
             </span>
 
@@ -61,8 +57,7 @@ export function PreRegisterTeaser({
             </button>
           </div>
 
-          <p className="mt-3 flex items-start gap-1.5 text-[0.95rem] font-bold leading-snug text-ink-900">
-            <span aria-hidden="true">☕</span>
+          <p className="mt-3 font-display text-[1.05rem] font-[650] leading-snug tracking-[-0.02em] text-ink-900 [font-stretch:104%]">
             {prereg.teaserTitle}
           </p>
           <p className="mt-1.5 text-[0.8rem] leading-relaxed text-ink-600">
@@ -74,7 +69,7 @@ export function PreRegisterTeaser({
               type="button"
               onClick={onExpand}
               tabIndex={open ? 0 : -1}
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-md bg-brand-600 px-3.5 py-2.5 text-[0.82rem] font-bold text-on-accent transition-colors hover:bg-brand-700"
+              className="ez-press inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-brand-600 px-3.5 py-2.5 text-[0.82rem] font-semibold text-on-accent hover:bg-brand-700"
             >
               See the terms
               <Icon name="arrow-right" className="h-3.5 w-3.5" />
@@ -83,7 +78,7 @@ export function PreRegisterTeaser({
               type="button"
               onClick={onDismiss}
               tabIndex={open ? 0 : -1}
-              className="rounded-md px-3 py-2.5 text-[0.82rem] font-semibold text-ink-600 transition-colors hover:bg-ink-100 hover:text-ink-900"
+              className="ez-press rounded-full px-3.5 py-2.5 text-[0.82rem] font-semibold text-ink-600 hover:bg-ink-50 hover:text-ink-900"
             >
               Not now
             </button>

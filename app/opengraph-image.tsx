@@ -79,7 +79,7 @@ export default async function OpengraphImage() {
         </div>
 
         <div style={{ marginTop: 48, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-          {['EPF', 'ESIC', 'PT', 'LWF', 'TDS', 'Form 16', 'Gratuity'].map((tag) => (
+          {['EPF', 'ESIC', 'PT', 'LWF', 'TDS', 'Form 130', 'Gratuity'].map((tag) => (
             <div
               key={tag}
               style={{

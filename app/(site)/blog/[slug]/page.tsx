@@ -3,11 +3,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
-import { Button } from '@/components/ui/Button'
-import { MeshField } from '@/components/ui/MeshField'
+import { Button, Arrow } from '@/components/ui/Button'
+import { PageTransition } from '@/components/brand/PageTransition'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
 import { getAllPosts, getPost, repoSlugs } from '@/lib/blog'
+import { DoodleCluster } from '@/components/graphics/Doodles'
 import { site } from '@/site.config'
 
 /* One static route per article — the set is known at build time, so there is
@@ -58,7 +59,7 @@ export default async function ArticlePage({
   const others = (await getAllPosts()).filter((a) => a.slug !== article.slug)
 
   return (
-    <>
+    <PageTransition kind="editorial">
       <JsonLd
         schemas={[
           breadcrumbSchema([
@@ -80,65 +81,48 @@ export default async function ArticlePage({
       />
 
       <article>
-        <header className="relative overflow-hidden bg-canvas py-14 sm:py-16 lg:py-20">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden"
-          >
-            <MeshField idPrefix="art" />
-            <span className="ez-sweep absolute inset-y-0 -left-1/4 w-1/3 bg-[linear-gradient(90deg,transparent,rgb(255_255_255/0.6),transparent)]" />
-            <span className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-canvas)_0%,transparent_13%,transparent_88%,var(--color-canvas)_100%)]" />
-          </div>
-
+        <header className="ez-hero bg-paper pb-14 pt-10 sm:pt-14 lg:pb-20">
           <Container className="relative">
-            <div className="relative mx-auto max-w-3xl">
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -inset-x-[16%] -inset-y-20 rounded-[50%] bg-[radial-gradient(ellipse_58%_62%_at_50%_50%,rgb(255_255_255/0.96)_0%,rgb(255_255_255/0.94)_30%,rgb(255_255_255/0.84)_48%,rgb(255_255_255/0.64)_62%,rgb(255_255_255/0.38)_75%,rgb(255_255_255/0.15)_88%,transparent_100%)]"
-              />
-              <div className="relative">
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center gap-1.5 text-[0.88rem] font-semibold text-brand-700 hover:text-brand-800"
-                >
-                  <Icon name="arrow-right" className="h-4 w-4 rotate-180" />
-                  All articles
-                </Link>
+            <div aria-hidden="true" className="pointer-events-none absolute right-6 top-6 hidden xl:block">
+              <DoodleCluster set="reading" />
+            </div>
+            <div className="mx-auto max-w-[68ch] lg:max-w-4xl xl:mx-0 xl:max-w-[50rem]">
+              <Link
+                href="/blog"
+                className="ez-press inline-flex items-center gap-2 text-[0.9rem] font-semibold text-brand-700"
+              >
+                <Icon name="arrow-right" className="h-4 w-4 rotate-180" />
+                <span className="ez-link">All articles</span>
+              </Link>
 
-                <div className="mt-5 flex flex-wrap items-center gap-3 text-[0.78rem] font-bold uppercase tracking-[0.1em]">
-                  <span className="rounded-full bg-brand-50 px-2.5 py-1 text-brand-700 ring-1 ring-brand-100">
-                    {article.category}
-                  </span>
-                  <span className="text-ink-500">{article.readingTime}</span>
-                  <span className="text-ink-500">EZER Team</span>
-                </div>
+              <p className="ez-kicker mt-8 flex flex-wrap gap-x-4 gap-y-1 text-ink-500">
+                <span className="text-brand-600">{article.category}</span>
+                <span>{article.readingTime}</span>
+                <span>EZER Team</span>
+              </p>
 
-                <h1
-                  data-reveal=""
-                  className="mt-4 text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-[2.6rem]"
-                >
-                  {article.title}
-                </h1>
-                <p className="mt-5 text-[1.05rem] leading-relaxed text-ink-700">
-                  {article.excerpt}
-                </p>
-              </div>
+              <h1 className="mt-5 text-[2.3rem] leading-[1.04] tracking-[-0.035em] sm:text-[3.2rem] lg:text-[3.9rem]">
+                <span className="ez-line"><span>{article.title}</span></span>
+              </h1>
+              <p className="mt-6 max-w-3xl text-[1.15rem] leading-relaxed text-ink-600 sm:text-xl">
+                {article.excerpt}
+              </p>
             </div>
           </Container>
         </header>
 
-        <div className="bg-surface py-12 sm:py-14 lg:py-16">
+        <div className="bg-white py-14 sm:py-16 lg:py-20">
           <Container>
             {/* max-w-[68ch]: measure, not a breakpoint. Long-form statutory
                 prose is unreadable across a full container width. */}
-            <div className="mx-auto max-w-[68ch]">
+            <div className="ez-longform mx-auto max-w-[68ch]">
               {article.blocks.map((b, i) => {
                 switch (b.t) {
                   case 'h2':
                     return (
                       <h2
                         key={i}
-                        className="mt-11 text-[1.35rem] font-bold leading-snug text-ink-900 first:mt-0 sm:text-[1.45rem]"
+                        className="mt-12 text-[1.6rem] leading-snug text-ink-900 first:mt-0 sm:text-[1.85rem]"
                       >
                         {b.x}
                       </h2>
@@ -168,7 +152,7 @@ export default async function ArticlePage({
                     return (
                       <p
                         key={i}
-                        className="mt-8 rounded-2xl border-l-4 border-brand-600 bg-brand-50 p-6 text-[1.06rem] font-semibold leading-relaxed text-ink-900"
+                        className="my-10 border-l-2 border-marigold pl-6 font-display text-[1.35rem] font-[620] leading-[1.4] tracking-[-0.015em] text-ink-900 [font-stretch:104%] sm:text-[1.5rem]"
                       >
                         {b.x}
                       </p>
@@ -180,7 +164,7 @@ export default async function ArticlePage({
                     return (
                       <p
                         key={i}
-                        className="mt-6 rounded-2xl bg-brand-50 p-5 text-[1rem] leading-relaxed text-ink-800 ring-1 ring-brand-100"
+                        className="mt-6 rounded-[18px] bg-paper p-6 text-[1rem] leading-relaxed text-ink-800"
                       >
                         <strong className="font-bold text-ink-900">
                           {b.lead}
@@ -195,7 +179,7 @@ export default async function ArticlePage({
                     return (
                       <p
                         key={i}
-                        className="mt-3 flex gap-3 rounded-xl border-l-4 border-amber-400 bg-amber-50/70 p-4 text-[0.97rem] leading-relaxed text-ink-800"
+                        className="mt-3 flex gap-3 rounded-[14px] bg-amber-50 p-4 text-[0.97rem] leading-relaxed text-ink-800"
                       >
                         <Icon
                           name="alert"
@@ -205,7 +189,7 @@ export default async function ArticlePage({
                           <strong className="font-bold text-ink-900">
                             {b.lead}
                           </strong>{' '}
-                          — {b.x}
+                          {b.x}
                         </span>
                       </p>
                     )
@@ -240,9 +224,9 @@ export default async function ArticlePage({
                         {b.pills.map((pill) => (
                           <li
                             key={pill.label}
-                            className="rounded-xl bg-canvas p-4 ring-1 ring-ink-200"
+                            className="border-t-2 border-ink-900 pt-3"
                           >
-                            <span className="block text-[1.15rem] font-bold leading-tight text-brand-700">
+                            <span className="block font-display text-[1.5rem] font-[660] leading-tight tracking-[-0.02em] text-ink-900 [font-stretch:106%]">
                               {pill.value}
                             </span>
                             <span className="mt-1 block text-[0.85rem] leading-snug text-ink-700">
@@ -259,7 +243,7 @@ export default async function ArticlePage({
                     return (
                       <div
                         key={i}
-                        className="mt-5 overflow-x-auto rounded-2xl ring-1 ring-ink-200"
+                        className="mt-6 overflow-x-auto rounded-[16px] ring-1 ring-ink-900/10"
                       >
                         <table className="w-full min-w-[26rem] border-collapse text-left text-[0.95rem]">
                           <tbody>
@@ -268,8 +252,8 @@ export default async function ArticlePage({
                                 key={r}
                                 className={
                                   row.head
-                                    ? 'bg-brand-50'
-                                    : 'border-t border-ink-200'
+                                    ? 'bg-paper'
+                                    : 'border-t border-ink-900/10'
                                 }
                               >
                                 {row.cells.map((cell, c) =>
@@ -277,7 +261,7 @@ export default async function ArticlePage({
                                     <th
                                       key={c}
                                       scope="col"
-                                      className="px-4 py-3 text-[0.8rem] font-bold uppercase tracking-[0.08em] text-brand-800"
+                                      className="px-4 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-500"
                                     >
                                       {cell}
                                     </th>
@@ -306,23 +290,23 @@ export default async function ArticlePage({
                   read. It sits above the disclaimer, and above the generic
                   band below — a reader who got this far earns the specific
                   ask, not the site-wide one. */}
-              <div className="ez-tilt mt-12 rounded-2xl bg-brand-600 p-7 text-center shadow-[0_20px_45px_-22px_rgba(37,99,235,0.9)]">
-                <h2 className="text-[1.2rem] font-bold leading-snug text-white">
+              <div className="mt-14 rounded-[24px] bg-navy p-8 text-white sm:p-10">
+                <h2 className="text-[1.6rem] leading-snug !text-white">
                   {article.cta.title}
                 </h2>
-                <p className="mx-auto mt-2.5 max-w-lg text-[0.95rem] leading-relaxed text-brand-50">
+                <p className="mt-3 max-w-lg text-[1rem] leading-relaxed text-white/75">
                   {article.cta.body}
                 </p>
-                <Button href="/book-a-demo" variant="onDark" className="group mt-5">
+                <Button href="/book-a-demo" variant="onDark" className="mt-6">
                   {article.cta.label}
-                  <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  <Arrow />
                 </Button>
               </div>
 
-              <p className="mt-6 rounded-2xl bg-canvas p-6 text-[0.92rem] leading-relaxed text-ink-700 ring-1 ring-ink-200">
+              <p className="mt-6 text-[0.9rem] leading-relaxed text-ink-500">
                 This is general information about Indian payroll and statutory
                 rules, not legal or tax advice. Rules are still being notified
-                state by state — check your own position with your consultant
+                state by state, so check your own position with your consultant
                 before you act on it.
               </p>
             </div>
@@ -330,24 +314,22 @@ export default async function ArticlePage({
         </div>
 
         {others.length > 0 && (
-          <section className="bg-canvas py-12 sm:py-14" aria-label="More articles">
+          <section className="bg-paper py-14 sm:py-16" aria-label="More articles">
             <Container>
-              <h2 className="text-[1.15rem] font-bold text-ink-900">
-                Keep reading
-              </h2>
-              <ul className="mt-6 grid gap-5 sm:grid-cols-2">
+              <h2 className="text-[1.8rem] text-ink-900">Keep reading</h2>
+              <ul className="mt-8 grid border-t border-ink-900/10 sm:grid-cols-2 sm:gap-x-10">
                 {others.map((a) => (
                   <li
                     key={a.slug}
-                    className="ez-tilt group relative rounded-2xl bg-surface p-6 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_14px_30px_-16px_rgba(16,24,40,0.3)] ring-1 ring-ink-200 transition hover:ring-brand-200"
+                    className="group relative border-b border-ink-900/10 py-6"
                   >
-                    <p className="text-[0.78rem] font-bold uppercase tracking-[0.1em] text-brand-700">
+                    <p className="ez-kicker text-brand-600">
                       {a.category}
                     </p>
-                    <h3 className="mt-2 text-[1.05rem] font-bold leading-snug text-ink-900">
+                    <h3 className="mt-2 text-[1.2rem] font-semibold leading-snug text-ink-900 transition-colors group-hover:text-brand-700">
                       <Link
                         href={`/blog/${a.slug}`}
-                        className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-500"
+                        className="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:rounded-xl focus-visible:after:ring-2 focus-visible:after:ring-brand-600"
                       >
                         {a.title}
                       </Link>
@@ -364,6 +346,6 @@ export default async function ArticlePage({
       </article>
 
       <CtaBand />
-    </>
+    </PageTransition>
   )
 }

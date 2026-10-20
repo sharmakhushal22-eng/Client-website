@@ -3,7 +3,6 @@
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
 import { Icon } from '@/components/ui/Icon'
-import { useMounted } from '@/components/forms/HiddenTracking'
 import { announcement } from '@/content/home'
 
 /* ============================================================================
@@ -11,7 +10,7 @@ import { announcement } from '@/content/home'
  *
  * It carries the compliance-deadline message, which is the one claim on this
  * site that is only true this year — the Labour Codes came into effect and a
- * new Income Tax Act replaced the old one. A bar that scrolls away should
+ * Income-tax Act, 2025 replaced the 1961 one. A bar that scrolls away should
  * carry the thing with a shelf life, and nothing else here has one.
  *
  * It used to carry the coffee pricing hook. That moved out rather than being
@@ -30,21 +29,25 @@ import { announcement } from '@/content/home'
 
 const KEY = 'ezer_announce_dismissed'
 
-export function AnnouncementBar() {
-  const mounted = useMounted()
-  const [dismissed, setDismissed] = useState(false)
+/* Rendered on the SERVER, always, and hidden before first paint for anyone
+ * who has dismissed it.
+ *
+ * It used to render nothing until hydration and then appear, which pushed
+ * the whole page down by the bar's height a second or two after it had
+ * painted: measured as most of the home page's layout shift (CLS 0.15 at
+ * baseline). The visibility decision now happens in ANNOUNCE_GATE, a
+ * one-line script that runs inline before the bar is parsed and sets
+ * html[data-announce-dismissed]; CSS hides the bar from that attribute. A
+ * returning visitor who closed it never sees it, a new one sees it in the
+ * first frame, and nothing moves either way. */
+export const ANNOUNCE_GATE = `try{if(localStorage.getItem('${KEY}')==='1')document.documentElement.setAttribute('data-announce-dismissed','')}catch(e){}`
 
-  const alreadyDismissed = (() => {
-    if (!mounted) return true
-    try {
-      return localStorage.getItem(KEY) === '1'
-    } catch {
-      return false
-    }
-  })()
+export function AnnouncementBar() {
+  const [dismissed, setDismissed] = useState(false)
 
   const dismiss = useCallback(() => {
     setDismissed(true)
+    document.documentElement.setAttribute('data-announce-dismissed', '')
     try {
       localStorage.setItem(KEY, '1')
     } catch {
@@ -52,22 +55,23 @@ export function AnnouncementBar() {
     }
   }, [])
 
-  if (!mounted || dismissed || alreadyDismissed) return null
+  if (dismissed) return null
 
   return (
-    <div className="relative bg-gradient-to-r from-brand-700 via-brand-600 to-brand-700 text-white">
+    <div className="ez-announce relative bg-navy text-white">
       <div className="mx-auto flex max-w-content items-center justify-center gap-x-3 gap-y-1 px-4 py-2.5 pr-12 sm:px-6 lg:px-8">
-        <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[0.8rem] leading-snug">
-          <span aria-hidden="true" className="text-sm">
-            ⚖️
+        <p className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-center text-[0.8rem] leading-snug">
+          <span className="hidden rounded-full bg-marigold px-2 py-0.5 text-[0.66rem] font-bold uppercase tracking-[0.08em] text-navy sm:inline">
+            2026
           </span>
-          <span className="font-bold">{announcement.text}</span>
+          <span className="hidden font-medium text-white/90 sm:inline">{announcement.text}</span>
+          <span className="font-medium text-white/90 sm:hidden">{announcement.short}</span>
 
           {/* The action is the point of the bar. Without it this is just a
               claim nobody can act on. */}
           <Link
             href={announcement.ctaHref}
-            className="group inline-flex items-center gap-1 rounded-sm font-bold text-white underline decoration-white/50 underline-offset-2 transition-colors hover:decoration-white"
+            className="group inline-flex items-center gap-1 rounded-sm font-semibold text-white underline decoration-white/40 underline-offset-[3px] transition-colors hover:decoration-white"
           >
             {announcement.ctaLabel}
             <Icon

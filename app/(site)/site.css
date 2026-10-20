@@ -1,0 +1,609 @@
+/* ============================================================================
+   The public site — ground, type, and the EZER motion system.
+
+   Loaded by app/(site)/layout.tsx only, so /admin keeps the product's own
+   neutral theme. Everything here is scoped to .ez-site (the wrapper in that
+   layout) except the view-transition pseudo-elements, which only ever exist
+   during a navigation between site pages.
+
+   THE IDEA
+   EZER is said "easier". The brand's one recurring shape is the three bars
+   of the E: lines that start uneven and settle into alignment. The motion
+   language is the same idea in time. Things slide sideways into rows, rules
+   draw left to right, states change once and then hold still. Nothing loops
+   forever, nothing floats, and nothing waits on a scroll listener.
+   ========================================================================= */
+
+/* ── Ground ───────────────────────────────────────────────────────────────
+   Re-pointing the tokens re-colours every existing utility beneath the
+   wrapper (text-ink-900, bg-canvas, border-ink-200...) without touching the
+   components. The ink scale moves onto a deep navy; the light steps warm up
+   to sit on paper instead of fighting it. */
+.ez-site {
+  --color-ink-50:  #fbfaf7;
+  --color-ink-100: #f2efe8;
+  --color-ink-200: #e3ded4;
+  --color-ink-300: #cfc8bb;
+  --color-ink-400: #5f6477;  /* 5.3:1 on paper, 4.8:1 on sand */
+  --color-ink-500: #545a6c;  /* 6.3:1 on paper */
+  --color-ink-600: #4a5066;
+  --color-ink-700: #343a52;
+  --color-ink-800: #1d2440;
+  --color-ink-900: #0b1633;
+
+  --color-canvas: #f7f5f0;
+  --color-dark:   #0b1633;
+
+  --shadow-raised:   0 1px 2px rgb(11 22 51 / .05), 0 6px 16px -6px rgb(11 22 51 / .10);
+  --shadow-floating: 0 1px 2px rgb(11 22 51 / .06), 0 22px 48px -18px rgb(11 22 51 / .22);
+
+  /* Motion tokens. One settle curve for nearly everything (expo-out: fast
+     start, long quiet landing) and one symmetric curve for state changes. */
+  --m-settle: cubic-bezier(.16, 1, .3, 1);
+  --m-swap:   cubic-bezier(.65, 0, .35, 1);
+  --m-fast: 180ms;
+  --m-base: 460ms;
+  --m-slow: 820ms;
+  --m-step: 70ms;
+
+  --background: #f7f5f0;
+  background: var(--color-paper);
+  color: var(--color-ink-700);
+  font-size: 1.0625rem;
+}
+
+@layer base {
+  .ez-site h1,
+  .ez-site h2 {
+    font-family: var(--font-display);
+    font-stretch: 110%;
+    font-weight: 650;
+    letter-spacing: -0.032em;
+    color: var(--color-ink-900);
+  }
+  .ez-site h3 { letter-spacing: -0.012em; }
+  .ez-site ::selection { background: rgb(37 99 235 / .18); }
+}
+
+/* Display utilities — used where a size is a decision, not a default. */
+.ez-display {
+  font-family: var(--font-display);
+  font-stretch: 116%;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: .92;
+}
+.ez-kicker {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.ez-num { font-variant-numeric: tabular-nums; }
+
+/* An inline link that underlines from the left, the same direction every
+   rule on the site draws. background-size, so no layout is touched. */
+.ez-link {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--m-base) var(--m-settle);
+}
+.ez-link:hover, .ez-link:focus-visible { background-size: 100% 1px; }
+
+/* ── The E bars ───────────────────────────────────────────────────────────
+   Three rules of unequal length that settle to their resting widths. Used at
+   the head of eyebrows, as list markers, and large in the hero and the
+   closing band. Pure CSS: each bar is a span scaled from the left. */
+.ez-bars { display: inline-grid; gap: .22em; width: 1.1em; }
+.ez-bars > span {
+  display: block;
+  height: .16em;
+  border-radius: 99px;
+  background: currentColor;
+  transform-origin: left;
+}
+.ez-bars > span:nth-child(1) { width: 100%; }
+.ez-bars > span:nth-child(2) { width: 72%; }
+.ez-bars > span:nth-child(3) { width: 100%; }
+
+@keyframes ez-bar-in { from { transform: scaleX(0); } }
+.ez-bars[data-animate] > span { animation: ez-bar-in var(--m-slow) var(--m-settle) both; }
+.ez-bars[data-animate] > span:nth-child(2) { animation-delay: 70ms; }
+.ez-bars[data-animate] > span:nth-child(3) { animation-delay: 140ms; }
+
+/* ── Scroll reveal primitives ─────────────────────────────────────────────
+   Driven by one IntersectionObserver in SiteScripts, which sets data-in.
+
+   Elements start VISIBLE. Only once the observer is running does
+   html[data-m-ready] opt them into a hidden start state, so content is never
+   lost to a crawler or to a failed script. Anything already on screen when
+   the observer starts is marked data-in-now and simply shown.
+
+   Five primitives, combined differently per section rather than one fade-up
+   repeated everywhere:
+     rise    a short lift, for supporting blocks
+     mask    headline lines rising out of their own baseline
+     wipe    a frame drawn open left to right, for product pictures
+     settle  children sliding sideways into a row, staggered
+     rule    a hairline drawn from the left                               */
+html[data-m-ready] [data-m]:not([data-in]):not([data-in-now]) { pointer-events: none; }
+
+html[data-m-ready] [data-m="rise"]:not([data-in]):not([data-in-now]) {
+  opacity: 0; transform: translateY(18px);
+}
+html[data-m-ready] [data-m="rise"] {
+  transition: opacity var(--m-base) var(--m-settle), transform var(--m-slow) var(--m-settle);
+  transition-delay: var(--d, 0ms);
+}
+
+html[data-m-ready] [data-m="mask"]:not([data-in]):not([data-in-now]) .ez-line > span {
+  transform: translateY(108%);
+}
+html[data-m-ready] [data-m="mask"] .ez-line > span {
+  transition: transform var(--m-slow) var(--m-settle);
+  transition-delay: calc(var(--d, 0ms) + var(--li, 0) * 90ms);
+}
+
+/* The open state insets NEGATIVELY so a frame's own shadow is not clipped
+   at rest. clip-path: none would cut the transition, since it does not
+   interpolate. */
+html[data-m-ready] [data-m="wipe"]:not([data-in]):not([data-in-now]) {
+  clip-path: inset(-80px 100% -80px -80px);
+}
+html[data-m-ready] [data-m="wipe"] {
+  clip-path: inset(-80px -80px -80px -80px);
+  transition: clip-path 1000ms var(--m-swap);
+  transition-delay: var(--d, 0ms);
+}
+
+html[data-m-ready] [data-m="settle"]:not([data-in]):not([data-in-now]) > * {
+  opacity: 0; transform: translateX(-18px);
+}
+html[data-m-ready] [data-m="settle"] > * {
+  transition: opacity var(--m-base) var(--m-settle), transform var(--m-slow) var(--m-settle);
+  transition-delay: calc(var(--d, 0ms) + var(--i, 0) * var(--m-step));
+}
+
+html[data-m-ready] [data-m="rule"]:not([data-in]):not([data-in-now]) { transform: scaleX(0); }
+html[data-m-ready] [data-m="rule"] {
+  transform-origin: left;
+  transition: transform 1100ms var(--m-settle);
+  transition-delay: var(--d, 0ms);
+}
+
+/* Stagger index for settle rows, so markup needs no inline styles. */
+[data-m="settle"] > :nth-child(2)  { --i: 1; }
+[data-m="settle"] > :nth-child(3)  { --i: 2; }
+[data-m="settle"] > :nth-child(4)  { --i: 3; }
+[data-m="settle"] > :nth-child(5)  { --i: 4; }
+[data-m="settle"] > :nth-child(6)  { --i: 5; }
+[data-m="settle"] > :nth-child(7)  { --i: 6; }
+[data-m="settle"] > :nth-child(8)  { --i: 7; }
+[data-m="settle"] > :nth-child(9)  { --i: 8; }
+[data-m="settle"] > :nth-child(10) { --i: 9; }
+[data-m="settle"] > :nth-child(n+11) { --i: 10; }
+
+/* Shown without a transition: on screen at start, or revealed by the
+   failsafe. A transition only advances on painted frames, so one started
+   off-screen can strand at its first value. */
+html[data-m-ready] [data-in-now],
+html[data-m-ready] [data-in-now] > *,
+html[data-m-ready] [data-in-now] .ez-line > span { transition: none !important; }
+
+/* A masked line: the clip box, and the text that rises inside it. Bottom
+   padding keeps descenders from being clipped at rest. */
+.ez-line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+.ez-line > span { display: block; }
+
+/* ── The hero ─────────────────────────────────────────────────────────────
+   Choreographed with keyframes, not the observer, so it plays from the
+   first paint with no script involved. The whole sequence is over by ~1.2s;
+   the product cards then make two state changes and stop.
+
+     0ms     E bars settle
+     40ms    headline lines rise from their baselines
+     260ms   payroll card opens; small cards follow
+     420ms   lede and actions settle
+     520ms   the stroke under "easier" draws
+     900ms+  statutory heads tick through, one location finishes, a leave
+             request is approved. Then nothing moves.                     */
+@keyframes ez-line-up   { from { transform: translateY(108%); } }
+@keyframes ez-fade-up   { from { opacity: 0; transform: translateY(14px); } }
+@keyframes ez-card-in   { from { opacity: 0; transform: translateY(28px) scale(.975); } }
+@keyframes ez-draw      { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ez-tick      { from { opacity: 0; transform: scale(.4); } }
+@keyframes ez-hide      { to { opacity: 0; } }
+@keyframes ez-show      { from { opacity: 0; } }
+@keyframes ez-fill      { from { transform: scaleX(0); } }
+
+.ez-hero .ez-line > span { animation: ez-line-up 900ms var(--m-settle) both; }
+.ez-hero .ez-line:nth-child(2) > span { animation-delay: 90ms; }
+.ez-hero .ez-line:nth-child(3) > span { animation-delay: 180ms; }
+.ez-hero [data-h="fade"]  { animation: ez-fade-up 700ms var(--m-settle) both; animation-delay: var(--d, 420ms); }
+.ez-hero [data-h="card"]  { animation: ez-card-in 1000ms var(--m-settle) both; animation-delay: var(--d, 260ms); }
+.ez-hero .ez-swash path {
+  stroke-dasharray: 1;
+  animation: ez-draw 900ms var(--m-settle) 520ms both;
+}
+/* State changes inside the product cards. Each pair swaps one label for
+   another at a fixed moment; both are in the DOM, so with motion off the
+   final state simply shows. */
+.ez-hero [data-h="was"] { animation: ez-hide 220ms ease both; animation-delay: var(--d); }
+.ez-hero [data-h="now"] { animation: ez-show 260ms ease both; animation-delay: var(--d); }
+.ez-hero [data-h="tick"] { animation: ez-tick 420ms var(--m-settle) both; animation-delay: var(--d); }
+.ez-hero [data-h="fill"] { transform-origin: left; animation: ez-fill var(--dur, 1400ms) var(--m-swap) both; animation-delay: var(--d, 700ms); }
+
+/* The big wordmark behind the hero recedes as the page scrolls away from
+   it. A scroll-driven animation: it runs on the compositor, needs no
+   listener, and browsers without support simply show it standing still. */
+@supports (animation-timeline: scroll()) {
+  @keyframes ez-recede {
+    to { transform: translate3d(0, -14%, 0) scale(.94); opacity: .35; }
+  }
+  .ez-hero-mark {
+    animation: ez-recede linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 90vh;
+  }
+
+  /* A rule drawn by the reader's own scroll position — used once, for the
+     hire-to-retire line, where progress through the section IS the story. */
+  @keyframes ez-scrub-line { from { transform: scaleX(0); } }
+  .ez-scrub-line {
+    transform-origin: left;
+    animation: ez-scrub-line linear both;
+    animation-timeline: view(block);
+    animation-range: entry 20% cover 55%;
+  }
+}
+
+/* ── Product story stage ──────────────────────────────────────────────────
+   The leave-request walkthrough. The stage carries data-step (1-4), set by
+   a small observer on the steps beside it; every state is already in the
+   markup and CSS cross-fades between them. Changing a step is one attribute
+   write, never a React re-render of the stage. */
+.ez-stage [data-show] {
+  transition: opacity 360ms var(--m-swap), transform 520ms var(--m-settle);
+}
+.ez-stage [data-show]:not(.is-on) { opacity: 0; transform: translateY(10px); pointer-events: none; }
+.ez-stage [data-show].is-on { opacity: 1; transform: none; }
+.ez-stage .ez-meter { transform: scaleX(0); transition: transform 900ms var(--m-settle); transform-origin: left; }
+
+/* ── Interaction ──────────────────────────────────────────────────────────
+   Buttons press in and their arrow leads; cards lift by a shadow, never by
+   a 3D tilt. */
+.ez-press { transition: background-color var(--m-fast) ease, color var(--m-fast) ease, box-shadow var(--m-base) var(--m-settle), transform var(--m-fast) ease; }
+.ez-press:active { transform: scale(.98); }
+.ez-press .ez-arrow { transition: transform var(--m-base) var(--m-settle); }
+.ez-press:hover .ez-arrow, .ez-press:focus-visible .ez-arrow { transform: translateX(3px); }
+
+.ez-lift { transition: box-shadow var(--m-base) var(--m-settle), border-color var(--m-fast) ease, transform var(--m-base) var(--m-settle); }
+@media (hover: hover) {
+  .ez-lift:hover { box-shadow: var(--shadow-floating); transform: translateY(-2px); }
+}
+
+/* ── Retiring the old decorative motion ───────────────────────────────────
+   The previous build ran a dozen looping animations at once: drifting orbs,
+   a breathing mesh, Ken Burns photographs, a glowing CTA, a ringing phone,
+   a pulsing halo. Each was cheap; together they were the "laggy and
+   confusing" the brief describes, and they kept compositor layers alive on
+   every page. Any of those classes still in the markup is stilled here. */
+.ez-site :is(.ez-orb, .ez-mesh-blob, .ez-kenburns, .ez-parallax, .ez-drift-a,
+  .ez-drift-b, .ez-breathe, .ez-sweep, .ez-card-glow, .ez-card-aura, .ez-float,
+  .ez-cta-glow, .ez-cta-shine, .ez-tel-ring, .ez-halo, .ez-stat-glow,
+  .ez-contour, .ez-sheen, .ez-live-dot) {
+  animation: none !important;
+}
+.ez-site :is(.ez-cta-glow, .ez-cta-shine, .ez-tel-ring) { display: none; }
+/* The WhatsApp halo pulses on pseudo-elements, which the rule above does
+   not reach. The button is already the most visible thing in its corner. */
+.ez-site .ez-halo::before,
+.ez-site .ez-halo::after { animation: none !important; display: none; }
+
+/* ── Route transitions ────────────────────────────────────────────────────
+   React's <ViewTransition> on each page tags the incoming page with a class
+   naming its personality (see components/brand/PageTransition.tsx). The old
+   page always leaves the same way: quickly, so it never competes with what
+   is arriving. The header is anchored and never moves.
+
+     home       none: the hero's own entrance is the transition
+     product    a focused rise, the frame settling into place
+     ledger     a wipe from the left, for the compliance and industry pages
+     editorial  a quiet crossfade with a short lift, for reading pages
+     direct     a 120ms fade: the contact and demo forms are usable at once */
+::view-transition { pointer-events: none; }
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; }
+
+::view-transition-group(site-header) { animation: none; z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+
+@keyframes vt-out    { to { opacity: 0; } }
+@keyframes vt-in     { from { opacity: 0; } }
+@keyframes vt-rise   { from { transform: translateY(26px) scale(.99); } }
+@keyframes vt-lift   { from { transform: translateY(10px); } }
+@keyframes vt-wipe   { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+::view-transition-old(.vt-exit) { animation: 140ms ease-in both vt-out; }
+
+::view-transition-new(.vt-product) {
+  animation: 260ms ease-out 80ms both vt-in, 620ms cubic-bezier(.16,1,.3,1) both vt-rise;
+}
+::view-transition-new(.vt-ledger) {
+  animation: 640ms cubic-bezier(.65,0,.35,1) both vt-wipe;
+}
+::view-transition-new(.vt-editorial) {
+  animation: 320ms ease-out 60ms both vt-in, 520ms cubic-bezier(.16,1,.3,1) both vt-lift;
+}
+::view-transition-new(.vt-direct) { animation: 120ms ease-out both vt-in; }
+::view-transition-new(.vt-home)   { animation: 160ms ease-out both vt-in; }
+
+/* ── Reduced motion ───────────────────────────────────────────────────────
+   globals.css already shortens every animation to nothing. Delays have to
+   go as well, or a choreographed element would sit at its start state for
+   its delay and then jump. Scroll-driven and view transitions stop
+   entirely; the page swaps instantly, which is what the reader asked for. */
+@media (prefers-reduced-motion: reduce) {
+  .ez-site *, .ez-site *::before, .ez-site *::after { animation-delay: 0s !important; transition-delay: 0s !important; }
+  .ez-hero-mark, .ez-scrub-line { animation: none !important; }
+  html[data-m-ready] [data-m] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+  html[data-m-ready] [data-m] > *, html[data-m-ready] [data-m] .ez-line > span { opacity: 1 !important; transform: none !important; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}
+
+/* ── Story steps ──────────────────────────────────────────────────────────
+   On desktop the step beside the stage is at full strength and the others
+   recede, so the eye has one place to read. Only once StoryProgress is
+   running; without it every step stays fully legible. */
+@media (min-width: 1024px) {
+  /* Emphasis by colour, not opacity: a faded step measured 1.5:1, which
+     fails anyone with low vision. The resting steps grey to ink-500 (still
+     AA on white) and the current one's number turns cobalt. */
+  .ez-story[data-story-ready] .ez-story-step :is(h3, p) { transition: color 500ms var(--m-swap); }
+  .ez-story[data-story-ready] .ez-story-step:not([data-active]) :is(h3, p) { color: var(--color-ink-500); }
+  .ez-story[data-story-ready] .ez-story-step .ez-step-num { transition: background-color 500ms var(--m-swap), color 500ms var(--m-swap); }
+  .ez-story[data-story-ready] .ez-story-step:not([data-active]) .ez-step-num { background: var(--color-ink-200); color: var(--color-ink-700); }
+  .ez-story[data-story-ready] .ez-story-step[data-active] .ez-step-num { background: var(--color-brand-600); color: #fff; }
+}
+
+/* A panel that has just changed content settles in, rather than snapping. */
+@keyframes ez-panel-in { from { opacity: 0; transform: translateY(10px); } }
+.ez-panel-in { animation: ez-panel-in 520ms var(--m-settle) both; }
+
+@supports (animation-timeline: view()) {
+  @keyframes ez-scrub-line-y { from { transform: scaleY(0); } }
+  .ez-scrub-line-y {
+    transform-origin: top;
+    animation: ez-scrub-line-y linear both;
+    animation-timeline: view(block);
+    animation-range: entry 10% cover 60%;
+  }
+}
+@media (prefers-reduced-motion: reduce) { .ez-scrub-line-y { animation: none !important; } }
+
+/* The header pill now settles like everything else instead of overshooting. */
+.ez-site .ez-navpill {
+  transition: transform 460ms var(--m-settle), width 460ms var(--m-settle), opacity 200ms ease;
+}
+.ez-site .ez-util:hover { transform: none; }
+
+/* Grid children may shrink below their content's natural width. Without
+   this, a single-column grid below lg (no explicit columns) sizes its one
+   track to the widest child's min-content — a card with a nowrap pill was
+   enough to push the hero copy past the right edge of a phone. */
+.ez-site .grid > * { min-width: 0; }
+
+/* The announcement bar, hidden before first paint once dismissed — see
+   ANNOUNCE_GATE in components/layout/AnnouncementBar.tsx. */
+html[data-announce-dismissed] .ez-announce { display: none; }
+
+/* The giant wordmarks are decoration (the h1 and the logo already say the
+   name), so they are drawn as generated content: no text node for a screen
+   reader or a contrast checker to read as a faint paragraph. */
+.ez-wordmark::before { content: attr(data-word); }
+
+/* The regime calculator's slider, on a light card. globals.css drew the
+   unfilled track for a dark band (white at 16%), which vanishes on white. */
+.ez-site input[type='range'].ez-range::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--color-brand-600) 0%, var(--color-brand-600) var(--ez-range-pct, 50%), rgb(11 22 51 / 0.1) var(--ez-range-pct, 50%), rgb(11 22 51 / 0.1) 100%);
+}
+.ez-site input[type='range'].ez-range::-moz-range-track {
+  background: linear-gradient(to right, var(--color-brand-600) 0%, var(--color-brand-600) var(--ez-range-pct, 50%), rgb(11 22 51 / 0.1) var(--ez-range-pct, 50%), rgb(11 22 51 / 0.1) 100%);
+}
+.ez-site input[type='range'].ez-range::-webkit-slider-thumb { border-color: var(--color-brand-600); box-shadow: 0 4px 12px -4px rgb(11 22 51 / 0.45); }
+.ez-site input[type='range'].ez-range::-moz-range-thumb { border-color: var(--color-brand-600); box-shadow: 0 4px 12px -4px rgb(11 22 51 / 0.45); }
+
+/* ============================================================================
+   LIVING MOTION — loops, chapters and portals.
+
+   Everything below loops or is scrubbed by scroll, which the first pass of
+   the redesign avoided. It is safe now because of two rules:
+
+   1. Loops only run on screen. Any block carrying [data-live] is watched by
+      one IntersectionObserver (SiteScripts); off screen it gets no
+      [data-playing], and every animation inside it is paused. A page full of
+      orbits costs nothing for the ones you are not looking at. Without JS
+      the loops simply play.
+   2. Everything animates transform, opacity or stroke-dashoffset on small
+      SVGs. Nothing animates layout.
+   ========================================================================= */
+html[data-live-ready] [data-live]:not([data-playing]),
+html[data-live-ready] [data-live]:not([data-playing]) * {
+  animation-play-state: paused !important;
+}
+
+/* A pulse travelling along a path. Paths carry pathLength="100", so one dash
+   size works on any length of line. */
+@keyframes ez-flow { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+.ez-flow {
+  stroke-dasharray: var(--dash, 7) 100;
+  animation: ez-flow var(--dur, 3.2s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+/* The same, but the pulse fades as it arrives: for long arcs on the map. */
+@keyframes ez-flow-fade {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  12% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+.ez-flow-fade {
+  stroke-dasharray: var(--dash, 10) 100;
+  animation: ez-flow-fade var(--dur, 3.6s) cubic-bezier(.45, 0, .25, 1) infinite;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes ez-spin { to { transform: rotate(360deg); } }
+.ez-spin { animation: ez-spin var(--dur, 60s) linear infinite; }
+.ez-spin-rev { animation: ez-spin var(--dur, 60s) linear infinite reverse; }
+svg .ez-spin, svg .ez-spin-rev { transform-box: fill-box; transform-origin: center; }
+
+@keyframes ez-bob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, var(--bob, -8px), 0); }
+}
+.ez-bob { animation: ez-bob var(--dur, 6s) ease-in-out infinite; animation-delay: var(--d, 0s); }
+
+@keyframes ez-ping {
+  0% { transform: scale(.5); opacity: .55; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.ez-ping { transform-box: fill-box; transform-origin: center; animation: ez-ping var(--dur, 2.6s) ease-out infinite; animation-delay: var(--d, 0s); }
+span.ez-ping { transform-origin: center; }
+
+@keyframes ez-glow { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.ez-glow { animation: ez-glow var(--dur, 3s) ease-in-out infinite; animation-delay: var(--d, 0s); }
+
+/* Bars that breathe between two heights: a chart that is visibly live. */
+@keyframes ez-bar-breathe {
+  0%, 100% { transform: scaleY(var(--a, .6)); }
+  50% { transform: scaleY(var(--b, 1)); }
+}
+.ez-breathe-bar { transform-origin: bottom; transform-box: fill-box; animation: ez-bar-breathe var(--dur, 4.2s) cubic-bezier(.65, 0, .35, 1) infinite; animation-delay: var(--d, 0s); }
+
+/* A line chart that draws itself, holds, and redraws. */
+@keyframes ez-line-loop {
+  0% { stroke-dashoffset: 1; }
+  45%, 85% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -1; }
+}
+.ez-line-loop { stroke-dasharray: 1; animation: ez-line-loop var(--dur, 6s) cubic-bezier(.65, 0, .35, 1) infinite; }
+
+/* A donut segment sweeping round to its value and back. */
+@keyframes ez-donut {
+  0%, 100% { stroke-dashoffset: var(--from, 70); }
+  50% { stroke-dashoffset: var(--to, 18); }
+}
+.ez-donut { animation: ez-donut var(--dur, 6s) cubic-bezier(.65, 0, .35, 1) infinite; }
+
+/* Clock hands. */
+.ez-hand { transform-box: view-box; animation: ez-spin var(--dur, 12s) linear infinite; }
+
+/* Doodles draw themselves once as they arrive, then float. */
+html[data-m-ready] [data-m="draw"]:not([data-in]):not([data-in-now]) :is(path, circle, rect, line, polyline, ellipse) {
+  stroke-dashoffset: 1;
+}
+[data-m="draw"] :is(path, circle, rect, line, polyline, ellipse)[pathLength] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1600ms var(--m-settle);
+  transition-delay: calc(var(--d, 0ms) + var(--k, 0) * 120ms);
+}
+
+/* ── Chapters: each section arrives as a new scene ─────────────────────────
+   Scroll-driven, on the compositor. A section enters as a rounded panel,
+   lifted and slightly small, and opens out to full bleed as it reaches the
+   reader; the one it replaces sinks back and dims as it leaves. It reads as
+   moving from one room into the next rather than scrolling one long page.
+
+   Applied to every top-level section on every page (main > div > section;
+   the div is PageTransition's wrapper), except the first, which is the
+   hero, and anything marked as its own kind of entrance. Browsers without
+   scroll timelines see an ordinary page. */
+@supports (animation-timeline: view()) {
+  @keyframes ez-chapter-in {
+    from { clip-path: inset(7% 3.5% 0 3.5% round 56px); translate: 0 8vh; }
+    to   { clip-path: inset(0 0 0 0 round 0); translate: 0 0; }
+  }
+  @keyframes ez-chapter-out {
+    to { scale: .97; opacity: .55; }
+  }
+  .ez-site main > div > section:not(:first-of-type):not(.ez-portal):not(.ez-pill-open):not(.ez-static) {
+    animation: ez-chapter-in linear both, ez-chapter-out linear both;
+    animation-timeline: view(block), view(block);
+    animation-range: entry 0% entry 60%, exit 55% exit 100%;
+    transform-origin: 50% 0;
+  }
+  /* The opening scene does not arrive — it is already there — but it does
+     leave: it sinks back as the next chapter slides up over it. */
+  .ez-site main > div > section:first-of-type {
+    animation: ez-chapter-out linear both;
+    animation-timeline: view(block);
+    animation-range: exit 55% exit 100%;
+    transform-origin: 50% 100%;
+  }
+
+  /* A portal: the navy compliance band opens through a widening circle, so
+     arriving at it feels like stepping through into another space. */
+  @keyframes ez-portal-open {
+    from { clip-path: circle(14% at 50% 60%); }
+    to   { clip-path: circle(140% at 50% 60%); }
+  }
+  .ez-site main > div > section.ez-portal {
+    animation: ez-portal-open linear both, ez-chapter-out linear both;
+    animation-timeline: view(block), view(block);
+    animation-range: entry 0% entry 85%, exit 55% exit 100%;
+  }
+
+  /* The closing band opens out of a pill — the shape of the button it ends on. */
+  @keyframes ez-pill-open {
+    from { clip-path: inset(18% 22% 18% 22% round 999px); }
+    to   { clip-path: inset(0 0 0 0 round 0); }
+  }
+  .ez-site main > div > section.ez-pill-open {
+    animation: ez-pill-open linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% entry 75%;
+  }
+
+  /* Depth inside a chapter: its picture drifts at a different rate from its
+     words as the section passes. One property, scrubbed by scroll. */
+  @keyframes ez-drift { from { translate: 0 var(--drift, 60px); } to { translate: 0 calc(var(--drift, 60px) * -1); } }
+  .ez-parallax-y {
+    animation: ez-drift linear both;
+    animation-timeline: view(block);
+  }
+}
+
+@keyframes ez-sweep-x {
+  0% { transform: translateX(0); opacity: 0; }
+  6% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+.ez-sweep-x { animation: ez-sweep-x var(--dur, 9s) linear infinite; }
+
+/* The big E in the closing band: its three bars keep settling. */
+@keyframes ez-bar-slide {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(var(--s, .7)); }
+}
+.ez-bar-slide { transform-origin: left; animation: ez-bar-slide var(--dur, 5s) cubic-bezier(.65, 0, .35, 1) infinite; animation-delay: var(--d, 0s); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-site main > div > section,
+  .ez-parallax-y { animation: none !important; clip-path: none !important; }
+  [data-live], [data-live] * { animation: none !important; }
+  [data-m="draw"] :is(path, circle, rect, line, polyline, ellipse) { stroke-dashoffset: 0 !important; transition: none !important; }
+}
+
+/* Reduced motion switches every loop off, including inside the hero cards,
+   which also removes the keyframes that hide each state change's old label.
+   Show only the final state. */
+@media (prefers-reduced-motion: reduce) {
+  .ez-hero [data-h="was"] { opacity: 0 !important; }
+  .ez-hero [data-h="now"] { opacity: 1 !important; }
+}
