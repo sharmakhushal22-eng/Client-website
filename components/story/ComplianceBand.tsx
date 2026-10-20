@@ -24,7 +24,7 @@ const tools = [
   {
     name: 'Compliance engine',
     body: 'Rules for every state, establishment type and Labour Code, held as configuration and applied inside the payroll run. When a notification lands, the rule changes, not the release.',
-    tags: ['36 states & UTs', '4 Labour Codes', 'Per establishment'],
+    tags: ['28 states & 8 UTs', '4 Labour Codes', 'Per establishment'],
     href: '/compliance#statutory',
     cta: 'Every head it covers',
   },

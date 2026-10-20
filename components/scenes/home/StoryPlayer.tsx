@@ -27,7 +27,7 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from '
 
 export type StoryStep = { who: string; title: string; body: string }
 
-const STEP_MS = 4600
+const STEP_MS = 3000
 
 /* prefers-reduced-motion, read live and without an effect. */
 const REDUCE = '(prefers-reduced-motion: reduce)'

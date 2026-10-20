@@ -83,7 +83,7 @@ export default function CompliancePage() {
         title={
           live
             ? ['One run.', <span key="b" className="text-ink-400">Every register together.</span>]
-            : ['36 states and UTs.', '36 statutory positions.', <span key="c" className="text-brand-600">One payroll run.</span>]
+            : ['28 states and 8 UTs.', '36 statutory positions.', <span key="c" className="text-brand-600">One payroll run.</span>]
         }
         lede={complianceEngine.lede}
         actions={
