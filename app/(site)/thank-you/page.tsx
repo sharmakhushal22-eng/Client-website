@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Container } from '@/components/ui/Container'
-import { Section } from '@/components/ui/Section'
-import { Button } from '@/components/ui/Button'
+import { Section, SectionHeading } from '@/components/ui/Section'
+import { PageHero } from '@/components/brand/PageHero'
+import { PageTransition } from '@/components/brand/PageTransition'
+import { Button, Arrow } from '@/components/ui/Button'
 import { Icon, type IconName } from '@/components/ui/Icon'
 import { ConversionTracker } from '@/components/ConversionTracker'
 import { pageMetadata } from '@/lib/seo'
+import { DoodleCluster } from '@/components/graphics/Doodles'
 import { contact, booking } from '@/site.config'
 
 /* noIndex: a thank-you page in the search results is a page that fires a
@@ -65,41 +67,25 @@ export default async function ThankYouPage({
   const source = from ?? 'unknown'
 
   return (
-    <>
+    <PageTransition kind="direct">
       <ConversionTracker source={source} />
 
-      <section className="bg-brand-50 py-12 sm:py-14">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-grid h-16 w-16 place-items-center rounded-2xl bg-emerald-100 text-emerald-700">
-              <Icon name="check" className="h-8 w-8" />
-            </span>
-            <h1 className="mt-6 text-[2.1rem] font-bold leading-[1.12] sm:text-4xl">
-              Thanks, we have your enquiry
-            </h1>
-            <p className="mt-4 text-lg leading-relaxed text-ink-600">
-              Nothing else is needed from you right now. Here is exactly what
-              happens next, and by when.
-            </p>
-          </div>
-        </Container>
-      </section>
-
-      {/* ── What happens next ────────────────────────────────────────────── */}
-      <Section tone="white" ariaLabel="What happens next">
-        <ol className="mx-auto grid max-w-4xl gap-5 sm:grid-cols-3">
+      <PageHero
+        kind="editorial"
+        decor={<DoodleCluster set="celebrate" />}
+        eyebrow="Enquiry received"
+        title={['Thanks.', <span key="b" className="text-ink-400">We have it from here.</span>]}
+        lede="Nothing else is needed from you right now. Here is exactly what happens next, and by when."
+      >
+        <ol data-h="fade" style={{ '--d': '420ms' } as React.CSSProperties} className="mt-14 grid border-t-2 border-ink-900 sm:grid-cols-3">
           {nextSteps.map((step, i) => (
-            <li
-              key={step.title}
-              className="rounded-2xl bg-surface p-6 ring-1 ring-ink-200/70"
-            >
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700">
-                <Icon name={step.icon} className="h-5 w-5" />
-              </span>
-              <h2 className="mt-4 text-base font-bold leading-snug">
-                <span className="text-brand-600">{i + 1}.</span> {step.title}
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">{step.body}</p>
+            <li key={step.title} className={`border-b border-ink-900/10 py-7 sm:border-b-0 sm:pr-7 ${i > 0 ? 'sm:border-l sm:pl-7' : ''}`}>
+              <p className="flex items-center gap-3">
+                <span className="ez-num grid h-8 w-8 place-items-center rounded-full bg-ink-900 text-[0.78rem] font-semibold text-white">{i + 1}</span>
+                <Icon name={step.icon} className="h-4 w-4 text-ink-400" />
+              </p>
+              <h2 className="mt-4 text-[1.3rem] leading-snug">{step.title}</h2>
+              <p className="mt-2 text-[0.98rem] leading-relaxed text-ink-600">{step.body}</p>
             </li>
           ))}
         </ol>
@@ -107,59 +93,43 @@ export default async function ThankYouPage({
         {/* Spec §4.7 — add-to-calendar. Shown only when a calendar is wired
             up, because otherwise there is no confirmed slot to add. */}
         {booking.calendarUrl && (
-          <div className="mx-auto mt-8 max-w-4xl rounded-2xl bg-brand-50 p-6 text-center ring-1 ring-brand-100">
-            <p className="text-sm text-ink-600">
-              Already picked a slot? The calendar invite is in the confirmation
-              email, with the meeting link and a reminder 24 hours and 1 hour
-              before.
-            </p>
-          </div>
+          <p className="mt-8 max-w-2xl border-l-2 border-marigold pl-5 text-[0.95rem] text-ink-600">
+            Already picked a slot? The calendar invite is in the confirmation email, with
+            the meeting link and a reminder 24 hours and 1 hour before.
+          </p>
         )}
-      </Section>
+      </PageHero>
 
       {/* ── Onward links ─────────────────────────────────────────────────── */}
-      <Section tone="tint" ariaLabel="While you wait">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-bold sm:text-3xl">While you wait</h2>
-          <p className="mt-3 text-[1.05rem] text-ink-600">
-            The three pages most people read before the call.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-10 grid max-w-4xl gap-5 sm:grid-cols-3">
+      <Section tone="white" ariaLabel="While you wait">
+        <SectionHeading eyebrow="While you wait" title="The three pages most people read before the call" />
+        <ul className="mt-10 border-t border-ink-900/10">
           {onwardLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="group rounded-2xl bg-surface p-6 ring-1 ring-ink-200/70 transition-shadow hover:shadow-lg hover:shadow-brand-900/5 hover:ring-brand-200"
-            >
-              <h3 className="flex items-start gap-1.5 text-base font-bold leading-snug">
-                {link.title}
-                <Icon
-                  name="arrow-right"
-                  className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 opacity-0 transition-opacity group-hover:opacity-100"
-                />
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">{link.body}</p>
-            </Link>
+            <li key={link.href} className="border-b border-ink-900/10">
+              <Link href={link.href} className="group grid items-baseline gap-2 py-6 sm:grid-cols-12 sm:gap-6">
+                <span className="font-display text-[1.5rem] font-[640] leading-tight tracking-[-0.03em] text-ink-900 transition-colors [font-stretch:106%] group-hover:text-brand-700 sm:col-span-5">
+                  {link.title}
+                </span>
+                <span className="text-[1rem] text-ink-600 sm:col-span-6">{link.body}</span>
+                <span aria-hidden="true" className="hidden justify-self-end text-ink-400 transition-[color,transform] duration-500 group-hover:translate-x-1 group-hover:text-brand-700 sm:col-span-1 sm:block">
+                  <Arrow className="h-5 w-5" />
+                </span>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="mt-10 text-center">
-          <p className="text-sm text-ink-600">
-            Something urgent, or want to talk now?
-          </p>
-          <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href={`tel:${contact.phoneE164}`} size="lg">
-              <Icon name="phone" className="h-4 w-4" />
-              {contact.phoneDisplay}
-            </Button>
-            <Button href="/" variant="secondary" size="lg">
-              Back to the home page
-            </Button>
-          </div>
+        <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <p className="mr-4 text-[0.98rem] text-ink-600">Something urgent?</p>
+          <Button href={`tel:${contact.phoneE164}`} size="lg">
+            <Icon name="phone" className="h-4 w-4" />
+            {contact.phoneDisplay}
+          </Button>
+          <Button href="/" variant="secondary" size="lg">
+            Back to the home page
+          </Button>
         </div>
       </Section>
-    </>
+    </PageTransition>
   )
 }

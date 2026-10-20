@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
-import { Section, SectionHeading } from '@/components/ui/Section'
+import { SectionHeading } from '@/components/ui/Section'
+import { PageHero } from '@/components/brand/PageHero'
+import { PageTransition } from '@/components/brand/PageTransition'
+import { Arrow } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
-import { MeshField } from '@/components/ui/MeshField'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
 import { contentHub } from '@/content/articles'
@@ -37,8 +39,10 @@ export const revalidate = 60
 export default async function BlogPage() {
   const articles = await getAllPosts()
 
+  const [lead, ...rest] = articles
+
   return (
-    <>
+    <PageTransition kind="editorial">
       <JsonLd
         schemas={[
           breadcrumbSchema([
@@ -48,78 +52,66 @@ export default async function BlogPage() {
         ]}
       />
 
-      {/* The mesh field, same treatment as the workplace strip — this page is
-          otherwise a plain list and needs the same ground the rest of the
-          site sits on. */}
-      <section className="relative overflow-hidden bg-canvas py-14 sm:py-16 lg:py-20">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 overflow-hidden"
-        >
-          <MeshField idPrefix="blg" />
-          <span className="ez-sweep absolute inset-y-0 -left-1/4 w-1/3 bg-[linear-gradient(90deg,transparent,rgb(255_255_255/0.6),transparent)]" />
-          <span className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-canvas)_0%,transparent_13%,transparent_87%,var(--color-canvas)_100%)]" />
-        </div>
+      <PageHero
+        kind="product"
+        stage="wave"
+        stageChips={['Compliance', 'Payroll', 'Tax']}
+        crumbs={[{ name: 'Blog' }]}
+        eyebrow={contentHub.eyebrow}
+        title={contentHub.title}
+        lede={contentHub.lede}
+      />
 
-        <Container className="relative">
-          <div className="relative mx-auto max-w-2xl text-center">
-            {/* The same long-falloff clearing used elsewhere on artwork — an
-                explicit ellipse, because closest-side sizes to the short axis
-                of a wide box and stops before the ends of the longest line. */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute -inset-x-[20%] -inset-y-24 rounded-[50%] bg-[radial-gradient(ellipse_58%_62%_at_50%_50%,rgb(255_255_255/0.96)_0%,rgb(255_255_255/0.94)_30%,rgb(255_255_255/0.84)_48%,rgb(255_255_255/0.64)_62%,rgb(255_255_255/0.38)_75%,rgb(255_255_255/0.15)_88%,transparent_100%)]"
-            />
-            <div className="relative">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-700">
-                {contentHub.eyebrow}
-              </p>
-              <h1 className="mt-3 text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-[2.75rem]">
-                {contentHub.title}
-              </h1>
-              <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-700">
-                {contentHub.lede}
-              </p>
-            </div>
-          </div>
-
-          <ul className="mt-12 grid gap-5 lg:grid-cols-3">
-            {articles.map((a, i) => (
-              <li
-                key={a.slug}
-                data-reveal=""
-                style={{ transitionDelay: `${Math.min(i, 5) * 70}ms` }}
-                className="ez-tilt group relative flex flex-col rounded-2xl bg-surface p-6 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_14px_30px_-16px_rgba(16,24,40,0.3)] ring-1 ring-ink-200 transition hover:shadow-[0_2px_4px_rgba(16,24,40,0.06),0_28px_54px_-20px_rgba(16,24,40,0.4)] hover:ring-brand-200"
-              >
-                <div className="flex items-center gap-3 text-[0.78rem] font-bold uppercase tracking-[0.1em]">
-                  <span className="rounded-full bg-brand-50 px-2.5 py-1 text-brand-700 ring-1 ring-brand-100">
-                    {a.category}
-                  </span>
-                  <span className="text-ink-500">{a.readingTime}</span>
-                </div>
-
-                <h2 className="mt-4 text-[1.12rem] font-bold leading-snug text-ink-900">
-                  {/* The whole card is the target, via the stretched link —
-                      one tab stop rather than a card and a redundant "read
-                      more" beside it. */}
+      <section aria-label="Articles" className="bg-paper pb-16 sm:pb-24">
+        <Container>
+          {/* The newest article leads, set large; the rest follow as rows.
+              Each row is one link — a stretched target, one tab stop. */}
+          {lead && (
+            <article data-m="rise" className="group relative grid gap-6 border-t-2 border-ink-900 py-10 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-8">
+                <p className="ez-kicker flex gap-3 text-ink-500">
+                  <span className="text-brand-600">{lead.category}</span>
+                  <span>{lead.readingTime}</span>
+                </p>
+                <h2 className="mt-4 text-[2rem] leading-[1.08] sm:text-[2.8rem]">
                   <Link
-                    href={`/blog/${a.slug}`}
-                    className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-brand-500"
+                    href={`/blog/${lead.slug}`}
+                    className="transition-colors after:absolute after:inset-0 group-hover:text-brand-700 focus-visible:outline-none focus-visible:after:rounded-xl focus-visible:after:ring-2 focus-visible:after:ring-brand-600"
                   >
-                    {a.title}
+                    {lead.title}
                   </Link>
                 </h2>
-
-                <p className="mt-3 flex-1 text-[0.92rem] leading-relaxed text-ink-700">
-                  {a.excerpt}
-                </p>
-
-                <span className="mt-5 inline-flex items-center gap-1.5 text-[0.9rem] font-semibold text-brand-700">
+              </div>
+              <div className="lg:col-span-4">
+                <p className="text-[1.02rem] leading-relaxed text-ink-600">{lead.excerpt}</p>
+                <span className="ez-press mt-5 inline-flex items-center gap-2 text-[0.95rem] font-semibold text-brand-700">
                   Read the article
-                  <Icon
-                    name="arrow-right"
-                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                  />
+                  <Arrow />
+                </span>
+              </div>
+            </article>
+          )}
+
+          <ul className="border-t border-ink-900/10">
+            {rest.map((a) => (
+              <li key={a.slug} data-m="rise" className="group relative grid gap-3 border-b border-ink-900/10 py-8 lg:grid-cols-12 lg:gap-10">
+                <p className="ez-kicker flex gap-3 text-ink-500 lg:col-span-3 lg:flex-col lg:gap-1 lg:pt-2">
+                  <span className="text-brand-600">{a.category}</span>
+                  <span>{a.readingTime}</span>
+                </p>
+                <div className="lg:col-span-8">
+                  <h2 className="text-[1.5rem] leading-snug sm:text-[1.8rem]">
+                    <Link
+                      href={`/blog/${a.slug}`}
+                      className="transition-colors after:absolute after:inset-0 group-hover:text-brand-700 focus-visible:outline-none focus-visible:after:rounded-xl focus-visible:after:ring-2 focus-visible:after:ring-brand-600"
+                    >
+                      {a.title}
+                    </Link>
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-[1rem] leading-relaxed text-ink-600">{a.excerpt}</p>
+                </div>
+                <span aria-hidden="true" className="hidden text-ink-400 transition-[color,transform] duration-500 [transition-timing-function:var(--m-settle)] group-hover:translate-x-1 group-hover:text-brand-700 lg:col-span-1 lg:block lg:justify-self-end lg:pt-3">
+                  <Arrow className="h-5 w-5" />
                 </span>
               </li>
             ))}
@@ -127,39 +119,29 @@ export default async function BlogPage() {
         </Container>
       </section>
 
-      <Section tone="white">
-        <SectionHeading
-          eyebrow="Elsewhere"
-          title="More on the way"
-          lede="Two channels we are building out. Neither is live yet, and we would rather say that than link you to an empty page."
-        />
-        <ul className="mx-auto mt-10 grid max-w-3xl gap-5 sm:grid-cols-2">
-          {contentHub.channels.map((c) => (
-            <li
-              key={c.name}
-              data-reveal=""
-              className="rounded-2xl bg-canvas p-6 ring-1 ring-ink-200"
-            >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-100">
-                <Icon name={c.icon} className="h-5 w-5" />
-              </span>
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                <h3 className="text-[1.02rem] font-bold text-ink-900">
-                  {c.name}
-                </h3>
-                <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-amber-800 ring-1 ring-amber-200">
-                  {c.status}
-                </span>
-              </div>
-              <p className="mt-2 text-[0.92rem] leading-relaxed text-ink-700">
-                {c.detail}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <section aria-label="More on the way" className="bg-white py-16 sm:py-20">
+        <Container>
+          <SectionHeading
+            eyebrow="Elsewhere"
+            title="More on the way"
+            lede="Two channels we are building out. Neither is live yet, and we would rather say that than link you to an empty page."
+          />
+          <ul className="mt-10 grid border-t border-ink-900/10 sm:grid-cols-2">
+            {contentHub.channels.map((c, i) => (
+              <li key={c.name} className={`border-b border-ink-900/10 py-7 sm:pr-8 ${i % 2 === 1 ? 'sm:border-l sm:pl-8' : ''}`}>
+                <p className="flex flex-wrap items-center gap-3">
+                  <Icon name={c.icon} className="h-5 w-5 text-brand-600" />
+                  <span className="text-[1.1rem] font-semibold text-ink-900">{c.name}</span>
+                  <span className="rounded-full bg-marigold/20 px-2.5 py-0.5 text-[0.7rem] font-semibold text-[#7a4b00]">{c.status}</span>
+                </p>
+                <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-600">{c.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
 
       <CtaBand />
-    </>
+    </PageTransition>
   )
 }

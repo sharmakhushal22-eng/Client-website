@@ -48,6 +48,9 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
+      /* The site layout sets data-announce-dismissed here before hydration
+         (see ANNOUNCE_GATE); an attribute only, so the warning is noise. */
+      suppressHydrationWarning
       /* Light mode, hard-coded. The site offers no theme choice, so the
        * attribute is rendered server-side and never touched again: no boot
        * script, no localStorage read, no pre-hydration DOM mutation — and so

@@ -23,7 +23,7 @@
   </g>
   <g font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">
     <g transform="translate(24 190)"><rect width="118" height="30" rx="15" fill="#FFFFFF" stroke="#E5E7EB"/><circle cx="20" cy="15" r="5" fill="#10B981"/><text x="34" y="19" fill="#111827" opacity=".7">Leave balance</text></g>
-    <g transform="translate(46 262)"><rect width="104" height="30" rx="15" fill="#FFFFFF" stroke="#E5E7EB"/><circle cx="20" cy="15" r="5" fill="#F59E0B"/><text x="34" y="19" fill="#111827" opacity=".7">Form 16</text></g>
+    <g transform="translate(46 262)"><rect width="104" height="30" rx="15" fill="#FFFFFF" stroke="#E5E7EB"/><circle cx="20" cy="15" r="5" fill="#F59E0B"/><text x="34" y="19" fill="#111827" opacity=".7">Form 130</text></g>
     <g transform="translate(496 168)"><rect width="122" height="30" rx="15" fill="#FFFFFF" stroke="#E5E7EB"/><circle cx="20" cy="15" r="5" fill="#38BDF8"/><text x="34" y="19" fill="#111827" opacity=".7">Payslip Oct</text></g>
     <g transform="translate(476 244)"><rect width="136" height="30" rx="15" fill="#FFFFFF" stroke="#E5E7EB"/><circle cx="20" cy="15" r="5" fill="#2563EB"/><text x="34" y="19" fill="#111827" opacity=".7">Tax projection</text></g>
   </g>

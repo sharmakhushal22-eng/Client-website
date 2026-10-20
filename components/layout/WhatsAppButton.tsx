@@ -33,7 +33,7 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="ez-wa group fixed bottom-5 right-5 z-40 flex items-center rounded-full bg-[#25D366] py-2.5 pl-2.5 pr-2.5 text-white shadow-lg shadow-black/25 transition-shadow duration-200 hover:shadow-xl hover:shadow-[#25D366]/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
+      className="ez-wa group fixed bottom-5 right-5 z-40 flex items-center rounded-full bg-[#1fa855] py-2 pl-2 pr-2 text-white shadow-[0_14px_30px_-12px_rgb(11_22_51/0.45)] transition-[background-color,box-shadow] duration-200 hover:bg-[#178f47] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1fa855]"
     >
       {/* The icon disc. `relative` + isolate so the halo's negative z-index
           stays behind this element and not behind the page. */}

@@ -195,7 +195,7 @@ export const moduleGroups: ModuleGroup[] = [
     ],
     mock: [
       { label: 'Multi-company payroll run', value: 'Run complete', state: 'ok' },
-      { label: 'TDS projection · FY 26-27', value: 'Updated', state: 'ok' },
+      { label: 'TDS projection · tax year 2026-27', value: 'Updated', state: 'ok' },
       { label: 'Aadhaar & bank fields', value: 'Masked · role-based', state: 'pend' },
     ],
   },
@@ -305,9 +305,10 @@ export const complianceItems = [
   { code: 'PT', label: 'Professional Tax, state-wise' },
   { code: 'LWF', label: 'Labour Welfare Fund' },
   { code: 'TDS', label: 'Tax deducted at source' },
-  { code: 'Form 16', label: 'Annual tax certificate' },
-  { code: 'Gratuity', label: 'Payment of Gratuity Act' },
-  { code: 'Bonus', label: 'Payment of Bonus Act' },
+  { code: 'Form 130', label: 'Salary TDS certificate (was Form 16)' },
+  { code: 'Gratuity', label: 'Code on Social Security' },
+  { code: 'Bonus', label: 'Code on Wages' },
+  { code: 'Min. wages', label: 'Pan-India minimum wages tracker' },
   { code: 'S&E', label: 'Shops & Establishments' },
 ]
 
@@ -352,7 +353,9 @@ export const solutions: Solution[] = [
   { n: '15', name: 'Travel & Expense Claims', blurb: 'Trip approval, claim submission and reimbursement, with no email chain.', },
   { n: '16', name: 'HR Letters', blurb: 'Offer, experience and relieving letters, generated instantly rather than typed each time.', },
   { n: '17', name: 'Exit & Full-and-Final Settlement', blurb: 'A clean, calculated exit process, not a spreadsheet rebuilt from memory.', statutory: true, },
-  { n: '18', name: 'Performance Management', blurb: 'Goal-setting, reviews and ratings, connected directly to compensation.', coming: true, },
+  /* Live: the product ships a Performance module (goals, KRA library,
+     quarterly cycles) in its admin and self-service menus. */
+  { n: '18', name: 'Performance Management', blurb: 'Goal-setting, reviews and ratings, connected directly to compensation.', },
   { n: '19', name: 'WhatsApp & Mobile Notifications', blurb: 'Leave approvals and attendance alerts delivered where employees already are.', coming: true, },
   { n: '20', name: 'EZER AI Assistant', blurb: 'Ask a question about your own leave balance or payslip, get an answer instantly.', coming: true, },
 ]

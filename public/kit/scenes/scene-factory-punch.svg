@@ -36,6 +36,6 @@
 <g>
   <rect x="40" y="188" width="126" height="52" rx="13" fill="#FFFFFF" stroke="#E5E7EB"/>
   <text x="58" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9" font-weight="800" letter-spacing="1" fill="#626D80">RULE SET</text>
-  <text x="58" y="230" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#1D4ED8">Factories Act</text>
+  <text x="58" y="230" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="800" fill="#1D4ED8">OSH Code</text>
 </g>
 </svg>

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { Icon } from '@/components/ui/Icon'
+import { PageTransition } from '@/components/brand/PageTransition'
+import { Eyebrow } from '@/components/brand/Bars'
 import { AssetDownloadForm } from '@/components/forms/AssetDownloadForm'
 import { CtaBand } from '@/components/sections/CtaBand'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
@@ -38,7 +40,7 @@ export const metadata: Metadata = pageMetadata({
  * ========================================================================= */
 export default function PolicyHandbookPage() {
   return (
-    <>
+    <PageTransition kind="editorial">
       <JsonLd
         schemas={[
           breadcrumbSchema([
@@ -49,25 +51,24 @@ export default function PolicyHandbookPage() {
       />
 
       {/* ── Hero + gate ──────────────────────────────────────────────────── */}
-      <section className="bg-brand-50 py-10 sm:py-14 lg:py-16">
+      <section className="ez-hero bg-paper pb-16 pt-10 sm:pt-14 lg:pb-24">
         <Container>
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-ink-600">
-            <Link href="/" className="hover:text-brand-700">
+          <nav aria-label="Breadcrumb" className="mb-8 text-[0.85rem] text-ink-500">
+            <Link href="/" className="ez-link hover:text-ink-900">
               Home
             </Link>
-            <span className="mx-2" aria-hidden="true">/</span>
+            <span className="mx-2 text-ink-300" aria-hidden="true">/</span>
             <span className="font-medium text-ink-900">Policy handbook</span>
           </nav>
 
-          <div className="grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
-            <div>
-              <p className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-brand-700 ring-1 ring-brand-200">
-                <Icon name="file" className="h-3 w-3" />
-                Free resource
-              </p>
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-7">
+              <Eyebrow animate>Free resource</Eyebrow>
 
-              <h1 className="mt-4 text-[2rem] font-bold leading-[1.12] sm:text-4xl lg:text-[2.6rem]">
-                The {policyCount} policies an Indian company is expected to have
+              <h1 className="mt-6 text-[2.5rem] leading-[1] tracking-[-0.04em] sm:text-[3.4rem] lg:text-[4rem]">
+                <span className="ez-line"><span>The {policyCount} policies</span></span>
+                <span className="ez-line"><span className="text-ink-400">an Indian company</span></span>
+                <span className="ez-line"><span className="text-ink-400">is expected to have.</span></span>
               </h1>
 
               <p className="mt-5 text-lg leading-relaxed text-ink-600">
@@ -92,8 +93,7 @@ export default function PolicyHandbookPage() {
 
               {/* The source's own caveat, carried over rather than quietly
                   dropped. It is the honest framing and it costs nothing. */}
-              <p className="mt-7 flex items-start gap-2.5 rounded-lg bg-surface px-5 py-4 text-sm leading-relaxed text-ink-600 ring-1 ring-brand-100">
-                <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+              <p className="mt-8 border-l-2 border-marigold pl-5 text-[0.95rem] leading-relaxed text-ink-600">
                 This is a starting framework, not legal advice. Each policy
                 still has to become a company-specific document once you have
                 settled headcount, states, industry and working model, and
@@ -101,9 +101,9 @@ export default function PolicyHandbookPage() {
               </p>
             </div>
 
-            <div className="lg:pt-10">
-              <div className="rounded-xl bg-surface p-6 shadow-floating ring-1 ring-ink-200 sm:p-7">
-                <h2 className="text-lg font-bold">Get the PDF</h2>
+            <div data-h="card" style={{ '--d': '240ms' } as React.CSSProperties} className="lg:col-span-5 lg:pt-10">
+              <div className="rounded-[28px] bg-white p-6 shadow-[0_1px_2px_rgb(11_22_51/0.05),0_40px_80px_-40px_rgb(11_22_51/0.35)] ring-1 ring-ink-900/[0.06] sm:p-9">
+                <h2 className="text-[1.6rem] leading-tight">Get the PDF</h2>
                 <p className="mt-1.5 text-sm leading-relaxed text-ink-600">
                   Two fields. The whole list is on this page either way, so the
                   PDF is just the version you can circulate.
@@ -129,12 +129,12 @@ export default function PolicyHandbookPage() {
         <div className="mt-12 space-y-12">
           {policyCategories.map((category) => (
             <div key={category.n} data-reveal="">
-              <div className="flex items-baseline gap-3 border-b border-ink-200 pb-3">
-                <span className="font-mono text-sm font-bold text-brand-600">
+              <div className="flex items-baseline gap-4 border-b-2 border-ink-900 pb-4">
+                <span className="ez-num ez-kicker text-brand-600">
                   {String(category.n).padStart(2, '0')}
                 </span>
-                <h3 className="text-xl font-bold">{category.name}</h3>
-                <span className="ml-auto text-xs text-ink-600">
+                <h3 className="font-display text-[1.6rem] font-[640] tracking-[-0.03em] text-ink-900 [font-stretch:106%]">{category.name}</h3>
+                <span className="ml-auto text-[0.82rem] text-ink-500">
                   {category.policies.length} policies
                 </span>
               </div>
@@ -142,12 +142,12 @@ export default function PolicyHandbookPage() {
               <ul className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
                 {category.policies.map((p) => (
                   <li key={p.name}>
-                    <p className="text-[0.95rem] font-bold text-ink-900">{p.name}</p>
-                    <p className="mt-1 text-[0.8rem] leading-relaxed text-ink-600">
+                    <p className="text-[1rem] font-semibold text-ink-900">{p.name}</p>
+                    <p className="mt-1 text-[0.88rem] leading-relaxed text-ink-600">
                       {p.detail}
                     </p>
                     {p.ezer && (
-                      <p className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-brand-50 px-2 py-1 text-[0.68rem] font-bold text-brand-700 ring-1 ring-brand-100">
+                      <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-[0.7rem] font-semibold text-brand-700">
                         <Icon name="check" className="h-3 w-3" />
                         {p.ezer}
                       </p>
@@ -175,12 +175,12 @@ export default function PolicyHandbookPage() {
               key={phase.phase}
               data-reveal=""
               style={{ transitionDelay: `${i * 45}ms` }}
-              className="rounded-xl bg-surface p-6 ring-1 ring-brand-100"
+              className="border-t-2 border-ink-900 pt-6"
             >
-              <p className="inline-flex rounded-full bg-brand-600 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-on-accent">
+              <p className="ez-kicker text-brand-600">
                 {phase.phase}
               </p>
-              <h3 className="mt-4 text-lg font-bold">{phase.name}</h3>
+              <h3 className="mt-3 font-display text-[1.45rem] font-[640] tracking-[-0.025em] text-ink-900 [font-stretch:104%]">{phase.name}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-600">
                 {phase.detail}
               </p>
@@ -188,7 +188,7 @@ export default function PolicyHandbookPage() {
           ))}
         </ol>
 
-        <div className="mt-10 rounded-xl bg-surface p-6 ring-1 ring-brand-100 sm:p-7">
+        <div className="mt-14 rounded-[24px] bg-white p-7 ring-1 ring-ink-900/[0.06] sm:p-9">
           <h3 className="text-base font-bold">
             What a finished policy document contains
           </h3>
@@ -200,7 +200,7 @@ export default function PolicyHandbookPage() {
             {policyDocumentFormat.map((part) => (
               <li
                 key={part}
-                className="rounded-md bg-brand-50 px-2.5 py-1 text-xs font-medium text-ink-700 ring-1 ring-brand-100"
+                className="rounded-full bg-paper px-3 py-1.5 text-[0.82rem] font-medium text-ink-700"
               >
                 {part}
               </li>
@@ -213,6 +213,6 @@ export default function PolicyHandbookPage() {
         title="The policies are yours. The operating them is ours."
         lede={`${operatedCount} of these stop being documents and become a running process the day EZER goes live: leave balances, attendance, payroll, statutory filings, full & final and the compliance calendar.`}
       />
-    </>
+    </PageTransition>
   )
 }

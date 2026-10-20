@@ -1,15 +1,30 @@
 import type { Metadata } from 'next'
-import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
+import { Archivo } from 'next/font/google'
+import './site.css'
+import './scenes.css'
+import { AnnouncementBar, ANNOUNCE_GATE } from '@/components/layout/AnnouncementBar'
 import { Header } from '@/components/layout/Header'
 import { companyPreviews, navPolicyCount } from '@/lib/nav-previews'
 import { Footer } from '@/components/layout/Footer'
 import { CookieConsent } from '@/components/layout/CookieConsent'
 import { SiteScripts } from '@/components/layout/SiteScripts'
+import { ParticleField } from '@/components/scene/ParticleField'
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
 import { PreRegister } from '@/components/prereg/PreRegister'
 import { PreRegisterProvider } from '@/components/prereg/PreRegisterProvider'
 import { JsonLd, organizationSchema, softwareApplicationSchema } from '@/lib/seo'
 import { site } from '@/site.config'
+
+/* Display face for the public site only — loaded here rather than in the root
+ * layout so /admin never downloads it. One variable file carries both the
+ * weight and the width axes, so every headline size and the hero wordmark
+ * come from a single request. */
+const archivo = Archivo({
+  subsets: ['latin'],
+  display: 'swap',
+  axes: ['wdth'],
+  variable: '--font-archivo',
+})
 
 /* The public marketing site's chrome. Everything under app/(site) gets it;
  * /admin does not. The route group adds no path segment, so URLs are
@@ -43,7 +58,7 @@ export const metadata: Metadata = {
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-full flex-col bg-surface">
+    <div className={`${archivo.variable} ez-site flex min-h-full flex-col`}>
       {/* Skip link — spec §8.5. Hidden until focused, and the first thing a
           keyboard user reaches on every page. */}
       <a
@@ -59,6 +74,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         {/* The announcement bar sits ABOVE the header deliberately: the header
             is sticky, so the bar scrolls away and does not eat a strip of
             every screen for the rest of the visit. */}
+        {/* Runs before the bar is parsed, so a dismissed bar is hidden in
+            the first frame instead of being removed after hydration. */}
+        <script dangerouslySetInnerHTML={{ __html: ANNOUNCE_GATE }} />
         <AnnouncementBar />
         {/* The Company menu's preview copy is assembled here, in a server
             component, and handed down as plain strings. Built inside the
@@ -76,6 +94,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
 
       <CookieConsent />
       <SiteScripts />
+      <ParticleField />
     </div>
   )
 }

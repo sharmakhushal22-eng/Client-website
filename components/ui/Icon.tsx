@@ -15,7 +15,7 @@ export type IconName =
   | 'chart' | 'check' | 'arrow-right' | 'phone' | 'mail' | 'whatsapp'
   | 'calendar' | 'upload' | 'settings' | 'play' | 'chevron-down'
   | 'briefcase' | 'user-plus' | 'map-pin' | 'lock' | 'download'
-  | 'alert' | 'sparkle' | 'menu' | 'close' | 'linkedin'
+  | 'alert' | 'sparkle' | 'menu' | 'close' | 'linkedin' | 'pickaxe'
 
 const paths: Record<IconName, React.ReactNode> = {
   'users': <><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 20v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11" /></>,
@@ -65,6 +65,8 @@ const paths: Record<IconName, React.ReactNode> = {
   'chevron-down': <path d="M6 9l6 6 6-6" />,
   'briefcase': <><rect x="2.5" y="7" width="19" height="13" rx="2.5" /><path d="M8.5 7V5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2" /><path d="M2.5 12.5h19" /></>,
   'user-plus': <><path d="M15 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="8.5" cy="7" r="4" /><path d="M19 8v6M22 11h-6" /></>,
+  /* A pickaxe, for mines: the head as one arc, the handle crossing it. */
+  'pickaxe': <><path d="M4 9.5C7.5 5 13 3.5 18.5 5.5" /><path d="M14.5 4.2 19.8 9.5" /><path d="M12.6 11.4 4 20" /></>,
   'map-pin': <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" /></>,
   'lock': <><rect x="4" y="10.5" width="16" height="10.5" rx="2.5" /><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" /></>,
   'download': <><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M7 10l5 5 5-5" /><path d="M12 15V3" /></>,

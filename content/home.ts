@@ -215,8 +215,11 @@ export const productTour = [
  * ========================================================================= */
 export const announcement = {
   text:
-    'New Labour Codes are in effect. A new Income Tax Act just replaced the ' +
+    'New Labour Codes are in effect. The Income-tax Act, 2025 has replaced the ' +
     'old one. 2026 is the year Indian payroll compliance changes',
+  /* The phone version. The full sentence ran to four lines above the header
+     at 390px, which is a third of the first screen spent on a banner. */
+  short: 'New Labour Codes and the Income-tax Act, 2025.',
   ctaLabel: 'see what’s changing',
   /* The explainer, not the product page: someone reading this bar wants to
      know what changed, not to be sold to mid-sentence. */

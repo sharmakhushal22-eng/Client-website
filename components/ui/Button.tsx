@@ -1,27 +1,38 @@
 import Link from 'next/link'
 import { cn } from '@/lib/cn'
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'onDark'
+type Variant = 'primary' | 'secondary' | 'ghost' | 'onDark' | 'onDarkOutline' | 'ink'
 type Size = 'md' | 'lg'
 
+/* Pill buttons with one behaviour shared by every variant: they press in
+ * (ez-press scales to .98 on :active) and an `ez-arrow` child leads by 3px
+ * on hover. Colour changes are the only other transition. No glow, no shine,
+ * nothing that moves while nobody is pointing at it.
+ *
+ * Contrast (§8.5): white on brand-600 is 5.2:1; navy on paper is 16:1. */
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-xl font-semibold ' +
-  'transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60'
+  'ez-press inline-flex items-center justify-center gap-2 rounded-full font-semibold ' +
+  'tracking-[-0.01em] disabled:cursor-not-allowed disabled:opacity-60 ' +
+  'focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-brand-600'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand-600 text-on-accent hover:bg-brand-700 active:bg-brand-800',
-  /* Contrast note (§8.5): brand-700 on white is 6.4:1, comfortably past the
-     4.5:1 floor. brand-600 text would be 5.1:1 — also fine — but the darker
-     tone reads better at small sizes against a white field. */
+  /* Cobalt — the product's own blue. The one loud thing in any view. */
+  primary:
+    'bg-brand-600 text-on-accent shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_1px_2px_rgb(11_22_51/0.18)] ' +
+    'hover:bg-brand-700 hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_10px_24px_-10px_rgb(37_99_235/0.7)]',
+  /* Deep navy — for the closing actions on paper, where a second cobalt
+     button would only repeat the first. */
+  ink: 'bg-ink-900 text-white hover:bg-brand-700',
   secondary:
-    'bg-surface text-brand-700 ring-1 ring-inset ring-brand-200 hover:bg-brand-50 hover:ring-brand-300',
-  ghost: 'text-ink-900 hover:bg-ink-100',
-  onDark: 'bg-surface text-brand-700 hover:bg-brand-50',
+    'bg-transparent text-ink-900 ring-1 ring-inset ring-ink-900/15 hover:bg-white hover:ring-ink-900/30',
+  ghost: 'text-ink-900 hover:bg-ink-900/5',
+  onDark: 'bg-white text-ink-900 hover:bg-brand-50',
+  onDarkOutline: 'bg-transparent text-white ring-1 ring-inset ring-white/45 hover:bg-white/10 hover:ring-white/70',
 }
 
 const sizes: Record<Size, string> = {
-  md: 'px-5 py-2.5 text-sm',
-  lg: 'px-7 py-3.5 text-base',
+  md: 'h-11 px-5 text-[0.95rem]',
+  lg: 'h-13 px-7 text-base',
 }
 
 type Props = {
@@ -73,5 +84,24 @@ export function Button({
     <button type={type} className={classes} disabled={disabled} onClick={onClick}>
       {children}
     </button>
+  )
+}
+
+/* The arrow every primary action carries. Its own component so the hover
+ * lead (ez-press .ez-arrow) is wired the same way everywhere. */
+export function Arrow({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={cn('ez-arrow h-4 w-4', className)}
+    >
+      <path d="M3.5 10h13M11.5 5l5 5-5 5" />
+    </svg>
   )
 }

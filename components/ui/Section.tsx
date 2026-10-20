@@ -1,14 +1,19 @@
 import { cn } from '@/lib/cn'
 import { Container } from './Container'
+import { Eyebrow } from '@/components/brand/Bars'
 
-type Tone = 'white' | 'tint' | 'ink' | 'transparent'
+type Tone = 'white' | 'tint' | 'paper' | 'ink' | 'transparent'
 
+/* Grounds, in the site's palette. `tint` was a pale blue wash; it is now the
+ * warm sand (paper-2), so a tinted section reads as a change of scene rather
+ * than as a highlighted one. `ink` is the deep navy band. */
 const tones: Record<Tone, string> = {
-  white: 'bg-surface',
-  tint: 'bg-brand-50',
-  ink: 'bg-dark text-white',
-  /* For sections inside a shared background band — see WorkforceBand. Any
-     opaque tone here would paint over the field the band exists to show. */
+  white: 'bg-white',
+  tint: 'bg-paper-2',
+  paper: 'bg-paper',
+  ink: 'bg-navy text-white',
+  /* For sections inside a shared background band. Any opaque tone here
+     would paint over the field the band exists to show. */
   transparent: '',
 }
 
@@ -29,7 +34,7 @@ export function Section({
     <section
       id={id}
       aria-label={ariaLabel}
-      className={cn('py-12 sm:py-14 lg:py-16', tones[tone], className)}
+      className={cn('py-16 sm:py-20 lg:py-24', tones[tone], className)}
     >
       <Container>{children}</Container>
     </section>
@@ -37,12 +42,16 @@ export function Section({
 }
 
 /** Eyebrow + heading + optional lede. One <h2> per section; the page's single
- *  <h1> lives in the hero (spec §8.4). */
+ *  <h1> lives in the hero (spec §8.4).
+ *
+ *  Left-aligned by default: the site sets its section openings like an
+ *  editorial page, against the left edge of the grid. `center` remains for
+ *  the few places a centred block is genuinely the composition. */
 export function SectionHeading({
   eyebrow,
   title,
   lede,
-  align = 'center',
+  align = 'left',
   onDark = false,
   onPattern = false,
   as: Tag = 'h2',
@@ -52,40 +61,26 @@ export function SectionHeading({
   lede?: React.ReactNode
   align?: 'left' | 'center'
   onDark?: boolean
-  /* One step darker on the eyebrow and the lede, for sections that sit on
-     artwork rather than a flat tone. The default weights are tuned for a flat
-     ground; over a pattern the background varies locally, and measured
-     worst-case contrast on ink-600 lands right on the 4.5 threshold — passing
-     on average and failing where the pattern is darkest. brand-700/ink-700
-     costs nothing visually and clears it. */
+  /* Kept for API compatibility; the new grounds are flat, so it no longer
+     needs to darken anything. */
   onPattern?: boolean
   as?: 'h1' | 'h2' | 'h3'
 }) {
+  void onPattern
   return (
-    <div
-      className={cn(
-        'max-w-3xl',
-        align === 'center' ? 'mx-auto text-center' : 'text-left',
-      )}
-    >
+    <div className={cn('max-w-3xl', align === 'center' ? 'mx-auto text-center' : 'text-left')}>
       {eyebrow && (
-        <p
-          className={cn(
-            'mb-3 text-xs font-bold uppercase tracking-[0.14em]',
-            onDark
-              ? 'text-brand-200'
-              : onPattern
-                ? 'text-brand-700'
-                : 'text-brand-600',
-          )}
+        <Eyebrow
+          tone={onDark ? 'onDark' : 'brand'}
+          className={align === 'center' ? 'justify-center' : undefined}
         >
           {eyebrow}
-        </p>
+        </Eyebrow>
       )}
       <Tag
         className={cn(
-          'text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-[2.75rem]',
-          onDark && 'text-white',
+          'mt-5 text-[2.1rem] leading-[1.06] sm:text-[2.7rem] lg:text-[3.1rem]',
+          onDark && '!text-white',
         )}
       >
         {title}
@@ -94,7 +89,8 @@ export function SectionHeading({
         <p
           className={cn(
             'mt-5 text-lg leading-relaxed',
-            onDark ? 'text-on-dark' : onPattern ? 'text-ink-700' : 'text-ink-600',
+            align === 'center' && 'mx-auto max-w-2xl',
+            onDark ? 'text-white/75' : 'text-ink-600',
           )}
         >
           {lede}

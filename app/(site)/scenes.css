@@ -1,0 +1,273 @@
+/* ============================================================================
+   Scenes — the stacked, full-screen chapters of the site.
+
+   On a desktop screen every scene is exactly one viewport tall and sticks
+   to the top. The next scene, later in the stack, slides up OVER it with
+   rounded shoulders and a shadow; as it does, the one underneath recedes:
+   it shrinks a little, sinks, and darkens, then stops being painted once it
+   is fully covered. Moving through the site reads as going from one room
+   into the next.
+
+   The recede is a scroll-driven animation whose timeline is the NEXT
+   scene's view timeline: each scene names its own (--self) and points at
+   the next (--next), both set inline by <Scene>. The stack declares them all
+   in timeline-scope so siblings can see each other's timelines.
+
+   Below 1024px wide, or on short screens, scenes are ordinary sections in
+   the flow: the content decides the height, nothing sticks, nothing is
+   hidden. Browsers without scroll timelines still get the stacking (it is
+   only position: sticky), just without the recede.
+   ========================================================================= */
+
+.ez-scene { position: relative; isolation: isolate; }
+/* The particle canvas is moved in as a scene's first child at z-index 0;
+   everything else in the scene sits above it. :where keeps this weaker than
+   any utility, so absolutely positioned children stay absolute. */
+@layer base {
+  :where(.ez-scene) > :not(canvas) { position: relative; z-index: 1; }
+}
+
+@keyframes ez-sweep-down { from { transform: translateY(-100%); } to { transform: translateY(260%); } }
+.ez-sweep-down { animation: ez-sweep-down 1.8s cubic-bezier(.65, 0, .35, 1) infinite; }
+.ez-scene-tone-paper  { background: var(--color-paper); }
+.ez-scene-tone-white  { background: #fff; }
+.ez-scene-tone-sand   { background: var(--color-paper-2); }
+.ez-scene-tone-navy   { background: var(--color-navy); color: #fff; }
+.ez-scene-tone-cobalt { background: var(--color-brand-600); color: #fff; }
+
+/* Shoulders on every scene after the first, at every width: the rounded
+   top edge is what says "a new panel has arrived". */
+.ez-stack > .ez-scene + .ez-scene,
+.ez-stack > .ez-pin-track + .ez-scene {
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 -24px 60px -28px rgb(11 22 51 / 0.35);
+}
+
+.ez-pin-track { display: none; }
+
+@media (min-width: 1024px) and (min-height: 640px) {
+  .ez-stack > .ez-scene {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+  .ez-stack > .ez-scene + .ez-scene,
+  .ez-stack > .ez-pin-track + .ez-scene { border-radius: 2.75rem 2.75rem 0 0; }
+
+  /* A pinned scene holds still while this track scrolls past beneath it;
+     the track's step markers drive what the scene shows. */
+  .ez-pin-track { display: block; position: relative; pointer-events: none; }
+  .ez-pin-track > [data-pin-step] { height: 75vh; }
+
+  @supports (animation-timeline: view()) {
+    .ez-stack > .ez-scene { view-timeline-name: var(--self); }
+
+    @keyframes ez-scene-recede {
+      0%   { scale: 1; translate: 0 0; visibility: visible; }
+      99%  { visibility: visible; }
+      100% { scale: 0.9; translate: 0 -3%; visibility: hidden; }
+    }
+    @keyframes ez-scene-dim { to { opacity: 0.42; } }
+
+    .ez-stack > .ez-scene[data-next] {
+      animation: ez-scene-recede linear both;
+      animation-timeline: var(--next);
+      animation-range: entry 0% entry 100%;
+      transform-origin: 50% 20%;
+    }
+    .ez-stack > .ez-scene[data-next]::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      background: #060b1d;
+      opacity: 0;
+      pointer-events: none;
+      animation: ez-scene-dim linear both;
+      animation-timeline: var(--next);
+      animation-range: entry 0% entry 100%;
+    }
+
+    /* Inside a scene, its contents arrive in depth as the scene slides up:
+       elements marked data-depth="n" rise from further below the more
+       depth they have, so the panel reads as layered, not flat. */
+    @keyframes ez-depth-in { from { translate: 0 calc(var(--depth, 1) * 9vh); opacity: 0; } }
+    .ez-stack > .ez-scene [data-depth] {
+      animation: ez-depth-in linear both;
+      animation-timeline: var(--self);
+      animation-range: entry 10% entry 100%;
+    }
+    .ez-stack > .ez-scene:first-child [data-depth] { animation: none; }
+  }
+}
+
+/* ── Glass ───────────────────────────────────────────────────────────────
+   One surface treatment for the floating product chips that sit over the
+   particle stages: a frosted white panel with a hairline and a deep, soft
+   shadow. Used sparingly, only where a chip sits over moving dots. */
+.ez-glass {
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.8) inset, 0 0 0 1px rgb(11 22 51 / 0.06), 0 24px 48px -20px rgb(11 22 51 / 0.35);
+}
+.ez-glass-dark {
+  background: rgb(255 255 255 / 0.07);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.12), 0 24px 48px -20px rgb(0 0 0 / 0.5);
+}
+
+/* Counting numbers keep their width while they change. */
+.ez-count { font-variant-numeric: tabular-nums; }
+
+/* A scrolling ticker for the activity feed: new rows slide in at the top. */
+@keyframes ez-feed {
+  0%, 18% { transform: translateY(0); }
+  25%, 43% { transform: translateY(calc(var(--row) * -1)); }
+  50%, 68% { transform: translateY(calc(var(--row) * -2)); }
+  75%, 93% { transform: translateY(calc(var(--row) * -3)); }
+  100% { transform: translateY(calc(var(--row) * -4)); }
+}
+.ez-feed { animation: ez-feed 14s cubic-bezier(.65, 0, .35, 1) infinite; }
+
+/* A seconds hand / progress ring sweeping once a minute. */
+@keyframes ez-sweep-ring { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+.ez-sweep-ring { animation: ez-sweep-ring var(--dur, 60s) linear infinite; }
+
+/* Text that changes on a loop: several labels share one grid cell and take
+   turns. Each child sets --i; --n is the count. */
+@keyframes ez-cycle {
+  0% { opacity: 0; transform: translateY(40%); }
+  4%, 21% { opacity: 1; transform: none; }
+  25%, 100% { opacity: 0; transform: translateY(-40%); }
+}
+.ez-cycle { display: inline-grid; }
+.ez-cycle > * {
+  grid-area: 1 / 1;
+  opacity: 0;
+  animation: ez-cycle calc(var(--n, 4) * 2.4s) var(--m-settle) infinite;
+  animation-delay: calc(var(--i, 0) * 2.4s);
+}
+
+/* ── Route transitions: the next page slides up over the last ─────────── */
+@keyframes vt-recede { to { scale: 0.92; translate: 0 -2%; opacity: 0.3; } }
+@keyframes vt-over {
+  from { translate: 0 100vh; clip-path: inset(0 0 0 0 round 44px 44px 0 0); }
+  to   { translate: 0 0; clip-path: inset(0 0 0 0 round 0); }
+}
+::view-transition-old(.vt-exit) { animation: 640ms cubic-bezier(.65, 0, .35, 1) both vt-recede; }
+::view-transition-new(.vt-product),
+::view-transition-new(.vt-ledger),
+::view-transition-new(.vt-editorial),
+::view-transition-new(.vt-home) { animation: 760ms cubic-bezier(.16, 1, .3, 1) both vt-over; }
+::view-transition-new(.vt-direct) { animation: 420ms cubic-bezier(.16, 1, .3, 1) both vt-over; }
+::view-transition-group(*) { animation-duration: 760ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ez-stack > .ez-scene,
+  .ez-stack > .ez-scene::after,
+  .ez-stack > .ez-scene [data-depth],
+  .ez-feed, .ez-sweep-ring, .ez-cycle > * { animation: none !important; }
+  .ez-cycle > *:first-child { opacity: 1; }
+}
+
+/* ── Strike: a problem crossed out, then its answer ──────────────────────
+   A new reveal primitive for lists of before/after pairs, driven by the
+   same data-in observer as the others. The rule draws through the old
+   text from the left; the answer slides in after it. */
+.ez-strike {
+  background-image: linear-gradient(rgb(11 22 51 / .5), rgb(11 22 51 / .5));
+  background-repeat: no-repeat;
+  background-position: 0 58%;
+  background-size: 100% 1.5px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+html[data-m-ready] [data-m="strike"] .ez-strike { background-size: 0% 1.5px; transition: background-size 800ms var(--m-swap); transition-delay: calc(200ms + var(--i, 0) * 700ms); }
+html[data-m-ready] [data-m="strike"] .ez-after { opacity: 0; transform: translateX(-12px); transition: opacity 500ms var(--m-settle), transform 700ms var(--m-settle); transition-delay: calc(650ms + var(--i, 0) * 700ms); }
+html[data-m-ready] [data-m="strike"]:is([data-in], [data-in-now]) .ez-strike { background-size: 100% 1.5px; }
+html[data-m-ready] [data-m="strike"]:is([data-in], [data-in-now]) .ez-after { opacity: 1; transform: none; }
+html[data-m-ready] [data-m="strike"] > * { --i: inherit; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-m-ready] [data-m="strike"] .ez-strike { background-size: 100% 1.5px !important; }
+  html[data-m-ready] [data-m="strike"] .ez-after { opacity: 1 !important; transform: none !important; }
+}
+
+.ez-pin-meter { transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--m-settle); }
+
+@keyframes ez-bar-grow { from { transform: scaleX(0); } }
+.ez-panel-bar { transform-origin: left; animation: ez-bar-grow 900ms var(--m-settle) both; animation-delay: calc(var(--i, 0) * 60ms + 120ms); }
+@keyframes ez-donut-in { from { stroke-dasharray: 0 100; } }
+.ez-donut-in { animation: ez-donut-in 1200ms var(--m-settle) both; animation-delay: 200ms; }
+
+/* Phones and short screens: no sticking, but each scene still arrives as a
+   rounded panel rising into place, so the run keeps its sense of moving
+   from room to room. */
+@media (max-width: 1023px), (max-height: 639px) {
+  @supports (animation-timeline: view()) {
+    @keyframes ez-scene-rise {
+      from { clip-path: inset(5% 3% 0 3% round 36px); translate: 0 6vh; }
+      to   { clip-path: inset(0 0 0 0 round 2rem 2rem 0 0); translate: 0 0; }
+    }
+    .ez-stack > .ez-scene:not(:first-child) {
+      animation: ez-scene-rise linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ez-stack > .ez-scene:not(:first-child) { animation: none !important; clip-path: none !important; }
+}
+
+
+/* ── The leave story, played (components/scenes/home/StoryPlayer.tsx) ──────
+   The filling line is the clock: a transform animation that only runs while
+   the stage is [data-running], and whose animationend moves the story on.
+   Under reduced motion there is no animation at all, so nothing advances by
+   itself. */
+.ez-story-line { height: 100%; background: var(--color-brand-600); transform: scaleY(0); transform-origin: top; }
+.ez-story-line.is-done { transform: none; }
+.ez-story-line.is-on { animation: ez-story-fill var(--story-ms, 4600ms) linear forwards; animation-play-state: paused; }
+.ez-story[data-running] .ez-story-line.is-on { animation-play-state: running; }
+@keyframes ez-story-fill { to { transform: none; } }
+
+.ez-story-body { grid-template-rows: 0fr; transition: grid-template-rows 520ms var(--m-settle); }
+.ez-story-body.is-open { grid-template-rows: 1fr; }
+.ez-story-body > * { min-height: 0; }
+
+/* "Live" dot beside the eyebrow: says this part moves by itself. */
+.ez-story-live { position: relative; width: 8px; height: 8px; border-radius: 99px; background: var(--color-brand-600); }
+.ez-story[data-running] .ez-story-live::after { content: ''; position: absolute; inset: -4px; border-radius: 99px; border: 1.5px solid var(--color-brand-600); animation: ez-story-ping 1.6s ease-out infinite; }
+@keyframes ez-story-ping { from { opacity: .8; transform: scale(.5); } to { opacity: 0; transform: scale(1.6); } }
+
+/* The request token: rises off the phone and lands on the next card. */
+.ez-story-token {
+  position: absolute; left: 40%; top: 58%; width: 18px; height: 18px; margin: -9px 0 0 -9px;
+  border-radius: 99px; background: var(--color-marigold, #f2a516);
+  box-shadow: 0 0 0 6px rgb(242 165 22 / .25), 0 0 0 14px rgb(242 165 22 / .1), 0 8px 18px -4px rgb(11 22 51 / .45);
+  opacity: 0; pointer-events: none;
+  animation: ez-story-token 1600ms var(--m-settle) 100ms both;
+}
+@keyframes ez-story-token {
+  0% { left: 40%; top: 58%; opacity: 0; transform: scale(.4); }
+  12% { opacity: 1; transform: scale(1); }
+  55% { left: 48%; top: 36%; }
+  88% { left: 55%; top: 44%; opacity: 1; transform: scale(1); }
+  100% { left: 55%; top: 44%; opacity: 0; transform: scale(2.2); }
+}
+.ez-story-path { opacity: 0; animation: ez-story-path 1800ms ease 60ms both; }
+@keyframes ez-story-path { 30% { opacity: .7; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .ez-story-line.is-on { animation: none; transform: none; }
+  .ez-story-token, .ez-story-path, .ez-story[data-running] .ez-story-live::after { animation: none; display: none; }
+}
+
+/* The dated timeline on /compliance: a rule that draws down behind the dots. */
+.ez-timeline::before { content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: var(--color-brand-600); opacity: .18; }
+.ez-timeline::after { content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: var(--color-brand-600); transform-origin: top; transform: scaleY(1); }
+html[data-m-ready] .ez-timeline::after { transform: scaleY(0); transition: transform 1800ms var(--m-settle) 200ms; }
+html[data-m-ready] .ez-timeline:is([data-in], [data-in-now])::after { transform: scaleY(1); }
+@media (prefers-reduced-motion: reduce) { html[data-m-ready] .ez-timeline::after { transform: scaleY(1); transition: none; } }

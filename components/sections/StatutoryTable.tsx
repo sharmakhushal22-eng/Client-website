@@ -19,7 +19,7 @@ export function StatutoryTable() {
         <SectionHeading
           eyebrow="Built for India"
           title="What EZER does for each statutory head"
-          lede="Not a global payroll tool with an India patch. Each act below is handled inside the run, against configuration that reflects your registrations."
+          lede="Under the law as it now stands: the four Labour Codes, in force since 21 November 2025, and the Income-tax Act, 2025, from 1 April 2026. Each head below is handled inside the run, against configuration that reflects your registrations."
         />
 
         {/* Wide table scrolls inside its own container rather than making the
@@ -28,18 +28,18 @@ export function StatutoryTable() {
           <table className="w-full min-w-[46rem] border-collapse text-left">
             <caption className="sr-only">
               Statutory acts covered by EZER HRMS, what the system does for each,
-              and the basis applied
+              and the wages and rates applied, under the law as it now stands
             </caption>
             <thead>
               <tr className="border-b-2 border-ink-200">
                 <th scope="col" className="py-3 pr-4 text-sm font-bold text-ink-900">
-                  Act
+                  Head and governing law
                 </th>
                 <th scope="col" className="py-3 pr-4 text-sm font-bold text-ink-900">
                   What the system does
                 </th>
                 <th scope="col" className="py-3 text-sm font-bold text-ink-900">
-                  Basis applied
+                  Wages applied
                 </th>
               </tr>
             </thead>
@@ -84,16 +84,16 @@ export function StatutoryTable() {
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <div>
                 <p className="text-lg font-bold">{workedPayslip.employee.name}</p>
-                <p className="text-sm text-ink-400">
+                <p className="text-sm text-white/65">
                   {workedPayslip.employee.code} · {workedPayslip.employee.designation}
                 </p>
               </div>
               <div className="text-right">
                 <p className="text-sm font-semibold">{workedPayslip.employee.month}</p>
-                <p className="text-xs text-ink-400">{workedPayslip.employee.location}</p>
+                <p className="text-xs text-white/65">{workedPayslip.employee.location}</p>
               </div>
             </div>
-            <p className="mt-3 text-xs text-ink-400">
+            <p className="mt-3 text-xs text-white/65">
               Paid days: {workedPayslip.employee.paidDays}
             </p>
           </div>
@@ -127,15 +127,13 @@ export function StatutoryTable() {
               </h3>
               <dl className="mt-4 space-y-2.5">
                 {workedPayslip.deductions.map((row) => (
-                  <div key={row.label} className="text-sm">
-                    <div className="flex justify-between gap-4">
-                      <dt className="text-ink-600">{row.label}</dt>
-                      <dd className="shrink-0 font-medium tabular-nums text-ink-900">
-                        {inr(row.amount)}
-                      </dd>
-                    </div>
+                  <div key={row.label} className="flex flex-wrap justify-between gap-x-4 text-sm">
+                    <dt className="text-ink-600">{row.label}</dt>
+                    <dd className="shrink-0 font-medium tabular-nums text-ink-900">
+                      {inr(row.amount)}
+                    </dd>
                     {row.note && (
-                      <p className="mt-0.5 text-xs text-ink-400">{row.note}</p>
+                      <dd className="mt-0.5 w-full text-xs text-ink-500">{row.note}</dd>
                     )}
                   </div>
                 ))}
@@ -160,14 +158,12 @@ export function StatutoryTable() {
             </h3>
             <dl className="mt-3 space-y-2">
               {workedPayslip.employerContributions.map((row) => (
-                <div key={row.label} className="text-sm">
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-ink-600">{row.label}</dt>
-                    <dd className="shrink-0 font-medium tabular-nums text-ink-900">
-                      {inr(row.amount)}
-                    </dd>
-                  </div>
-                  {row.note && <p className="mt-0.5 text-xs text-ink-400">{row.note}</p>}
+                <div key={row.label} className="flex flex-wrap justify-between gap-x-4 text-sm">
+                  <dt className="text-ink-600">{row.label}</dt>
+                  <dd className="shrink-0 font-medium tabular-nums text-ink-900">
+                    {inr(row.amount)}
+                  </dd>
+                  {row.note && <dd className="mt-0.5 w-full text-xs text-ink-500">{row.note}</dd>}
                 </div>
               ))}
             </dl>

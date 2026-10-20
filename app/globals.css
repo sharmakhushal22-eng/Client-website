@@ -130,8 +130,26 @@
   --shadow-floating: 0 2px 4px rgba(16,24,40,.06), 0 12px 28px -10px rgba(16,24,40,.16);
   --shadow-brand:    0 1px 2px rgba(29,78,216,.24), 0 8px 20px -6px rgba(37,99,235,.36);
 
+  /* ── The public site's own ground ────────────────────────────────────
+     Warm paper rather than a cool grey canvas, a deep navy ink, and one
+     warm accent. Defined here so Tailwind generates bg-paper, text-navy and
+     the rest; the (site) wrapper re-points the ink scale onto the navy in
+     app/(site)/site.css. /admin keeps the product's neutral greys. */
+  --color-paper:    #f7f5f0;
+  --color-paper-2:  #efebe3;
+  --color-line:     #e3ded4;
+  --color-navy:     #0b1633;
+  --color-navy-2:   #15234a;
+  --color-marigold: #f2a516;
+
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system,
                'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Semi-expanded Archivo for display type. Its wide, heavy capitals are the
+     closest open face to the EZER wordmark, so headlines and the logo read
+     as one hand. Falls back to the body face where it has not loaded. */
+  --font-display: var(--font-archivo), var(--font-dm-sans), ui-sans-serif,
+                  system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
   --container-content: 75rem;
 }
@@ -151,7 +169,6 @@
    calculator — use the bg-dark token. That is a fixed dark ground and has
    nothing to do with theming.
    ======================================================================== */
-
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
 :root {
@@ -275,21 +292,12 @@ html[data-reveal-ready] [data-reveal][data-revealed-now] {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.animate-marquee {
-  animation: marquee 40s linear infinite;
-  /* Hint the compositor so the marquee animates on its own layer instead of
-     repainting the strip each frame. */
-  will-change: transform;
-}
 
 /* Pausing this while off-screen would be better still, but it needs an
    IntersectionObserver toggling a class — CSS alone cannot express "is in the
    viewport". Left running deliberately rather than faked: `content-visibility`
    and `:has()` tricks do not actually gate an animation, and code whose
    comment overstates what it does is worse than none. */
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee { animation: none; }
-}
 
 /* Slim purple scrollbar, matching the product. */
 @supports not selector(::-webkit-scrollbar) {
@@ -355,84 +363,13 @@ input[type='range']::-moz-range-thumb {
    is neutral grey and done is the semantic green — the product's own rule
    that semantic colour stays clear of the brand. */
 
-@keyframes ezPulseDot {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(4,120,87,.32); }
-  50%      { box-shadow: 0 0 0 7px rgba(4,120,87,0); }
-}
-
 /* The dot that travels down the connector, input → engine → output. */
-@keyframes ezDotFlow {
-  0%   { top: 0%;   opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
 
 /* A ring expanding out of the core as it fires. */
-@keyframes ezCorePulse {
-  0%   { transform: scale(1);   opacity: .55; }
-  100% { transform: scale(2.6); opacity: 0; }
-}
-
-.ez-live-dot { animation: ezPulseDot 2.2s ease-in-out infinite; }
-
-.ez-connector::before {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0; left: 50%;
-  width: 2px;
-  background: var(--color-ink-200);
-  transform: translateX(-50%);
-}
-.ez-flow-dot {
-  position: absolute;
-  left: 50%; top: 0%;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--color-brand-600);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-}
-.ez-connector.is-flowing .ez-flow-dot { animation: ezDotFlow .6s ease-in-out; }
-
-.ez-core-ring::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid var(--color-brand-600);
-  opacity: 0;
-}
-.ez-core-ring.is-pulsing::before { animation: ezCorePulse .85s ease-out; }
-
-/* An idle halo breathing out of the core, from the reference design.
-   It earns its place: before you click, nothing on the widget signals that
-   it is interactive at all. The halo is what makes the eye land on the node
-   and then on the button under it.
-   Mostly still, with a short swell every six seconds — a steady throb would
-   fight the click pulse above and read as a loading spinner. */
-.ez-core-ring::after {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  background: var(--color-brand-600);
-  opacity: .13;
-  animation: ezHaloPulse 6s ease-in-out infinite;
-}
-/* While the engine is actually running, the idle hint has done its job and
-   would only muddy the click pulse. */
-.ez-core-ring.is-pulsing::after { animation: none; opacity: 0; }
 
 /* The engine's motion is the whole point of the widget, but it is decorative:
    the component skips straight to the finished state when motion is reduced,
    so the information still arrives. */
-@media (prefers-reduced-motion: reduce) {
-  .ez-live-dot,
-  .ez-connector.is-flowing .ez-flow-dot,
-  .ez-core-ring.is-pulsing::before,
-  .ez-core-ring::after { animation: none; }
-}
 
 /* ── WhatsApp float ────────────────────────────────────────────────────────
    A slow halo that expands out of the button and fades. Two rings offset in
@@ -496,32 +433,10 @@ input[type='range']::-moz-range-thumb {
 
 /* Words of the H1 rise and settle. The stagger is what sells it — all at once
    reads as one block fading, which is the thing it is replacing. */
-@keyframes ezWordRise {
-  from { opacity: 0; transform: translateY(0.4em) rotate(1.2deg); }
-  to   { opacity: 1; transform: translateY(0) rotate(0); }
-}
-/* Base state is VISIBLE, and the animation fills BACKWARDS — it reaches back
-   to pull the word down and transparent during its delay, then lets the
-   element fall back to its own opacity:1 when it ends.
-   The obvious spelling (opacity:0 base, fill both) looks identical but is one
-   dropped animation away from a permanently invisible H1 — the same class of
-   bug that already blanked pages on this site once. This way, if the
-   animation never runs for any reason, the headline is simply there. */
-.ez-word {
-  display: inline-block;
-  opacity: 1;
-  animation: ezWordRise 0.62s cubic-bezier(.2, .7, .3, 1) backwards;
-}
 
 /* Ambient orbs. Slow, large and low-contrast: they should register as depth,
    never as something to look at. */
-@keyframes ezFloatA { 0%,100% { transform: translate(0,0) scale(1); }   50% { transform: translate(18px,-22px) scale(1.05); } }
-@keyframes ezFloatB { 0%,100% { transform: translate(0,0) scale(1); }   50% { transform: translate(-22px,16px) scale(1.08); } }
 @keyframes ezFloatC { 0%,100% { transform: translate(0,0) scale(1); }   50% { transform: translate(14px,20px) scale(0.95); } }
-.ez-orb { position: absolute; border-radius: 50%; pointer-events: none; }
-.ez-orb-1 { animation: ezFloatA 14s ease-in-out infinite; }
-.ez-orb-2 { animation: ezFloatB 18s ease-in-out infinite; }
-.ez-orb-3 { animation: ezFloatC 22s ease-in-out infinite; }
 
 /* A sheen crossing a surface once every few seconds. Long pause, quick
    sweep — a constant shimmer reads as a broken gradient.
@@ -530,17 +445,6 @@ input[type='range']::-moz-range-thumb {
    canvas where a strong white was needed to register at all; the hero is dark
    now, and at 0.55 the sweep stopped being a highlight and became a grey slab
    parked behind the promises row. On dark, a little white goes a long way. */
-@keyframes ezSheen { 0% { background-position: 180% 0; } 55%, 100% { background-position: -80% 0; } }
-.ez-sheen {
-  background-image: linear-gradient(
-    100deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.16) 48%,
-    transparent 62%
-  );
-  background-size: 220% 100%;
-  animation: ezSheen 6.5s ease-in-out infinite;
-}
 
 /* A halo breathing out of a node. Mostly idle, with a short pulse — a steady
    throb would compete with the engine animation next to it. */
@@ -560,9 +464,7 @@ input[type='range']::-moz-range-thumb {
 .group:hover .ez-bob { animation: ezBobArrow 1s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ez-word { animation: none; transform: none; }
-  .ez-orb-1, .ez-orb-2, .ez-orb-3,
-  .ez-sheen, .group:hover .ez-bob { animation: none; }
+  .group:hover .ez-bob { animation: none; }
 }
 
 /* ── Employee lifecycle: the record travelling the track ───────────────────
@@ -584,110 +486,9 @@ input[type='range']::-moz-range-thumb {
 
    The dot pauses at the end and fades before restarting, so the loop reads
    as "the record arrived" rather than as a thing on a conveyor belt. */
-@keyframes ezTravel {
-  0%          { transform: translateX(0);    opacity: 0; }
-  /* Fully lit by 1.5% of the cycle, which is 18px along a 945px track — still
-     inside the 56px first disc, so the record appears ON the Hire node and
-     departs from it. At the old 4% it did not become visible until 47px past
-     the disc's centre, which read as starting somewhere after the icon. */
-  1.5%        { opacity: 1; }
-  80%         { transform: translateX(var(--ez-travel-span, 100%)); opacity: 1; }
-  88%, 97%    { transform: translateX(var(--ez-travel-span, 100%)); opacity: 0; }
-  100%        { transform: translateX(0);    opacity: 0; }
-}
-.ez-travel-dot {
-  animation: ezTravel 6s linear infinite;
-  /* Promoted deliberately. This element is a full track wide and carries a
-     glowing dot with a large box-shadow and a gradient tail; without a layer
-     of its own the browser repaints that whole strip every frame, which is
-     what made a constant-speed linear walk look like it was stuttering.
-     will-change gives it a compositor layer, so the animation is a transform
-     on an already-painted surface. translateZ(0) is not enough on its own
-     here — the layer has to exist before the animation starts. */
-  will-change: transform, opacity;
-}
-
-/* The spine is dashed, not solid: a dashed track reads as a route the dot is
-   following, where a solid rule reads as a divider it happens to sit on. */
-.ez-lifeline {
-  background-image: linear-gradient(
-    to right,
-    var(--color-brand-400) 0 5px,
-    transparent 5px 14px
-  );
-  background-size: 14px 2px;
-  background-repeat: repeat-x;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* Parked at the end of the track, fully visible — the finished state, which
-     is the state that carries the meaning. */
-  .ez-travel-dot {
-    animation: none;
-    transform: translateX(var(--ez-travel-span, 100%));
-    opacity: 1;
-  }
-}
-
-/* Each stage lights as the record reaches it — the delays are set inline,
-   one second apart, matching the six-second walk. Reuses ezHaloPulse, which
-   is mostly idle with a short swell, so five dark nodes and one lit one is
-   the normal state rather than six nodes throbbing together. */
-.ez-node-pulse {
-  animation: ezHaloPulse 6s ease-in-out infinite;
-  /* Six of these scale at once; on their own layers the swell composites
-     instead of repainting the disc, the label and the plate behind them. */
-  will-change: transform, opacity;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-node-pulse { animation: none; opacity: 0; }
-}
-
-/* ── Module explorer: expanding sections ───────────────────────────────────
-   The old layout was a pill tab-bar over a single flat panel. It read badly
-   for one structural reason: the nine groups hold between two and ten
-   modules each, so the panel was sized for Pay's ten and then Hire's two
-   floated in a mostly empty card. Sections that each take their own height
-   solve that by construction.
-
-   Height is animated with the grid-template-rows 0fr -> 1fr technique rather
-   than max-height. max-height needs a guessed ceiling: too low clips the ten
-   -module group, too high makes the short ones ease out slowly against dead
-   space, and neither is right at every breakpoint. 0fr -> 1fr animates to the
-   content's real height, whatever it is. */
-.ez-collapse {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.38s cubic-bezier(.2, .7, .3, 1);
-}
-.ez-collapse > * { overflow: hidden; }
-.ez-collapse[data-open] { grid-template-rows: 1fr; }
 
 /* The modules fade up in sequence once their section opens, so the eye is
    led down the list instead of being handed a finished block. */
-@keyframes ezModIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: none; }
-}
-.ez-collapse[data-open] .ez-mod {
-  animation: ezModIn 0.34s ease-out both;
-}
-
-/* The accent rail down the left of an open section. Scales from the top so
-   it reads as the section unfurling rather than sliding in from elsewhere. */
-.ez-rail {
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.38s cubic-bezier(.2, .7, .3, 1);
-}
-.ez-row[data-open] .ez-rail { transform: scaleY(1); }
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-collapse { transition: none; }
-  .ez-collapse[data-open] .ez-mod { animation: none; }
-  .ez-rail { transition: none; }
-}
 
 /* ── Header and nav dropdown motion ────────────────────────────────────────
    The dropdown used to appear on one frame — fully formed, no transition —
@@ -846,53 +647,19 @@ input[type='range']::-moz-range-thumb {
    1.00 to 1.08 over 20s is roughly 0.4% per second, which the eye reads as
    the image being alive without ever catching it moving. Anything faster
    looks like a screensaver. */
-@keyframes ezKenBurns {
-  from { transform: scale(1) translate3d(0, 0, 0); }
-  to   { transform: scale(1.08) translate3d(0, -1.5%, 0); }
-}
-.ez-kenburns { animation: ezKenBurns 20s ease-in-out infinite alternate; }
 
 /* Parallax, driven off the document scroll rather than a listener. The image
    drifts against the band it sits in, which is what sells depth on a flat
    page. view() rather than scroll(): the timeline is this element's own
    passage through the viewport, so the drift is centred on the band no
    matter where it sits in the page. */
-@keyframes ezParallax {
-  from { transform: translate3d(0, -6%, 0) scale(1.14); }
-  to   { transform: translate3d(0, 6%, 0) scale(1.14); }
-}
-@supports (animation-timeline: view()) {
-  .ez-parallax {
-    animation: ezParallax linear;
-    animation-timeline: view();
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-kenburns,
-  .ez-parallax { animation: none; }
-}
 
 /* A very slow float, for a card that should feel like it is sitting above the
    scene rather than pasted onto it. 14s and 10px — any faster or further and
    it stops reading as depth and starts reading as drift. */
-@keyframes ezFloatCard {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50%      { transform: translate3d(0, -10px, 0); }
-}
-.ez-float { animation: ezFloatCard 14s ease-in-out infinite; }
 
 /* The glow that seats the engine card on the photograph. Breathes very
    slightly so the card has a halo rather than a hard cut-out. */
-@keyframes ezCardGlow {
-  0%, 100% { opacity: .55; transform: scale(1); }
-  50%      { opacity: .8;  transform: scale(1.04); }
-}
-.ez-card-glow { animation: ezCardGlow 9s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-float, .ez-card-glow { animation: none; }
-}
 
 /* ── Mission band motion ───────────────────────────────────────────────────
    The workforce grid arrives as a STATIC svg — 609 tiles, no classes, no
@@ -904,107 +671,16 @@ input[type='range']::-moz-range-thumb {
 
 /* A shaft of light crossing the band on a long cycle. Skewed, so it reads as
    light falling across the tiles rather than a bar sliding over them. */
-@keyframes ezSweep {
-  0%       { transform: translateX(-60%) skewX(-18deg); opacity: 0; }
-  12%      { opacity: 1; }
-  88%      { opacity: 1; }
-  100%     { transform: translateX(160%) skewX(-18deg); opacity: 0; }
-}
-.ez-sweep { animation: ezSweep 11s cubic-bezier(.4, 0, .6, 1) infinite; }
 
 /* Large, slow glows drifting behind the tiles. Different durations so they
    never sync up into a single pulsing blob. */
-@keyframes ezDriftA { 0%,100% { transform: translate3d(0,0,0) scale(1); }    50% { transform: translate3d(40px,-26px,0) scale(1.12); } }
-@keyframes ezDriftB { 0%,100% { transform: translate3d(0,0,0) scale(1.06); } 50% { transform: translate3d(-34px,22px,0) scale(1); } }
-.ez-drift-a { animation: ezDriftA 19s ease-in-out infinite; }
-.ez-drift-b { animation: ezDriftB 25s ease-in-out infinite; }
 
 /* The grid itself breathes very slightly — a 1.5% scale over 24s. Below the
    threshold of noticing, above the threshold of feeling static. */
-@keyframes ezBreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.015); } }
-.ez-breathe { animation: ezBreathe 24s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-sweep, .ez-drift-a, .ez-drift-b, .ez-breathe { animation: none; }
-  .ez-sweep { opacity: 0; }
-}
-
-/* ── Industry cards: a real surface, with depth ────────────────────────────
-   These groups used to be bare text on a flat white section — a top rule, a
-   heading and some chips, no panel. That works on flat white and fails on a
-   patterned ground, where the contours run straight under the words.
-
-   So they get a surface. The 3D is deliberately restrained: a perspective
-   tilt of two degrees, a 4px lift and a 1.5% scale. Enough to feel like the
-   card comes toward you, far short of the exaggerated tilt that reads as a
-   gimmick on a page with fourteen of them. */
-.ez-tilt {
-  transform: perspective(900px) translate3d(0, 0, 0);
-  transition: transform 0.38s cubic-bezier(.2, .7, .3, 1),
-              box-shadow 0.38s cubic-bezier(.2, .7, .3, 1);
-  transform-style: preserve-3d;
-}
-.ez-tilt:hover {
-  transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translate3d(0, -4px, 0) scale(1.015);
-}
-
-/* The lit top edge. A real surface catches light on the face nearest the
-   source, and one hairline of white does more for the illusion of depth than
-   any amount of shadow underneath. */
-.ez-tilt::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  border-radius: inherit;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.9), transparent);
-  pointer-events: none;
-}
 
 /* Contour drift. The background is 40 stroked paths; animating them
    individually would mean inlining 59KB of path data into the document, so
    the whole layer moves instead. */
-@keyframes ezContourDrift {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.04); }
-  50%      { transform: translate3d(-1.5%, 1%, 0) scale(1.07); }
-}
-.ez-contour { animation: ezContourDrift 30s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-tilt, .ez-tilt:hover { transform: none; transition: none; }
-  .ez-contour { animation: none; }
-}
-
-/* ── Mesh background: each blob drifts on its own ──────────────────────────
-   This source is 2KB — five gradient ellipses and a dot pattern — so unlike
-   the contour and workforce fields it is inlined, and every blob animates
-   independently. That is what makes a gradient mesh feel alive rather than
-   like a picture being panned: the colours move THROUGH each other, and the
-   overlaps change shape.
-
-   transform-box: fill-box puts each ellipse's transform origin at its own
-   centre; without it they all scale about the SVG origin and swing wildly. */
-.ez-mesh-blob {
-  transform-box: fill-box;
-  transform-origin: center;
-  will-change: transform;
-}
-@keyframes ezMesh1 { 0%,100% { transform: translate(0,0) scale(1); }      50% { transform: translate(90px,60px) scale(1.14); } }
-@keyframes ezMesh2 { 0%,100% { transform: translate(0,0) scale(1.08); }   50% { transform: translate(-110px,50px) scale(1); } }
-@keyframes ezMesh3 { 0%,100% { transform: translate(0,0) scale(1); }      50% { transform: translate(-70px,-80px) scale(1.12); } }
-@keyframes ezMesh4 { 0%,100% { transform: translate(0,0) scale(1.06); }   50% { transform: translate(120px,-60px) scale(1); } }
-@keyframes ezMesh5 { 0%,100% { transform: translate(0,0) scale(1); }      50% { transform: translate(-60px,70px) scale(1.1); } }
-/* Deliberately coprime-ish durations, so the five never return to the same
-   arrangement and the field does not visibly loop. */
-.ez-mesh-1 { animation: ezMesh1 23s ease-in-out infinite; }
-.ez-mesh-2 { animation: ezMesh2 31s ease-in-out infinite; }
-.ez-mesh-3 { animation: ezMesh3 27s ease-in-out infinite; }
-.ez-mesh-4 { animation: ezMesh4 37s ease-in-out infinite; }
-.ez-mesh-5 { animation: ezMesh5 19s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-mesh-1, .ez-mesh-2, .ez-mesh-3, .ez-mesh-4, .ez-mesh-5 { animation: none; }
-}
 
 /* ── Trust statistics ──────────────────────────────────────────────────────
    These are three of the load-bearing claims on the page — how many labour
@@ -1014,68 +690,16 @@ input[type='range']::-moz-range-thumb {
    The figure pops slightly past its final size and settles back. A plain fade
    makes a number look placed; the overshoot makes it look like it ARRIVED,
    which is what draws the eye to a figure. */
-@keyframes ezStatPop {
-  0%   { opacity: 0; transform: translateY(14px) scale(0.86); }
-  60%  { opacity: 1; transform: translateY(0) scale(1.06); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-figure {
-  animation: ezStatPop 0.62s cubic-bezier(.2, .8, .3, 1) both;
-}
 
 /* A soft brand halo behind each figure, breathing slowly. Sized in em so it
    scales with the number rather than needing a breakpoint of its own. */
-@keyframes ezStatGlow {
-  0%, 100% { opacity: .35; transform: scale(1); }
-  50%      { opacity: .6;  transform: scale(1.12); }
-}
-.ez-stat-glow { animation: ezStatGlow 7s ease-in-out infinite; }
 
 /* The underline that draws itself in beneath each figure. */
-@keyframes ezStatRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-rule {
-  animation: ezStatRule 0.5s cubic-bezier(.2, .8, .3, 1) 0.34s both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-figure,
-  html[data-reveal-ready] [data-reveal][data-revealed] .ez-stat-rule {
-    animation: none;
-  }
-  .ez-stat-glow { animation: none; }
-  .ez-stat-rule { transform: scaleX(1); }
-}
-
-/* ── Pricing card ──────────────────────────────────────────────────────────
-   The price itself pops in like the trust statistics do — it is the single
-   most-looked-at element in the section, and an overshoot reads as arrival
-   where a fade reads as placement. */
-html[data-reveal-ready] [data-reveal][data-revealed] .ez-price-pop {
-  animation: ezStatPop 0.66s cubic-bezier(.2, .8, .3, 1) 0.12s both;
-}
 
 /* The included-items row arrives left to right, one after another. */
-@keyframes ezTickIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: none; }
-}
-html[data-reveal-ready] [data-reveal][data-revealed] .ez-tick {
-  animation: ezTickIn 0.36s ease-out both;
-}
 
 /* A wide, slow halo behind the card. Sits under everything and gives the
    panel somewhere to be lifted off, which a flat tint alone never does. */
-@keyframes ezCardAura {
-  0%, 100% { opacity: .5;  transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: .78; transform: translate(-50%, -50%) scale(1.06); }
-}
-.ez-card-aura { animation: ezCardAura 11s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  html[data-reveal-ready] [data-reveal][data-revealed] .ez-price-pop,
-  html[data-reveal-ready] [data-reveal][data-revealed] .ez-tick { animation: none; }
-  .ez-card-aura { animation: none; }
-}
 
 /* ── Nav: the sliding indicator ────────────────────────────────────────────
    ONE pill that travels between items rather than a background fading in and
@@ -1271,62 +895,6 @@ input[type='range'].ez-range:focus-visible::-moz-range-thumb {
  * and only while the reveal system is live and this instance is still
  * pending — same way round as [data-reveal] itself, so a reader whose JS
  * failed sees the diagram rather than an empty box. */
-@keyframes ezCcDown { to { stroke-dashoffset: -36; } }
-@keyframes ezCcUp   { to { stroke-dashoffset: 36; } }
-@keyframes ezCcPulse {
-  0%   { transform: scale(1);    opacity: 0.55; }
-  70%  { transform: scale(1.10); opacity: 0; }
-  100% { opacity: 0; }
-}
-@keyframes ezCcRecv {
-  0%, 100% { opacity: 0; }
-  10%      { opacity: 1; }
-  45%      { opacity: 0; }
-}
-
-.ez-cc .ez-cc-down { stroke-dasharray: 7 11; animation: ezCcDown 1.5s linear infinite 1s; }
-.ez-cc .ez-cc-up   { stroke-dasharray: 6 12; animation: ezCcUp 2.2s linear infinite 1.2s; }
-.ez-cc .ez-cc-pulse { animation: ezCcPulse 3s ease-out infinite 1.1s; }
-.ez-cc .ez-cc-recv  { animation: ezCcRecv 3s ease-out infinite; }
-/* Staggered so the three sites light up in sequence, not together. */
-.ez-cc .ez-cc-recv-0 { animation-delay: 1.55s; }
-.ez-cc .ez-cc-recv-1 { animation-delay: 1.80s; }
-.ez-cc .ez-cc-recv-2 { animation-delay: 2.05s; }
-
-/* Resting state: drawn, and in place. */
-.ez-cc .ez-cc-boundary {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s;
-}
-.ez-cc .ez-cc-rise {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.ez-cc .ez-cc-wire { opacity: 1; transition: opacity 0.5s ease 0.7s; }
-
-/* The entrance — only while the reveal system is live AND this instance has
-   not been revealed yet. `:not([data-revealed-now])` matters: that is the
-   snap path SiteScripts uses for anything revealed off-screen, and without it
-   those instances would never leave the hidden state. */
-html[data-reveal-ready]
-  .ez-cc[data-reveal]:not([data-revealed]):not([data-revealed-now]) {
-  & .ez-cc-boundary { stroke-dashoffset: 2294; }
-  & .ez-cc-rise { opacity: 0; transform: translateY(14px); }
-  & .ez-cc-wire { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ez-cc .ez-cc-down,
-  .ez-cc .ez-cc-up,
-  .ez-cc .ez-cc-pulse,
-  .ez-cc .ez-cc-recv { animation: none; }
-  .ez-cc .ez-cc-boundary,
-  .ez-cc .ez-cc-rise,
-  .ez-cc .ez-cc-wire { transition: none; }
-}
 
 /* ── Header CTA and phone: attention without nagging ───────────────────────
  * These two are the conversion controls in the bar, so they get an idle
@@ -1395,39 +963,6 @@ html[data-reveal-ready]
  * Paused on hover, so a reader who spots their own industry can stop and
  * read it instead of chasing it across the screen.
  * ========================================================================= */
-@keyframes ezMarquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-.ez-marquee {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(
-    90deg, transparent, #000 7%, #000 93%, transparent
-  );
-  mask-image: linear-gradient(
-    90deg, transparent, #000 7%, #000 93%, transparent
-  );
-}
-
-.ez-marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 0.625rem;
-  animation: ezMarquee 46s linear infinite;
-}
-.ez-marquee-track[data-reverse] {
-  animation-direction: reverse;
-  animation-duration: 56s;
-}
-.ez-marquee:hover .ez-marquee-track { animation-play-state: paused; }
-
-@media (prefers-reduced-motion: reduce) {
-  /* Stopped, not hidden: the chips are content, and a reader who has asked
-     for less motion should still see which industries are named. */
-  .ez-marquee-track { animation: none; }
-  .ez-marquee { -webkit-mask-image: none; mask-image: none; overflow-x: auto; }
-}
 
 /* ── Justified body prose ──────────────────────────────────────────────────
  * Running text sets flush on both edges across the site.
@@ -1452,9 +987,13 @@ html[data-reveal-ready]
  * A last line is never stretched, so short single-line paragraphs are
  * unaffected by this rule.
  * ========================================================================= */
+/* Scoped to long-form reading (.ez-longform: legal pages and blog articles).
+   On the marketing pages the ledes are short and set ragged-right: justified
+   at those measures, the hero split "compli-ance" across a line end and
+   opened rivers in every card. */
 @layer base {
-  p,
-  blockquote {
+  .ez-longform p,
+  .ez-longform blockquote {
     text-align: justify;
     text-justify: inter-word;
     hyphens: auto;
@@ -1523,13 +1062,6 @@ form p,
   hyphens: manual;
 }
 
-/* An explicit escape hatch for anywhere else a justified rag is wrong. */
-.ez-no-justify,
-.ez-no-justify p {
-  text-align: inherit;
-  hyphens: manual;
-}
-
 /* ── Product menu preview pane ─────────────────────────────────────────────
  * The right half of the Product dropdown, showing whichever row the pointer
  * is on without the reader having to open the page.
@@ -1563,245 +1095,6 @@ form p,
 @media (prefers-reduced-motion: reduce) {
   .ez-preview,
   .ez-preview-row { animation: none; }
-}
-
-
-/* ── #simplify — the Today vs EZER comparison ────────────────────────────
- *
- * The table's problem was never the contrast ratio. Measured, the body copy
- * was already 7.56:1 and 10.07:1 — comfortably past WCAG. It was 13.1px of
- * mid-grey with a 40%-opacity tint separating the two columns, so the whole
- * comparison read as fine print and the two sides looked the same. Darker,
- * larger type does the reading; what follows does the seeing.
- *
- * All of it is hover- or scroll-driven and none of it loops in the corner of
- * the eye — a table that twitches while you are trying to read across a row
- * is worse than a dull one. The reduced-motion block above flattens every
- * duration to 0.01ms, so this whole file degrades to the static version. */
-.ez-vs-row {
-  transition: background-color 0.3s ease;
-}
-.ez-vs-row:hover {
-  background-color: var(--color-brand-50);
-}
-
-/* The icon tile is the one element with room to move in a table row, so it
-   carries the depth: a real rotation on two axes, lifted and enlarged, with
-   the shadow growing to match. */
-.ez-vs-icon {
-  transform: perspective(600px) translate3d(0, 0, 0);
-  transition: transform 0.38s cubic-bezier(.2, .7, .3, 1),
-              box-shadow 0.38s cubic-bezier(.2, .7, .3, 1);
-}
-.ez-vs-row:hover .ez-vs-icon {
-  transform: perspective(600px) rotateX(-14deg) rotateY(12deg)
-             translate3d(0, -2px, 0) scale(1.1);
-  box-shadow: 0 12px 22px -8px rgb(37 99 235 / 0.65);
-}
-
-/* A light passing over the answer, not over the problem — the sweep runs on
-   the EZER cell alone, so pointing at a row lights up the side you want
-   read. overflow-hidden keeps it inside the cell's own box. */
-.ez-vs-win { position: relative; overflow: hidden; }
-.ez-vs-win::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(100deg,
-    transparent 32%, rgb(255 255 255 / 0.72) 50%, transparent 68%);
-  transform: translateX(-130%);
-  transition: transform 0.85s cubic-bezier(.2, .7, .3, 1);
-}
-.ez-vs-row:hover .ez-vs-win::after { transform: translateX(130%); }
-
-/* The rule down the left of each state cell, scaling up from nothing as the
-   row is pointed at: amber on the problem, emerald on the fix. */
-.ez-vs-edge::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 3px;
-  transform: scaleY(0);
-  transform-origin: 50% 0;
-  transition: transform 0.4s cubic-bezier(.2, .7, .3, 1);
-}
-.ez-vs-row:hover .ez-vs-edge::before { transform: scaleY(1); }
-.ez-vs-today::before { background: var(--color-amber-400, #fbbf24); }
-.ez-vs-win::before   { background: var(--color-emerald-500, #10b981); }
-
-/* ── #lifecycle — the arc, standing on the halftone ground ───────────────
- *
- * The section moved onto a dark halftone plate, which changes what the
- * illustration has to do. On the light canvas the stage discs read by their
- * shadow; on a near-black ground a shadow is invisible, so they have to read
- * by their own light instead — a lit rim, an inner highlight, and a glow
- * that answers the pointer.
- *
- * Everything below is hover- or scroll-driven except the two that were
- * already looping here before the ground changed (the travelling record and
- * the node halos), and the reduced-motion block flattens all of it. */
-
-/* The discs are the illustration, so they carry the depth: a real rotation
-   on two axes, lifted toward the reader, with the glow growing under it. */
-.ez-arc-node {
-  transform: perspective(700px) translate3d(0, 0, 0);
-  transition: transform 0.45s cubic-bezier(.2, .7, .3, 1),
-              box-shadow 0.45s cubic-bezier(.2, .7, .3, 1);
-}
-.ez-arc-stage:hover .ez-arc-node,
-.ez-arc-stage:focus-within .ez-arc-node {
-  transform: perspective(700px) rotateX(-15deg) rotateY(13deg)
-             translate3d(0, -6px, 0) scale(1.09);
-  box-shadow: 0 22px 36px -14px rgb(37 99 235 / 0.85),
-              inset 0 1px 0 rgb(255 255 255 / 0.3);
-}
-
-/* The dashed spine has to glow rather than sit, or it disappears into the
-   plate between the discs it is meant to connect. */
-.ez-lifeline-lit { filter: drop-shadow(0 0 5px rgb(96 165 250 / 0.65)); }
-
-/* A tail behind the travelling record. The dot alone reads as a bead on the
-   line; a tail reads as something moving ALONG it, which is what the lede
-   promises. Drawn to the left of the dot because the walk is left to right. */
-.ez-arc-comet::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  height: 2px;
-  width: 4.5rem;
-  border-radius: 9999px;
-  background: linear-gradient(to left, rgb(52 211 153 / 0.8), transparent);
-  /* GROWN, not carried. At full length from the first frame the tail hangs
-     72px to the LEFT of the dot — and the dot starts exactly on the Hire
-     node, so the trail stuck out 72px BEFORE the first icon and the record
-     looked like it began off the track. Scaled from the dot end instead, it
-     is nothing at the node and full length by the time the record is 118px
-     clear of it, so it never reaches back past the icon it came from.
-     scaleX, not width: this is on the compositor with everything else here,
-     rather than relaying out the strip every frame. */
-  transform-origin: 100% 50%;
-  transform: translateY(-50%) scaleX(0);
-  animation: ezCometTail 6s linear infinite;
-}
-@keyframes ezCometTail {
-  0%          { transform: translateY(-50%) scaleX(0); }
-  10%, 100%   { transform: translateY(-50%) scaleX(1); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* The dot is parked at the end of the track in that mode, so a motion
-     trail behind a stationary thing would be a lie. */
-  .ez-arc-comet::before { display: none; }
-}
-
-/* ── #industries — the category wall, on the isometric lattice ───────────
- *
- * Same lesson as the lifecycle plate, applied from the start rather than
- * after two corrections: no local scrim behind the type. The lattice is a
- * regular geometric field, so darkening a patch of it would outline that
- * patch — the eye reads the interruption in the pattern, not the softness
- * of the gradient. The band is quietened edge to edge and the type carries
- * its own glyph-shaped shadow instead.
- *
- * And no CSS filter on the plate. It is scaled continuously by ez-contour,
- * and a filter on a continuously-scaled element re-rasterises every frame. */
-
-/* The category cards are the depth in this section. On the dark plate a
-   drop shadow reads as nothing, so they are lit instead: a glass face, a
-   rim that brightens, and a real rotation toward the reader. */
-.ez-lattice-card {
-  transform: perspective(1000px) translate3d(0, 0, 0);
-  transition: transform 0.42s cubic-bezier(.2, .7, .3, 1),
-              box-shadow 0.42s cubic-bezier(.2, .7, .3, 1),
-              border-color 0.42s ease;
-}
-.ez-lattice-card:hover,
-.ez-lattice-card:focus-within {
-  transform: perspective(1000px) rotateX(3.5deg) rotateY(-3.5deg)
-             translate3d(0, -6px, 0) scale(1.018);
-  box-shadow: 0 26px 48px -18px rgb(0 0 0 / 0.85),
-              0 0 0 1px rgb(147 197 253 / 0.4),
-              inset 0 1px 0 rgb(255 255 255 / 0.16);
-}
-
-/* A sheen crossing the card face, clipped to it — the light the lattice
-   behind it is already implying, landing on the surface in front. */
-.ez-lattice-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(105deg,
-    transparent 34%, rgb(255 255 255 / 0.13) 50%, transparent 66%);
-  transform: translateX(-125%);
-  transition: transform 0.9s cubic-bezier(.2, .7, .3, 1);
-}
-.ez-lattice-card:hover::after { transform: translateX(125%); }
-
-/* The chips lift as a group with the card rather than one at a time —
-   fourteen cards of nine chips each is far too many individual hover
-   targets to animate, and they are evidence, not controls. */
-.ez-lattice-card .ez-chip {
-  transition: background-color 0.42s ease, color 0.42s ease,
-              border-color 0.42s ease;
-}
-.ez-lattice-card:hover .ez-chip {
-  background-color: rgb(37 99 235 / 0.34);
-  border-color: rgb(147 197 253 / 0.45);
-  color: #fff;
-}
-
-/* ── The reveal was silently killing every 3D tilt ───────────────────────
- *
- * html[data-reveal-ready] [data-reveal][data-revealed] sets transform: none
- * to undo the 8px entrance offset, and that selector scores (0,3,1).
- * .ez-tilt is (0,1,0) and .ez-tilt:hover is (0,2,0), so BOTH lose to it.
- * Every card that tilts on hover and also arrives on scroll — which is most
- * of them — has therefore had no tilt at all: measured, .ez-tilt[data-reveal]
- * computed `none` while .ez-tilt without the attribute computed a real
- * matrix3d. The effect was in the stylesheet and never on the screen.
- *
- * Restated here at a specificity that wins. The entrance is untouched: these
- * only match the REVEALED state, so an element still starts at translateY(8px)
- * and transitions from it. */
-html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt,
-html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt {
-  transform: perspective(900px) translate3d(0, 0, 0);
-}
-html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt:hover,
-html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt:hover {
-  transform: perspective(900px) rotateX(2deg) rotateY(-2deg)
-             translate3d(0, -4px, 0) scale(1.015);
-}
-html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card,
-html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card {
-  transform: perspective(1000px) translate3d(0, 0, 0);
-}
-html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card:hover,
-html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card:hover,
-html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card:focus-within,
-html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card:focus-within {
-  transform: perspective(1000px) rotateX(3.5deg) rotateY(-3.5deg)
-             translate3d(0, -6px, 0) scale(1.018);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* These have to be restated at the same weight, or the overrides above
-     would now outrank the reduced-motion opt-out they are meant to obey. */
-  html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt,
-  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt,
-  html[data-reveal-ready] [data-reveal][data-revealed].ez-tilt:hover,
-  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-tilt:hover,
-  html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card,
-  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card,
-  html[data-reveal-ready] [data-reveal][data-revealed].ez-lattice-card:hover,
-  html[data-reveal-ready] [data-reveal][data-revealed-now].ez-lattice-card:hover {
-    transform: none;
-    transition: none;
-  }
 }
 
 /* ── Delete bin ─────────────────────────────────────────────────────────────

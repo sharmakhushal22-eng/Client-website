@@ -14,8 +14,8 @@ export function NewsletterForm() {
 
   if (state.status === 'success') {
     return (
-      <p className="flex items-start gap-2 text-sm text-ink-200">
-        <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+      <p className="flex items-start gap-2 text-sm text-ink-700">
+        <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
         {state.message}
       </p>
     )
@@ -40,19 +40,19 @@ export function NewsletterForm() {
           inputMode="email"
           autoComplete="email"
           placeholder="you@company.com"
-          className="min-w-0 flex-1 rounded-xl bg-white/10 px-4 py-2.5 text-sm text-white ring-1 ring-inset ring-white/20 placeholder:text-ink-400 focus:ring-2 focus:ring-brand-400"
+          className="h-11 min-w-0 flex-1 rounded-full bg-white px-4 text-sm text-ink-900 ring-1 ring-inset ring-ink-900/10 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-brand-600"
         />
         <button
           type="submit"
           disabled={pending || !mounted}
-          className="shrink-0 rounded-xl bg-surface px-4 py-2.5 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-50 disabled:opacity-60"
+          className="ez-press h-11 shrink-0 rounded-full bg-ink-900 px-5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
         >
           {pending ? 'Sending…' : 'Subscribe'}
         </button>
       </div>
 
       {state.status === 'error' && (
-        <p role="alert" className="text-sm text-red-300">
+        <p role="alert" className="text-sm text-red-600">
           {state.message}
         </p>
       )}

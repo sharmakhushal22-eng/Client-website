@@ -147,18 +147,20 @@ export const contact = {
  * Website changes.html, which is the company's own document — so it is a
  * real address, not a placeholder.
  *
- * Entity name and CIN are now CONFIRMED — they come from the company's own
- * privacy policy document, which is authoritative for its own identity.
+ * Entity name, registered office and CIN were updated on 20 October 2026 from
+ * the company's own incorporation record: the site is now operated by
+ * BESTHRMS PRIVATE LIMITED (CIN U74900HR2026PTC150741). Every page, the
+ * footer and the JSON-LD read these values; nothing else hard-codes them.
  * GSTIN is still not carried anywhere and remains TODO; the placeholder guard
  * below still trips on it. */
 export const company = {
-  legalName: 'ORGASOFT GLOBAL PRIVATE LIMITED',
-  cin: 'U70200HR2025PTC138716',
+  legalName: 'BESTHRMS PRIVATE LIMITED',
+  cin: 'U74900HR2026PTC150741',
   gstin: 'TODO',                          // TODO GST number
   registeredAddress: {
-    line1: 'B-603, The Roselia, Signature Global',
-    line2: 'Sector 95A, Garhi Harsaru',
-    city: 'Gurugram',
+    line1: 'B-606, Signature Global, The Roselia',
+    line2: 'Pataudi Road, Garhi Harsaru',
+    city: 'Gurgaon',
     state: 'Haryana',
     pincode: '122505',
     country: 'India',
@@ -188,7 +190,8 @@ export const company = {
    * privacy policy discloses where enquiry data is stored, which is a DPDP
    * obligation, not a marketing line. */
   dataResidency: 'India',
-  foundedYear: 2024,                      // TODO confirm
+  /* The CIN's year segment (…HR2026PTC…) is the year of incorporation. */
+  foundedYear: 2026,
 } as const
 
 /* ── Brand pillars ─────────────────────────────────────────────────────────
@@ -204,7 +207,7 @@ export const ezerPillars = [
   {
     letter: 'Z',
     title: 'Zero Compliance Risk',
-    desc: 'EPF · ESIC · PT · Factory Act · All Indian HR law complied',
+    desc: 'EPF · ESIC · PT · OSH Code · All Indian HR law complied',
   },
   {
     letter: 'E',
@@ -307,7 +310,7 @@ export const pricing = {
       { group: 'Employee master', detail: 'One record per person across every entity, transfers, policies, letters, roles and rights' },
       { group: 'Time', detail: 'Shifts, rosters, biometric import, regularisation, overtime, leave, location holiday calendars' },
       { group: 'Payroll', detail: 'Full run cycle, arrears, loans, payslips, full & final settlement' },
-      { group: 'Statutory', detail: 'EPF, ESIC, Professional Tax, LWF, TDS both regimes, Form 16, gratuity, bonus, employer NPS' },
+      { group: 'Statutory', detail: 'EPF, ESIC, Professional Tax, LWF, TDS both regimes, Form 130, gratuity, bonus, minimum wages, employer NPS' },
       { group: 'Claims', detail: 'Flexi benefits, investment proofs, GPS-measured travel claims, Finance approval queue' },
       { group: 'Self-service', detail: 'ESS portal, payslips, tax declarations, leave, documents, support desk' },
       { group: 'Control', detail: 'Compliance position, reports per entity or consolidated, full data export' },

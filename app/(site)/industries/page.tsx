@@ -1,15 +1,13 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
-import { Icon } from '@/components/ui/Icon'
-import { Button } from '@/components/ui/Button'
+import { Button, Arrow } from '@/components/ui/Button'
 import { Faq } from '@/components/sections/Faq'
 import { CtaBand } from '@/components/sections/CtaBand'
+import { PageHero } from '@/components/brand/PageHero'
+import { PageTransition } from '@/components/brand/PageTransition'
+import { IndustryFinder } from '@/components/story/IndustryFinder'
 import { JsonLd, pageMetadata, breadcrumbSchema, faqSchema } from '@/lib/seo'
-import { IndustryMarquee } from '@/components/home/IndustryMarquee'
-import { LatticePlate } from '@/components/sections/LatticePlate'
-import { industryCategories, industryCount } from '@/content/positioning'
-
+import { industryCategories, industryCount, structure } from '@/content/positioning'
 export const metadata: Metadata = pageMetadata({
   title: 'Industries: HRMS & payroll by sector',
   description:
@@ -38,7 +36,7 @@ const industryFaqs = [
   },
   {
     q: 'What actually changes between industries?',
-    a: 'Which registers you owe and which rules drive them. A factory falls under the Factories Act with its own registers, shift and overtime rules; a multi-city IT company is under state Shops & Establishments rules with a different leave entitlement in each state; a construction site adds BOCW cess and welfare board registration. The payroll arithmetic is the same. What changes is what has to come out of it.',
+    a: 'Which registers you owe and which rules drive them. A factory falls under the OSH Code, which replaced the Factories Act, with its own registers, shift and overtime rules; a multi-city IT company is under state Shops & Establishments rules with a different leave entitlement in each state; a construction site adds BOCW cess and welfare board registration. The payroll arithmetic is the same. What changes is what has to come out of it.',
   },
   {
     q: 'We operate across several industries under one group. Is that a problem?',
@@ -52,7 +50,7 @@ const industryFaqs = [
 
 export default function IndustriesPage() {
   return (
-    <>
+    <PageTransition kind="ledger">
       <JsonLd
         schemas={[
           breadcrumbSchema([
@@ -63,128 +61,43 @@ export default function IndustriesPage() {
         ]}
       />
 
-      {/* ── Hero and the full grid, as ONE band ──────────────────────────
-       *
-       * These were two sections, a brand-50 hero over a white grid. They are
-       * now a single dark band on the shared lattice plate, because the home
-       * page renders this same claim as ONE section and the brief was that
-       * the two surfaces match. Kept as two sections they would have needed
-       * two plates, and the edge blend at the bottom of the first would have
-       * drawn a seam straight across the middle of the band. */}
-      <section
-        className="relative isolate overflow-hidden border-y border-white/10 bg-dark py-14 text-white sm:py-16 lg:py-20"
-        aria-label="Industries"
-      >
-        <LatticePlate />
+      {/* Rounded DOWN to the nearest ten in the eyebrow, so the claim stays
+          true as the list changes: 101 reads as "100+", never "101+". The
+          exact count sits in the facts beneath. */}
+      <PageHero
+        kind="product"
+        stage="india"
+        crumbs={[{ name: 'Industries' }]}
+        eyebrow={`${Math.floor(industryCount / 10) * 10}+ industries, one engine`}
+        title={['India doesn’t run', 'on one kind', 'of company.', <span key="c" className="text-brand-600">Neither does EZER.</span>]}
+        lede="We mapped HR, payroll and compliance challenges across more than 100 Indian industries, from a 12-branch NBFC to a three-shift factory floor, before writing the rules engine. Don’t see your exact industry? It is probably still covered."
+        facts={[
+          { value: String(industryCount), label: 'Industries mapped' },
+          { value: String(industryCategories.length), label: 'Groups, each with its own rules' },
+          { value: String(structure.locationTypes.length), label: 'Establishment types modelled' },
+          { value: 'Per state', label: 'PT, LWF and leave entitlement' },
+        ]}
+      />
 
-        <Container className="relative">
-          <nav aria-label="Breadcrumb" className="mb-6 text-sm text-on-dark-muted">
-            <Link href="/" className="hover:text-brand-200">
-              Home
-            </Link>
-            <span className="mx-2" aria-hidden="true">
-              /
-            </span>
-            <span className="font-medium text-white">Industries</span>
-          </nav>
+      <section aria-label="Industries by group" className="bg-paper pb-16 pt-10 sm:pb-24">
+        <Container>
+          <IndustryFinder />
 
-          <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-14 lg:items-end">
-            <div>
-              {/* The reference's own eyebrow, heading and lede — the same
-                  three the home section carries, at the same sizes and the
-                  same glyph shadows, so the two surfaces for #industries say
-                  the same thing in the same voice rather than each
-                  paraphrasing it.
-
-                  Rounded DOWN to the nearest ten, so the claim stays true as
-                  the list changes: 101 reads as "100+", never "101+", which
-                  sounds counted rather than mapped. */}
-              <p className="text-[0.8rem] font-bold uppercase tracking-[0.16em] text-brand-200 [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
-                {Math.floor(industryCount / 10) * 10}+ industries, one engine
-              </p>
-              {/* text-white is REQUIRED: globals.css sets h1-h4 to ink-900 in
-                  @layer base, which on this plate is all but invisible. */}
-              <h1 className="mt-3 text-[2rem] font-bold leading-[1.14] text-white [text-shadow:0_1px_2px_rgb(7_12_24/1),0_3px_10px_rgb(7_12_24/0.98),0_6px_28px_rgb(7_12_24/0.95)] sm:text-[2.6rem]">
-                India doesn&rsquo;t run on one kind of company.
-                <br className="hidden sm:block" /> Neither does EZER.
-              </h1>
-              <p className="mt-5 text-[1.06rem] leading-relaxed text-white [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
-                We mapped HR, payroll and compliance challenges across more
-                than 100 Indian industries, from a 12-branch NBFC to a
-                three-shift factory floor, before writing the rules engine.
-                This is who we built EZER for. Don&rsquo;t see your exact
-                industry below? It&rsquo;s probably still covered.
-              </p>
-              {/* The exact count keeps its place: the eyebrow rounds down on
-                  purpose, and this is where the real number belongs. */}
-              <p className="mt-4 text-[0.95rem] font-semibold text-brand-200 [text-shadow:0_1px_3px_rgb(7_12_24/1),0_2px_14px_rgb(7_12_24/0.95)]">
-                {industryCount} industries in {industryCategories.length}{' '}
-                groups, mapped and counting. New sector rule-sets ship as
-                EZER&rsquo;s client base grows.
+          <div className="mt-14 grid gap-6 rounded-[28px] bg-white p-8 ring-1 ring-ink-900/[0.06] sm:p-10 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-8">
+              <h2 className="text-[1.6rem] leading-tight sm:text-[2rem]">Not on the list?</h2>
+              <p className="mt-3 max-w-2xl text-[1.02rem] leading-relaxed text-ink-600">
+                The list is not the constraint. The statutory rules are. Tell us your
+                establishment type and the states you operate in, and we will tell you
+                plainly whether this fits.
               </p>
             </div>
-
-            {/* An opaque ground, matching the category cards: at low opacity
-                the lattice reads straight through and the aside sits on the
-                pattern rather than on a surface. */}
-            <div className="rounded-xl border border-white/20 bg-[#0b1730] p-6">
-              <p className="flex items-start gap-2.5 text-sm leading-relaxed text-on-dark">
-                <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />
-                <span>
-                  <strong className="font-bold text-white">
-                    Not on the list?
-                  </strong>{' '}
-                  The list is not the constraint. The statutory rules are.
-                  Tell us your establishment type and the states you operate
-                  in, and we will tell you plainly whether this fits.
-                </span>
-              </p>
-              <Button href="/contact" variant="secondary" className="mt-5 w-full">
+            <div className="lg:col-span-4 lg:justify-self-end">
+              <Button href="/contact" variant="ink" size="lg">
                 Ask about your sector
+                <Arrow />
               </Button>
             </div>
-          </div>
-
-          {/* The same drifting rows as the home section, in the same relative
-              position the reference puts them: under the heading, above the
-              category cards. */}
-          <IndustryMarquee onDark />
-
-          <div className="mt-10 grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-            {industryCategories.map((category, i) => (
-              <div
-                key={category.name}
-                data-reveal=""
-                style={{ transitionDelay: `${(i % 3) * 45}ms` }}
-                className="ez-lattice-card relative overflow-hidden rounded-2xl border border-white/15 border-t-2 border-t-brand-500 bg-[#0b1730] p-5 backdrop-blur-md"
-              >
-                <h2 className="relative z-10 text-[1.05rem] font-bold tracking-[-0.01em] text-white">
-                  {category.name}
-                </h2>
-
-                {/* The line that earns the section. A list of industry names
-                    proves nothing, because anyone can paste an NIC code table.
-                    Saying what is statutorily different about construction
-                    proves somebody has run payroll in it. This is the one
-                    thing this surface carries that the home section does
-                    not, and it is why the page exists. */}
-                <p className="relative z-10 mt-2 flex items-start gap-1.5 text-xs leading-relaxed text-brand-200">
-                  <Icon name="shield" className="mt-0.5 h-3 w-3 shrink-0" />
-                  {category.note}
-                </p>
-
-                <ul className="relative z-10 mt-4 flex flex-wrap gap-1.5">
-                  {category.industries.map((industry) => (
-                    <li
-                      key={industry}
-                      className="ez-chip rounded-md border border-white/30 bg-white/[0.17] px-2.5 py-1 text-[0.79rem] font-semibold text-white"
-                    >
-                      {industry}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </Container>
       </section>
@@ -200,6 +113,6 @@ export default function IndustriesPage() {
         title="See it set up for your sector"
         lede="Thirty minutes, against your own establishment type and states, not a generic demo company."
       />
-    </>
+    </PageTransition>
   )
 }
