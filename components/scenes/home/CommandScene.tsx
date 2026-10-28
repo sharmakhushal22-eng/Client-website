@@ -91,7 +91,7 @@ export function CommandScene({ index }: { index: number }) {
           </div>
           <div>
             <p className="ez-kicker mb-2 text-ink-500" id="viewas">View as</p>
-            <div role="radiogroup" aria-labelledby="viewas" className="inline-flex flex-wrap gap-1 rounded-full bg-paper p-1 ring-1 ring-ink-900/[0.06]">
+            <div role="radiogroup" aria-labelledby="viewas" className="grid grid-cols-2 gap-1 rounded-[22px] bg-paper p-1 ring-1 ring-ink-900/[0.06] sm:inline-flex sm:flex-wrap sm:rounded-full">
               {roles.map((r) => (
                 <button
                   key={r.id}

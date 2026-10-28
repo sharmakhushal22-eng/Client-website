@@ -66,7 +66,9 @@ export function PageHero({
   if (stage) {
     kind = 'product'
     aside = (
-      <div data-live="" aria-hidden="true" className="relative mx-auto aspect-square w-full max-w-[min(34rem,70vh)]">
+      /* The chips orbit closer in on a phone: at the desktop radius the
+         longer labels ran off both edges of a 360px screen. */
+      <div data-live="" aria-hidden="true" className="relative mx-auto aspect-square w-full max-w-[min(34rem,70vh)] [--orbit-x:33%] [--orbit-y:42%] sm:[--orbit-x:47%] sm:[--orbit-y:45%]">
         <div data-stage={stage} data-tone="light" className="absolute inset-[4%]" />
         {stageChips.map((c, i) => {
           const a = (i / stageChips.length) * Math.PI * 2 - Math.PI / 2.6
@@ -74,11 +76,11 @@ export function PageHero({
             <div
               key={c}
               className="absolute -translate-x-1/2 -translate-y-1/2"
-              style={{ left: `${50 + 47 * Math.cos(a)}%`, top: `${50 + 45 * Math.sin(a)}%` }}
+              style={{ left: `calc(50% + var(--orbit-x) * ${Math.cos(a).toFixed(4)})`, top: `calc(50% + var(--orbit-y) * ${Math.sin(a).toFixed(4)})` }}
             >
               <div data-h="card" style={{ '--d': `${400 + i * 110}ms` } as React.CSSProperties}>
                 <div className="ez-bob" style={{ '--dur': `${6 + (i % 4)}s`, '--d': `${-i}s`, '--bob': '-8px' } as React.CSSProperties}>
-                  <span className="ez-glass block whitespace-nowrap rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold text-ink-800">{c}</span>
+                  <span className="ez-glass block whitespace-nowrap rounded-full px-3 py-1.5 text-[0.74rem] font-semibold text-ink-800 sm:px-3.5 sm:text-[0.8rem]">{c}</span>
                 </div>
               </div>
             </div>

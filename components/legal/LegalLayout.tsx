@@ -60,8 +60,9 @@ export function LegalLayout({
             [&_li]:text-[1rem] [&_li]:leading-relaxed [&_li]:text-ink-700
             [&_p]:mt-4 [&_p]:text-[1rem] [&_p]:leading-[1.75] [&_p]:text-ink-700
             [&_table]:mt-5 [&_table]:w-full [&_table]:text-left [&_table]:text-sm
-            [&_td]:border-t [&_td]:border-ink-200 [&_td]:py-3 [&_td]:pr-4 [&_td]:align-top [&_td]:text-ink-600
-            [&_th]:border-b-2 [&_th]:border-ink-200 [&_th]:py-2 [&_th]:pr-4 [&_th]:text-sm [&_th]:font-bold
+            [&_code]:[overflow-wrap:anywhere]
+            [&_td]:border-t [&_td]:border-ink-200 [&_td]:py-3 [&_td]:pr-3 [&_td]:align-top [&_td]:text-ink-600 [&_td]:sm:pr-4
+            [&_th]:border-b-2 [&_th]:border-ink-200 [&_th]:py-2 [&_th]:pr-3 [&_th]:text-sm [&_th]:font-bold [&_th]:sm:pr-4
             [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5"
         >
           {children}

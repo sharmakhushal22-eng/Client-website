@@ -77,7 +77,7 @@ export function PlanScene({ index }: { index: number }) {
                 ))}
               </ul>
               <div className="relative mt-8">
-                <Button href="/contact" variant="onDark">
+                <Button href="/contact" variant="onDark" className="w-full sm:w-auto">
                   {foundingCustomer.ctaLabel}
                   <Arrow />
                 </Button>

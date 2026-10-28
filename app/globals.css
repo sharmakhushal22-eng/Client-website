@@ -991,12 +991,16 @@ input[type='range'].ez-range:focus-visible::-moz-range-thumb {
    On the marketing pages the ledes are short and set ragged-right: justified
    at those measures, the hero split "compli-ance" across a line end and
    opened rivers in every card. */
+/* Not on phones: a whole phone-width column is under the ~400px break-even
+   measured below, so articles there set ragged-right like everything else. */
 @layer base {
-  .ez-longform p,
-  .ez-longform blockquote {
-    text-align: justify;
-    text-justify: inter-word;
-    hyphens: auto;
+  @media (min-width: 640px) {
+    .ez-longform p,
+    .ez-longform blockquote {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+    }
   }
 }
 

@@ -31,8 +31,8 @@ const variants: Record<Variant, string> = {
 }
 
 const sizes: Record<Size, string> = {
-  md: 'h-11 px-5 text-[0.95rem]',
-  lg: 'h-13 px-7 text-base',
+  md: 'min-h-11 px-5 py-2 text-center text-[0.95rem] leading-tight',
+  lg: 'min-h-13 px-7 py-2.5 text-center text-base leading-tight',
 }
 
 type Props = {

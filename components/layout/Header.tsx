@@ -192,6 +192,11 @@ export function Header({
   );
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  /* Where the sheet starts: the header's bottom edge at the moment it opens.
+   * A fixed top-16 slid the sheet over the header whenever the announcement
+   * bar sat above it (or the header was still at its taller, unscrolled
+   * height), hiding the close button. */
+  const [sheetTop, setSheetTop] = useState(64);
   /* One id rather than a boolean per menu — with two dropdowns, separate
    * flags let both be open at once, which looks broken. */
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -1097,7 +1102,11 @@ export function Header({
             </a>
             <button
               type="button"
-              onClick={() => setMobileOpen((v) => !v)}
+              onClick={(e) => {
+                const bottom = e.currentTarget.closest("header")?.getBoundingClientRect().bottom;
+                if (bottom) setSheetTop(Math.max(0, Math.round(bottom)));
+                setMobileOpen((v) => !v);
+              }}
               className="grid h-10 w-10 place-items-center rounded-md text-ink-900 hover:bg-ink-100"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -1116,7 +1125,8 @@ export function Header({
       {mobileOpen && (
         <div
           id="mobile-menu"
-          className="ez-drawer fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-ink-200 bg-surface lg:hidden"
+          className="ez-drawer fixed inset-x-0 bottom-0 z-40 overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface lg:hidden"
+          style={{ top: sheetTop }}
         >
           <Container className="py-6">
             {/* The two qualifying questions come FIRST on mobile. On a phone
@@ -1185,11 +1195,7 @@ export function Header({
               );
             })}
 
-            <div className="mt-6 flex items-center justify-between border-t border-ink-200 pt-6">
-              <span className="text-sm font-semibold text-ink-900">Theme</span>
-            </div>
-
-            <div className="mt-6 space-y-3 pt-2">
+            <div className="mt-6 space-y-3 border-t border-ink-200 pt-6">
               <Button href="/book-a-demo" size="lg" className="w-full">
                 Book a Demo
               </Button>

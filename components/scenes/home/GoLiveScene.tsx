@@ -30,7 +30,7 @@ export function GoLiveScene({ index }: { index: number }) {
             <ol data-m="settle" className="mt-8 divide-y divide-ink-900/[0.08] border-y border-ink-900/[0.08]">
               {implementation.phases.map((p, i) => (
                 <li key={p.days} className="flex items-baseline gap-4 py-3">
-                  <span className="ez-kicker w-[5.8rem] shrink-0 text-brand-600">{p.days.replace('–', ' to ').replace('Day', 'Days')}</span>
+                  <span className="ez-kicker w-[6.6rem] shrink-0 whitespace-nowrap text-brand-600">{p.days.replace('–', ' to ').replace('Day', 'Days')}</span>
                   <span>
                     <span className="block text-[0.98rem] font-semibold text-ink-900">{p.title}</span>
                     <span className="block text-[0.86rem] text-ink-500">{p.detail}</span>
