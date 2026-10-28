@@ -148,20 +148,20 @@ export function Footer() {
           </div>
 
           {/* ── Sitemap + newsletter ────────────────────────────────────── */}
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
             {columns.map((col) => (
               <nav key={col.title} aria-label={col.title}>
                 <h2 className="ez-kicker !font-mono !text-[0.7rem] !font-medium !tracking-[0.08em] text-ink-400">
                   {col.title}
                 </h2>
-                <ul className="mt-4 space-y-2.5">
+                <ul className="mt-3 space-y-1">
                   {col.links.map(([href, label]) => (
                     <li key={href}>
                       <Link
                         href={href}
-                        className="ez-link text-[0.93rem] text-ink-700 transition-colors hover:text-ink-900"
+                        className="inline-block py-1 text-[0.93rem] text-ink-700 transition-colors hover:text-ink-900"
                       >
-                        {label}
+                        <span className="ez-link">{label}</span>
                       </Link>
                     </li>
                   ))}
@@ -169,7 +169,7 @@ export function Footer() {
               </nav>
             ))}
 
-            <div className="sm:col-span-3">
+            <div className="col-span-2 lg:col-span-3">
               <h2 className="ez-kicker !font-mono !text-[0.7rem] !font-medium !tracking-[0.08em] text-ink-400">
                 Compliance updates
               </h2>

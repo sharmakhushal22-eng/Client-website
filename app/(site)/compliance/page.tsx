@@ -195,8 +195,9 @@ export default function CompliancePage() {
       {/* ── Why multi-state is the hard part ─────────────────────────────── */}
       <GroupShape />
 
-      {/* The act-by-act table, the worked payslip and the auditability line. */}
-      <StatutoryTable />
+      {/* The act-by-act table. The worked payslip and the audit line live on
+          the payroll page, so neither appears twice. */}
+      <StatutoryTable parts={['coverage']} />
 
       <Faq
         faqs={complianceFaqs}

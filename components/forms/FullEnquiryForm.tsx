@@ -104,7 +104,7 @@ export function FullEnquiryForm({
           autoComplete="tel"
           inputMode="numeric"
           placeholder="98765 43210"
-          hint="+91"
+          hint="10-digit Indian mobile number; no need to type +91."
           defaultValue={v.phone}
           serverError={state.errors?.phone}
           validate={validatePhone}

@@ -88,7 +88,8 @@
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
   transition: background-size var(--m-base) var(--m-settle);
 }
-.ez-link:hover, .ez-link:focus-visible { background-size: 100% 1px; }
+.ez-link:hover, .ez-link:focus-visible,
+:is(a, button):is(:hover, :focus-visible) > .ez-link { background-size: 100% 1px; }
 
 /* ── The E bars ───────────────────────────────────────────────────────────
    Three rules of unequal length that settle to their resting widths. Used at

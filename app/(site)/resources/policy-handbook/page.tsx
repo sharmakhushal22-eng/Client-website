@@ -133,8 +133,8 @@ export default function PolicyHandbookPage() {
                 <span className="ez-num ez-kicker text-brand-600">
                   {String(category.n).padStart(2, '0')}
                 </span>
-                <h3 className="font-display text-[1.6rem] font-[640] tracking-[-0.03em] text-ink-900 [font-stretch:106%]">{category.name}</h3>
-                <span className="ml-auto text-[0.82rem] text-ink-500">
+                <h3 className="font-display text-[1.4rem] font-[640] leading-tight tracking-[-0.03em] text-ink-900 [font-stretch:106%] sm:text-[1.6rem]">{category.name}</h3>
+                <span className="ml-auto shrink-0 whitespace-nowrap text-[0.82rem] text-ink-500">
                   {category.policies.length} policies
                 </span>
               </div>

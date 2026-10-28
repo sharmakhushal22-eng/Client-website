@@ -145,8 +145,9 @@ export default async function FeatureDetailPage({
         </Container>
       </section>
 
-      {/* Payroll carries three extras the other pages do not — spec §4.3. */}
-      {page.slug === 'payroll' && <StatutoryTable />}
+      {/* Payroll carries the worked payslip and the audit line — spec §4.3. The
+          act-by-act table is on /compliance. */}
+      {page.slug === 'payroll' && <StatutoryTable parts={['payslip', 'audit']} />}
 
       {/* Self-service carries the one working calculator on the site: the
           employee's own old-versus-new comparison, before they declare. */}

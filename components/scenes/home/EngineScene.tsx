@@ -53,7 +53,7 @@ export function EngineScene({ index }: { index: number }) {
           <ol data-m="settle" className="flex flex-wrap gap-2" aria-label="Recent rule changes">
             {ruleChanges.slice(0, 4).map((c, i) => (
               <li key={c.date} style={{ '--i': i } as React.CSSProperties} className="flex items-center gap-2 rounded-full bg-white/[0.07] py-1.5 pl-1.5 pr-3.5 text-[0.82rem] text-white/80 ring-1 ring-white/12">
-                <span className="rounded-full bg-[#f2a516] px-2 py-0.5 text-[0.68rem] font-bold text-navy">{c.short}</span>
+                <span className="shrink-0 whitespace-nowrap rounded-full bg-[#f2a516] px-2 py-0.5 text-[0.68rem] font-bold text-navy">{c.short}</span>
                 {c.what}
               </li>
             ))}

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/cn'
 import { Doodle, type DoodleKind } from '@/components/graphics/Doodles'
-import { PhoneLeave, AttendanceCard } from './LeaveStoryParts'
+
 
 /* ============================================================================
  * The product picture at the top of each feature page.
@@ -10,15 +10,22 @@ import { PhoneLeave, AttendanceCard } from './LeaveStoryParts'
  * capability the page itself documents (content/features.ts), with sample
  * data that is internally consistent:
  *
- *   payroll   a payslip for a Pune employee. Basic ₹30,000, HRA at 40% (Pune
- *             is non-metro), gross ₹57,500. Code wages (Basic + special)
- *             are ₹45,500, over half of pay, so no add-back. EPF 12% on the
- *             ₹25,000 wage ceiling in force from 17 Sept 2026 = ₹3,000.
- *             ESIC does not apply above the ₹21,000 ceiling. Maharashtra PT
- *             ₹200. TDS nil (new regime, under the rebate). Net ₹54,300.
- *   attendance  the punch and the attendance week from the leave story
+ *   payroll   the salary calculator, as the product's Flexi & TDS screen
+ *             lays it out. Monthly: Basic ₹50,000, HRA at 40% (Pune is
+ *             non-metro) ₹20,000, special ₹30,000, gross ₹1,00,000. Basic is
+ *             half of pay, so no Code-on-Wages add-back. Employer EPF 12% on
+ *             the ₹25,000 ceiling = ₹3,000; gratuity 4.81% of basic = ₹2,405;
+ *             CTC ₹1,05,405 a month, ₹12,64,860 a year. Employee EPF ₹3,000,
+ *             Maharashtra PT ₹200. New regime: ₹12,00,000 less the ₹75,000
+ *             standard deduction is ₹11,25,000, under the ₹12 lakh rebate,
+ *             so TDS is nil. Take-home ₹96,800.
+ *             (The worked payslip further down the page is a different
+ *             employee and a different picture: this one is the CTC view.)
+ *   attendance  today's shifts at one plant, and the exceptions they
+ *             produced: a missed punch, a late mark, overtime to payroll
  *   recruitment the seven-step offer flow, part way through
- *   ess       the employee's phone: leave, with the balance on screen
+ *   ess       the employee's phone: investment proofs against what was
+ *             declared, ₹21,600 + ₹1,08,000 = ₹1,29,600
  *   claims    a local trip with the fare calculated, and an outstation
  *             claim moving from the reporting manager to Finance
  *
@@ -54,68 +61,93 @@ function Pill({ tone, children }: { tone: 'wait' | 'done' | 'info' | 'stop'; chi
   )
 }
 
-function Payslip() {
-  const earn: [string, string][] = [
-    ['Basic', '30,000'],
-    ['HRA · 40% of basic', '12,000'],
-    ['Special allowance', '15,500'],
-  ]
-  const ded: [string, string, string][] = [
-    ['EPF', '3,000', '12% of the ₹25,000 wage ceiling'],
-    ['ESIC', '0', 'Gross above ₹21,000, not covered'],
-    ['Professional Tax', '200', 'Maharashtra slab'],
-    ['TDS', '0', 'New regime, projected under rebate'],
+function SalaryCalculator() {
+  const steps = ['Salary', 'Flexi', 'Investments', 'TDS']
+  const rows: [string, string, string][] = [
+    ['Basic', '50,000', '6,00,000'],
+    ['HRA · 40% of basic', '20,000', '2,40,000'],
+    ['Special allowance', '30,000', '3,60,000'],
+    ['Employer EPF · on ₹25,000', '3,000', '36,000'],
+    ['Gratuity · 4.81% of basic', '2,405', '28,860'],
   ]
   return (
     <div className={card}>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="ez-kicker text-ink-400">Payslip · October 2026</p>
-          <p className="mt-2 text-[0.98rem] font-semibold text-ink-900">Ananya R. · Plant, Pune</p>
+          <p className="ez-kicker text-ink-400">Salary calculator · FY 2026-27</p>
+          <p className="mt-2 text-[0.98rem] font-semibold text-ink-900">Arjun P. · Finance, Pune</p>
         </div>
-        <Pill tone="done">Released</Pill>
+        <Pill tone="info">New regime</Pill>
       </div>
-      <div className="mt-5 grid gap-5 sm:grid-cols-2">
-        <div className="text-[0.82rem]">
-          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-ink-400">Earnings</p>
-          <dl>
-          {earn.map(([k, v]) => (
-            <div key={k} className="flex justify-between border-b border-ink-900/[0.06] py-2">
-              <dt className="text-ink-600">{k}</dt>
-              <dd className="ez-num font-semibold text-ink-900">{v}</dd>
-            </div>
-          ))}
-          <div className="flex justify-between py-2">
-            <dt className="font-semibold text-ink-900">Gross</dt>
-            <dd className="ez-num font-semibold text-ink-900">57,500</dd>
+
+      <ol className="mt-4 flex items-center gap-1.5 text-[0.7rem] font-semibold">
+        {steps.map((st, i) => (
+          <li key={st} className="flex min-w-0 flex-1 items-center gap-1.5">
+            <span
+              className={cn(
+                'grid h-5 w-5 shrink-0 place-items-center rounded-full text-[0.62rem]',
+                i < 3 ? 'bg-brand-600 text-white' : 'bg-brand-50 text-brand-700 ring-1 ring-brand-600/30',
+              )}
+            >
+              {i < 3 ? '✓' : i + 1}
+            </span>
+            <span className={cn('truncate', i < 3 ? 'hidden text-ink-700 sm:inline' : 'text-brand-700')}>{st}</span>
+            {i < steps.length - 1 && <span aria-hidden="true" className="hidden h-px flex-1 bg-ink-900/15 sm:block" />}
+          </li>
+        ))}
+      </ol>
+
+      <div className="mt-4 grid grid-cols-3 gap-1.5 sm:gap-2">
+        {[
+          ['CTC / yr', '₹12,64,860', 'text-brand-700'],
+          ['Gross / mo', '₹1,00,000', 'text-ink-900'],
+          ['In-hand / mo', '₹96,800', 'text-emerald-700'],
+        ].map(([k, v, tone]) => (
+          <div key={k} className="min-w-0 rounded-[12px] bg-ink-50 px-2.5 py-2.5 ring-1 ring-ink-900/[0.06] sm:px-3">
+            <p className="whitespace-nowrap text-[0.58rem] font-medium uppercase tracking-[0.02em] text-ink-400 sm:text-[0.62rem] sm:tracking-[0.06em]">{k}</p>
+            <p className={cn('ez-num mt-0.5 whitespace-nowrap text-[0.78rem] font-semibold sm:text-[1rem]', tone)}>{v}</p>
           </div>
-          </dl>
-        </div>
-        <div className="text-[0.82rem]">
-          <p className="mb-1 text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-ink-400">Deductions, with the basis</p>
-          <dl>
-          {ded.map(([k, v, why]) => (
-            <div key={k} className="flex flex-wrap justify-between border-b border-ink-900/[0.06] py-1.5">
-              <dt className="text-ink-600">{k}</dt>
-              <dd className="ez-num font-semibold text-ink-900">{v}</dd>
-              <dd className="w-full text-[0.68rem] text-brand-700">{why}</dd>
-            </div>
-          ))}
-          </dl>
-        </div>
+        ))}
       </div>
-      <div className="mt-4 flex items-end justify-between rounded-[14px] bg-ink-900 px-4 py-3 text-white">
+
+      <table className="mt-4 w-full text-[0.8rem]">
+        <thead>
+          <tr className="text-[0.64rem] uppercase tracking-[0.08em] text-ink-400">
+            <th className="pb-1.5 text-left font-semibold">Component</th>
+            <th className="pb-1.5 text-right font-semibold">Monthly</th>
+            <th className="pb-1.5 text-right font-semibold">Annual</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([k, m, a]) => (
+            <tr key={k} className="border-t border-ink-900/[0.06]">
+              <td className="py-1.5 pr-2 text-ink-600">{k}</td>
+              <td className="ez-num py-1.5 text-right font-semibold text-ink-900">{m}</td>
+              <td className="ez-num py-1.5 pl-2 text-right text-ink-500">{a}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div className="mt-4 flex items-center justify-between gap-3 rounded-[14px] bg-ink-900 px-4 py-3 text-white">
         <div>
-          <p className="text-[0.7rem] text-white/60">Employer PF 3,000 · split EPS / EPF</p>
-          <p className="text-[0.82rem] font-semibold">Net pay</p>
+          <p className="text-[0.66rem] text-white/60">Taxable ₹11,25,000 after standard deduction</p>
+          <p className="text-[0.82rem] font-semibold">TDS this year</p>
         </div>
-        <p className="ez-num font-display text-[1.6rem] font-[680] leading-none tracking-[-0.03em] [font-stretch:110%]">₹54,300</p>
+        <div className="text-right">
+          <p className="ez-num font-display text-[1.5rem] font-[680] leading-none tracking-[-0.03em] [font-stretch:110%]">₹0</p>
+          <p className="mt-1 text-[0.64rem] text-[#ffd27a]">Under the ₹12 lakh rebate</p>
+        </div>
       </div>
     </div>
   )
 }
 
 function Attendance() {
+  const shifts: [string, string, number, number][] = [
+    ['General', '09:30 – 18:30', 112, 118],
+    ['Shift A', '06:00 – 14:00', 42, 45],
+  ]
   return (
     <div className="relative">
       <div className="absolute -left-2 -top-6 z-10 w-44 rounded-[18px] bg-ink-900 p-4 text-white shadow-[0_24px_44px_-24px_rgb(11_22_51/0.6)] sm:-left-8">
@@ -124,10 +156,43 @@ function Attendance() {
           Punched in
         </p>
         <p className="ez-num mt-1.5 font-display text-[1.9rem] font-[680] leading-none tracking-[-0.03em] [font-stretch:110%]">09:41</p>
-        <p className="mt-2 text-[0.72rem] text-white/60">General shift · Pune</p>
+        <p className="mt-2 text-[0.72rem] text-white/60">Inside the Pune geofence</p>
       </div>
       <div className="pl-10 pt-16 sm:pl-24">
-        <AttendanceCard />
+        <div className={card}>
+          <div className="flex items-center justify-between gap-3">
+            <p className="ez-kicker text-ink-400">Plant, Pune · today</p>
+            <Pill tone="done">Live</Pill>
+          </div>
+          <div className="mt-4 space-y-3">
+            {shifts.map(([name, time, inNow, rostered]) => (
+              <div key={name} className="text-[0.8rem]">
+                <div className="flex items-baseline justify-between">
+                  <span className="font-semibold text-ink-900">{name} <span className="font-normal text-ink-400">{time}</span></span>
+                  <span className="ez-num text-ink-600"><b className="text-ink-900">{inNow}</b> of {rostered} in</span>
+                </div>
+                <div className="mt-1.5 h-1.5 rounded-full bg-ink-100">
+                  <div className="ez-panel-bar h-full rounded-full bg-brand-600" style={{ width: `${(inNow / rostered) * 100}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-ink-400">Needs a look</p>
+          <ul className="mt-1 divide-y divide-ink-900/[0.06] text-[0.78rem]">
+            <li className="flex items-center justify-between gap-3 py-2">
+              <span className="min-w-0"><span className="block font-semibold text-ink-900">Missed punch-out</span><span className="text-ink-500">Rahul D. · yesterday</span></span>
+              <Pill tone="wait">Regularise</Pill>
+            </li>
+            <li className="flex items-center justify-between gap-3 py-2">
+              <span className="min-w-0"><span className="block font-semibold text-ink-900">Late by 18 min</span><span className="text-ink-500">Sneha P. · grace 2 of 3 used</span></span>
+              <Pill tone="info">Late mark</Pill>
+            </li>
+            <li className="flex items-center justify-between gap-3 py-2">
+              <span className="min-w-0"><span className="block font-semibold text-ink-900">Overtime 2h 10m</span><span className="text-ink-500">Imran K. · Shift A</span></span>
+              <Pill tone="done">To payroll</Pill>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   )
@@ -173,6 +238,58 @@ function OfferFlow() {
       <p className="mt-4 border-t border-ink-900/[0.06] pt-3 text-[0.74rem] text-ink-500">
         On acceptance the record carries straight into onboarding. Nothing is typed twice.
       </p>
+    </div>
+  )
+}
+
+function ProofsPhone() {
+  const rows: [string, string, string, 'done' | 'wait'][] = [
+    ['80C', 'PPF and ELSS', '₹21,600', 'done'],
+    ['HRA', 'Rent, 12 months', '₹1,08,000', 'wait'],
+  ]
+  return (
+    <div className="mx-auto w-[15.5rem] rounded-[2.6rem] bg-ink-900 p-[7px] shadow-[0_40px_70px_-30px_rgb(11_22_51/0.55)]">
+      <div className="relative overflow-hidden rounded-[2.2rem] bg-white">
+        <div className="flex items-center justify-between px-6 pb-1 pt-3 text-[0.62rem] font-semibold text-ink-900">
+          <span className="ez-num">9:41</span>
+          <span className="h-[18px] w-16 rounded-full bg-ink-900" />
+          <span className="flex gap-0.5">
+            <span className="h-2 w-0.5 rounded bg-ink-900" />
+            <span className="h-2.5 w-0.5 rounded bg-ink-900" />
+            <span className="h-3 w-0.5 rounded bg-ink-900" />
+          </span>
+        </div>
+        <div className="px-4 pb-5 pt-3">
+          <p className="text-[0.68rem] font-medium text-ink-400">Payroll · FY 2026-27</p>
+          <p className="font-display text-[1.15rem] font-[650] tracking-[-0.02em] text-ink-900 [font-stretch:104%]">
+            Investment proofs
+          </p>
+          <div className="mt-3 rounded-[14px] bg-brand-50 p-3 ring-1 ring-brand-600/10">
+            <p className="text-[0.62rem] font-medium uppercase tracking-[0.08em] text-brand-700">Declared</p>
+            <p className="ez-num font-display text-[1.35rem] font-[680] leading-tight tracking-[-0.03em] text-ink-900">₹1,29,600</p>
+            <div className="mt-2 grid grid-cols-2 gap-1.5 text-[0.66rem]">
+              <p className="rounded-[8px] bg-white px-2 py-1.5"><span className="block text-ink-400">Proven</span><b className="ez-num text-emerald-700">₹21,600</b></p>
+              <p className="rounded-[8px] bg-white px-2 py-1.5"><span className="block text-ink-400">Pending</span><b className="ez-num text-amber-700">₹1,08,000</b></p>
+            </div>
+          </div>
+          <ul className="mt-3 space-y-2">
+            {rows.map(([code, what, amt, tone]) => (
+              <li key={code} className="flex items-center gap-2.5 rounded-[12px] bg-ink-50 px-3 py-2 ring-1 ring-ink-900/[0.06]">
+                <span className="rounded-full bg-white px-1.5 py-0.5 text-[0.6rem] font-bold text-brand-700 ring-1 ring-brand-600/20">{code}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[0.7rem] font-semibold text-ink-900">{what}</span>
+                  <span className="ez-num text-[0.64rem] text-ink-500">{amt}</span>
+                </span>
+                <Pill tone={tone}>{tone === 'done' ? 'Verified' : 'Due'}</Pill>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-3 flex h-10 items-center justify-center rounded-full bg-brand-600 text-[0.76rem] font-semibold text-white">
+            Upload rent receipts
+          </div>
+          <p className="mt-2 text-center text-[0.62rem] text-ink-400">Proofs close 31 Mar 2027</p>
+        </div>
+      </div>
     </div>
   )
 }
@@ -230,12 +347,12 @@ function Claims() {
 
 const labels: Record<string, string> = {
   payroll:
-    'Illustration with sample data: a payslip showing earnings and each deduction with its statutory basis, EPF on the wage ceiling, ESIC not applicable above its ceiling, Maharashtra Professional Tax, and net pay.',
+    'Illustration with sample data: a salary calculator showing an annual CTC of ₹12,64,860 broken into basic, HRA, special allowance, employer EPF and gratuity, a monthly take-home of ₹96,800, and nil TDS under the new regime.',
   attendance:
-    'Illustration with sample data: an employee punched in at 9:41, and the attendance week with two days of casual leave and the balance going from six days to four.',
+    'Illustration with sample data: an employee punched in at 9:41 inside the geofence, two shifts at a Pune plant with how many are in against the roster, and three exceptions: a missed punch-out to regularise, a late mark, and overtime sent to payroll.',
   recruitment:
     'Illustration with sample data: an offer flow with scorecards and the CTC calculation complete, waiting on HR Head approval before digital acceptance.',
-  ess: 'Illustration with sample data: the leave form on an employee’s phone, with the leave balance shown before the request is sent.',
+  ess: 'Illustration with sample data: investment proofs on an employee’s phone, ₹1,29,600 declared, the 80C proof verified and the rent receipts still due before 31 March 2027.',
   claims:
     'Illustration with sample data: a local trip with the distance measured and the fare calculated, and an outstation claim approved by the manager and waiting with Finance, with one bill declined for being older than 90 days.',
 }
@@ -250,10 +367,10 @@ const corner: Record<string, DoodleKind> = {
 
 export function FeatureVisual({ slug }: { slug: string }) {
   const picture =
-    slug === 'payroll' ? <Payslip /> :
+    slug === 'payroll' ? <SalaryCalculator /> :
     slug === 'attendance' ? <Attendance /> :
     slug === 'recruitment' ? <OfferFlow /> :
-    slug === 'ess' ? <div className="flex justify-center"><PhoneLeave compact /></div> :
+    slug === 'ess' ? <ProofsPhone /> :
     slug === 'claims' ? <Claims /> : null
   if (!picture) return null
 

@@ -121,7 +121,7 @@ export function GroupShape() {
                 ['Holidays', 'Location-wise holiday calendars'],
               ].map(([k, v]) => (
                 <li key={k} className="flex items-center gap-4 rounded-[16px] bg-white px-4 py-3 ring-1 ring-ink-900/[0.06]">
-                  <span className="grid h-9 min-w-9 place-items-center rounded-full bg-brand-50 px-2 text-[0.74rem] font-bold text-brand-700">{k}</span>
+                  <span className="grid h-9 w-[5.25rem] shrink-0 place-items-center whitespace-nowrap rounded-full bg-brand-50 px-2 text-[0.74rem] font-bold text-brand-700">{k}</span>
                   <span className="text-[0.95rem] text-ink-700">{v}</span>
                 </li>
               ))}
