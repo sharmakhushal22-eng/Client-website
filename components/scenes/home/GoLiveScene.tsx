@@ -43,7 +43,7 @@ export function GoLiveScene({ index }: { index: number }) {
             </ol>
           </div>
 
-          <div className="relative lg:col-span-7">
+          <div className="relative max-md:hidden lg:col-span-7">
             <div className="relative mx-auto h-[min(56vh,30rem)] w-full max-w-[40rem]">
               <div data-stage="bars" data-tone="light" className="absolute inset-x-0 bottom-10 top-0" />
               <div aria-hidden="true" className="absolute inset-x-0 bottom-0 grid grid-cols-10">

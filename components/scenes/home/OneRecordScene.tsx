@@ -61,7 +61,7 @@ export function OneRecordScene({ index }: { index: number }) {
         </div>
 
         {/* ── Hire to retire, on one line ──────────────────────────────── */}
-        <div data-m="rise" className="rounded-[26px] bg-paper p-5 ring-1 ring-ink-900/[0.05] sm:p-6">
+        <div data-m="rise" className="rounded-[26px] bg-paper p-5 ring-1 ring-ink-900/[0.05] max-md:hidden sm:p-6">
           <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
             <p className="text-[0.95rem] font-semibold text-ink-900">{lifecycle.title}</p>
             <p className="text-[0.85rem] text-ink-500">Nothing exported, nothing typed twice.</p>

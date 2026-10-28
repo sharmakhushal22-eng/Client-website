@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Brand } from "./Brand";
@@ -1122,10 +1123,14 @@ export function Header({
       </Container>
 
       {/* ── Mobile sheet ──────────────────────────────────────────────── */}
-      {mobileOpen && (
+      {/* Portalled to <body>. Once the page scrolls, the header gains a
+          backdrop-filter, and a backdrop-filter makes the header the
+          containing block for its fixed children: the sheet was laid out
+          inside the 64px header, collapsed to 1px, and only the X showed. */}
+      {mobileOpen && createPortal(
         <div
           id="mobile-menu"
-          className="ez-drawer fixed inset-x-0 bottom-0 z-40 overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface lg:hidden"
+          className="ez-drawer fixed inset-x-0 bottom-0 z-[45] overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface lg:hidden"
           style={{ top: sheetTop }}
         >
           <Container className="py-6">
@@ -1210,7 +1215,8 @@ export function Header({
               </Button>
             </div>
           </Container>
-        </div>
+        </div>,
+        document.body,
       )}
     </header>
   );

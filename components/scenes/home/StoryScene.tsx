@@ -73,7 +73,7 @@ export function StoryScene({ index }: { index: number }) {
           <h2 className="mt-5 text-[2.3rem] leading-[1.04] sm:text-[3rem]">
             Here is what <span className="text-brand-600">easier looks like.</span>
           </h2>
-          <ol className="mt-10 space-y-12">
+          <ol className="mt-10 space-y-10 md:space-y-12">
             {steps.map((s, i) => (
               <li key={s.title}>
                 <p className="ez-kicker flex items-center gap-3 text-ink-500">
@@ -82,7 +82,10 @@ export function StoryScene({ index }: { index: number }) {
                 </p>
                 <h3 className="mt-3 font-display text-[1.6rem] font-[650] leading-[1.12] tracking-[-0.03em] text-ink-900 [font-stretch:106%]">{s.title}</h3>
                 <p className="mt-2 text-[1rem] leading-relaxed text-ink-600">{s.body}</p>
-                <div className="mt-6 rounded-[22px] bg-white p-5 ring-1 ring-ink-900/[0.06]">
+                {/* Phones show the first and last pictures only: the request
+                    leaving the phone, and the payroll it lands in. The two
+                    middle steps read clearly from their words alone. */}
+                <div className={`mt-6 rounded-[22px] bg-white p-5 ring-1 ring-ink-900/[0.06] ${i === 1 || i === 2 ? 'max-md:hidden' : ''}`}>
                   <div className="mx-auto max-w-[19.5rem]">{pictures[i]}</div>
                 </div>
               </li>

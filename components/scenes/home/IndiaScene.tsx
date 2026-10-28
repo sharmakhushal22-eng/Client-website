@@ -33,7 +33,7 @@ export function IndiaScene({ index }: { index: number }) {
     <Scene index={index} tone="sand" labelledBy="india-title">
       <Container className="flex h-full flex-col justify-center py-20 lg:py-0 lg:pt-16">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="relative order-2 lg:order-1 lg:col-span-7">
+          <div className="relative order-2 max-md:hidden lg:order-1 lg:col-span-7">
             <div
               role="img"
               aria-label="Illustration: a map of India made of dots. From a head office in Mumbai, each of the 28 states and 8 union territories is reached in turn and named, until every one is lit."
