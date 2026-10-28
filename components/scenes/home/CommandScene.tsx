@@ -158,7 +158,7 @@ export function CommandScene({ index }: { index: number }) {
             </div>
 
             {/* Middle: pipeline, or a masked employee row */}
-            <div className="rounded-[18px] bg-white p-4 ring-1 ring-ink-900/[0.05] lg:col-span-4">
+            <div className="rounded-[18px] bg-white p-4 ring-1 ring-ink-900/[0.05] max-md:hidden lg:col-span-4">
               {role === 'finance' ? (
                 <>
                   <p className="text-[0.74rem] font-semibold text-ink-700">Employee record, as Finance sees it</p>
@@ -215,7 +215,7 @@ export function CommandScene({ index }: { index: number }) {
             </div>
 
             {/* Live activity */}
-            <div className="relative rounded-[18px] bg-white p-4 ring-1 ring-ink-900/[0.05] lg:col-span-3">
+            <div className="relative rounded-[18px] bg-white p-4 ring-1 ring-ink-900/[0.05] max-md:hidden lg:col-span-3">
               <p className="flex items-center justify-between text-[0.74rem] font-semibold text-ink-700">
                 Recent activity
                 <span className="inline-flex items-center gap-1.5 text-[0.68rem] text-emerald-700">

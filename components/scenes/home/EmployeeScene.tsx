@@ -140,8 +140,8 @@ export function EmployeeScene({ index }: { index: number }) {
               answered on the screen instead.
             </p>
             <ul data-m="settle" className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
-              {features.map(([icon, t, d]) => (
-                <li key={t} className="flex gap-3.5">
+              {features.map(([icon, t, d], i) => (
+                <li key={t} className={`flex gap-3.5 ${i >= 4 ? 'max-md:hidden' : ''}`}>
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[12px] bg-white text-brand-600 shadow-[0_8px_18px_-10px_rgb(11_22_51/0.35)] ring-1 ring-ink-900/[0.06]">
                     <Icon name={icon} className="h-[18px] w-[18px]" />
                   </span>
