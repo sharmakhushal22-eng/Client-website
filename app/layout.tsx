@@ -30,6 +30,13 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
+  /* Google Search Console ownership check. Renders
+     <meta name="google-site-verification" …> on every page. It proves
+     ownership only and has no effect on ranking. Keep it after verifying:
+     Google re-checks it periodically, and removing it un-verifies the site. */
+  verification: {
+    google: "r49iE4TuSuUP6jA4PRog3197vuQzNcRrs8Wwtj62fls",
+  },
 };
 
 export const viewport: Viewport = {
