@@ -234,6 +234,21 @@ html[data-m-ready] [data-in-now] .ez-line > span { transition: none !important; 
 .ez-hero [data-h="tick"] { animation: ez-tick 420ms var(--m-settle) both; animation-delay: var(--d); }
 .ez-hero [data-h="fill"] { transform-origin: left; animation: ez-fill var(--dur, 1400ms) var(--m-swap) both; animation-delay: var(--d, 700ms); }
 
+/* After the intro the cards keep taking in new records (HeroLiveChips). A
+   new value rises a few pixels out of a soft blur, the way a row arrives in
+   a live table; the punch ring fills once per punch and holds. All sit
+   inside [data-live], so they pause off screen and switch off with reduced
+   motion, where the cycling itself never starts. */
+@keyframes ez-roll { from { opacity: 0; transform: translateY(.45em); filter: blur(2px); } }
+.ez-hero .ez-roll { display: inline-block; animation: ez-roll 420ms var(--m-settle) both; animation-delay: var(--d, 0ms); }
+.ez-hero .ez-punch-ring { animation: ez-sweep-ring 900ms var(--m-settle) both; animation-delay: var(--d, 0ms); }
+/* The activity feed: on each new event the whole list starts one row up and
+   settles, so old rows slide down and the newest arrives from above. Transform
+   only; the card clips and masks the row that falls off the bottom. */
+@keyframes ez-feed-push { from { transform: translateY(calc(-1 * var(--row))); } }
+.ez-hero .ez-feed-push { animation: ez-feed-push 620ms var(--m-settle) both; }
+.ez-hero .ez-feed-new { animation: ez-show 520ms ease 120ms both; }
+
 /* The big wordmark behind the hero recedes as the page scrolls away from
    it. A scroll-driven animation: it runs on the compositor, needs no
    listener, and browsers without support simply show it standing still. */
