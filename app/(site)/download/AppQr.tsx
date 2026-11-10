@@ -3,26 +3,54 @@ import { site } from "@/site.config"
 /* The QR code on the card, as a path of 29 x 29 modules.
  *
  * WHAT IT ENCODES, and how that is known: decoded from this very path
- * (mask 2, byte mode, 37 bytes) it reads
+ * (mask 2, byte mode, 37 bytes) it reads exactly QR_TARGET below. It is the
+ * only one of the eight mask patterns that yields a valid byte-mode segment,
+ * so that reading is not a guess.
  *
- *     https://ezerhrms.com/download?start=1
+ * THE CAPTION IS THE QR'S OWN URL, not site.url, and that is the whole point
+ * of QR_TARGET existing. It used to be built from site.url, which was wrong
+ * twice over: on a developer's machine it printed "localhost:3100/download"
+ * under a code pointing at the live site, and in production it would have
+ * printed "www.ezerhrms.com/download" under a code that encodes the host
+ * WITHOUT the www. Caption and code now come from one string, so they cannot
+ * disagree in any environment.
  *
- * which is this page with the auto-start parameter the panel below reads,
- * so a scan begins the download rather than landing on a page with a button
- * to find. It is the only one of the eight mask patterns that yields a valid
- * byte-mode segment, so that reading is not a guess.
+ * The caption drops the scheme and the ?start=1, because those are
+ * instructions to the scanner rather than something a person needs to read
+ * or type. Someone typing it by hand gets the same page, without the
+ * download starting on its own.
  *
- * It is therefore STATIC, and pinned to the production host. If the site
- * ever moves to another domain, or the route changes, this path has to be
- * regenerated — nothing here can follow site.url on its own. The visible
- * caption below it does come from site.url, so the two would visibly
- * disagree, which is the cheapest alarm available.
- *
- * Drawn with currentColor and sat on white with padding on every side: that
- * padding is the quiet zone a scanner needs, so it is not decoration.
+ * The code is STATIC and pinned to this host. If the site moves domain or
+ * this route changes, the path below has to be regenerated: nothing here can
+ * follow site.url on its own. The check beneath says so out loud at build
+ * time rather than leaving it to be noticed by a visitor with a camera.
  */
+const QR_TARGET = "https://ezerhrms.com/download?start=1"
+
+/* Build-time tripwire. The QR is a drawing: it cannot follow a domain move,
+ * so the only protection is noticing. Compared on the registrable host, so
+ * the www the canonical uses is not treated as a different site. */
+if (process.env.NODE_ENV !== "production") {
+  const bare = (u: string) => {
+    try {
+      return new URL(u).hostname.replace(/^www\./, "")
+    } catch {
+      return ""
+    }
+  }
+  const siteHost = bare(site.url)
+  const qrHost = bare(QR_TARGET)
+  if (siteHost && siteHost !== "localhost" && siteHost !== qrHost) {
+    console.warn(
+      `[download] The QR code encodes ${qrHost} but this site is served from ` +
+        `${siteHost}. Regenerate the QR path in AppQr.tsx, or it will send ` +
+        `everyone who scans it to the old domain.`,
+    )
+  }
+}
+
 export function AppQr({ className }: { className?: string }) {
-  const shown = site.url.replace(/^https?:\/\//, "") + "/download"
+  const shown = QR_TARGET.replace(/^https?:\/\//, "").replace(/\?.*$/, "")
   return (
     <figure className={className}>
       <div className="inline-block rounded-[18px] bg-white p-3.5 ring-1 ring-ink-900/10">
