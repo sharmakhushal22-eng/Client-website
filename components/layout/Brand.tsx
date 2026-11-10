@@ -140,7 +140,6 @@ export function Brand({
        * holds at any `size`. translate rather than margin because this is an
        * optical correction, not a layout one — the box stays where it is. */
       className={`group inline-flex shrink-0 -translate-y-[0.2397em] items-start gap-[0.4699em] ${size}`}
-      aria-label={`${site.name}, home`}
     >
       <BrandMark className="h-[2.7548em] w-auto shrink-0 transition-transform duration-200 group-hover:scale-[1.05]" />
 
@@ -183,6 +182,9 @@ export function Brand({
             {site.tagline}
           </span>
         )}
+        {/* The link's accessible name is its visible text plus this, so it
+            matches what a voice-control user reads off the screen. */}
+        <span className="sr-only">, home</span>
       </span>
     </Link>
   );

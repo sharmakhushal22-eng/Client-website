@@ -36,7 +36,7 @@ export type FeaturePage = {
 }
 
 const ALL_RELATED = {
-  payroll: { slug: 'payroll', name: 'Payroll & compliance', blurb: 'EPF, ESIC, PT, LWF, TDS and Form 16 in the run.' },
+  payroll: { slug: 'payroll', name: 'Payroll & compliance', blurb: 'EPF, ESIC, PT, LWF, TDS and Form 130 in the run.' },
   attendance: { slug: 'attendance', name: 'Attendance & leave', blurb: 'Shifts, overtime and regularisation feeding payroll.' },
   recruitment: { slug: 'recruitment', name: 'Recruitment & onboarding', blurb: 'Requisition to signed offer to day one.' },
   ess: { slug: 'ess', name: 'Employee self-service', blurb: 'Payslips, leave and documents, self-served.' },
@@ -52,7 +52,7 @@ export const featurePages: FeaturePage[] = [
     slug: 'payroll',
     seoTitle: 'Payroll & Statutory Compliance Software',
     seoDescription:
-      'Run Indian payroll with EPF, ESIC, Professional Tax, LWF and TDS calculated in the same pass. Arrears, Form 16, payslips and full & final included.',
+      'Run Indian payroll with EPF, ESIC, Professional Tax, LWF and TDS calculated in the same pass. Arrears, Form 130, payslips and full & final included.',
     eyebrow: 'Pay',
     name: 'Payroll & statutory compliance',
     promise: 'One run. Every statutory number calculated, and every one traceable.',
@@ -68,7 +68,7 @@ export const featurePages: FeaturePage[] = [
       { title: 'ESIC with contribution-period rules', body: 'The wage ceiling, mid-period crossings and the rule that an employee who crosses mid-period stays covered to the end of it. All handled, rather than left to whoever remembers.' },
       { title: 'Professional Tax, state by state', body: 'PT slabs configured per state and applied by the employee’s work location, so a company operating in five states runs one payroll, not five.' },
       { title: 'LWF at the right frequency', body: 'Labour Welfare Fund varies by state in both rate and frequency: monthly, half-yearly or annual. Configured once per state registration.' },
-      { title: 'TDS across both regimes', body: 'Old and new regime, declarations, verified proofs, a month-on-month projection that updates as the year progresses, and Form 16 at the end of it.' },
+      { title: 'TDS across both regimes', body: 'The new regime by default and the old one where an employee opts out, under the Income-tax Act, 2025. Declarations, verified proofs, a month-on-month projection that updates as the tax year progresses, and Form 130 (formerly Form 16) at the end of it.' },
       { title: 'Arrears that reach backwards', body: 'A retrospective increment recalculates the affected months and carries its statutory effect with it, rather than being dropped in as a lump sum that breaks the PF reconciliation.' },
       { title: 'Full & final in one settlement', body: 'Notice period, leave encashment, gratuity, loan recovery and pending claims resolved together, with the statutory deductions applied to the settlement itself.' },
     ],
@@ -92,7 +92,7 @@ export const featurePages: FeaturePage[] = [
     related: [ALL_RELATED.attendance, ALL_RELATED.claims, ALL_RELATED.ess],
     faqs: [
       { q: 'Can you handle multiple states and multiple entities?', a: 'Yes. Professional Tax and LWF are configured per state registration and applied by the employee’s work location. Multiple legal entities each keep their own EPF, ESIC and PT registrations, their own letterhead and their own statutory calendar, while HR works in one system.' },
-      { q: 'What happens to year-to-date figures when we migrate mid-year?', a: 'They come across with the migration. This matters more than most other data: without accurate year-to-date earnings and tax deducted, the TDS projection for the remaining months is wrong, and every employee sees a mismatch in their Form 16.' },
+      { q: 'What happens to year-to-date figures when we migrate mid-year?', a: 'They come across with the migration. This matters more than most other data: without accurate year-to-date earnings and tax deducted, the TDS projection for the remaining months is wrong, and every employee sees a mismatch in their Form 130.' },
       { q: 'Is the calculation auditable?', a: 'Every component on a payslip can be opened to show the inputs it was derived from: the attendance days, the salary structure in force that month, the statutory rate applied and the ceiling logic used. That trail is what makes a payroll defensible in an audit rather than merely correct.' },
     ],
   },
@@ -158,7 +158,7 @@ export const featurePages: FeaturePage[] = [
       'Hiring usually ends where the HRMS begins, which is why the same details get typed twice. Here the candidate’s own submission becomes the employee record, so day one starts with the data already in place.',
     problem: [
       'A vacancy is approved over email, candidates are tracked in a spreadsheet, the offer is drafted in Word, and the joiner arrives with a folder of photocopies that somebody types into the payroll system.',
-      'Every step is a retype, and the PAN that was mistyped in week one surfaces eleven months later in a Form 16.',
+      'Every step is a retype, and the PAN that was mistyped in week one surfaces eleven months later in a Form 130.',
     ],
     capabilities: [
       { title: 'Manpower requisition workflow', body: 'A vacancy is raised, routed for approval and tracked, so the headcount being recruited for is the headcount that was actually sanctioned.' },
@@ -205,7 +205,7 @@ export const featurePages: FeaturePage[] = [
     intro:
       'Most of what lands in an HR inbox is a lookup, not a decision. The ESS portal hands those lookups to the person asking, which is both faster for them and the single biggest reduction in HR workload the system delivers.',
     problem: [
-      'A payslip request, a leave balance query, a salary certificate for a home loan, a request to re-send last year’s Form 16. Individually trivial; collectively, a part-time job.',
+      'A payslip request, a leave balance query, a salary certificate for a home loan, a request to re-send last year’s Form 16 or Form 130. Individually trivial; collectively, a part-time job.',
       'And because each one interrupts something else, the work that actually needed HR judgement is the work that gets delayed.',
     ],
     capabilities: [
@@ -237,7 +237,7 @@ export const featurePages: FeaturePage[] = [
     related: [ALL_RELATED.payroll, ALL_RELATED.claims, ALL_RELATED.attendance],
     faqs: [
       { q: 'How do employees get access?', a: 'ESS credentials are issued in bulk from the HR side, so an entire workforce can be onboarded to the portal at once rather than one account at a time.' },
-      { q: 'Can employees see previous years’ payslips and Form 16?', a: 'Yes. History stays available in the portal, which removes most of the re-send requests that come in during loan and visa applications.' },
+      { q: 'Can employees see previous years’ payslips and tax certificates?', a: 'Yes. History stays available in the portal, Form 16 for earlier years and Form 130 from tax year 2026-27 onwards, which removes most of the re-send requests that come in during loan and visa applications.' },
     ],
   },
 

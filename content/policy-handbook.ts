@@ -163,7 +163,7 @@ export const policyCategories: PolicyCategory[] = [
       { name: 'Employment & labour compliance', detail: 'Employment, wage, working-time, leave and establishment requirements.', ezer: 'Reports & compliance' },
       { name: 'Social security compliance', detail: 'PF, ESI, gratuity, professional tax and labour welfare fund obligations.', ezer: 'EPF · ESIC · PT · LWF' },
       { name: 'POSH compliance', detail: 'Internal Committee, policy, awareness and redressal framework where applicable.' },
-      { name: 'Tax & payroll compliance', detail: 'TDS and payroll deductions, deposits and employee tax documentation.', ezer: 'TDS & Form 16' },
+      { name: 'Tax & payroll compliance', detail: 'TDS and payroll deductions, deposits and employee tax documentation.', ezer: 'TDS & Form 130' },
       { name: 'Data protection compliance', detail: 'Privacy and data-security controls appropriate to the personal data held.', ezer: 'Roles & rights' },
     ],
   },

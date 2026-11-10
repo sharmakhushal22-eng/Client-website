@@ -134,7 +134,7 @@ export function softwareApplicationSchema() {
     featureList: [
       'Payroll processing',
       'EPF, ESIC, Professional Tax and LWF compliance',
-      'TDS and Form 16',
+      'TDS and Form 130',
       'Attendance and leave management',
       'Recruitment and onboarding',
       'Employee self-service portal',

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Brand } from "./Brand";
@@ -78,7 +79,7 @@ const productLinks: MenuLink[] = [
   {
     href: "/features/payroll",
     label: "Payroll & compliance",
-    desc: "EPF, ESIC, PT, LWF, TDS, Form 16",
+    desc: "EPF, ESIC, PT, LWF, TDS, Form 130",
     icon: "wallet",
   },
   {
@@ -197,6 +198,11 @@ export function Header({
   );
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  /* Where the sheet starts: the header's bottom edge at the moment it opens.
+   * A fixed top-16 slid the sheet over the header whenever the announcement
+   * bar sat above it (or the header was still at its taller, unscrolled
+   * height), hiding the close button. */
+  const [sheetTop, setSheetTop] = useState(64);
   /* One id rather than a boolean per menu — with two dropdowns, separate
    * flags let both be open at once, which looks broken. */
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -378,15 +384,19 @@ export function Header({
         /* relative so the progress bar can pin to this element's edge. */
         "relative",
         scrolled
-          ? "border-ink-200/70 bg-surface/80 shadow-[0_8px_28px_-16px_rgba(16,24,40,0.4)] backdrop-blur-xl backdrop-saturate-150"
-          : "border-transparent bg-surface",
+          ? "border-ink-900/[0.07] bg-paper/85 backdrop-blur-md"
+          : "border-transparent bg-paper",
       )}
+      /* Named for the route transition, which anchors the header while the
+         page beneath it changes — see ::view-transition-group(site-header)
+         in app/(site)/site.css. */
+      style={{ viewTransitionName: "site-header" }}
     >
       {/* Reading progress, pinned to the header's bottom edge. Decorative
           and duplicated by the scrollbar, so it is out of the a11y tree. */}
       <span
         aria-hidden="true"
-        className="ez-progress absolute inset-x-0 bottom-0 h-0.5 origin-left bg-brand-600"
+        className="ez-progress absolute inset-x-0 bottom-0 h-px origin-left bg-brand-600"
       />
       <Container>
         {/* Condenses on scroll — 4.5rem down to 3.75rem. Small enough that
@@ -416,7 +426,7 @@ export function Header({
                  family. It was a flat brand-50 tint with a hairline ring —
                  legible, but it read as a disabled chip rather than as the
                  thing tracking the cursor. */
-              className="ez-navpill pointer-events-none absolute inset-y-1 rounded-full bg-gradient-to-b from-brand-600 to-brand-700 shadow-[0_1px_2px_rgba(16,24,40,0.08),0_8px_18px_-8px_rgba(37,99,235,0.65)] ring-1 ring-brand-700/40"
+              className="ez-navpill pointer-events-none absolute inset-y-1 rounded-full bg-ink-900/[0.06]"
               style={{
                 transform: `translateX(${pill?.x ?? 0}px)`,
                 width: pill?.w ?? 0,
@@ -441,7 +451,7 @@ export function Header({
                   className={cn(
                     "ez-navlink relative rounded-full px-3.5 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
                     pillOn && pillKey === item.href
-                      ? "text-white"
+                      ? "text-ink-900"
                       : isActive(item.href)
                         ? "text-brand-700"
                         : "text-ink-700",
@@ -507,7 +517,7 @@ export function Header({
                          push the bar 100px wider. Both cost more than 8px. */
                       "ez-navlink relative flex items-center gap-1 rounded-full py-2.5 pl-3.5 pr-1 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
                       pillOn && pillKey === item.id
-                        ? "text-white"
+                        ? "text-ink-900"
                         : inMenu(item)
                           ? "text-brand-700"
                           : "text-ink-700",
@@ -1036,7 +1046,7 @@ export function Header({
               /* A resting ground, not just a hover one. This was transparent
                  until pointed at, which made the most direct route to a sale
                  look like plain text sitting next to the real button. */
-              className="group/tel ez-util flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full bg-brand-50/70 px-3.5 py-2.5 text-[0.95rem] font-bold tracking-[-0.005em] text-ink-900 ring-1 ring-brand-100 hover:bg-brand-50 hover:text-brand-700 hover:ring-brand-200"
+              className="group/tel ez-util flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full py-2 pl-2 pr-4 text-[0.93rem] font-semibold tracking-[-0.005em] text-ink-900 ring-1 ring-ink-900/10 transition-colors hover:bg-white hover:ring-ink-900/20"
             >
               <span className="relative grid h-8 w-8 shrink-0 place-items-center">
                 {/* The ring that expands and fades — what makes the handset
@@ -1046,7 +1056,7 @@ export function Header({
                   aria-hidden="true"
                   className="ez-tel-ring pointer-events-none absolute inset-0 rounded-full bg-brand-500/40"
                 />
-                <span className="ez-util relative grid h-8 w-8 place-items-center rounded-full bg-brand-600 text-white ring-1 ring-brand-700/30 group-hover/tel:bg-brand-700">
+                <span className="ez-util relative grid h-8 w-8 place-items-center rounded-full bg-ink-900 text-white transition-colors group-hover/tel:bg-brand-600">
                   <Icon name="phone" className="h-4 w-4" />
                 </span>
               </span>
@@ -1067,7 +1077,7 @@ export function Header({
               />
               <Link
                 href="/book-a-demo"
-                className="group/cta relative inline-flex shrink-0 items-center gap-2 overflow-hidden whitespace-nowrap rounded-full bg-gradient-to-b from-brand-600 to-brand-700 px-6 py-3 text-[0.95rem] font-bold tracking-[-0.005em] text-white shadow-[0_1px_2px_rgba(16,24,40,0.06),0_10px_22px_-8px_rgba(37,99,235,0.6)] ring-1 ring-brand-700/40 transition-all duration-300 hover:-translate-y-0.5 hover:from-brand-500 hover:to-brand-600 hover:shadow-[0_2px_4px_rgba(16,24,40,0.08),0_18px_34px_-10px_rgba(37,99,235,0.75)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
+                className="group/cta ez-press relative inline-flex h-11 shrink-0 items-center gap-2 overflow-hidden whitespace-nowrap rounded-full bg-brand-600 px-5 text-[0.93rem] font-semibold tracking-[-0.005em] text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_1px_2px_rgb(11_22_51/0.18)] hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-brand-600"
               >
                 {/* The shine. It now sweeps on its own as well as on hover —
                     a button nobody has pointed at yet still needs a reason to
@@ -1079,7 +1089,7 @@ export function Header({
                   className="ez-cta-shine pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-white/30"
                 />
                 <span className="relative">Book a Demo</span>
-                <Icon name="arrow-right" className="ez-bob relative h-4 w-4" />
+                <Icon name="arrow-right" className="ez-arrow relative h-4 w-4" />
               </Link>
             </span>
           </div>
@@ -1098,7 +1108,11 @@ export function Header({
             </a>
             <button
               type="button"
-              onClick={() => setMobileOpen((v) => !v)}
+              onClick={(e) => {
+                const bottom = e.currentTarget.closest("header")?.getBoundingClientRect().bottom;
+                if (bottom) setSheetTop(Math.max(0, Math.round(bottom)));
+                setMobileOpen((v) => !v);
+              }}
               className="grid h-10 w-10 place-items-center rounded-md text-ink-900 hover:bg-ink-100"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -1114,10 +1128,15 @@ export function Header({
       </Container>
 
       {/* ── Mobile sheet ──────────────────────────────────────────────── */}
-      {mobileOpen && (
+      {/* Portalled to <body>. Once the page scrolls, the header gains a
+          backdrop-filter, and a backdrop-filter makes the header the
+          containing block for its fixed children: the sheet was laid out
+          inside the 64px header, collapsed to 1px, and only the X showed. */}
+      {mobileOpen && createPortal(
         <div
           id="mobile-menu"
-          className="ez-drawer fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-ink-200 bg-surface lg:hidden"
+          className="ez-drawer fixed inset-x-0 bottom-0 z-[45] overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface lg:hidden"
+          style={{ top: sheetTop }}
         >
           <Container className="py-6">
             {/* The two qualifying questions come FIRST on mobile. On a phone
@@ -1186,11 +1205,7 @@ export function Header({
               );
             })}
 
-            <div className="mt-6 flex items-center justify-between border-t border-ink-200 pt-6">
-              <span className="text-sm font-semibold text-ink-900">Theme</span>
-            </div>
-
-            <div className="mt-6 space-y-3 pt-2">
+            <div className="mt-6 space-y-3 border-t border-ink-200 pt-6">
               <Button href="/book-a-demo" size="lg" className="w-full">
                 Book a Demo
               </Button>
@@ -1205,7 +1220,8 @@ export function Header({
               </Button>
             </div>
           </Container>
-        </div>
+        </div>,
+        document.body,
       )}
     </header>
   );

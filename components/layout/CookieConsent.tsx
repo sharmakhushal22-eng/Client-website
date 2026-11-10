@@ -92,9 +92,9 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie preferences"
-      className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-2xl rounded-2xl bg-surface p-5 shadow-2xl shadow-ink-900/20 ring-1 ring-ink-200 sm:inset-x-6 sm:bottom-6"
+      className="ez-toast fixed inset-x-3 bottom-3 z-[60] rounded-[20px] bg-white p-5 shadow-[0_1px_2px_rgb(11_22_51/0.06),0_30px_60px_-24px_rgb(11_22_51/0.35)] ring-1 ring-ink-900/[0.08] sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[23rem]"
     >
-      <p className="text-sm leading-relaxed text-ink-600">
+      <p className="text-[0.84rem] leading-relaxed text-ink-600">
         We use essential cookies to make this site work. With your permission we
         would also like to use analytics cookies to understand which pages are
         useful. Nothing non-essential loads until you choose.{' '}
@@ -102,18 +102,18 @@ export function CookieConsent() {
           Cookie policy
         </Link>
       </p>
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+      <div className="mt-4 flex gap-2">
         <button
           type="button"
           onClick={() => decide('accepted')}
-          className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-on-accent hover:bg-brand-700"
+          className="ez-press flex-1 rounded-full bg-ink-900 px-4 py-2.5 text-[0.84rem] font-semibold text-white hover:bg-brand-700"
         >
-          Accept analytics cookies
+          Allow analytics
         </button>
         <button
           type="button"
           onClick={() => decide('rejected')}
-          className="rounded-xl bg-surface px-5 py-2.5 text-sm font-semibold text-ink-900 ring-1 ring-inset ring-ink-200 hover:bg-ink-100"
+          className="ez-press flex-1 rounded-full px-4 py-2.5 text-[0.84rem] font-semibold text-ink-900 ring-1 ring-inset ring-ink-900/15 hover:bg-ink-50"
         >
           Essential only
         </button>

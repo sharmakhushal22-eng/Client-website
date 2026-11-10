@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
-import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
+import { PageHero } from '@/components/brand/PageHero'
+import { PageTransition } from '@/components/brand/PageTransition'
 import { Icon, type IconName } from '@/components/ui/Icon'
 import { FullEnquiryForm } from '@/components/forms/FullEnquiryForm'
 import { JsonLd, pageMetadata, breadcrumbSchema } from '@/lib/seo'
+import { DoodleCluster } from '@/components/graphics/Doodles'
 import { company, companyDetails, contact, displayLegalName } from '@/site.config'
 
 export const metadata: Metadata = pageMetadata({
@@ -57,7 +59,7 @@ export default function ContactPage() {
   )}`
 
   return (
-    <>
+    <PageTransition kind="direct">
       <JsonLd
         schemas={[
           breadcrumbSchema([
@@ -67,40 +69,35 @@ export default function ContactPage() {
         ]}
       />
 
-      <section className="bg-brand-50 py-10 sm:py-14">
-        <Container>
-          <div className="max-w-3xl">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">
-              Contact
+      <PageHero
+        kind="direct"
+        decor={<DoodleCluster set="contact" />}
+        crumbs={[{ name: 'Contact' }]}
+        eyebrow="Contact"
+        title={['Tell us what you are', <span key="b" className="text-ink-400">trying to fix.</span>]}
+        lede={
+          <>
+            <p>
+              The more you tell us up front about headcount, states and what you are running
+              today, the less of the first call is spent establishing it. We reply{' '}
+              {contact.responseSla} during business hours.
             </p>
-            <h1 className="mt-3 text-[2.1rem] font-bold leading-[1.12] sm:text-5xl">
-              Tell us what you are trying to fix
-            </h1>
-            <p className="mt-5 text-lg leading-relaxed text-ink-600">
-              The more you tell us up front about headcount, states and what you
-              are running today, the less of the first call is spent establishing
-              it. We reply {contact.responseSla} during business hours.
-            </p>
-            <p className="mt-4 text-[0.95rem] leading-relaxed text-ink-700">
-              Send the message and our team will get back within 1 business
-              day. You can also call{' '}
-              <a
-                href={`tel:${contact.phoneE164}`}
-                className="font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-800"
-              >
+            <p className="mt-3 text-[1rem]">
+              Or call{' '}
+              <a href={`tel:${contact.phoneE164}`} className="ez-link font-semibold text-brand-700">
                 {contact.phoneDisplay}
               </a>{' '}
               directly.
             </p>
-          </div>
-        </Container>
-      </section>
+          </>
+        }
+      />
 
-      <Section tone="white" ariaLabel="Contact form and details">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+      <Section tone="paper" ariaLabel="Contact form and details" className="ez-static !pt-2">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
           {/* ── Form ─────────────────────────────────────────────────────── */}
-          <div>
-            <h2 className="text-2xl font-bold">Send an enquiry</h2>
+          <div className="rounded-[28px] bg-white p-6 ring-1 ring-ink-900/[0.06] sm:p-10 lg:col-span-7">
+            <h2 className="text-[1.8rem] leading-tight">Send an enquiry</h2>
             <p className="mt-2 text-[0.95rem] text-ink-600">
               Fields marked <span className="text-brand-600">*</span> are required.
               The rest help us prepare, so skip them if you would rather just talk.
@@ -111,24 +108,24 @@ export default function ContactPage() {
           </div>
 
           {/* ── Direct channels ─────────────────────────────────────────── */}
-          <div className="space-y-6">
+          <div className="space-y-6 lg:col-span-5">
             {/* Immediate contact first — someone who wants to phone should not
                 have to scroll past a form to find the number. */}
-            <div className="rounded-2xl bg-brand-50 p-7 ring-1 ring-brand-100">
-              <h2 className="text-lg font-bold">Would rather just talk?</h2>
+            <div className="rounded-[28px] bg-navy p-7 text-white sm:p-8">
+              <h2 className="text-[1.5rem] !text-white">Would rather just talk?</h2>
               <div className="mt-5 space-y-3">
                 <a
                   href={`tel:${contact.phoneE164}`}
-                  className="flex items-center gap-3 rounded-xl bg-surface p-4 ring-1 ring-ink-200 transition-shadow hover:shadow-md"
+                  className="ez-press flex items-center gap-3 rounded-[16px] bg-white/[0.06] p-4 ring-1 ring-white/10 transition-colors hover:bg-white/[0.1]"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-100 text-brand-700">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-ink-900">
                     <Icon name="phone" className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block text-sm font-bold text-ink-900">
+                    <span className="block text-[1rem] font-semibold text-white">
                       {contact.phoneDisplay}
                     </span>
-                    <span className="block text-xs text-ink-500">
+                    <span className="block text-xs text-white/60">
                       {contact.businessHours}
                     </span>
                   </span>
@@ -138,35 +135,35 @@ export default function ContactPage() {
                   href={whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-xl bg-surface p-4 ring-1 ring-ink-200 transition-shadow hover:shadow-md"
+                  className="ez-press flex items-center gap-3 rounded-[16px] bg-white/[0.06] p-4 ring-1 ring-white/10 transition-colors hover:bg-white/[0.1]"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#25D366]/15 text-[#128C7E]">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#1fa855] text-white">
                     <Icon name="whatsapp" className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block text-sm font-bold text-ink-900">WhatsApp</span>
-                    <span className="block text-xs text-ink-500">
+                    <span className="block text-[1rem] font-semibold text-white">WhatsApp</span>
+                    <span className="block text-xs text-white/60">
                       Usually the fastest way to reach us
                     </span>
                   </span>
                 </a>
               </div>
 
-              <p className="mt-5 flex items-start gap-2 text-sm text-ink-600">
-                <Icon name="clock" className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+              <p className="mt-5 flex items-start gap-2 text-sm text-white/70">
+                <Icon name="clock" className="mt-0.5 h-4 w-4 shrink-0 text-marigold" />
                 We respond {contact.responseSla}. If it is outside business hours,
                 the next working morning.
               </p>
             </div>
 
             {/* ── Routes ────────────────────────────────────────────────── */}
-            <div className="space-y-3">
+            <div className="border-t border-ink-900/10">
               {routes.map((route) => (
                 <div
                   key={route.title}
-                  className="rounded-2xl bg-surface p-5 ring-1 ring-ink-200"
+                  className="border-b border-ink-900/10 py-5"
                 >
-                  <h3 className="flex items-center gap-2 text-base font-bold">
+                  <h3 className="flex items-center gap-2 text-[1.02rem] font-semibold text-ink-900">
                     <Icon name={route.icon} className="h-5 w-5 text-brand-600" />
                     {route.title}
                   </h3>
@@ -195,7 +192,7 @@ export default function ContactPage() {
                 Renders only once there is a real address. A map pointing at
                 "TODO address line 1" is a worse answer than no map. */}
             {companyDetails.hasAddress && (
-            <div className="overflow-hidden rounded-2xl ring-1 ring-ink-200">
+            <div className="overflow-hidden rounded-[24px] bg-white ring-1 ring-ink-900/[0.06]">
               <div className="p-6">
                 <h3 className="flex items-center gap-2 text-base font-bold">
                   <Icon name="map-pin" className="h-5 w-5 text-brand-600" />
@@ -245,6 +242,6 @@ export default function ContactPage() {
           </div>
         </div>
       </Section>
-    </>
+    </PageTransition>
   )
 }

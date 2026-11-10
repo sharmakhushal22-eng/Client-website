@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { captureAttribution } from '@/lib/utm'
 
@@ -105,6 +105,99 @@ export function SiteScripts() {
       io.disconnect()
       window.clearTimeout(failsafe)
     }
+  }, [pathname])
+
+  /* ── The motion primitives ([data-m]) ─────────────────────────────────
+   *
+   * Same contract as the reveal above, for the redesign's five primitives
+   * (rise, mask, wipe, settle, rule — styled in app/(site)/site.css):
+   * visible until this runs, anything already on screen is shown without
+   * animating, everything below the fold animates once as it arrives, and a
+   * failsafe shows whatever is still hidden.
+   *
+   * A LAYOUT effect, so the on-screen check and the opt-in happen before the
+   * browser paints. After a client navigation data-m-ready is already on
+   * <html>; as a passive effect, the new page's visible blocks would paint
+   * hidden for a frame and then pop in.
+   *
+   * One observer per page, unobserving as it goes, so the cost after the
+   * last reveal is zero. */
+  useLayoutEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const pending = () =>
+      document.querySelectorAll<HTMLElement>('[data-m]:not([data-in]):not([data-in-now])')
+
+    const els = pending()
+    if (els.length === 0) return
+
+    /* Decide what is on screen BEFORE opting the page into hidden start
+     * states, so nothing the reader can already see blinks out and back. */
+    const vh = window.innerHeight
+    const visibleNow: HTMLElement[] = []
+    const later: HTMLElement[] = []
+    els.forEach((el) => {
+      const r = el.getBoundingClientRect()
+      if (r.top < vh * 0.92 && r.bottom > 0) visibleNow.push(el)
+      else if (r.bottom <= 0) visibleNow.push(el)
+      else later.push(el)
+    })
+    visibleNow.forEach((el) => el.setAttribute('data-in-now', ''))
+    document.documentElement.setAttribute('data-m-ready', '')
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          entry.target.setAttribute('data-in', '')
+          io.unobserve(entry.target)
+        }
+      },
+      /* Fires a little before the element is fully in, so the motion is
+       * already under way when the reader's eye arrives. */
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+    )
+    later.forEach((el) => io.observe(el))
+
+    /* Longer than the reveal failsafe: these sit further down long pages,
+     * and only a reader who never scrolls is waiting on it. */
+    const failsafe = window.setTimeout(() => {
+      pending().forEach((el) => {
+        const r = el.getBoundingClientRect()
+        if (r.top > window.innerHeight * 1.5) return
+        el.setAttribute('data-in-now', '')
+      })
+    }, 4000)
+
+    return () => {
+      io.disconnect()
+      window.clearTimeout(failsafe)
+    }
+  }, [pathname])
+
+  /* ── Live graphics ([data-live]) ──────────────────────────────────────
+   *
+   * Orbits, pulses and live charts loop, so they must only run while they
+   * can be seen. One observer marks each [data-live] block data-playing
+   * while it is on screen (with a margin, so it is already moving when it
+   * arrives) and removes the mark when it leaves; the CSS pauses every
+   * animation inside a block without it. Reduced motion stops them in CSS,
+   * so nothing to do here for that case. */
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>('[data-live]')
+    if (els.length === 0) return
+    document.documentElement.setAttribute('data-live-ready', '')
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) e.target.setAttribute('data-playing', '')
+          else e.target.removeAttribute('data-playing')
+        }
+      },
+      { rootMargin: '15% 0px 15% 0px' },
+    )
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
   }, [pathname])
 
   return null

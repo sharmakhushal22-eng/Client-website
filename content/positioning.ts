@@ -196,11 +196,11 @@ export const complianceEngine = {
   eyebrow: 'The compliance engine',
   title: 'One run. Every location’s register comes out together.',
   lede:
-    'A company operating in four states does not have one statutory position. ' +
-    'It has four, and each one is a separate deadline in a separate format. ' +
-    'EZER holds every entity and every location in one operation, so the ' +
-    'registers come out together instead of being assembled one branch at a ' +
-    'time in the week before they are due.',
+    'A company working across India does not have one statutory position. It ' +
+    'has one for every state and union territory it operates in, each with its ' +
+    'own slabs, frequencies and deadlines. EZER holds every entity and every ' +
+    'location in one operation, so each is worked out in the same payroll run ' +
+    'instead of being assembled one branch at a time in the week before it is due.',
 
   /* What is generated. Keep this list honest — add rows as the module ships. */
   outputs: [
@@ -209,7 +209,7 @@ export const complianceEngine = {
     { label: 'ESIC returns', detail: 'Contribution-period aware' },
     { label: 'Professional Tax', detail: 'State-wise, by work location' },
     { label: 'LWF', detail: 'At each state’s rate and frequency' },
-    { label: 'TDS and Form 16', detail: 'Across both regimes' },
+    { label: 'TDS and Form 130', detail: 'New regime by default, old by opt-out' },
   ],
 
   points: [
@@ -285,7 +285,7 @@ export const labourCodes = {
     'Professional Tax',
     'LWF',
     'Gratuity',
-    'Bonus Act',
+    'Bonus',
     'TDS',
     'Minimum Wages',
     'DPDP Act, 2023',
@@ -303,6 +303,43 @@ export const labourCodes = {
  * "Multiple company in single operation" · "corporate office branches factory
  * warehouse". These location types are real — they exist in the product's
  * company-profile module today. */
+/* ── What changed, and when ───────────────────────────────────────────────
+ * The rule changes of 2025-26, dated. Shown on the home page's engine scene
+ * (first four) and as a timeline on /compliance. Checked against
+ * notifications on 20 October 2026; add to the TOP as new ones land.
+ * "applied" says what EZER does with each, stated as configuration rather
+ * than as a release, because that is how the product holds rules. */
+export const ruleChanges = [
+  {
+    date: '17 Sept 2026',
+    short: 'Sep 2026',
+    what: 'EPF wage ceiling ₹25,000',
+    detail: 'The mandatory EPF wage ceiling rose from ₹15,000 to ₹25,000 a month, its first revision since 2014. Employees earning ₹15,001 to ₹25,000 are now covered as of right.',
+    applied: 'Ceiling held per date, so August runs on ₹15,000 and later months on ₹25,000.',
+  },
+  {
+    date: '25 Aug 2026',
+    short: 'Aug 2026',
+    what: 'Bonus ceilings under the Code on Wages',
+    detail: 'Eligibility for statutory bonus is set at wages up to ₹21,000 a month, and the bonus is calculated on ₹7,000 or the minimum wage, whichever is higher.',
+    applied: 'Two ceilings, not one: eligibility and calculation are checked separately.',
+  },
+  {
+    date: '1 Apr 2026',
+    short: 'Apr 2026',
+    what: 'Income-tax Act, 2025 · Form 130',
+    detail: 'The Income-tax Act, 2025 replaced the 1961 Act. Salary TDS moved to section 392, the new regime became the default, “tax year” replaced FY and AY, and Form 130 replaced Form 16.',
+    applied: 'New regime by default with an old-regime opt-out, a tax-year projection, and Form 130 at year end.',
+  },
+  {
+    date: '21 Nov 2025',
+    short: 'Nov 2025',
+    what: 'Four Labour Codes in force',
+    detail: 'The Code on Wages, the Industrial Relations Code, the Code on Social Security and the OSH Code replaced 29 central labour laws, with one definition of wages and the 50% rule behind PF, ESIC and gratuity.',
+    applied: 'Code wages with the 50% add-back, applied to PF, ESIC and gratuity in every run.',
+  },
+] as const
+
 export const structure = {
   eyebrow: 'One operation, however many companies',
   title: 'Corporate office, branches, factory, warehouse, all centrally run',
@@ -411,7 +448,7 @@ export type IndustryCategory = {
 export const industryCategories: IndustryCategory[] = [
   {
     name: 'Manufacturing',
-    note: 'Factory Act registers, shift patterns, contract labour under CLRA, overtime at statutory rates',
+    note: 'OSH Code registers (formerly the Factories Act), shift patterns, contract labour (formerly CLRA), overtime at statutory rates',
     industries: [
       'Auto Components', 'Textile & Apparel', 'Chemical Manufacturing',
       'Pharma Manufacturing', 'FMCG Manufacturing', 'Electronics Assembly',
@@ -524,7 +561,7 @@ export const industryCategories: IndustryCategory[] = [
   },
   {
     name: 'Specialised Manufacturing',
-    note: 'Continuous-process shifts and hazardous-process rules under the Factories Act',
+    note: 'Continuous-process shifts and hazardous-process rules under the OSH Code',
     industries: [
       'Semiconductor Assembly', 'Renewable Components', 'Rubber Manufacturing',
       'Glass Manufacturing', 'Paper & Pulp', 'Cement & Building Materials',
@@ -542,7 +579,7 @@ export const industryCount = industryCategories.reduce(
 /* The condensed set used on the home page, where the full grid would be too
  * much. Kept as a flat list so the existing home-page section still works. */
 export const industries = [
-  { name: 'Manufacturing', note: 'Factory Act registers, shift patterns, contract labour' },
+  { name: 'Manufacturing', note: 'OSH Code registers, shift patterns, contract labour' },
   { name: 'IT / ITES & GCC', note: 'Multi-city, high attrition, variable pay' },
   { name: 'Retail & e-commerce', note: 'Store-wise rosters, seasonal headcount spikes' },
   { name: 'Logistics & warehousing', note: 'Depot and warehouse establishments' },
@@ -602,16 +639,16 @@ export const implementation = {
   promise:
     'Year-to-date figures come across with everything else. Without them the TDS ' +
     'projection for the rest of the year is wrong, and every employee sees it in ' +
-    'their Form 16. It is the migration mistake that is hardest to unwind.',
+    'their Form 130. It is the migration mistake that is hardest to unwind.',
 } as const
 
 export const taxCalculator = {
   /* Ported from Website changes.html (#tax). */
-  eyebrow: 'For your employees, not just your HR team',
+  eyebrow: 'TDS calculator · old vs new regime',
   title: 'Old regime or new? Let the numbers decide.',
   lede:
     'Every EZER employee gets this comparison before they declare, rather ' +
-    'than after Form 16 arrives and it is too late to change anything. Drag ' +
+    'than after Form 130 arrives and it is too late to change anything. Drag ' +
     'the slider to see how it works.',
 
   points: [
@@ -642,7 +679,7 @@ export const taxCalculator = {
      illustration rather than as a live control. */
   illustrativeNote:
     'Illustrative example. It assumes ₹2,00,000 in standard exemptions and ' +
-    'deductions under the old regime (HRA, 80C, etc). Your EZER dashboard ' +
+    'deductions under the old regime (HRA, 80C-style investments, etc). Your EZER dashboard ' +
     'calculates the exact number from each employee’s real declaration.',
 }
 
