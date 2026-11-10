@@ -173,12 +173,17 @@ export function DownloadPanel() {
 
       {/* The iPhone answer, in the two sizes it needs.
  
-          It is a PROMISE WITHOUT A DATE, and the wording is load-bearing.
-          "Coming soon" is a deadline whether or not it names one: read it in
-          March and missed by June, it stops being a plan and starts being a
-          broken promise, on the one page an employee was told to trust. The
-          app is being built and will go to the App Store; nothing here says
-          when, and nothing should until it is through review.
+          "SOON" IS DELIBERATE AND IT IS THE BUSINESS'S CALL, not a default
+          that drifted in. No date is named anywhere, which is the part that
+          matters: a named date that slips becomes a broken promise on the
+          one page an employee was told to trust. "Soon" keeps the promise
+          warm without putting a number on it.
+ 
+          It does carry an expiry of its own, though. A line that has said
+          "soon" for a year reads as neglect rather than as a plan, so if the
+          iOS build is still not out by the middle of 2027, change this
+          wording rather than leaving it to age. The day employeeApp.iosUrl
+          is filled in, all of this disappears by itself.
  
           Someone actually on an iPhone gets the full note, because for them
           it is the answer to the only question they came with. Everyone else
@@ -189,17 +194,17 @@ export function DownloadPanel() {
             <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
             <p className="text-[0.95rem] leading-relaxed text-ink-600">
               <strong className="font-semibold text-ink-900">You are on an iPhone.</strong>{' '}
-              The EZER iPhone app is being built and will land on the App Store. Until it does,
-              sign in to EZER in Safari: payslips, leave, attendance and approvals all work
-              there, and your login is the same one.
+              The EZER iOS app launches on the App Store soon. Until it does, sign in to EZER
+              in Safari: payslips, leave, attendance and approvals all work there, and your
+              login is the same one.
             </p>
           </div>
         ) : (
           <p className="mt-5 flex items-start gap-2.5 text-[0.9rem] leading-relaxed text-ink-500">
             <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-ink-400" />
             <span>
-              Using an iPhone? The EZER iPhone app is on its way to the App Store. Until then,
-              EZER runs in any mobile browser.
+              Using an iPhone? The EZER iOS app launches soon. Until then, EZER runs in any
+              mobile browser.
             </span>
           </p>
         ))}

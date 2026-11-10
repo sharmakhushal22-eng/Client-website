@@ -139,7 +139,7 @@ const faqs = [
   },
   {
     q: 'Is there an EZER app for iPhone?',
-    a: 'Yes, an iPhone version is being built and will be published on the App Store. We are not putting a date on it until it is through Apple’s review, because a date we cannot keep is worse than no date. Until then, iPhone users sign in to EZER in Safari and get the same payslips, leave, attendance and approvals.',
+    a: 'Yes. The EZER iOS app launches on the App Store soon. Until it does, iPhone users sign in to EZER in Safari and get the same payslips, leave, attendance and approvals, with the same login. Nothing is missing on the web.',
   },
   {
     q: 'How do I update to a new version?',
@@ -318,9 +318,9 @@ export default function DownloadPage() {
             </div>
             <div className="w-full shrink-0 sm:w-auto">
               <DownloadAgain />
-              {/* Promised, never dated. See the note in DownloadActions. */}
+              {/* "Soon", and no date. See the note in DownloadActions. */}
               <p className="mt-3 text-[0.85rem] text-white/70">
-                An iPhone version is on its way to the App Store.
+                The iOS app launches on the App Store soon.
               </p>
             </div>
           </div>
