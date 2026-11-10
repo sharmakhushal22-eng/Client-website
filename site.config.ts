@@ -139,6 +139,42 @@ export const contact = {
     "Hi, I'd like to see EZER HRMS for my company.",
 } as const
 
+/* ── The employee app ──────────────────────────────────────────────────────
+ * The Android build the /download page hands out.
+ *
+ * ONE LINE TO CHANGE PER RELEASE, and it lives here rather than in the page
+ * so nobody has to open a component to ship a build.
+ *
+ * ⚠ THIS URL EXPIRES. It points at an EAS build artifact, and Expo removes
+ * those after a retention window (30 days on the free plan). When it goes,
+ * the download button starts serving a 404 to every employee who taps it and
+ * nothing on this site will notice. Re-point it at the new build, or move the
+ * file to Supabase Storage for a URL that does not rot.
+ *
+ * The size is the real one, measured from the artifact's content-length:
+ * 118,180,178 bytes. The design file said 38 MB, which was three times under
+ * — and a number that wrong is the kind a person notices while waiting on
+ * mobile data.
+ *
+ * No minimum-Android line is published. The build's minSdkVersion has not
+ * been confirmed, and telling someone their phone is supported when it is not
+ * wastes a 113 MB download on a metered connection. */
+export const employeeApp = {
+  androidUrl:
+    'https://expo.dev/artifacts/eas/W2H4tymry6jWHtnDHM88nX9GX1BjRt6OJf3h-fuTzTY.apk',
+  version: '1.0.0',
+  sizeLabel: '113 MB',
+  updatedOn: '10 Nov 2026',
+  /* Empty until the iPhone build is on the App Store — the page shows
+     "coming soon" rather than a dead button while this is blank. */
+  iosUrl: '',
+  /* Who signs the APK. Deliberately NOT site.legal.legalName: the signing key
+     belongs to BESTHRMS PRIVATE LIMITED, while the website and the privacy
+     policy are published by ORGASOFT GLOBAL PRIVATE LIMITED. Android shows
+     the signer, so this line has to match the certificate, not the footer. */
+  publisher: 'BESTHRMS PRIVATE LIMITED',
+} as const
+
 /* ── Legal entity ──────────────────────────────────────────────────────────
  * Indian B2B buyers check for a registered address, CIN and GST before a
  * first call. An address-less footer reads as a shell company.

@@ -159,6 +159,11 @@ const NAV: NavItem[] = [
     alsoMatch: ["/contact", "/resources"],
     items: companyLinks,
   },
+  /* Last, after Company, because it is the only item that is an action rather
+     than a section of the site: it hands the visitor a file. Employees arrive
+     here from a WhatsApp message or a QR code far more often than they browse
+     to it, so its job in the bar is to be findable, not prominent. */
+  { kind: "link", href: "/download", label: "Download app" },
 ];
 
 export function Header({
