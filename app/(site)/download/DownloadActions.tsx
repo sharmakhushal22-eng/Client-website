@@ -102,29 +102,23 @@ export function DownloadPanel() {
 
   return (
     <div className="w-full">
+      {/* ONE action here, deliberately. This row used to carry the download
+          button and, beside it, the words "iPhone app coming soon" in grey:
+          a dead thing sitting in the one place on the page where the eye
+          goes to act, saying no. The iPhone note is still on the page, two
+          blocks down, where a note belongs. */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Button variant="primary" size="lg" onClick={start} className="w-full sm:w-auto">
           <Icon name={started ? 'check' : 'download'} className="h-[18px] w-[18px]" />
           {started ? 'Download started' : 'Download for Android'}
         </Button>
 
-        {APP.iosUrl ? (
-          <Button
-            variant="secondary"
-            size="lg"
-            href={APP.iosUrl}
-            className="w-full sm:w-auto"
-          >
+        {/* Appears by itself the day employeeApp.iosUrl is filled in. */}
+        {APP.iosUrl && (
+          <Button variant="secondary" size="lg" href={APP.iosUrl} className="w-full sm:w-auto">
             <Icon name="phone" className="h-[18px] w-[18px]" />
-            iPhone · App Store
+            Download on the App Store
           </Button>
-        ) : (
-          /* Not a Button: it does nothing, and a disabled pill that looks
-             like the real one invites the tap anyway. */
-          <p className="flex items-center gap-2 text-[0.92rem] text-ink-500 sm:px-2">
-            <Icon name="phone" className="h-[18px] w-[18px] text-ink-400" />
-            iPhone app coming soon
-          </p>
         )}
       </div>
 
@@ -177,15 +171,38 @@ export function DownloadPanel() {
         )}
       </div>
 
-      {isIOS && !APP.iosUrl && (
-        <p className="mt-6 flex items-start gap-3 rounded-[18px] bg-paper-2 p-4 text-[0.95rem] leading-relaxed text-ink-600 ring-1 ring-ink-900/[0.06]">
-          <Icon name="alert" className="mt-0.5 h-5 w-5 shrink-0 text-marigold" />
-          <span>
-            You are on an iPhone. The iOS app is coming soon. Until then, sign in to the EZER
-            employee portal in Safari. Everything below works there too.
-          </span>
-        </p>
-      )}
+      {/* The iPhone answer, in the two sizes it needs.
+ 
+          It is a PROMISE WITHOUT A DATE, and the wording is load-bearing.
+          "Coming soon" is a deadline whether or not it names one: read it in
+          March and missed by June, it stops being a plan and starts being a
+          broken promise, on the one page an employee was told to trust. The
+          app is being built and will go to the App Store; nothing here says
+          when, and nothing should until it is through review.
+ 
+          Someone actually on an iPhone gets the full note, because for them
+          it is the answer to the only question they came with. Everyone else
+          gets one quiet line, because for them it is a footnote. */}
+      {!APP.iosUrl &&
+        (isIOS ? (
+          <div className="mt-6 flex items-start gap-3 rounded-[18px] bg-paper-2 p-4 ring-1 ring-ink-900/[0.06]">
+            <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
+            <p className="text-[0.95rem] leading-relaxed text-ink-600">
+              <strong className="font-semibold text-ink-900">You are on an iPhone.</strong>{' '}
+              The EZER iPhone app is being built and will land on the App Store. Until it does,
+              sign in to EZER in Safari: payslips, leave, attendance and approvals all work
+              there, and your login is the same one.
+            </p>
+          </div>
+        ) : (
+          <p className="mt-5 flex items-start gap-2.5 text-[0.9rem] leading-relaxed text-ink-500">
+            <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-ink-400" />
+            <span>
+              Using an iPhone? The EZER iPhone app is on its way to the App Store. Until then,
+              EZER runs in any mobile browser.
+            </span>
+          </p>
+        ))}
     </div>
   )
 }
