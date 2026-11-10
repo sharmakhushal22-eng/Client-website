@@ -30,6 +30,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/pricing', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/book-a-demo', priority: 0.9, changeFrequency: 'monthly' },
     { path: '/contact', priority: 0.8, changeFrequency: 'monthly' },
+    /* The employee app. Lower priority than a sales page because the people
+       who want it are sent a link rather than searching for it, but it is a
+       real public page and belongs in the index. */
+    { path: '/download', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/about', priority: 0.7, changeFrequency: 'monthly' },
     /* The blog index changes whenever an article lands; the articles
        themselves are added below, from the same module the pages render
