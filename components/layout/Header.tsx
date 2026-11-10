@@ -404,7 +404,12 @@ export function Header({
             it gains room as you read. */}
         <div
           className={cn(
-            "ez-header-row flex items-center justify-between gap-6",
+            /* gap-4, not gap-6. With justify-between this gap is only a FLOOR:
+               while the bar has slack the clusters are pushed apart anyway and
+               the number is invisible, and the one time it is visible is the
+               squeeze, where 16px between clusters still reads as separate
+               groups. It buys 16px of the margin this bar no longer has. */
+            "ez-header-row flex items-center justify-between gap-4",
             scrolled ? "h-16 lg:h-[4.5rem]" : "h-[4.5rem] lg:h-[5.5rem]",
           )}
         >
@@ -413,7 +418,7 @@ export function Header({
           {/* ── Desktop nav ─────────────────────────────────────────────── */}
           <nav
             ref={navRef}
-            className="relative hidden shrink-0 items-center gap-0.5 lg:flex"
+            className="relative hidden shrink-0 items-center gap-0.5 xl:flex"
             aria-label="Main"
             onMouseLeave={() => moveTo(activeId)}
           >
@@ -449,7 +454,7 @@ export function Header({
                     pillOn && pillKey === item.href ? "" : undefined
                   }
                   className={cn(
-                    "ez-navlink relative rounded-full px-3.5 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
+                    "ez-navlink relative rounded-full px-3 py-2.5 text-[0.93rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
                     pillOn && pillKey === item.href
                       ? "text-ink-900"
                       : isActive(item.href)
@@ -515,7 +520,7 @@ export function Header({
                          erase it are to delete the affordance that says this
                          opens a menu, or to pad every plain link to match and
                          push the bar 100px wider. Both cost more than 8px. */
-                      "ez-navlink relative flex items-center gap-1 rounded-full py-2.5 pl-3.5 pr-1 text-[0.95rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
+                      "ez-navlink relative flex items-center gap-1 rounded-full py-2.5 pl-3 pr-1 text-[0.93rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
                       pillOn && pillKey === item.id
                         ? "text-ink-900"
                         : inMenu(item)
@@ -1037,16 +1042,34 @@ export function Header({
           </nav>
 
           {/* ── Desktop actions ─────────────────────────────────────────── */}
-          <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
-            {/* The phone number. The handset tile fills on hover, so the
-                whole thing reads as one control rather than an icon that
-                happens to sit next to some text. */}
+          <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
+            {/* Call us. The handset tile fills on hover, so the control reads
+                as one object rather than an icon beside some text.
+
+                THE DIGITS ARE NOT HERE ANY MORE, and that was forced rather
+                than chosen. Measured on this bar: the brand lockup, seven nav
+                items and these two controls need 1299px, and the header's
+                container gives 1136px at every viewport from 1264px up —
+                because Container caps at 75rem, a wider screen does not buy
+                another pixel. The number alone was 183px of the 163px
+                overflow. Keeping it meant dropping the nav item this control
+                sits next to, which is a worse trade: a visitor who wants to
+                phone has the number in the footer, in the mobile bar, in
+                every closing band and on /contact, and this tile still dials
+                it in one tap. A visitor who cannot find the app has nowhere
+                else to look.
+
+                So the number is the link's accessible name and its tooltip,
+                which is what a screen reader and a hover both read out.
+                RE-MEASURE BEFORE ADDING ANYTHING TO THIS BAR. */}
             <a
               href={`tel:${contact.phoneE164}`}
+              aria-label={`Call us on ${contact.phoneDisplay}`}
+              title={contact.phoneDisplay}
               /* A resting ground, not just a hover one. This was transparent
                  until pointed at, which made the most direct route to a sale
                  look like plain text sitting next to the real button. */
-              className="group/tel ez-util flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full py-2 pl-2 pr-4 text-[0.93rem] font-semibold tracking-[-0.005em] text-ink-900 ring-1 ring-ink-900/10 transition-colors hover:bg-white hover:ring-ink-900/20"
+              className="group/tel ez-util flex shrink-0 items-center rounded-full p-1.5 text-ink-900 ring-1 ring-ink-900/10 transition-colors hover:bg-white hover:ring-ink-900/20"
             >
               <span className="relative grid h-8 w-8 shrink-0 place-items-center">
                 {/* The ring that expands and fades — what makes the handset
@@ -1060,7 +1083,6 @@ export function Header({
                   <Icon name="phone" className="h-4 w-4" />
                 </span>
               </span>
-              {contact.phoneDisplay}
             </a>
 
             {/* The primary CTA — the single most important control in the
@@ -1095,7 +1117,7 @@ export function Header({
           </div>
 
           {/* ── Mobile actions ──────────────────────────────────────────── */}
-          <div className="flex items-center gap-1 lg:hidden">
+          <div className="flex items-center gap-1 xl:hidden">
             <a
               href={`tel:${contact.phoneE164}`}
               className="grid h-10 w-10 place-items-center rounded-md text-brand-700 hover:bg-brand-50"
@@ -1135,7 +1157,7 @@ export function Header({
       {mobileOpen && createPortal(
         <div
           id="mobile-menu"
-          className="ez-drawer fixed inset-x-0 bottom-0 z-[45] overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface lg:hidden"
+          className="ez-drawer fixed inset-x-0 bottom-0 z-[45] overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface xl:hidden"
           style={{ top: sheetTop }}
         >
           <Container className="py-6">

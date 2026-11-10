@@ -168,10 +168,12 @@ export const employeeApp = {
   /* Empty until the iPhone build is on the App Store — the page shows
      "coming soon" rather than a dead button while this is blank. */
   iosUrl: '',
-  /* Who signs the APK. Deliberately NOT site.legal.legalName: the signing key
-     belongs to BESTHRMS PRIVATE LIMITED, while the website and the privacy
-     policy are published by ORGASOFT GLOBAL PRIVATE LIMITED. Android shows
-     the signer, so this line has to match the certificate, not the footer. */
+  /* Who signs the APK. Kept as its own string rather than read from
+     company.legalName even though the two now say the same thing: this one
+     has to match the signing certificate Android shows the installer, and
+     the other is whoever operates the website. They were different entities
+     until October 2026, and a re-sign under a different key would separate
+     them again without the footer changing at all. */
   publisher: 'BESTHRMS PRIVATE LIMITED',
 } as const
 
