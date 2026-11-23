@@ -628,13 +628,13 @@ export const demoFlows: DemoFlow[] = [
     "name": "Hire & onboard",
     "persona": "HR team",
     "icon": "briefcase",
-    "blurb": "Run from the HR team’s own login: requisitions, the pipeline, joiners and e-signed letters.",
+    "blurb": "From the HR team’s own login: requisition, AI screening, pipeline, offer and joining.",
     "host": "app.ezerhrms.com",
     "steps": [
       {
         "src": "/tour/hire-0.webp",
         "srcSm": "/tour/hire-0-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABQBACdASogABQAPulgo02pJaMiMAwBIB0JZQC+wCP/lj+j5K/c/7yOuNegAP7T65Z3j2vAr3VePDkdckvqFiQKF09bCApqJCEmFLSH4avtX98eY0zz88rMDFVB1140VmJ/uPJquoKjvV4AAAA=",
+        "lqip": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAABQBACdASogABQAPu1kqE2ppaOiMAgBMB2JZQC7ACP+62RJoSoFWwy/wWAAAP7T65Z3Ojg7386U9wSrYko716cHU/4f8x4sjlPlCRNSE2XShnLIy4Gz9WjSS/3OrWj1d3PgD0xyGRr4AA==",
         "title": "HR works from its own login",
         "body": "The HR team uses the same self-service as everyone else, with a Manage bar on top for the work their role allows.",
         "act": "click",
@@ -648,7 +648,7 @@ export const demoFlows: DemoFlow[] = [
       {
         "src": "/tour/hire-1.webp",
         "srcSm": "/tour/hire-1-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABwBACdASogABQAPulgo02pJaMiMAwBIB0JZQC+wCPtsGYFF+ykThykonHNQAD+0+uWd49rwLDa3tOO1RRJCZiL3N+G6ppeKHmtmZKt6bCxKWLkowI6RwrsGzEknUMJ/uIWAXBTvpHagAAA",
+        "lqip": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADwAwCdASogABQAPu1iqE2ppaOiMAgBMB2JZQC7ACP/UF4EYqKUHPcgAP7T65Z3Ojg73y4rwCs4pdFe8n6GNfq4/xKiOXTDKNMsT1LyTndj3ZrCNfoedHN2egTdsxzK6wV2mAAA",
         "title": "People work, one menu away",
         "body": "Recruitment, onboarding, letters, transfers and performance, shown only to the roles that hold them.",
         "act": "click",
@@ -662,12 +662,12 @@ export const demoFlows: DemoFlow[] = [
       {
         "src": "/tour/hire-2.webp",
         "srcSm": "/tour/hire-2-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAADQBACdASogABQAPu1sq06ppqOiMBgIATAdiWcAuDAQ7+AIOJWx/ROz1PZlve06QAD+7ZeXea7OlSme8b9XBPmNpN3UWzSu6RbwU24omZdoF4H+jRzd+5ISzT3CPrfFC1XplBmzRBxlJY9abg7Qlgweq0Xxlu3TyD1hxNEoOhBPJk6BPWDKcRDQAAA=",
+        "lqip": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAADwBACdASogABQAPu1kqE2ppaOiMAgBMB2JZwDGfCFr81d7PXrUQBTznrNdS1CTngAA/u2Xl3mbZUEMsRl5ix+SOagWijkQ3aL/kmkIXL3FpexMXPvd+Rbtmqbf3zBzPs0Ng7pnCKZkf2HNgAw4ozfKRQYh3vd93v+ELz7V8A5mhlFvAAQT3AjQAAA=",
         "title": "Hiring at a glance",
-        "body": "Requisitions, open roles, the pipeline by stage and the most overdue item first, for the companies this person can see.",
+        "body": "Plan, source, offer, join and track. Open roles, the pipeline by stage and what is overdue, first thing.",
         "act": "click",
         "target": {
-          "x": 39.2,
+          "x": 29.15,
           "y": 22.67,
           "w": 1.76,
           "h": 1.53
@@ -676,74 +676,102 @@ export const demoFlows: DemoFlow[] = [
       {
         "src": "/tour/hire-3.webp",
         "srcSm": "/tour/hire-3-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAABwBQCdASogABQAPu1qrVCppaQiqAqpMB2JZwC7ABEh+QX655FN56+9FiShrMnselIgWYoAAP7tmbFJTKJhDnz6QLf4ZTcZgIVG4/ujNj7BvSLjNf81N+x0OlRmSoPDvHnk+dslSBDvFgC5ZJFVtCNaAjqjuThipmPFBR6Wmq/dIyMEyPfIq4AA",
-        "title": "Requisitions with sign-off",
-        "body": "Quick hire or a full MRF with budget and approvers, flagged the day its target date passes.",
+        "lqip": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAABQBQCdASogABQAPu1qrVCppaQiqAqpMB2JZwDA3BEl+vp+zsv302aKr6HZwQEcEkfFbAAA/u2ZsLZjZhO5amGuBZCX9c+69mtxC4PrqmtyTebwD+/jlX3DB8VB/zwoFnT9LxKmyRQGRX4/M7hhA5mcqjEXFiIQKHRsnxiBoI6V0GCoAAA=",
+        "title": "Every requisition, accounted for",
+        "body": "Draft, approved, on hold or closed, with openings, filled roles and candidates on each.",
         "act": "click",
         "target": {
-          "x": 91.39,
-          "y": 22.67,
-          "w": 4.45,
-          "h": 1.53
+          "x": 93.35,
+          "y": 38.82,
+          "w": 8.57,
+          "h": 4.44
         }
       },
       {
         "src": "/tour/hire-4.webp",
         "srcSm": "/tour/hire-4-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAACwBACdASogABQAPu1kqk+ppSOiMBgIATAdiWcAxgQ0b/07yIi7nDv5h1r94mPMAP7yB+Y4fWh04s56hwXZDJ9ysOkJ71v/c/ML5hhwmLcQYYcVoHRmZQFyWUohWFVOhBVDgAAA",
-        "title": "Is hiring keeping up?",
-        "body": "Fill rate, breached and at-risk requisitions and days to fill, exportable for the Monday review.",
+        "lqip": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADQBACdASogABQAPtVUoU2oJKMiN+gBABqJYwC90C23dGpWCCNrOdEB38k6+7l5gAD+8AqXKa7g7EmF6+fIXOxUw7xbO9pDcu1NZCE6xHP9ELbgZh+6+d28OPCs3E7OPrpHEPCg4hhtS4uuOxT3s1z3BGoLKEqHZP2s4UnLqug0W+sn6y6AAA==",
+        "title": "Quick hire or a full MRF",
+        "body": "Up to ₹6 lakh, a quick hire. Above it, a guided MRF: position, budget, justification, approvers and sourcing.",
         "act": "click",
         "target": {
-          "x": 26.8,
-          "y": 9.67,
-          "w": 5.74,
-          "h": 3.56
+          "x": 35.8,
+          "y": 22.67,
+          "w": 5.18,
+          "h": 1.53
         }
       },
       {
         "src": "/tour/hire-5.webp",
         "srcSm": "/tour/hire-5-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAACQBACdASogABQAPu1kqk+ppSOiMBgIATAdiWdf9leZG3/+CYE3iGMcpF3ZCgAA/vFDhQNThHnQ7u9ljFzw8D3CGl54IoMSYob62xKDZStrM2cRXxFvsL2CFFxCnAHftgAAAA==",
-        "title": "From offer to joiner",
-        "body": "Once the offer is accepted, the candidate moves into onboarding from the same menu.",
+        "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABwBACdASogABQAPu1ur1KppiQiqAgBMB2JZwDOdA+z+8xysnA8L9Wh/1fWAAD+7Z7SKV4PT6j6SHVPHSmdueIVmM3O2l//TXZ1vmyOXmMzEXNoAAA=",
+        "title": "AI reads the resumes",
+        "body": "Upload a batch against an approved opening. Each resume is scored, and the strong ones go straight into the pipeline.",
         "act": "click",
         "target": {
-          "x": 28.43,
-          "y": 18.46,
-          "w": 4.84,
-          "h": 2.08
+          "x": 42.02,
+          "y": 22.67,
+          "w": 3.27,
+          "h": 1.53
         }
       },
       {
         "src": "/tour/hire-6.webp",
         "srcSm": "/tour/hire-6-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACQBACdASogABQAPu1kqk2ppaQiMAgBMB2JQBjoP/wIC9sq3zbh/1mDOFS3LwAA/u2W59bXnIwtl8IwAI0fTiLnP+ws0v29HjGluAvotzgpD3hmtsTyMraQPAKTBTY9lYGq2EHDAgd93t8S04AAAA==",
+        "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwAwCdASogABQAPu1mq02ppaQiMAgBMB2JZwDH5B6VrRAyrrZZkAD+7Z7SHaw06eSug5WUavRdwM/Ec7QoTcoVRMgf35M4ey18wArdOdUDSrevX4WgmWsV3FtIyBxAAAA=",
+        "title": "The pipeline, as a board",
+        "body": "Applied, AI screened, telephonic, L1, L2 and shortlisted, each card with experience, expected CTC and notice.",
+        "act": "click",
+        "target": {
+          "x": 74.37,
+          "y": 22.67,
+          "w": 2.58,
+          "h": 1.53
+        }
+      },
+      {
+        "src": "/tour/hire-7.webp",
+        "srcSm": "/tour/hire-7-sm.webp",
+        "lqip": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACQAwCdASogABQAPu1srFEppiQiqAqpMB2JaWgqWi+KcKAEvUTgAP7wMuk4jbCXTIxPaP4o+m0WvUwjMJpET65Ge8FieT5Xu9OvQf3iTPGo3wr+aXwUAAAA",
+        "title": "Offers, and the replies",
+        "body": "Accepted, revision asked or backed out, with the signed letter and the mail proof kept on every offer.",
+        "act": "click",
+        "target": {
+          "x": 81.3,
+          "y": 22.67,
+          "w": 6.59,
+          "h": 1.53
+        }
+      },
+      {
+        "src": "/tour/hire-8.webp",
+        "srcSm": "/tour/hire-8-sm.webp",
+        "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAwCdASogABQAPu1mqE2ppaOiMBgMATAdiWdpHwAdJ716DZUZNBqwAP7wNAbCVWMCpFUuvC512J2TDI934wrqEeXl5BkpfCrjCGQzu/+Z76jYR9Leb0K6xWlt76FAAAA=",
+        "title": "From offer to joining date",
+        "body": "Confirm the joining date and the HR contact, and the joining reminders go out on their own.",
+        "act": "none",
+        "target": null
+      },
+      {
+        "src": "/tour/hire-9.webp",
+        "srcSm": "/tour/hire-9-sm.webp",
+        "lqip": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAACQBACdASogABQAPu1kqU2ppaOiMAgBMB2JQBkcv/wIC9sq3zbh/1mDOEeA8gAA/u2W59bXnIwtl8IwAI0fTiMIrAxpU21D33bmriGqPS9KhbevM/bOwtXYv6BIeBRmuiSD9j3sODYfKoZjRAA=",
         "title": "Every joiner, tracked",
         "body": "Onboarding links in one click, and joinings that are drifting are flagged by AI with the reason.",
         "act": "click",
         "target": {
-          "x": 67.33,
+          "x": 67.38,
           "y": 25.81,
           "w": 8.91,
           "h": 4
         }
       },
       {
-        "src": "/tour/hire-7.webp",
-        "srcSm": "/tour/hire-7-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABwBACdASogABQAPu1sq08ppqOiMBgIATAdiWcAyrQVRJdXOFdoQqzpHsxbgAD+8E8I8x0VUn+2phwo8VYNG5GRRsVSjU3PBSE/ymiKyVNhOhifAAA=",
+        "src": "/tour/hire-10.webp",
+        "srcSm": "/tour/hire-10-sm.webp",
+        "lqip": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAwBACdASogABQAPu1mqk2ppaQiMAgBMB2JZwDL4Cm7/uzJBgx/Jb+GboAA/vBPCPMdFVKAUeQtYYhRZMmQcxhE8QWYpN6A2vKfa3iyHU9ngAAA",
         "title": "PF forms and paperwork",
         "body": "Form 11, Form 2, bank, policy, laptop, ID card and background check, per joiner.",
-        "act": "none",
-        "target": null
-      },
-      {
-        "src": "/tour/hire-8.webp",
-        "srcSm": "/tour/hire-8-sm.webp",
-        "lqip": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAABQAwCdASogABQAPu1kqU2ppaOiMAgBMB2JZwDM0C8vrkIxOAD+8E8GBJeYqy/+fvDLegbmDniwq2gKutLCQpPq0yAAAA==",
-        "title": "Letters, signed online",
-        "body": "Offer letters, joining forms and policies signed with an e-mail OTP, sealed with an audit certificate.",
         "act": "none",
         "target": null
       }
