@@ -27,6 +27,9 @@ export function PlatformScene({ index }: { index: number }) {
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const g = moduleGroups[active]
   const n = moduleGroups.length
+  /* Counted, not typed. This read "Thirty-two modules" and "8 areas" as
+     literals, which went stale the day Grow and Engage were added. */
+  const total = moduleGroups.reduce((sum, x) => sum + x.modules.length, 0)
 
   const onKey = (e: React.KeyboardEvent, i: number) => {
     let next = -1
@@ -47,16 +50,16 @@ export function PlatformScene({ index }: { index: number }) {
           <div className="lg:col-span-4">
             <Eyebrow>The platform</Eyebrow>
             <h2 id="platform-title" className="mt-5 text-[2.3rem] leading-[1.04] sm:text-[3rem] lg:text-[min(3.4vw,6vh)]">
-              Thirty-two modules.
+              {numberWord(total)} capabilities.
               <br />
               <span className="text-ink-400">One core.</span>
             </h2>
             <p className="mt-5 max-w-sm text-[1.02rem] leading-relaxed text-ink-600">
-              Eight areas on one employee record. Pick one on the ring to see what it does.
+              {numberWord(n)} areas on one employee record. Pick one on the ring to see what it does.
             </p>
             <dl className="mt-8 hidden max-w-sm grid-cols-2 gap-x-6 gap-y-5 border-t border-ink-900/10 pt-6 lg:grid">
               {[
-                ['32', 'modules across 8 areas'],
+                [String(total), `capabilities across ${n} areas`],
                 [String(solutions.length), `solutions, ${solutions.filter((x) => !x.coming).length} live today`],
                 ['16', 'reports with column-level access'],
                 ['1', 'login for every company'],
@@ -70,6 +73,15 @@ export function PlatformScene({ index }: { index: number }) {
                 </div>
               ))}
             </dl>
+            <Link
+              href="/product-tour"
+              className="ez-press mt-8 inline-flex items-center gap-2.5 rounded-full bg-ink-900 py-2.5 pl-3 pr-5 text-[0.92rem] font-semibold text-white hover:bg-brand-700"
+            >
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-white/15">
+                <Icon name="play" className="h-3.5 w-3.5" />
+              </span>
+              Take the product tour
+            </Link>
           </div>
 
           {/* ── The orbit (desktop) ─────────────────────────────────────── */}
@@ -164,4 +176,14 @@ export function PlatformScene({ index }: { index: number }) {
       </Container>
     </Scene>
   )
+}
+
+/* Spelled out for the headline, where a numeral would read as a stat card. */
+function numberWord(n: number) {
+  const ones = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']
+  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty']
+  if (n < ones.length) return ones[n]
+  const t = tens[Math.floor(n / 10)]
+  if (!t) return String(n)
+  return n % 10 ? `${t}-${ones[n % 10].toLowerCase()}` : t
 }

@@ -41,6 +41,9 @@ const ALL_RELATED = {
   recruitment: { slug: 'recruitment', name: 'Recruitment & onboarding', blurb: 'Requisition to signed offer to day one.' },
   ess: { slug: 'ess', name: 'Employee self-service', blurb: 'Payslips, leave and documents, self-served.' },
   claims: { slug: 'claims', name: 'Claims & travel', blurb: 'Flexi benefits, proofs and GPS-measured trips.' },
+  performance: { slug: 'performance', name: 'Performance & learning', blurb: 'KRA cycles, ratings, PIPs and a learning studio.' },
+  analytics: { slug: 'analytics', name: 'People analytics', blurb: 'An AI briefing, manager notes and live reports.' },
+  engagement: { slug: 'engagement', name: 'Engagement', blurb: 'Wall of Fame, Fun Zone, inbox and insights.' },
 }
 
 export const featurePages: FeaturePage[] = [
@@ -79,9 +82,14 @@ export const featurePages: FeaturePage[] = [
         'A payslip showing earnings, deductions and the statutory basis for each: EPF, ESIC and Professional Tax.',
     },
     screenshots: [
-      { alt: 'Payroll run screen showing the month-on-month variance review before release', title: 'Review the variance, not the register', caption: 'The run shows what changed since last month and why: joiners, exits, arrears, attendance impact. You approve the differences.' },
-      { alt: 'Payslip showing earnings, deductions, EPF, ESIC and Professional Tax with the statutory basis for each', title: 'A payslip that explains itself', caption: 'Each deduction carries its basis. When an employee asks why PF changed, the payslip answers before HR has to.' },
-      { alt: 'Statutory compliance dashboard listing EPF, ESIC, PT and TDS due dates and filing status', title: 'What is due, and what is filed', caption: 'Every registration you hold, with due dates and filing status. Nothing is due only in someone’s head.' },
+      /* Real captures from the live product's demo company (fictional
+         names and figures). The third entry used to promise a statutory
+         filing dashboard with due dates and filing status; that screen is
+         the Compliance Engine, which the product still marks "not built
+         yet", so it was replaced with screens that exist today. */
+      { src: '/product/analytics-pay-light.webp', alt: 'Payroll cost for the month: cost to company, gross, net, employer statutory contributions and every deduction head', title: 'The payroll, split the way Finance asks', caption: 'Cost to company, gross and net, employer PF, ESIC and gratuity, and every deduction from TDS to LWF and loan EMIs.' },
+      { src: '/product/ess-flexi-light.webp', alt: 'An employee’s salary structure in self-service, with Basic, HRA, bonus, PF, professional tax and LWF, monthly and annual', title: 'A salary structure the employee can read', caption: 'Each component and each statutory deduction, monthly and annual, on the employee’s own screen. The PF question is answered before it reaches HR.' },
+      { src: '/product/ctc-calculator-light.webp', alt: 'CTC calculator applying the state minimum wage, EPF ceiling, gratuity and statutory bonus to a ₹12 lakh CTC', title: 'Offers that respect the law before they go out', caption: 'State minimum wage, the EPF ceiling, metro HRA, gratuity and statutory bonus applied to the breakup as it is built.' },
     ],
     personas: [
       { role: 'HR', benefit: 'Month-end closes in hours. Statutory heads are calculated, not assembled.', icon: 'users' },
@@ -129,8 +137,9 @@ export const featurePages: FeaturePage[] = [
         'An employee punching in from the portal against their shift.',
     },
     screenshots: [
-      { alt: 'Monthly attendance grid showing shifts, leave and regularisation status per employee', title: 'The month at a glance', caption: 'Every employee, every day, colour-coded by status, with the exceptions surfaced rather than buried.' },
-      { alt: 'Leave application and approval screen with the running balance shown', title: 'One balance, seen by everyone', caption: 'The employee, the approving manager and payroll all read the same number.' },
+      { src: '/product/ess-home-light.webp', alt: 'Employee home with a punch-in clock, leave balance, monthly attendance and this week’s attendance', title: 'Punch in from the first screen', caption: 'Shift, punch, the week’s attendance and who on the team is in, before the employee has clicked anything.' },
+      { src: '/product/ess-attendance-light.webp', alt: 'Monthly attendance calendar with present, absent, half-day, overtime and loss-of-pay counts', title: 'The month at a glance', caption: 'Every day colour-coded by status, with overtime and loss of pay counted as the month goes.' },
+      { src: '/product/leave-config-light.webp', alt: 'Leave configuration listing each leave type with its rules: paid, half-day, encashable, lapsing and approver', title: 'Leave policy as configuration', caption: 'Add a leave type, set who approves it and whether it lapses or encashes. No release, no ticket.' },
     ],
     personas: [
       { role: 'HR', benefit: 'Attendance closes without a reconciliation spreadsheet.', icon: 'users' },
@@ -177,8 +186,9 @@ export const featurePages: FeaturePage[] = [
         'A candidate reviewing an offer, with the old-versus-new regime comparison shown before they accept.',
     },
     screenshots: [
-      { alt: 'Candidate pipeline board showing applicants by recruitment stage', title: 'Where every candidate actually is', caption: 'Stages, owners and outcomes in one place, including the ones that have gone quiet.' },
-      { alt: 'Candidate onboarding portal where the joiner enters personal, bank and PF details', title: 'The joiner does the typing', caption: 'And they get it right, because it is their own bank account and their own PAN.' },
+      { src: '/product/recruitment-light.webp', alt: 'Recruitment dashboard showing the five hiring stages, next steps, requisitions and candidates by stage', title: 'Where every candidate actually is', caption: 'Applied, AI screened, interviews, shortlisted, offer sent. Rejections are kept apart, and the next steps are listed most urgent first.' },
+      { src: '/product/onboarding-light.webp', alt: 'Onboarding overview with joiners in progress, pending actions and AI-flagged high-risk joinings', title: 'Every joiner, and what is still pending', caption: 'Onboarding links go out in one click, and the joinings that are drifting are flagged with the reason.' },
+      { src: '/product/onboarding-compliance-light.webp', alt: 'Onboarding compliance tracker with EPF Form 11, Form 2, bank, policy, laptop, ID card and background-check status', title: 'PF forms and paperwork, tracked', caption: 'Form 11, Form 2, bank, policy acknowledgement, assets and BGV, per joiner, plus an immigration tracker for overseas staff.' },
     ],
     personas: [
       { role: 'HR', benefit: 'Day one starts with a complete, verified record already in the system.', icon: 'users' },
@@ -216,7 +226,10 @@ export const featurePages: FeaturePage[] = [
       { title: 'Documents in one place', body: 'Personal documents, policies and issued letters, available without a request.' },
       { title: 'Loans and advances', body: 'Request, track approval, and see the recovery schedule running through payroll.' },
       { title: 'Letters on request', body: 'Offer, confirmation, experience and relieving letters generated from your templates rather than drafted individually.' },
-      { title: 'Support desk', body: 'When the answer genuinely needs a person, the question arrives as a ticket rather than as the fourth message in a thread.' },
+      /* Was "Support desk ... arrives as a ticket". The product's Support
+         module is marked "not built yet"; what ships is the inbox with
+         department desks, so that is what this describes. */
+      { title: 'HR desks in the inbox', body: 'When the answer needs a person, the employee writes to the HR, Payroll, Finance or IT desk, and it reaches the team that owns it rather than one person’s email.' },
     ],
     illustration: {
       src: '/kit/specialized/mockup-ess-portal.svg',
@@ -225,8 +238,9 @@ export const featurePages: FeaturePage[] = [
         'The employee self-service portal: payslips, leave balance, attendance and documents.',
     },
     screenshots: [
-      { alt: 'Employee self-service portal home showing payslips, leave balance and pending actions', title: 'Everything an employee asks for', caption: 'Payslips, balances, declarations and documents, all on the first screen.' },
-      { alt: 'Tax declaration screen showing investment declarations and projected tax for the year', title: 'Declarations, with the consequence shown', caption: 'The employee sees what a declaration does to their monthly deduction, which is when they get it right.' },
+      { src: '/product/ess-home-light.webp', alt: 'Employee self-service home with punch-in, leave balance, attendance, team status and pending actions', title: 'Everything an employee asks for', caption: 'Punch in, leave balance, attendance and anything waiting on them, all on the first screen.' },
+      { src: '/product/ess-flexi-light.webp', alt: 'Employee flexi and TDS calculator showing the salary structure and four guided steps to a TDS report', title: 'Declarations, with the consequence shown', caption: 'Salary, flexi, investments, then the tax under both regimes. The employee sees what a declaration does before committing to it.' },
+      { src: '/product/ess-insights-light.webp', alt: 'Employee insights with an AI-written summary of the month, punctuality and leave charts', title: 'Their own month, in three lines', caption: 'Each employee gets a private summary of their attendance, leave, pay and growth, written from their own figures.' },
     ],
     personas: [
       { role: 'HR', benefit: 'The routine inbox drops away. What is left needs a person.', icon: 'users' },
@@ -272,8 +286,8 @@ export const featurePages: FeaturePage[] = [
         'A travel claim being re-measured server-side against the submitted GPS trail and priced from the policy rate card.',
     },
     screenshots: [
-      { alt: 'Finance approval queue showing pending flexi and travel claims with attached proofs', title: 'One queue for Finance', caption: 'Pending claims, the supporting document and the year-to-date position, in the place the decision is made.' },
-      { alt: 'Travel claim showing a GPS-measured trip route and calculated distance', title: 'The distance is measured', caption: 'Which is a shorter conversation than the one about whether it was really 140 kilometres.' },
+      { src: '/product/ess-travel-light.webp', alt: 'Travel and expenses home with local, domestic and international trips and other expenses', title: 'Four ways to claim', caption: 'Local trip, domestic, international, or a bill with no trip. Each one routes to the manager, then to Finance.' },
+      { src: '/product/flexi-claims-light.webp', alt: 'Flexi claims review with approval, submission window and limits tabs, component filters and an AI flag on each bill', title: 'An AI check on every bill', caption: 'Bills that do not match their claim are flagged before anyone approves them, and approvals flow on to payroll.' },
     ],
     personas: [
       { role: 'Employees', benefit: 'Claim in the portal and see the remaining limit before claiming.', icon: 'user-plus' },
@@ -285,6 +299,146 @@ export const featurePages: FeaturePage[] = [
     faqs: [
       { q: 'How is travel distance measured?', a: 'Trips are measured by GPS rather than entered by the claimant, so the distance on the claim is the distance travelled. In practice this removes the most common source of dispute in reimbursement.' },
       { q: 'Do approved claims need re-entering into payroll?', a: 'No. An approved claim becomes a component in the next payroll run directly, which is the point at which most reimbursement processes otherwise break.' },
+    ],
+  },
+  /* ── Performance & learning ─────────────────────────────────────────────
+   * Added 22 Nov 2026. Both modules are live in the admin app (Performance,
+   * Learning) and in ESS (Performance, Learning). Every capability below was
+   * seen on a running screen. */
+  {
+    slug: 'performance',
+    seoTitle: 'Performance Management & LMS Software',
+    seoDescription:
+      'KRA-based review cycles, self and manager ratings, HOD finalisation, PIPs and a learning studio with courses, paths, quizzes and mandatory training.',
+    eyebrow: 'Grow',
+    name: 'Performance & learning',
+    promise: 'Reviews and learning that run on a calendar, not on reminders.',
+    intro:
+      'A review cycle fails in the same place every time: half the company never writes its goals, and the ratings are rushed in the last week. EZER runs the cycle as seven visible stages, tells HR exactly who is stuck where, and keeps learning, including the training you are obliged to run, on the same employee record.',
+    problem: [
+      'The appraisal starts as an email with a spreadsheet attached. Goals come back in five formats, some managers rate and some do not, and by the time HR chases the last department the next quarter has already begun.',
+      'Training sits somewhere else again: a shared drive of slides and an attendance sheet. When an auditor asks who completed the safety or data-privacy course, the honest answer is that nobody knows.',
+    ],
+    capabilities: [
+      { title: 'Seven stages, one cycle', body: 'KRA setting, one-to-one, weightage lock, self rating, manager review, HOD finalisation and result. Each stage has its dates and its owner, and the employee always sees what is owed next.' },
+      { title: 'Your cycle, your rules', body: 'Monthly, quarterly, half-yearly or annual. The policy builder sets the rating scale, the number of KRAs, the weightage rules and the approval chain, per company.' },
+      { title: 'A tracker that tells you who to chase', body: 'Everyone in the cycle by stage: not started, draft, submitted, in review, finalised. HR chases from one list instead of forty emails.' },
+      { title: 'Ratings summary and publishing', body: 'The distribution against your scale, by company and department. Results reach employees only when HR publishes them, and acknowledgement is tracked.' },
+      { title: 'Improvement plans with a paper trail', body: 'The manager raises a PIP, the HR manager reviews it, HR starts it and the employee is notified and acknowledges. A manager cannot start one alone, and every step is on record.' },
+      { title: 'EZER Learn, a learning app people open', body: 'A catalogue to browse, featured courses, and picks for each person’s role and team. It opens from the HR app with no second login, on a phone or a laptop.' },
+      { title: 'XP, streaks and badges', body: 'Levels, a weekly goal, day streaks and seventeen badges such as Quiz ace, Early bird and Path finisher, so finishing a course feels like progress.' },
+      { title: 'A studio to build courses', body: 'Video, slides, documents and quizzes with pass marks and attempts. Drafts go for review, published courses keep their versions, and paths group courses into one programme.' },
+      { title: 'Rules that assign learning', body: 'Assign by role, department or joining date, and let rules give new joiners and people who move teams the right courses on their own. Courses can need a manager’s approval or another course first.' },
+      { title: 'Live sessions, recorded', body: 'Webinars on Zoom, Meet or Teams with invitations, reminders, attendance and the recording, counted towards the course.' },
+      { title: 'Mandatory training, with proof', body: 'Policy, safety and data-privacy courses with due dates and yearly renewal. Overdue learners are flagged, and every certificate carries a number and a verification code.' },
+      { title: 'Learning before day one', body: 'Preboarding courses go to candidates on a private link before they start, and carry over when they join.' },
+    ],
+    screenshots: [
+      { src: '/product/pms-cycle-light.webp', alt: 'Performance cycle overview showing how many people have not started, are in review or are finalised', title: 'Where the whole cycle stands', caption: 'One sentence on what is blocking the cycle, and everyone in it by stage, in the order the work happens.' },
+      { src: '/product/ess-performance-light.webp', alt: 'Employee performance view with a seven-stage review cycle and an overdue prompt to write KRAs', title: 'The employee knows what is owed', caption: 'Seven stages with dates, and the next action with its deadline. Managers approve KRAs and rate their team from the same screen.' },
+      { src: '/tour/manager-6.webp', alt: 'A manager’s team view listing each report’s KRAs, one-to-one and self-rating status, ordered by deadline', title: 'Managers rate in deadline order', caption: 'KRA approval, one-to-ones, team ratings and PIP requests in tabs, with the team ordered by whose deadline cannot move.' },
+      { src: '/tour/lms-0.webp', alt: 'EZER Learn home with progress counters and a featured compliance course', title: 'A learning home people come back to', caption: 'What is due and overdue, featured courses, and picks for their role and team, with streaks and badges a tap away.' },
+      { src: '/tour/lms-studio-4.webp', alt: 'Learning Studio certificates list with certificate numbers, scores, issue and expiry dates', title: 'Certificates anyone can verify', caption: 'Every completion leaves a certificate with a number, the score, an expiry date and a verification code.' },
+    ],
+    personas: [
+      { role: 'HR', benefit: 'A cycle that finishes on time, because the tracker says who to chase.', icon: 'users' },
+      { role: 'Managers', benefit: 'Approve KRAs, log one-to-ones and rate the team in one place.', icon: 'briefcase' },
+      { role: 'Employees', benefit: 'Clear goals, a clear deadline and a published result, not a surprise.', icon: 'user-plus' },
+      { role: 'Leadership', benefit: 'A ratings distribution by department, and proof that mandatory training happened.', icon: 'chart' },
+    ],
+    related: [ALL_RELATED.analytics, ALL_RELATED.engagement, ALL_RELATED.ess],
+    faqs: [
+      { q: 'Is the rating linked to increments?', a: 'EZER can run the cycle as a developmental review: each employee is told on their own screen that the rating is not tied to pay, and recognition is a certificate, a nomination or an award. If your increments follow the rating, bring your current process to the demo and we will show how it fits.' },
+      { q: 'Can different companies in the group run different cycles?', a: 'Yes. Each company can have its own frequency, rating scale and approval chain, while HR sees all of them from one place.' },
+      { q: 'Do we need a separate LMS?', a: 'Not for most companies. EZER Learn covers courses, paths, quizzes, certificates, live sessions, automatic assignment and mandatory training, with XP and badges for the learner, on the same employee record as everything else.' },
+    ],
+  },
+
+  /* ── People analytics ───────────────────────────────────────────────── */
+  {
+    slug: 'analytics',
+    seoTitle: 'People Analytics & HR Reports Software',
+    seoDescription:
+      'People analytics across attrition, attendance, hiring, performance and payroll cost, with an AI executive briefing, weekly manager notes and live reports.',
+    eyebrow: 'Insights',
+    name: 'People analytics',
+    promise: 'Not more charts. The reason behind the number, and what to do about it.',
+    intro:
+      'Every HRMS has a dashboard. The question leadership actually asks is why attrition moved, or why Monday punctuality fell, and that answer usually takes an analyst a week. EZER reads the month for you and says what changed, the likely causes, and three things to do, from your own data.',
+    problem: [
+      'Month-end reporting means exporting from four places and reconciling them in Excel. By the time the deck is ready, the numbers are three weeks old and the meeting has moved on.',
+      'Managers see none of it. They find out their team’s attendance has slipped when HR raises it, not when they could still have done something.',
+    ],
+    capabilities: [
+      { title: 'Nine pulse metrics', body: 'Headcount, joiners, exits, annualised attrition, on-time punch-ins, leave per person, open positions, monthly payroll cost and review completion, each with its trend.' },
+      { title: 'Seven lenses', body: 'Workforce, attrition and retention, attendance and leave, performance and learning, hiring, and pay and cost. Any period, any company, department, location or employment type.' },
+      { title: 'A “Why?” on every number', body: 'Open any metric to see the figures behind it and what moved it, rather than taking a tile on trust.' },
+      { title: 'An AI executive briefing', body: 'What changed this month against the last, the likely causes, and three things to do, each with an owner and a timeframe. Every figure it quotes is checked against the data.' },
+      { title: 'A Monday note for every manager', body: 'A team health score out of 100, who is out, what is waiting on them, and the one thing to start with this week.' },
+      { title: 'A private summary for every employee', body: 'Their own month in three lines, with charts of their attendance, leave, pay and growth that only they can see.' },
+      { title: 'Live reports with masking', body: 'Employee, salary, leave, tax and statutory reports, pulled live, with bank and identity fields masked by role.' },
+      { title: 'Email digests and access control', body: 'Choose who sees analytics at all, and send the briefing to leadership on a schedule.' },
+    ],
+    screenshots: [
+      { src: '/product/analytics-pulse-light.webp', alt: 'People analytics pulse with headcount, joiners, exits, attrition, punctuality, leave days and payroll cost', title: 'Nine numbers, each with a “Why?”', caption: 'The pulse of the whole group, sliced by period, company, department, location and employment type.' },
+      { src: '/product/analytics-briefing-light.webp', alt: 'AI executive briefing listing what changed, likely causes and three things to do', title: 'The month, read for you', caption: 'What changed, why it probably changed, and three things to do, with an owner and a deadline on each.' },
+      { src: '/product/ess-insights-team-light.webp', alt: 'Manager insights with a Monday note, a team health score and today’s attendance for the team', title: 'Every manager gets a Monday note', caption: 'A health score, who is out, and the one thing to start with, written from the team’s own figures.' },
+    ],
+    personas: [
+      { role: 'Leadership', benefit: 'A briefing that says what changed and what to do, ready to forward.', icon: 'chart' },
+      { role: 'HR', benefit: 'The monthly deck without the monthly export.', icon: 'users' },
+      { role: 'Managers', benefit: 'Their team’s health every Monday, before it becomes HR’s problem.', icon: 'briefcase' },
+      { role: 'Employees', benefit: 'Their own month, privately, in plain language.', icon: 'user-plus' },
+    ],
+    related: [ALL_RELATED.performance, ALL_RELATED.payroll, ALL_RELATED.attendance],
+    faqs: [
+      { q: 'Where does the AI get its numbers?', a: 'Only from your own EZER data for the period you choose. Each briefing lists the figures it is based on, and the numbers it quotes are checked against them before it is shown.' },
+      { q: 'Can a manager see other teams?', a: 'No. A manager sees their own reporting line. A head of department sees their department. Access to the group-wide analytics is granted separately by HR.' },
+      { q: 'Can we export the data?', a: 'Yes. Every lens and report downloads, and your data stays exportable at any time.' },
+    ],
+  },
+
+  /* ── Engagement ─────────────────────────────────────────────────────── */
+  {
+    slug: 'engagement',
+    seoTitle: 'Employee Engagement & Recognition App',
+    seoDescription:
+      'A Wall of Fame with shoutouts and private notes, birthdays and anniversaries, a Fun Zone of fourteen games, and an inbox with HR, Payroll and IT desks.',
+    eyebrow: 'Engage',
+    name: 'Engagement',
+    promise: 'A workplace app employees open because they want to, not because HR asked.',
+    intro:
+      'Self-service only works if people open it. EZER puts the everyday human moments, recognition, birthdays, new joiners and a five-minute break, in the same app as leave and payslips, so it becomes the place people already are when HR needs them.',
+    problem: [
+      'Recognition happens in a WhatsApp group and is gone by the next morning. Birthdays are remembered by whoever keeps the list. New joiners are introduced in an email nobody reads.',
+      'And when an employee has a question, it goes to whichever HR person they know, which is why one person’s inbox ends up being the company’s helpdesk.',
+    ],
+    capabilities: [
+      { title: 'A Wall of Fame', body: 'Public shoutouts tagged with a company value, or a private note only the colleague sees. Recognition is thanks, and it says so: it never touches pay.' },
+      { title: 'Birthdays, anniversaries and new joiners', body: 'Across every company in the group, with a one-tap wish or welcome.' },
+      { title: 'Fun Zone', body: 'Fourteen short games, from trivia on your own policies to minesweeper, played solo, against the computer or live against a colleague. Nothing is scored towards anything.' },
+      { title: 'An inbox with desks', body: 'Employees write to HR, Payroll, Finance, Leave, Performance, Recruitment, Exit or IT, and the question reaches the team that owns it.' },
+      { title: 'Broadcasts', body: 'Announcements land in the app employees already open, not in an email they skim.' },
+      { title: 'Org chart and directory', body: 'Reporting lines drawn from the employee master, and a directory with one-tap call and WhatsApp.' },
+      { title: 'Personal insights', body: 'Each employee’s own month in three lines, with one gentle nudge, such as setting goals before a review closes.' },
+      { title: 'Moderation built in', body: 'Anything an employee reports from the social features reaches HR for review.' },
+    ],
+    screenshots: [
+      { src: '/product/ess-social-light.webp', alt: 'Social page with the Wall of Fame, shoutouts, private notes, recent recognitions and a most-recognised podium', title: 'Recognition people can see', caption: 'A shoutout on the wall, or a note only they see. Birthdays, anniversaries and new joiners sit alongside.' },
+      { src: '/product/ess-funzone-light.webp', alt: 'Fun Zone with fourteen games including tic-tac-toe, memory match, EZER trivia and spin the wheel', title: 'A five-minute break, inside the HR app', caption: 'Fourteen games, three of them playable live against a colleague.' },
+      { src: '/product/ess-inbox-light.webp', alt: 'Employee inbox with messages, Wall of Fame, broadcasts and department desks', title: 'Questions go to a desk, not a person', caption: 'HR, Payroll, Finance, Leave, Performance, Recruitment, Exit and IT, each with its own queue.' },
+    ],
+    personas: [
+      { role: 'Employees', benefit: 'Recognition, wishes and answers in the same app as their leave.', icon: 'user-plus' },
+      { role: 'HR', benefit: 'Self-service adoption that does not need chasing.', icon: 'users' },
+      { role: 'Managers', benefit: 'A quick way to thank someone in front of everyone.', icon: 'briefcase' },
+      { role: 'Leadership', benefit: 'A culture you can see, not just describe.', icon: 'chart' },
+    ],
+    related: [ALL_RELATED.ess, ALL_RELATED.analytics, ALL_RELATED.performance],
+    faqs: [
+      { q: 'How do we keep it professional?', a: 'Anything an employee reports from the social features (a comment, a shoutout, a message) lands in a review queue for HR, and recognition carries a visible note that it never affects pay. Which parts you roll out, and when, is agreed during implementation.' },
+      { q: 'Is recognition linked to rewards?', a: 'Not today: a shoutout is thanks, and the app says so. Award cycles and nominations (RNR) are on the roadmap and labelled as coming.' },
+      { q: 'Does it work on a phone?', a: 'Yes. The employee app is responsive and works in any phone browser, in light or dark mode.' },
     ],
   },
 ]

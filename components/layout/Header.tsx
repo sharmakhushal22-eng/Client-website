@@ -103,8 +103,26 @@ const productLinks: MenuLink[] = [
   {
     href: "/features/claims",
     label: "Claims & travel",
-    desc: "Flexi, proofs, GPS-measured trips",
+    desc: "Flexi, proofs, travel and expenses",
     icon: "receipt",
+  },
+  {
+    href: "/features/performance",
+    label: "Performance & learning",
+    desc: "KRA cycles, ratings, LMS",
+    icon: "target",
+  },
+  {
+    href: "/features/analytics",
+    label: "People analytics",
+    desc: "AI briefing, insights, reports",
+    icon: "chart",
+  },
+  {
+    href: "/features/engagement",
+    label: "Engagement",
+    desc: "Wall of Fame, Fun Zone, inbox",
+    icon: "heart",
   },
 ];
 
@@ -140,6 +158,12 @@ const NAV: NavItem[] = [
     match: "/features",
     items: productLinks,
   },
+  /* Top level, next to Product. A buyer's first question after "what does
+     it do" is "show me", and the tour answers it without a sales call.
+     "Tour", not "Product tour": beside "Product" it reads the same, and with
+     Download app in the bar the longer label overflowed the 1136px row by
+     90px (measured). Together with px-2.5 on the links the bar needs 1139px. */
+  { kind: "link", href: "/product-tour", label: "Tour" },
   { kind: "link", href: "/compliance", label: "Compliance" },
   { kind: "link", href: "/industries", label: "Industries" },
   { kind: "link", href: "/pricing", label: "Pricing" },
@@ -454,7 +478,7 @@ export function Header({
                     pillOn && pillKey === item.href ? "" : undefined
                   }
                   className={cn(
-                    "ez-navlink relative rounded-full px-3 py-2.5 text-[0.93rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
+                    "ez-navlink relative rounded-full px-2.5 py-2.5 text-[0.93rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
                     pillOn && pillKey === item.href
                       ? "text-ink-900"
                       : isActive(item.href)
@@ -520,7 +544,7 @@ export function Header({
                          erase it are to delete the affordance that says this
                          opens a menu, or to pad every plain link to match and
                          push the bar 100px wider. Both cost more than 8px. */
-                      "ez-navlink relative flex items-center gap-1 rounded-full py-2.5 pl-3 pr-1 text-[0.93rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
+                      "ez-navlink relative flex items-center gap-1 rounded-full py-2.5 pl-2.5 pr-1 text-[0.93rem] font-semibold tracking-[-0.005em] transition-colors duration-200",
                       pillOn && pillKey === item.id
                         ? "text-ink-900"
                         : inMenu(item)
@@ -588,7 +612,13 @@ export function Header({
                              variant generated no media query here, and a
                              class that silently does nothing is worse than
                              a panel that is 64px narrower than it could be. */
-                          ? "left-0 w-[20rem] xl:w-[30rem] 2xl:w-[38rem]"
+                          /* UPDATE 22 Nov 2026: now opens LEFTWARDS from
+                             the button's right edge (right-0). Adding
+                             "Product tour" pushed Company right again and
+                             every width above overflowed by 3-83px; anchored
+                             on the right, the room is the whole bar to its
+                             left, so nav changes can no longer break it. */
+                          ? "right-0 w-[20rem] xl:w-[30rem] 2xl:w-[38rem]"
                           : item.id === "product"
                             /* Left-anchored at xl, not centred: the preview
                                pane takes this to 46rem, and a panel that

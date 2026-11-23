@@ -64,8 +64,11 @@ export function HeroScene() {
                 Book a demo
                 <Arrow />
               </Button>
-              <Button href="#how-it-works" variant="secondary" size="lg">
-                See a request travel
+              {/* Was "See a request travel", an in-page jump to scene 3, which
+                  the visitor reaches anyway by scrolling. The tour shows the
+                  real product, which nothing else above the fold does. */}
+              <Button href="/product-tour" variant="secondary" size="lg">
+                Take the product tour
               </Button>
             </div>
             <p data-h="fade" style={d(520)} className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[0.85rem] text-ink-500">

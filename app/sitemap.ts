@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }> = [
     { path: '', priority: 1.0, changeFrequency: 'weekly' },
     { path: '/features', priority: 0.9, changeFrequency: 'monthly' },
+    { path: '/product-tour', priority: 0.9, changeFrequency: 'monthly' },
     /* Both promoted out of home-page sections. They are the two qualifying
        questions an Indian buyer searches for by name, so they carry the same
        priority as the product hub. */

@@ -14,12 +14,16 @@ const columns = [
   {
     title: 'Product',
     links: [
+      ['/product-tour', 'Product tour'],
       ['/features', 'All features'],
       ['/features/payroll', 'Payroll & compliance'],
       ['/features/attendance', 'Attendance & leave'],
       ['/features/recruitment', 'Recruitment & onboarding'],
       ['/features/ess', 'Employee self-service'],
       ['/features/claims', 'Claims & travel'],
+      ['/features/performance', 'Performance & learning'],
+      ['/features/analytics', 'People analytics'],
+      ['/features/engagement', 'Engagement'],
     ],
   },
   {
