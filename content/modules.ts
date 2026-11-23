@@ -263,6 +263,77 @@ export const moduleGroups: ModuleGroup[] = [
       { label: 'Group travel · pooled limits', value: 'Enabled', state: 'ok' },
     ],
   },
+  /* Grow and Engage were added on 22 Nov 2026 after a full walk-through of
+     the live product. Both areas ship today (admin: Performance, Learning,
+     People Analytics; ESS: Performance, Insights, Social, Fun Zone, Inbox)
+     but had no place on the site, so a buyer comparing us with Keka or
+     Darwinbox concluded we had no PMS, LMS or engagement layer. */
+  {
+    id: 'grow',
+    icon: 'target',
+    name: 'Grow',
+    label: 'Performance & Learning',
+    promise: 'Reviews and learning that run on a calendar, not on reminders',
+    href: '/features/performance',
+    modules: [
+      {
+        name: 'KRA-based review cycles',
+        blurb: 'seven stages from goal setting to a published result, monthly to annual',
+      },
+      {
+        name: 'Policy builder, ratings summary and PIP management',
+        blurb: 'your scale, your weightage rules, your approval chain',
+      },
+      {
+        name: 'EZER Learn, a learning app with XP, streaks and badges',
+        blurb: 'a catalogue people browse, opened from the HR app with no second login',
+      },
+      {
+        name: 'A learning studio with courses, paths, quizzes and certificates',
+        blurb: 'assigned by role, team, joining date or rule, with live sessions on Zoom, Meet or Teams',
+      },
+      {
+        name: 'Mandatory training tracked to completion',
+        blurb: 'overdue learners flagged before an audit finds them',
+      },
+    ],
+    mock: [
+      { label: 'Q2 review cycle · KRA setting', value: 'In progress', state: 'pend' },
+      { label: 'Ratings published', value: '5 of 7', state: 'ok' },
+      { label: 'Mandatory courses · overdue', value: 'Flagged', state: 'pend' },
+    ],
+  },
+  {
+    id: 'engage',
+    icon: 'heart',
+    name: 'Engage',
+    label: 'Engagement & Insights',
+    promise: 'A workplace app people open without being asked',
+    href: '/features/engagement',
+    modules: [
+      {
+        name: 'Wall of Fame, shoutouts and private notes',
+        blurb: 'birthdays, anniversaries and new joiners, across the group',
+      },
+      {
+        name: 'Fun Zone',
+        blurb: 'fourteen short games, solo or live against a colleague',
+      },
+      {
+        name: 'People analytics with an AI executive briefing',
+        blurb: 'what changed, the likely causes, three things to do',
+      },
+      {
+        name: 'An inbox with HR, Payroll, Finance and IT desks',
+        blurb: 'questions reach the team that owns them',
+      },
+    ],
+    mock: [
+      { label: 'Shoutouts this month', value: '9', state: 'ok' },
+      { label: 'Executive briefing · October', value: 'Ready', state: 'ok' },
+      { label: 'Manager Monday notes', value: 'Sent', state: 'ok' },
+    ],
+  },
   {
     id: 'exit',
     icon: 'shield',
@@ -354,8 +425,25 @@ export const solutions: Solution[] = [
   { n: '16', name: 'HR Letters', blurb: 'Offer, experience and relieving letters, generated instantly rather than typed each time.', },
   { n: '17', name: 'Exit & Full-and-Final Settlement', blurb: 'A clean, calculated exit process, not a spreadsheet rebuilt from memory.', statutory: true, },
   /* Live: the product ships a Performance module (goals, KRA library,
-     quarterly cycles) in its admin and self-service menus. */
-  { n: '18', name: 'Performance Management', blurb: 'Goal-setting, reviews and ratings, connected directly to compensation.', },
-  { n: '19', name: 'WhatsApp & Mobile Notifications', blurb: 'Leave approvals and attendance alerts delivered where employees already are.', coming: true, },
-  { n: '20', name: 'EZER AI Assistant', blurb: 'Ask a question about your own leave balance or payslip, get an answer instantly.', coming: true, },
+     quarterly cycles) in its admin and self-service menus.
+     The blurb used to say "connected directly to compensation". The live
+     cycle is configurable and the demo tenant runs it as a developmental
+     review explicitly NOT linked to pay, so the claim was dropped. */
+  { n: '18', name: 'Performance Management', blurb: 'KRA cycles, self and manager ratings, HOD finalisation, ratings summary and PIPs.', },
+  /* 19-26 added 22 Nov 2026 from a walk-through of the live product. Each
+     is a real screen in the admin or ESS app today. */
+  { n: '19', name: 'Learning Management (LMS)', blurb: 'EZER Learn: courses, paths, quizzes, verifiable certificates, live sessions, XP and badges, and mandatory training.', },
+  { n: '20', name: 'People Analytics', blurb: 'Seven lenses on the workforce, and an AI briefing on what changed and what to do.', },
+  { n: '21', name: 'Manager & Employee Insights', blurb: 'A weekly note for each manager and a monthly summary for each employee, written from their own data.', },
+  { n: '22', name: 'E-Sign', blurb: 'Offer letters, policies and agreements signed with email OTP and an audit certificate.', },
+  { n: '23', name: 'Wall of Fame & Social', blurb: 'Shoutouts, private notes, birthdays, anniversaries and new joiners.', },
+  { n: '24', name: 'Fun Zone', blurb: 'Fourteen short games for a break, solo or live against a colleague.', },
+  { n: '25', name: 'Inbox & HR Desks', blurb: 'Write to HR, Payroll, Finance, Leave, Performance or IT, not to one person’s email.', },
+  { n: '26', name: 'Org Chart & Directory', blurb: 'Reporting lines from the employee master, and a directory with call and WhatsApp.', },
+  { n: '27', name: 'WhatsApp & Mobile Notifications', blurb: 'Leave approvals and attendance alerts delivered where employees already are.', coming: true, },
+  /* The admin app shows "Ezer AI: not built yet". AI already writes the
+     analytics briefing and the insights notes, but the ask-anything
+     assistant is still coming, and is labelled so. */
+  { n: '28', name: 'EZER AI Assistant', blurb: 'Ask a question about your own leave balance or payslip, get an answer instantly.', coming: true, },
+  { n: '29', name: 'Rewards & Recognition (RNR)', blurb: 'Award cycles and nominations on top of the Wall of Fame.', coming: true, },
 ]

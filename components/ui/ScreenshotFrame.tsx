@@ -24,6 +24,7 @@ export function ScreenshotFrame({
   priority = false,
   width = 1280,
   height = 800,
+  host,
 }: {
   src?: string
   alt: string
@@ -33,7 +34,10 @@ export function ScreenshotFrame({
   priority?: boolean
   width?: number
   height?: number
+  /* What the address bar says. Learning screens live on EZER Learn's own domain. */
+  host?: string
 }) {
+  const address = host ?? (src?.includes('/tour/lms') ? 'ezerlms.com' : 'app.ezerhrms.com')
   return (
     <figure className={cn('w-full', className)}>
       <div className="overflow-hidden rounded-2xl bg-surface shadow-2xl shadow-ink-900/10 ring-1 ring-ink-200">
@@ -43,7 +47,7 @@ export function ScreenshotFrame({
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
           <span className="h-2.5 w-2.5 rounded-full bg-ink-200" />
           <span className="ml-3 truncate rounded-md bg-surface px-3 py-1 text-[0.7rem] font-medium text-ink-600 ring-1 ring-ink-200">
-            app.ezerhrms.com
+            {address}
           </span>
         </div>
 

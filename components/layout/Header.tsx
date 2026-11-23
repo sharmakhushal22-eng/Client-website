@@ -103,8 +103,26 @@ const productLinks: MenuLink[] = [
   {
     href: "/features/claims",
     label: "Claims & travel",
-    desc: "Flexi, proofs, GPS-measured trips",
+    desc: "Flexi, proofs, travel and expenses",
     icon: "receipt",
+  },
+  {
+    href: "/features/performance",
+    label: "Performance & learning",
+    desc: "KRA cycles, ratings, LMS",
+    icon: "target",
+  },
+  {
+    href: "/features/analytics",
+    label: "People analytics",
+    desc: "AI briefing, insights, reports",
+    icon: "chart",
+  },
+  {
+    href: "/features/engagement",
+    label: "Engagement",
+    desc: "Wall of Fame, Fun Zone, inbox",
+    icon: "heart",
   },
 ];
 
@@ -140,6 +158,9 @@ const NAV: NavItem[] = [
     match: "/features",
     items: productLinks,
   },
+  /* Top level, next to Product. A buyer's first question after "what does
+     it do" is "show me", and the tour answers it without a sales call. */
+  { kind: "link", href: "/product-tour", label: "Product tour" },
   { kind: "link", href: "/compliance", label: "Compliance" },
   { kind: "link", href: "/industries", label: "Industries" },
   { kind: "link", href: "/pricing", label: "Pricing" },
@@ -408,7 +429,7 @@ export function Header({
           {/* ── Desktop nav ─────────────────────────────────────────────── */}
           <nav
             ref={navRef}
-            className="relative hidden shrink-0 items-center gap-0.5 lg:flex"
+            className="relative hidden shrink-0 items-center gap-0.5 xl:flex"
             aria-label="Main"
             onMouseLeave={() => moveTo(activeId)}
           >
@@ -578,7 +599,13 @@ export function Header({
                              variant generated no media query here, and a
                              class that silently does nothing is worse than
                              a panel that is 64px narrower than it could be. */
-                          ? "left-0 w-[20rem] xl:w-[30rem] 2xl:w-[38rem]"
+                          /* UPDATE 22 Nov 2026: now opens LEFTWARDS from
+                             the button's right edge (right-0). Adding
+                             "Product tour" pushed Company right again and
+                             every width above overflowed by 3-83px; anchored
+                             on the right, the room is the whole bar to its
+                             left, so nav changes can no longer break it. */
+                          ? "right-0 w-[20rem] xl:w-[30rem] 2xl:w-[38rem]"
                           : item.id === "product"
                             /* Left-anchored at xl, not centred: the preview
                                pane takes this to 46rem, and a panel that
@@ -1032,7 +1059,11 @@ export function Header({
           </nav>
 
           {/* ── Desktop actions ─────────────────────────────────────────── */}
-          <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
+          {/* The bar switches to the drawer below xl, not lg. Seven nav items,
+              the call button and the CTA measure ~1130px, so from 1024 to
+              1279 the bar ran past the viewport and the page scrolled
+              sideways (it already did by ~30px before Product tour was added). */}
+          <div className="hidden shrink-0 items-center gap-2.5 xl:flex">
             {/* The phone number. The handset tile fills on hover, so the
                 whole thing reads as one control rather than an icon that
                 happens to sit next to some text. */}
@@ -1041,7 +1072,12 @@ export function Header({
               /* A resting ground, not just a hover one. This was transparent
                  until pointed at, which made the most direct route to a sale
                  look like plain text sitting next to the real button. */
-              className="group/tel ez-util flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full py-2 pl-2 pr-4 text-[0.93rem] font-semibold tracking-[-0.005em] text-ink-900 ring-1 ring-ink-900/10 transition-colors hover:bg-white hover:ring-ink-900/20"
+              /* Below 2xl the digits collapse to the handset alone. Adding
+                 "Product tour" to the bar took the room they used; the call
+                 link, its label and the number (in the aria-label and the
+                 footer) all remain. */
+              aria-label={`Call ${contact.phoneDisplay}`}
+              className="group/tel ez-util flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full p-1.5 text-[0.93rem] font-semibold tracking-[-0.005em] text-ink-900 ring-1 ring-ink-900/10 transition-colors hover:bg-white hover:ring-ink-900/20 2xl:py-2 2xl:pl-2 2xl:pr-4"
             >
               <span className="relative grid h-8 w-8 shrink-0 place-items-center">
                 {/* The ring that expands and fades — what makes the handset
@@ -1055,7 +1091,7 @@ export function Header({
                   <Icon name="phone" className="h-4 w-4" />
                 </span>
               </span>
-              {contact.phoneDisplay}
+              <span className="hidden 2xl:inline">{contact.phoneDisplay}</span>
             </a>
 
             {/* The primary CTA — the single most important control in the
@@ -1090,7 +1126,7 @@ export function Header({
           </div>
 
           {/* ── Mobile actions ──────────────────────────────────────────── */}
-          <div className="flex items-center gap-1 lg:hidden">
+          <div className="flex items-center gap-1 xl:hidden">
             <a
               href={`tel:${contact.phoneE164}`}
               className="grid h-10 w-10 place-items-center rounded-md text-brand-700 hover:bg-brand-50"
@@ -1130,7 +1166,7 @@ export function Header({
       {mobileOpen && createPortal(
         <div
           id="mobile-menu"
-          className="ez-drawer fixed inset-x-0 bottom-0 z-[45] overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface lg:hidden"
+          className="ez-drawer fixed inset-x-0 bottom-0 z-[45] overflow-y-auto overscroll-contain border-t border-ink-200 bg-surface xl:hidden"
           style={{ top: sheetTop }}
         >
           <Container className="py-6">

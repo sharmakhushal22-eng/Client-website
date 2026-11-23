@@ -70,8 +70,12 @@ export const site = {
 
   /* The reference's og:description — the social-card line, deliberately
      shorter and punchier than the search description above. */
+  /* Was "...Every compliance register, generated in one go." Register
+     generation is the Compliance Engine, which content/positioning.ts gates
+     behind flags.complianceEngineLive = false because it has not shipped.
+     The social card was the one place that still promised it. */
   ogDescription:
-    'One login. Every branch. Every compliance register, generated in one go.',
+    'One login for every company and branch. Hiring, payroll, compliance, performance and people, in one place.',
 } as const
 
 /* ── Contact ───────────────────────────────────────────────────────────────
@@ -312,7 +316,10 @@ export const pricing = {
       { group: 'Payroll', detail: 'Full run cycle, arrears, loans, payslips, full & final settlement' },
       { group: 'Statutory', detail: 'EPF, ESIC, Professional Tax, LWF, TDS both regimes, Form 130, gratuity, bonus, minimum wages, employer NPS' },
       { group: 'Claims', detail: 'Flexi benefits, investment proofs, GPS-measured travel claims, Finance approval queue' },
-      { group: 'Self-service', detail: 'ESS portal, payslips, tax declarations, leave, documents, support desk' },
+      { group: 'Self-service', detail: 'ESS portal, payslips, tax declarations, leave, documents, inbox with HR desks' },
+      { group: 'Grow', detail: 'KRA review cycles, ratings summary, PIPs, learning studio with courses, paths and mandatory training' },
+      { group: 'Engage', detail: 'Wall of Fame, birthdays and anniversaries, Fun Zone, broadcasts, org chart and directory' },
+      { group: 'Insights', detail: 'People analytics, AI executive briefing, manager and employee insights, live reports' },
       { group: 'Control', detail: 'Compliance position, reports per entity or consolidated, full data export' },
     ],
 
@@ -353,7 +360,9 @@ export const pricing = {
     'One full payroll cycle run in parallel with your existing process, reconciled line by line',
     'Training for your HR and Finance team, and ESS credentials issued to employees',
     'All product updates during your subscription',
-    'Support over phone, WhatsApp and the in-app support desk',
+    /* "and the in-app support desk" removed: the product's Support module
+       is still marked "not built yet". Put it back when it ships. */
+    'Support over phone and WhatsApp',
   ],
   notIncluded: [
     'Custom development, bespoke reports and API access (Enterprise)',

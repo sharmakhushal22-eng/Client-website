@@ -102,7 +102,7 @@ export const policyCategories: PolicyCategory[] = [
       { name: 'Conflict of interest', detail: 'Outside employment, competing interests and disclosures.' },
       { name: 'Gifts & hospitality', detail: 'Acceptable gifts, entertainment and business courtesies.' },
       { name: 'Whistleblower / speak-up', detail: 'A channel for reporting serious misconduct, fraud or unethical behaviour.' },
-      { name: 'Grievance redressal', detail: 'How employees raise concerns, and the escalation process.', ezer: 'Support desk' },
+      { name: 'Grievance redressal', detail: 'How employees raise concerns, and the escalation process.', ezer: 'Inbox & HR desks' },
       { name: 'Disciplinary & misconduct', detail: 'Investigation, employee response, documentation and proportionate action.' },
     ],
   },

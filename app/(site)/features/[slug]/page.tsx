@@ -24,6 +24,22 @@ const demoLabel: Record<string, string> = {
   recruitment: 'hiring',
   ess: 'self-service',
   claims: 'claims',
+  performance: 'performance',
+  analytics: 'analytics',
+  engagement: 'engagement',
+}
+
+/* The product-tour flow that shows each module working. The tour reads
+ * #demo-<flow> and starts that flow. */
+const tourFlow: Record<string, string> = {
+  payroll: 'pay',
+  attendance: 'ess-day',
+  recruitment: 'hire',
+  ess: 'ess-day',
+  claims: 'pay',
+  performance: 'pms',
+  analytics: 'insights',
+  engagement: 'engage',
 }
 
 /* Every feature page is known at build time, so they prerender as static
@@ -93,8 +109,9 @@ export default async function FeatureDetailPage({
               See {demoLabel[page.slug] ?? 'it'} in a demo
               <Arrow />
             </Button>
-            <Button href="/pricing" variant="secondary" size="lg">
-              See pricing
+            <Button href={`/product-tour#demo-${tourFlow[page.slug] ?? 'ess-day'}`} variant="secondary" size="lg">
+              <Icon name="play" className="h-4 w-4" />
+              Watch it play
             </Button>
           </>
         }

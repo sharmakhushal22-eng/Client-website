@@ -16,8 +16,22 @@ export type IconName =
   | 'calendar' | 'upload' | 'settings' | 'play' | 'chevron-down'
   | 'briefcase' | 'user-plus' | 'map-pin' | 'lock' | 'download'
   | 'alert' | 'sparkle' | 'menu' | 'close' | 'linkedin' | 'pickaxe'
+  /* Added for the product tour and the Grow / Engage areas. */
+  | 'target' | 'book' | 'heart' | 'sun' | 'moon' | 'monitor'
+  | 'smartphone' | 'arrow-left' | 'gamepad' | 'inbox' | 'eye'
 
 const paths: Record<IconName, React.ReactNode> = {
+  'target': <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none" /></>,
+  'book': <><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z" /><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5" /><path d="M8 7h8M8 11h6" /></>,
+  'heart': <path d="M12 20s-7.5-4.6-9.2-9.3C1.6 7.3 3.8 4 7.2 4c2 0 3.4 1.1 4.8 2.9C13.4 5.1 14.8 4 16.8 4c3.4 0 5.6 3.3 4.4 6.7C19.5 15.4 12 20 12 20z" />,
+  'sun': <><circle cx="12" cy="12" r="4" /><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4" /></>,
+  'moon': <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" />,
+  'monitor': <><rect x="2.5" y="4" width="19" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></>,
+  'smartphone': <><rect x="6.5" y="2.5" width="11" height="19" rx="2.5" /><path d="M11 18.5h2" /></>,
+  'arrow-left': <><path d="M20 12H4" /><path d="M10 6l-6 6 6 6" /></>,
+  'gamepad': <><path d="M7 8h10a5 5 0 0 1 4.9 6l-.6 3a2.5 2.5 0 0 1-4.3 1.1L15 16H9l-2 2.1a2.5 2.5 0 0 1-4.3-1.1l-.6-3A5 5 0 0 1 7 8z" /><path d="M7.5 11v3M6 12.5h3" /><circle cx="16" cy="11.5" r=".9" fill="currentColor" stroke="none" /><circle cx="17.8" cy="13.5" r=".9" fill="currentColor" stroke="none" /></>,
+  'inbox': <><path d="M3 13l2.6-7.4A2 2 0 0 1 7.5 4h9a2 2 0 0 1 1.9 1.6L21 13v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M3 13h5l1.5 2.5h5L16 13h5" /></>,
+  'eye': <><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></>,
   'users': <><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 20v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11" /></>,
   'clock': <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></>,
   'wallet': <><path d="M20 8V7a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7" /><circle cx="17" cy="14" r="1.2" fill="currentColor" stroke="none" /></>,
